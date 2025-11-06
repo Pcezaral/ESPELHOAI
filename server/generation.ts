@@ -32,22 +32,22 @@ export async function generateTransformation(
   userId: number
 ): Promise<{ generatedImageUrl: string; generatedText: string }> {
   // Mapear tema para prompt - PROMPTS SIMPLIFICADOS para evitar timeout
-  // PROMPTS OTIMIZADOS: Simples, diretos, com Ênfase MÁXIMA em preservar identidade facial
+  // PROMPTS VÍVIDOS: Transformação IMPACTANTE preservando identidade facial
   const themePrompts: Record<typeof theme, { prompt: string; text: string }> = {
     animals: {
-      prompt: "Transform ALL people into cute animals. CRITICAL: Keep each person's face HIGHLY recognizable - preserve facial features, expressions, eye shape, nose, mouth. Each person becomes a different adorable animal. Cartoon style.",
+      prompt: "Transform ALL people into adorable animals with full fur/feathers covering body. Add vibrant animal features: big expressive eyes, cute snout, fluffy ears, tail. CRITICAL: Preserve each person's unique facial expression, eye shape, and distinctive features within the animal face. Make it clearly an animal BUT recognizable as the original person. Colorful cartoon style.",
       text: "Você é um bichinho encantador! Suas características se transformaram em um animal adorável que mantém sua essência única! 🐾"
     },
     monster: {
-      prompt: "Transform ALL people into cute colorful monsters. CRITICAL: Keep each person's face HIGHLY recognizable - preserve facial features, expressions, eye shape, nose, mouth. Add fun monster details like horns or tails. Cartoon style.",
+      prompt: "Transform ALL people into vibrant cute monsters with colorful skin (pink, turquoise, purple), fun horns, big expressive eyes, playful details. CRITICAL: Keep each person's facial structure, expression, and distinctive features clearly recognizable within the monster design. Make it obviously a monster BUT you can still tell who the person is. Playful cartoon style.",
       text: "Você é um monstrinho adorável! Mantendo seus traços únicos, você seria uma criatura fofa e divertida que conquista todos ao redor! 👾"
     },
     art: {
-      prompt: "Transform ALL people into historical figures from 1600-1800s. CRITICAL: Keep each person's face PERFECTLY recognizable - preserve all facial features, expressions, distinctive traits. Add period costumes and classical painting style.",
+      prompt: "Transform ALL people into dramatic 1600-1800s historical portraits with elaborate period costumes (Renaissance ruffs, Baroque velvet, Victorian gowns), ornate backgrounds with columns and drapes, rich colors, dramatic lighting. CRITICAL: Keep faces PERFECTLY identical to original - same features, expressions, skin tone. Only costume and setting change. Classical oil painting style.",
       text: "Você é uma figura histórica! Seus traços se transformaram em um personagem de época que captura sua essência! 🎨"
     },
     gender: {
-      prompt: "Transform ALL people to opposite gender. CRITICAL: Keep each person's face PERFECTLY recognizable - preserve facial structure, features, expressions. Only change gender presentation (hair, makeup, clothing). Realistic style.",
+      prompt: "Transform ALL people to opposite gender with convincing hairstyle, makeup, clothing, facial hair changes. CRITICAL: Maintain exact facial bone structure, eye shape, nose, mouth proportions. The face should look like a realistic gender-swapped version of the same person. Realistic photo style.",
       text: "Se tivesse nascido... Descubra como você seria do outro gênero! ⚧️"
     }
   };

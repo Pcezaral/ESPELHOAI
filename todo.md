@@ -89,3 +89,28 @@
 4. Se tivesse nascido... ⚧️ - Mudança de gênero
 
 Removido: Super Herói (muito infantil)
+
+## Terceiro Teste - Problema de Inconsistência (06/11/2025 - 16:17)
+
+### Problema Crítico Identificado:
+**Monstro em grupos:** Resultados MUITO inconsistentes entre gerações
+- Teste 1 (16:17:26): Transformação SUTIL - apenas chifrinhos/antenas, rostos reconhecíveis ✅
+- Teste 2 (16:18:42): Transformação EXTREMA - pele azul/roxa, perda TOTAL de identidade ❌
+
+### Análise:
+- A IA está gerando resultados aleatórios demais
+- Falta controle sobre o nível de transformação
+- Usuário perde interesse quando não se reconhece
+- Precisa: Equilíbrio consistente entre transformação visível E reconhecimento facial
+
+### Solução Implementada:
+- [x] Ajustar prompts para forçar CONSISTÊNCIA
+- [x] Especificar claramente o NÍVEL de transformação desejado: VÍVIDO e IMPACTANTE
+- [x] Garantir que transformação seja VISÍVEL e INTERESSANTE
+- [x] Manter rostos SEMPRE reconhecíveis com instruções CRITICAL
+
+### Estratégia dos Novos Prompts:
+- Monstro: Pele colorida vibrante (rosa, turquesa, roxo) + chifres + olhos grandes MAS estrutura facial reconhecível
+- Bichinho: Transformação completa em animal com pelo/penas MAS expressão e traços preservados
+- Pintura: Roupas elaboradas de época + cenários ornamentados MAS rosto idêntico ao original
+- Gênero: Mudança convincente de cabelo/maquiagem/roupa MAS estrutura facial mantida
