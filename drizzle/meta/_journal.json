@@ -1,5 +1,13 @@
 {
   "version": "7",
   "dialect": "mysql",
-  "entries": []
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1762438830641,
+      "tag": "0000_flaky_owl",
+      "breakpoints": true
+    }
+  ]
 }

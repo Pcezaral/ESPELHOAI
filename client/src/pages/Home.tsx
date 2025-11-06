@@ -1,33 +1,200 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { Sparkles, Wand2, Play } from "lucide-react";
 import { APP_LOGO, APP_TITLE, getLoginUrl } from "@/const";
-import { Streamdown } from 'streamdown';
+import { useLocation } from "wouter";
 
-/**
- * All content in this page are only for example, replace with your own feature implementation
- * When building pages, remember your instructions in Frontend Workflow, Frontend Best Practices, Design Guide and Common Pitfalls
- */
 export default function Home() {
-  // The userAuth hooks provides authentication state
-  // To implement login/logout functionality, simply call logout() or redirect to getLoginUrl()
-  let { user, loading, error, isAuthenticated, logout } = useAuth();
+  const { user, loading, isAuthenticated } = useAuth();
+  const [, setLocation] = useLocation();
 
-  // If theme is switchable in App.tsx, we can implement theme toggling like this:
-  // const { theme, toggleTheme } = useTheme();
-
-  // Use APP_LOGO (as image src) and APP_TITLE if needed
+  const handleStartApp = () => {
+    if (isAuthenticated) {
+      setLocation("/generator");
+    } else {
+      window.location.href = getLoginUrl();
+    }
+  };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <main>
-        {/* Example: lucide-react for icons */}
-        <Loader2 className="animate-spin" />
-        Example Page
-        {/* Example: Streamdown for markdown rendering */}
-        <Streamdown>Any **markdown** content</Streamdown>
-        <Button variant="default">Example Button</Button>
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+      {/* Animated background elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-red-500/10 rounded-full blur-3xl" />
+      </div>
+
+      {/* Navigation Header */}
+      <header className="border-b border-slate-800 bg-slate-950/80 backdrop-blur-sm sticky top-0 z-50">
+        <div className="container flex items-center justify-between h-16">
+          <div className="flex items-center gap-3">
+            {APP_LOGO && (
+              <img src={APP_LOGO} alt={APP_TITLE} className="h-8 w-8" />
+            )}
+            <h1 className="text-xl font-bold text-white">
+              {APP_TITLE}
+            </h1>
+          </div>
+          <div className="text-sm font-medium text-orange-400">
+            Por <span className="font-bold text-orange-500">Paulo Barboni</span>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="container py-12 md:py-20 relative z-10">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          {/* Left Column - Text & CTA */}
+          <div className="space-y-8">
+            <div className="space-y-4">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-500/20 border border-orange-500/30 rounded-full">
+                <Sparkles className="w-4 h-4 text-orange-400" />
+                <span className="text-sm font-medium text-orange-300">
+                  Powered by IA Generativa
+                </span>
+              </div>
+
+              <h2 className="text-5xl md:text-6xl font-bold leading-tight text-white">
+                Descubra seu{" "}
+                <span className="bg-gradient-to-r from-orange-400 via-red-400 to-yellow-400 bg-clip-text text-transparent">
+                  verdadeiro eu
+                </span>
+              </h2>
+
+              <p className="text-xl text-slate-300 leading-relaxed">
+                Envie uma foto e deixe a IA revelar quem você seria em outro mundo. Monstrinho? Herói? Bicho? Descubra de forma divertida e compartilhe com seus amigos!
+              </p>
+            </div>
+
+            {/* CTA Button */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button
+                onClick={handleStartApp}
+                disabled={loading}
+                size="lg"
+                className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-lg h-14 px-8 rounded-full shadow-lg hover:shadow-xl transition-all font-semibold"
+              >
+                <Wand2 className="w-5 h-5 mr-2" />
+                {loading ? "Carregando..." : "Enviar minha foto"}
+              </Button>
+              <Button
+                onClick={() => setLocation("/gallery")}
+                variant="outline"
+                size="lg"
+                className="text-lg h-14 px-8 rounded-full border-2 border-orange-500/50 text-orange-400 hover:bg-orange-500/10"
+              >
+                <Play className="w-4 h-4 mr-2" />
+                Ver exemplos
+              </Button>
+            </div>
+
+            {/* Features - ATUALIZADO COM 5 NOVOS TEMAS */}
+            <div className="grid grid-cols-2 gap-4 pt-8">
+              <div className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-purple-500/30 transition-colors">
+                <div className="text-3xl font-bold text-purple-400">👾</div>
+                <p className="font-semibold text-white">Monstrinho</p>
+                <p className="text-sm text-slate-400">Criatura fofa</p>
+              </div>
+              <div className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-orange-500/30 transition-colors">
+                <div className="text-3xl font-bold text-orange-400">🐾</div>
+                <p className="font-semibold text-white">Bichos</p>
+                <p className="text-sm text-slate-400">Animal adorável</p>
+              </div>
+              <div className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-blue-500/30 transition-colors">
+                <div className="text-3xl font-bold text-blue-400">🦸</div>
+                <p className="font-semibold text-white">Heróis</p>
+                <p className="text-sm text-slate-400">Super-herói</p>
+              </div>
+              <div className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-red-500/30 transition-colors">
+                <div className="text-3xl font-bold text-red-400">🎨</div>
+                <p className="font-semibold text-white">Pinturas</p>
+                <p className="text-sm text-slate-400">Arte clássica</p>
+              </div>
+              <div className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-fuchsia-500/30 transition-colors col-span-2">
+                <div className="text-3xl font-bold text-fuchsia-400">🎬</div>
+                <p className="font-semibold text-white">Séries e Filmes</p>
+                <p className="text-sm text-slate-400">Personagem icônico</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column - Visual */}
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 via-red-500/20 to-yellow-500/20 rounded-3xl blur-3xl" />
+            <Card className="relative border-orange-500/30 bg-gradient-to-br from-slate-900 to-slate-950 shadow-2xl overflow-hidden">
+              <div className="aspect-square bg-gradient-to-br from-orange-500/10 via-red-500/10 to-yellow-500/10 p-8 flex flex-col items-center justify-center space-y-6">
+                <div className="text-8xl animate-bounce">✨</div>
+                <div className="text-center space-y-2">
+                  <p className="text-2xl font-bold text-white">
+                    Transformação Mágica
+                  </p>
+                  <p className="text-slate-300">
+                    Sua foto + IA = Resultado Hilariante
+                  </p>
+                </div>
+                <div className="grid grid-cols-2 gap-4 w-full">
+                  <div className="bg-slate-800/50 backdrop-blur rounded-lg p-4 text-center border border-slate-700">
+                    <p className="text-3xl">📸</p>
+                    <p className="text-xs font-medium text-slate-300 mt-2">Sua Foto</p>
+                  </div>
+                  <div className="bg-gradient-to-br from-orange-500/20 to-red-500/20 backdrop-blur rounded-lg p-4 text-center border border-orange-500/30">
+                    <p className="text-3xl">🎭</p>
+                    <p className="text-xs font-medium text-orange-300 mt-2">Sua Versão</p>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+
+        {/* Social Proof / Stats - ATUALIZADO PARA 5 TEMAS */}
+        <div className="grid md:grid-cols-3 gap-8 mt-20 pt-12 border-t border-slate-800">
+          <div className="text-center">
+            <p className="text-4xl font-bold bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
+              10K+
+            </p>
+            <p className="text-slate-400 mt-2">Transformações realizadas</p>
+          </div>
+          <div className="text-center">
+            <p className="text-4xl font-bold bg-gradient-to-r from-red-400 to-yellow-400 bg-clip-text text-transparent">
+              98%
+            </p>
+            <p className="text-slate-400 mt-2">Compartilharam o resultado</p>
+          </div>
+          <div className="text-center">
+            <p className="text-4xl font-bold bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
+              5 Temas
+            </p>
+            <p className="text-slate-400 mt-2">Para explorar</p>
+          </div>
+        </div>
       </main>
+
+      {/* Footer */}
+      <footer className="border-t border-slate-800 bg-slate-950/50 backdrop-blur-sm mt-20">
+        <div className="container py-8 space-y-4">
+          <div className="text-center text-slate-400">
+            <p>
+              Desenvolvido por <span className="font-bold text-orange-400">Paulo Barboni</span>
+            </p>
+            <p className="text-sm mt-2">
+              Transformando fotos em diversão desde 2025 ✨
+            </p>
+          </div>
+          <div className="flex justify-center gap-6 text-sm text-slate-500 border-t border-slate-800 pt-4">
+            <button onClick={() => setLocation("/about")} className="hover:text-orange-400 transition-colors">
+              Sobre
+            </button>
+            <button onClick={() => setLocation("/about")} className="hover:text-orange-400 transition-colors">
+              Privacidade
+            </button>
+            <button onClick={() => setLocation("/about")} className="hover:text-orange-400 transition-colors">
+              Termos
+            </button>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
