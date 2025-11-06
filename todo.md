@@ -315,3 +315,27 @@ Isso deve resolver o problema crítico de grupos onde apenas algumas pessoas era
 - Planos ilimitados expiram e voltam para modo gratuito (0 créditos)
 - Créditos comprados nunca expiram
 - Histórico de transações mantido para auditoria
+
+## Rebranding para ESPELHO AI (06/11/2025 - 18:30)
+
+### Tarefas:
+- [x] Copiar logo para pasta public do projeto (espelho-ai-logo.png e espelho-ai-logo-transp.png)
+- [x] Atualizar todas as referências de "Descubra seu verdadeiro eu!" para "ESPELHO AI"
+- [x] Adicionar logo em todas as páginas principais (Home, Generator, Planos)
+- [x] Atualizar meta tags (title, description, og:title, og:description)
+- [x] Atualizar favicon
+- [x] Manter esquema de cores laranja/vermelho que combina com o logo
+
+### Arquivos modificados:
+- [x] client/index.html (meta tags, title, favicon)
+- [x] client/src/pages/Home.tsx (logo + título ESPELHO AI)
+- [x] client/src/pages/Generator.tsx (logo + título ESPELHO AI)
+- [x] client/src/pages/Planos.tsx (logo + título ESPELHO AI)
+- [ ] client/src/pages/Gallery.tsx (não existe ainda)
+- [ ] client/src/pages/About.tsx (não existe ainda)
+
+### Resultado:
+- Logo metade leão/metade rosto humano simbolizando transformação
+- Branding consistente: "ESPELHO AI" com AI em laranja
+- Favicon e meta tags atualizados para SEO
+- Cores laranja/vermelho mantidas em harmonia com o logo

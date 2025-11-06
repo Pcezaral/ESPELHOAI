@@ -199,9 +199,12 @@ export default function Generator() {
             <ArrowLeft className="w-4 h-4" />
             Voltar
           </Button>
-          <h1 className="text-xl font-bold bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
-            Descubra seu verdadeiro eu!
-          </h1>
+          <div className="flex items-center gap-2">
+            <img src="/espelho-ai-logo-transp.png" alt="ESPELHO AI" className="h-8 w-8" />
+            <h1 className="text-xl font-bold text-white">
+              ESPELHO <span className="text-orange-500">AI</span>
+            </h1>
+          </div>
           <CreditBadge />
         </div>
       </header>

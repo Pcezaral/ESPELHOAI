@@ -30,11 +30,9 @@ export default function Home() {
       <header className="border-b border-slate-800 bg-slate-950/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container flex items-center justify-between h-16">
           <div className="flex items-center gap-3">
-            {APP_LOGO && (
-              <img src={APP_LOGO} alt={APP_TITLE} className="h-8 w-8" />
-            )}
-            <h1 className="text-xl font-bold text-white">
-              {APP_TITLE}
+            <img src="/espelho-ai-logo-transp.png" alt="ESPELHO AI" className="h-10 w-10" />
+            <h1 className="text-2xl font-bold text-white">
+              ESPELHO <span className="text-orange-500">AI</span>
             </h1>
           </div>
           <div className="flex items-center gap-4">
@@ -58,11 +56,10 @@ export default function Home() {
                   Powered by IA Generativa
                 </span>
               </div>
-
-              <h2 className="text-5xl md:text-6xl font-bold leading-tight text-white">
-                Descubra seu{" "}
-                <span className="bg-gradient-to-r from-orange-400 via-red-400 to-yellow-400 bg-clip-text text-transparent">
-                  verdadeiro eu
+              <h2 className="text-5xl md:text-6xl font-bold leading-tight">
+                <span className="text-white">ESPELHO</span> <br />
+                <span className="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
+                  AI
                 </span>
               </h2>
 

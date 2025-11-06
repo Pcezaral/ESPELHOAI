@@ -128,9 +128,12 @@ export default function Planos() {
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <button
             onClick={() => setLocation("/")}
-            className="text-2xl font-bold bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent"
+            className="flex items-center gap-2"
           >
-            Descubra seu verdadeiro eu!
+            <img src="/espelho-ai-logo-transp.png" alt="ESPELHO AI" className="h-10 w-10" />
+            <h1 className="text-2xl font-bold text-white">
+              ESPELHO <span className="text-orange-500">AI</span>
+            </h1>
           </button>
           {subscription && (
             <div className="text-sm text-slate-300">
@@ -146,7 +149,7 @@ export default function Planos() {
         {/* Hero Section */}
         <div className="text-center space-y-4 mb-12">
           <h1 className="text-5xl font-bold text-white">
-            Espelho AI <span className="bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">Premium</span>
+            ESPELHO AI <span className="bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">Premium</span>
           </h1>
           <p className="text-xl text-slate-300 max-w-2xl mx-auto">
             Desbloqueie todo o potencial das transformações com IA. Escolha o plano ideal para você!
@@ -217,7 +220,7 @@ export default function Planos() {
         {/* Bottom CTA */}
         <div className="text-center space-y-6 bg-slate-900/50 border border-slate-700/50 rounded-2xl p-8 max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-white">
-            Seus créditos gratuitos estão acabanos! Desbloloique toos recursos com Espelho AI Premium.
+            Seus créditos gratuitos estão acabando! Desbloqueie todos recursos com ESPELHO AI Premium.
           </h2>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
