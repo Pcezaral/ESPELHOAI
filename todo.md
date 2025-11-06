@@ -216,3 +216,20 @@ Isso deve resolver o problema crítico de grupos onde apenas algumas pessoas era
 - Barba/cavanhaque quando possível
 - Acessórios masculinos (gravata, relógio)
 - Poses masculinas
+
+## Ajuste Fino: Epic - Embelezar Corpo, Não Rosto (06/11/2025 - 16:47)
+
+### Estratégia Refinada:
+- [x] **Corpo**: PODE embelezar (músculos para homens, silhueta para mulheres)
+- [x] **Rosto**: Manter IDÊNTICO, apenas leve maquiagem/iluminação favorável
+- [x] **Resultado**: Pessoa reconhecível em versão "épica"
+
+### Implementação:
+- Adicionado: "You may enhance body physique (muscles for men, silhouette for women)"
+- Adicionado: "You may add subtle makeup/flattering lighting to faces (like professional photography)"
+- Mantido: "DO NOT change facial structure, features, or make person unrecognizable"
+
+### Benefícios:
+- Mantém apelo à vaidade (corpo poderoso/belo)
+- NÃO perde identidade facial
+- Maquiagem leve = como foto profissional (realça sem alterar)
