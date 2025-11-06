@@ -193,3 +193,26 @@ Isso deve resolver o problema crítico de grupos onde apenas algumas pessoas era
 - Adicionado: "ULTRA CRITICAL: Keep faces PERFECTLY IDENTICAL to original - exact same facial features, expressions, skin tone, age, bone structure"
 - Adicionado: "DO NOT enhance or beautify faces, DO NOT change facial appearance AT ALL"
 - Foco: Apenas costume, pose e background mudam. Rosto 100% preservado.
+
+## Melhoria: Transformação de Gênero Mais Marcante (06/11/2025 - 16:44)
+
+### Problema Atual:
+- [x] Transformação de gênero pode ficar sutil/ambígua
+- [x] Precisa ser CLARA e IMPACTANTE para ter efeito
+
+### Solução Implementada:
+- [x] Roupas CARACTERÍSTICAS e marcantes para deixar transformação ÓBVIA
+
+**Homem → Mulher:**
+- Vestidos femininos marcantes (não apenas calça)
+- Cabelos longos e estilizados
+- Maquiagem evidente
+- Acessórios femininos (brincos, colares, bolsas)
+- Poses femininas
+
+**Mulher → Homem:**
+- Ternos masculinos bem marcados
+- Cabelo curto masculino
+- Barba/cavanhaque quando possível
+- Acessórios masculinos (gravata, relógio)
+- Poses masculinas

@@ -47,7 +47,7 @@ export async function generateTransformation(
       text: "Você é uma figura histórica! Seus traços se transformaram em um personagem de época que captura sua essência! 🎨"
     },
     gender: {
-      prompt: "IMPORTANT: Transform EVERY SINGLE person in the photo to opposite gender. Count all people and make sure EACH ONE is gender-swapped - do not leave anyone unchanged. Give convincing hairstyle, makeup, clothing, facial hair changes to ALL people. CRITICAL: Maintain exact facial bone structure, eye shape, nose, mouth proportions for each person. The face should look like a realistic gender-swapped version of the same person. ALL people must be transformed. Realistic photo style.",
+      prompt: "IMPORTANT: Transform EVERY SINGLE person in the photo to opposite gender. Count all people and make sure EACH ONE is gender-swapped - do not leave anyone unchanged. Make transformation CLEAR and OBVIOUS with characteristic gendered clothing. Men to Women: feminine dresses (not just pants), long styled hair, evident makeup, feminine accessories (earrings, necklaces, purses), feminine poses. Women to Men: masculine suits or very masculine clothing, short masculine haircut, beard/goatee when possible, masculine accessories (tie, watch), masculine poses. CRITICAL: Maintain exact facial bone structure, eye shape, nose, mouth proportions for each person. The face should look like a realistic gender-swapped version of the same person. ALL people must be transformed. Realistic photo style.",
       text: "Se tivesse nascido... Descubra como você seria do outro gênero! ⚧️"
     },
     epic: {
