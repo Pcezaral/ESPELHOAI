@@ -173,3 +173,23 @@ Todos os prompts agora incluem:
 4. "ALL people must be [transformado]"
 
 Isso deve resolver o problema crítico de grupos onde apenas algumas pessoas eram transformadas.
+
+## Problema: Categoria Epic Altera Demais os Rostos (06/11/2025 - 16:38)
+
+### Problema Identificado:
+- [ ] Categoria "Romanos, Gregos e Vikings" está alterando MUITO os rostos
+- [ ] Instrução "enhance attractiveness" está fazendo IA MUDAR identidade facial
+- [ ] Mulher nas imagens teste ficou com rosto completamente diferente
+- [ ] Perde toda a graça quando não reconhece a pessoa
+
+### Solução:
+- [x] REMOVER "enhance attractiveness" do prompt
+- [x] REFORÇAR instruções de preservação facial MÁXIMA
+- [x] Apelo à vaidade deve vir de: roupas épicas + poses heroicas + cenários dramáticos
+- [x] NÃO de alterar o rosto da pessoa
+
+### Novo Prompt Epic:
+- Removido: "Make ALL people look BEAUTIFUL and POWERFUL - enhance attractiveness"
+- Adicionado: "ULTRA CRITICAL: Keep faces PERFECTLY IDENTICAL to original - exact same facial features, expressions, skin tone, age, bone structure"
+- Adicionado: "DO NOT enhance or beautify faces, DO NOT change facial appearance AT ALL"
+- Foco: Apenas costume, pose e background mudam. Rosto 100% preservado.
