@@ -30,7 +30,7 @@ export const appRouter = router({
       }),
     generate: protectedProcedure
       .input(z.object({
-        theme: z.enum(["animals", "monster", "art", "gender"]),
+        theme: z.enum(["animals", "monster", "art", "gender", "epic"]),
         imageUrl: z.string(),
       }))
       .mutation(async ({ input, ctx }) => {

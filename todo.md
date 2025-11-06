@@ -130,3 +130,46 @@ Removido: Super Herói (muito infantil)
 5. Barroco 1600s: (veludo, renda)
 6. Vitoriano 1800s: (espartilhos, cartolas)
 7. Belle Époque 1890-1910: (vestidos elegantes, sombrinhas)
+
+## Nova Categoria: Romanos, Gregos e Vikings (06/11/2025 - 16:28)
+
+### Conceito:
+- [ ] Adicionar 5ª categoria focada em beleza épica e vaidade
+- [ ] Nome: "Romanos, Gregos e Vikings" 🏛️⚔️
+- [ ] Objetivo: Apelar para fantasia de poder e beleza dos usuários
+
+### Características:
+**Mulheres:**
+- Deusas sensuais gregas/romanas
+- Vestidos esvoaçantes elegantes
+- Coroas de louros, joias douradas
+- Armaduras femininas elegantes
+- Valquírias vikings
+
+**Homens:**
+- Guerreiros musculosos e poderosos
+- Armaduras épicas (romana, grega, viking)
+- Capacetes com chifres (vikings)
+- Capas heroicas
+- Gladiadores, centuriões
+
+**Cenários:**
+- Templos gregos/romanos
+- Campos de batalha épicos
+- Palácios imperiais
+- Fjords nórdicos
+
+### Implementação:
+- [x] Adicionar ao backend (generation.ts, routers.ts)
+- [x] Atualizar frontend (Generator.tsx, Home.tsx)
+- [x] Criar prompt que preserve identidade facial mas embeleze
+- [x] REFORÇAR TODOS OS PROMPTS: Instruções triplas para garantir que TODAS as pessoas sejam transformadas
+
+### Estratégia Anti-Grupo-Parcial:
+Todos os prompts agora incluem:
+1. "IMPORTANT: Transform EVERY SINGLE person in the photo"
+2. "Count all people and make sure EACH ONE is transformed"
+3. "Do not leave anyone unchanged"
+4. "ALL people must be [transformado]"
+
+Isso deve resolver o problema crítico de grupos onde apenas algumas pessoas eram transformadas.

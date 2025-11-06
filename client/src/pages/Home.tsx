@@ -89,7 +89,7 @@ export default function Home() {
               </Button>
             </div>
 
-            {/* Features - 4 CATEGORIAS FINAIS */}
+            {/* Features - 5 CATEGORIAS FINAIS */}
             <div className="grid grid-cols-2 gap-4 pt-8">
               <div className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-orange-500/30 transition-colors">
                 <div className="text-3xl font-bold text-orange-400">🐾</div>
@@ -104,12 +104,17 @@ export default function Home() {
               <div className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-amber-500/30 transition-colors">
                 <div className="text-3xl font-bold text-amber-400">🎨</div>
                 <p className="font-semibold text-white">Pintura</p>
-                <p className="text-sm text-slate-400">Personagem histórico</p>
+                <p className="text-sm text-slate-400">Várias épocas</p>
               </div>
               <div className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-pink-500/30 transition-colors">
                 <div className="text-3xl font-bold text-pink-400">⚧️</div>
                 <p className="font-semibold text-white">Se tivesse nascido...</p>
                 <p className="text-sm text-slate-400">Outro gênero</p>
+              </div>
+              <div className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-yellow-600/30 transition-colors col-span-2">
+                <div className="text-3xl font-bold text-yellow-600">⚔️</div>
+                <p className="font-semibold text-white">Romanos, Gregos e Vikings</p>
+                <p className="text-sm text-slate-400">Guerreiro/deusa épico</p>
               </div>
             </div>
           </div>

@@ -5,8 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Upload, Camera, Loader2, ArrowLeft } from "lucide-react";
 import { useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
-
-type Theme = "animals" | "monster" | "art" | "gender";
+type Theme = "animals" | "monster" | "art" | "gender" | "epic";
 
 const THEMES = [
   {
@@ -40,6 +39,14 @@ const THEMES = [
     description: "Descubra como você seria do outro gênero",
     color: "from-pink-500 to-blue-500",
     borderColor: "border-pink-500/30 hover:border-pink-500/60",
+  },
+  {
+    id: "epic" as Theme,
+    name: "Romanos, Gregos e Vikings",
+    emoji: "⚔️",
+    description: "Você como guerreiro/deusa épico e poderoso",
+    color: "from-yellow-600 to-red-600",
+    borderColor: "border-yellow-600/30 hover:border-yellow-600/60",
   },
 ];
 
