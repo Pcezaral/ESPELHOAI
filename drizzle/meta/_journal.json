@@ -8,6 +8,20 @@
       "when": 1762438830641,
       "tag": "0000_flaky_owl",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1762458827570,
+      "tag": "0001_smooth_stingray",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1762458995250,
+      "tag": "0002_living_fat_cobra",
+      "breakpoints": true
     }
   ]
 }

@@ -25,4 +25,18 @@ export const users = mysqlTable("users", {
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
-// TODO: Add your tables here
+/**
+ * Ratings table for user feedback on generated images.
+ * Stores star ratings (1-5) and optional comments.
+ */
+export const ratings = mysqlTable("ratings", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  theme: mysqlEnum("theme", ["animals", "monster", "art", "gender", "epic"]).notNull(),
+  rating: int("rating").notNull(), // 1-5 stars
+  comment: text("comment"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type Rating = typeof ratings.$inferSelect;
+export type InsertRating = typeof ratings.$inferInsert;

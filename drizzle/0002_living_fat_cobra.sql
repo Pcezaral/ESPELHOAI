@@ -1,0 +1,1 @@
+ALTER TABLE `ratings` MODIFY COLUMN `theme` enum('animals','monster','art','gender','epic') NOT NULL;

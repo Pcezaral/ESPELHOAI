@@ -5,6 +5,8 @@ import { Card } from "@/components/ui/card";
 import { Upload, Camera, Loader2, ArrowLeft } from "lucide-react";
 import { useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
+import { StarRating } from "@/components/StarRating";
+import { toast } from "sonner";
 type Theme = "animals" | "monster" | "art" | "gender" | "epic";
 
 const THEMES = [
@@ -64,6 +66,7 @@ export default function Generator() {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [generatedImage, setGeneratedImage] = useState<string | null>(null);
   const [generatedText, setGeneratedText] = useState<string | null>(null);
+  const [hasRated, setHasRated] = useState(false);
 
   if (!isAuthenticated && !user) {
     setLocation("/");
@@ -97,6 +100,7 @@ export default function Generator() {
 
   const generateMutation = trpc.generation.generate.useMutation();
   const uploadMutation = trpc.generation.uploadImage.useMutation();
+  const ratingMutation = trpc.rating.submit.useMutation();
 
   const handleGenerate = async () => {
     if (!selectedImage || !selectedTheme || !previewUrl) return;
@@ -123,7 +127,6 @@ export default function Generator() {
       setStep("upload");
     }
   };
-
   const handleReset = () => {
     setStep("theme");
     setSelectedTheme(null);
@@ -131,8 +134,22 @@ export default function Generator() {
     setPreviewUrl(null);
     setGeneratedImage(null);
     setGeneratedText(null);
-    if (fileInputRef.current) fileInputRef.current.value = "";
-    if (cameraInputRef.current) cameraInputRef.current.value = "";
+    setHasRated(false);
+  };
+
+  const handleRate = async (rating: number) => {
+    if (!selectedTheme || hasRated) return;
+    
+    try {
+      await ratingMutation.mutateAsync({
+        theme: selectedTheme,
+        rating,
+      });
+      setHasRated(true);
+      toast.success("Obrigado pelo seu feedback!");
+    } catch (error) {
+      toast.error("Erro ao enviar avalia\u00e7\u00e3o");
+    }
   };
 
   const handleDownload = () => {
@@ -364,6 +381,21 @@ export default function Generator() {
                 </p>
               </Card>
             )}
+
+            {/* Rating System */}
+            <Card className="bg-slate-900/50 border-orange-500/30 p-6">
+              <div className="space-y-4 text-center">
+                <h3 className="text-xl font-semibold text-white">
+                  {hasRated ? "Obrigado pelo feedback!" : "Como ficou sua transformação?"}
+                </h3>
+                <p className="text-slate-400">
+                  {hasRated ? "Sua avaliação nos ajuda a melhorar!" : "Avalie a qualidade da imagem gerada"}
+                </p>
+                <div className="flex justify-center">
+                  <StarRating onRate={handleRate} disabled={hasRated} />
+                </div>
+              </div>
+            </Card>
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Button

@@ -233,3 +233,33 @@ Isso deve resolver o problema crítico de grupos onde apenas algumas pessoas era
 - Mantém apelo à vaidade (corpo poderoso/belo)
 - NÃO perde identidade facial
 - Maquiagem leve = como foto profissional (realça sem alterar)
+
+## Nova Funcionalidade: Sistema de Avaliação com Estrelas (06/11/2025 - 16:50)
+
+### Objetivo:
+- [x] Coletar feedback dos usuários sobre qualidade das transformações
+- [x] Sistema de 1 a 5 estrelas
+- [x] Armazenar avaliações no banco de dados
+
+### Implementação:
+- [x] Criar tabela `ratings` no schema do banco
+- [x] Criar tRPC mutation para salvar avaliação
+- [x] Criar componente StarRating no frontend
+- [x] Integrar na página Generator após geração da imagem
+- [x] Toast de confirmação após avaliação
+
+### Funcionalidades Implementadas:
+- Card de avaliação aparece após geração da imagem
+- Usuário pode avaliar de 1 a 5 estrelas
+- Estrelas com hover effect e animação
+- Feedback visual: "Obrigado pelo feedback!" após avaliar
+- Avaliação salva no banco com userId, theme, rating e timestamp
+- Não permite avaliar duas vezes a mesma geração
+
+### Campos da Tabela `ratings`:
+- id (auto increment)
+- userId (referência ao usuário)
+- theme (qual categoria foi usada)
+- rating (1-5 estrelas)
+- comment (opcional, texto)
+- createdAt (timestamp)
