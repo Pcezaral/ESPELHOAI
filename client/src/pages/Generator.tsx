@@ -7,6 +7,7 @@ import { useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { StarRating } from "@/components/StarRating";
 import { toast } from "sonner";
+import { CreditBadge } from "@/components/CreditBadge";
 type Theme = "animals" | "monster" | "art" | "gender" | "epic";
 
 const THEMES = [
@@ -122,8 +123,18 @@ export default function Generator() {
       setGeneratedImage(result.generatedImageUrl);
       setGeneratedText(result.generatedText);
       setStep("result");
-    } catch (error) {
+    } catch (error: any) {
       console.error("Generation error:", error);
+      if (error.message && error.message.includes("Insufficient credits")) {
+        toast.error("Créditos insuficientes! Compre mais créditos para continuar.", {
+          action: {
+            label: "Ver Planos",
+            onClick: () => setLocation("/planos"),
+          },
+        });
+      } else {
+        toast.error("Erro ao gerar transformação. Tente novamente.");
+      }
       setStep("upload");
     }
   };
@@ -191,7 +202,7 @@ export default function Generator() {
           <h1 className="text-xl font-bold bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
             Descubra seu verdadeiro eu!
           </h1>
-          <div className="w-20" />
+          <CreditBadge />
         </div>
       </header>
 

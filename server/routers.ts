@@ -6,6 +6,7 @@ import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
 import { TRPCError } from "@trpc/server";
 import { getDb } from "./db";
 import { ratings } from "../drizzle/schema";
+import { consumeCredit, getCreditBalance, addCredits, getSubscriptionInfo } from "./credits";
 
 export const appRouter = router({
     // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
@@ -37,8 +38,49 @@ export const appRouter = router({
         imageUrl: z.string(),
       }))
       .mutation(async ({ input, ctx }) => {
+        // Consume credit before generating
+        const themeNames = {
+          animals: "Bichinho",
+          monster: "Monstro",
+          art: "Pintura",
+          gender: "Se tivesse nascido...",
+          epic: "Romanos, Gregos e Vikings"
+        };
+        await consumeCredit(ctx.user.id, themeNames[input.theme]);
+        
         const { generateTransformation } = await import("./generation");
         return generateTransformation(input.theme, input.imageUrl, ctx.user.id);
+      }),
+  }),
+
+  credits: router({
+    getBalance: protectedProcedure.query(async ({ ctx }) => {
+      return getCreditBalance(ctx.user.id);
+    }),
+    getSubscription: protectedProcedure.query(async ({ ctx }) => {
+      return getSubscriptionInfo(ctx.user.id);
+    }),
+    purchase: protectedProcedure
+      .input(z.object({
+        packageType: z.enum(["light", "premium", "monthly_unlimited", "annual_unlimited"]),
+        paymentId: z.string(), // Stripe payment ID
+      }))
+      .mutation(async ({ input, ctx }) => {
+        // TODO: Verify payment with Stripe before adding credits
+        const creditsMap = {
+          light: 50,
+          premium: 200,
+          monthly_unlimited: 0,
+          annual_unlimited: 0,
+        };
+        
+        const newBalance = await addCredits(
+          ctx.user.id,
+          creditsMap[input.packageType],
+          input.packageType
+        );
+        
+        return { success: true, newBalance };
       }),
   }),
 

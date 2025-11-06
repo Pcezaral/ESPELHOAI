@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Sparkles, Wand2, Play } from "lucide-react";
 import { APP_LOGO, APP_TITLE, getLoginUrl } from "@/const";
 import { useLocation } from "wouter";
+import { CreditBadge } from "@/components/CreditBadge";
 
 export default function Home() {
   const { user, loading, isAuthenticated } = useAuth();
@@ -36,8 +37,11 @@ export default function Home() {
               {APP_TITLE}
             </h1>
           </div>
-          <div className="text-sm font-medium text-orange-400">
-            Por <span className="font-bold text-orange-500">Paulo Barboni</span>
+          <div className="flex items-center gap-4">
+            {isAuthenticated && <CreditBadge />}
+            <div className="text-sm font-medium text-orange-400">
+              Por <span className="font-bold text-orange-500">Paulo Barboni</span>
+            </div>
           </div>
         </div>
       </header>

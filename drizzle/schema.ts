@@ -17,6 +17,10 @@ export const users = mysqlTable("users", {
   email: varchar("email", { length: 320 }),
   loginMethod: varchar("loginMethod", { length: 64 }),
   role: mysqlEnum("role", ["user", "admin"]).default("user").notNull(),
+  /** Credits system */
+  credits: int("credits").default(5).notNull(), // New users get 5 free credits
+  subscriptionType: mysqlEnum("subscriptionType", ["free", "light", "premium", "monthly_unlimited", "annual_unlimited"]).default("free").notNull(),
+  subscriptionExpiresAt: timestamp("subscriptionExpiresAt"), // For unlimited plans
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
@@ -40,3 +44,21 @@ export const ratings = mysqlTable("ratings", {
 
 export type Rating = typeof ratings.$inferSelect;
 export type InsertRating = typeof ratings.$inferInsert;
+
+/**
+ * Credit transactions table for tracking credit usage and purchases.
+ * Maintains audit trail of all credit-related operations.
+ */
+export const creditTransactions = mysqlTable("credit_transactions", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  type: mysqlEnum("type", ["initial", "purchase", "consumption", "bonus", "refund"]).notNull(),
+  amount: int("amount").notNull(), // Positive for additions, negative for consumption
+  balanceAfter: int("balanceAfter").notNull(), // Balance after this transaction
+  description: text("description"), // e.g., "Generated Bichinho transformation", "Purchased Light package"
+  relatedPackage: mysqlEnum("relatedPackage", ["light", "premium", "monthly_unlimited", "annual_unlimited"]),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type CreditTransaction = typeof creditTransactions.$inferSelect;
+export type InsertCreditTransaction = typeof creditTransactions.$inferInsert;

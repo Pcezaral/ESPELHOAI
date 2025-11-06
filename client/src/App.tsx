@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Generator from "./pages/Generator";
 import Gallery from "./pages/Gallery";
 import About from "./pages/About";
+import Planos from "./pages/Planos";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -17,6 +18,7 @@ function Router() {
       <Route path={"/generator"} component={Generator} />
       <Route path={"/gallery"} component={Gallery} />
       <Route path={"/about"} component={About} />
+      <Route path={"/planos"} component={Planos} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

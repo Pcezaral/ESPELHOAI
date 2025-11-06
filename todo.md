@@ -263,3 +263,55 @@ Isso deve resolver o problema crítico de grupos onde apenas algumas pessoas era
 - rating (1-5 estrelas)
 - comment (opcional, texto)
 - createdAt (timestamp)
+
+## Sistema de Créditos - Implementação (06/11/2025 - 17:00)
+
+### Especificações:
+- [x] Novos usuários recebem 5 créditos gratuitos ao se cadastrar
+- [x] 1 crédito = 1 transformação
+- [x] Bloquear geração quando créditos acabarem
+- [x] Exibir saldo de créditos no app
+
+### Pacotes de Créditos:
+1. **Pacote Light** - R$ 9,90
+   - 50 Créditos
+   
+2. **Pacote Premium** (MAIS POPULAR) - R$ 19,90
+   - 200 Créditos + Recursos/Cursos Extras
+   
+3. **Ilimitado Mensal** - R$ 29,90/mês
+   - Créditos Ilimitados (renovação mensal)
+   
+4. **Ilimitado Anual** - R$ 119,90/ano
+   - Créditos Ilimitados (renovação anual - economize!)
+
+### Implementação Backend:
+- [x] Adicionar campo `credits` na tabela `users`
+- [x] Adicionar campo `subscription_type` (free, light, premium, monthly_unlimited, annual_unlimited)
+- [x] Adicionar campo `subscription_expires_at` para planos ilimitados
+- [x] Criar tabela `credit_transactions` para histórico
+- [x] Criar função `consumeCredit()` que valida e decrementa
+- [x] Criar função `addCredits()` para adicionar créditos
+- [x] Criar função `hasUnlimitedCredits()` para verificar assinatura ativa
+- [x] Modificar mutation `generation.generate` para consumir crédito antes de gerar
+
+### Implementação Frontend:
+- [x] Exibir saldo de créditos no header/navbar (componente CreditBadge)
+- [x] Criar página `/planos` com os 4 pacotes
+- [x] Mostrar aviso quando créditos acabarem (toast com botão para planos)
+- [x] Badge clicável leva para página de planos
+- [x] Indicador visual de "MAIS POPULAR" no Pacote Premium
+- [x] Badge pisca em vermelho quando créditos < 3
+- [x] Badge dourado para usuários com plano ilimitado
+
+### Integração Pagamento:
+- [ ] Configurar Stripe para processar pagamentos (TODO: próxima fase)
+- [ ] Criar webhooks para confirmar pagamento (TODO: próxima fase)
+- [x] Estrutura preparada para adicionar créditos automaticamente após pagamento
+- [ ] Enviar email de confirmação (opcional)
+
+### Regras de Negócio:
+- Usuários com plano ilimitado ativo não consomem créditos
+- Planos ilimitados expiram e voltam para modo gratuito (0 créditos)
+- Créditos comprados nunca expiram
+- Histórico de transações mantido para auditoria
