@@ -114,3 +114,19 @@ Removido: Super Herói (muito infantil)
 - Bichinho: Transformação completa em animal com pelo/penas MAS expressão e traços preservados
 - Pintura: Roupas elaboradas de época + cenários ornamentados MAS rosto idêntico ao original
 - Gênero: Mudança convincente de cabelo/maquiagem/roupa MAS estrutura facial mantida
+
+## Ajuste de Pintura - Mais Épocas (06/11/2025 - 16:25)
+
+### Solicitação:
+- [x] Expandir categoria "Pintura" para incluir mais épocas além de Renascença/Barroco/Vitoriano
+- [x] Adicionar: Anos 20/30 (Máfia, Gangster), Anos 40/50 (Hollywood clássico), Anos 60 (Hippies), Belle Époque
+- [x] IA escolhe aleatoriamente entre as épocas para trazer variedade e surpresa
+
+### Épocas Disponíveis em "Pintura":
+1. Anos 20-30: Máfia/Gangster (ternos risca-de-giz, chapéus fedora, Art Deco)
+2. Anos 40-50: Hollywood Golden Age (vestidos glamourosos, smoking)
+3. Anos 60: Hippies (tie-dye, headbands, símbolos de paz, flores)
+4. Renascença 1500s: (golas, gibões)
+5. Barroco 1600s: (veludo, renda)
+6. Vitoriano 1800s: (espartilhos, cartolas)
+7. Belle Époque 1890-1910: (vestidos elegantes, sombrinhas)

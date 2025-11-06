@@ -43,7 +43,7 @@ export async function generateTransformation(
       text: "Você é um monstrinho adorável! Mantendo seus traços únicos, você seria uma criatura fofa e divertida que conquista todos ao redor! 👾"
     },
     art: {
-      prompt: "Transform ALL people into dramatic 1600-1800s historical portraits with elaborate period costumes (Renaissance ruffs, Baroque velvet, Victorian gowns), ornate backgrounds with columns and drapes, rich colors, dramatic lighting. CRITICAL: Keep faces PERFECTLY identical to original - same features, expressions, skin tone. Only costume and setting change. Classical oil painting style.",
+      prompt: "Transform ALL people into historical/period portraits. Choose ONE era randomly: 1920s-30s Mafia/Gangster (pinstripe suits, fedoras, Art Deco), 1940s-50s Hollywood Golden Age (glamorous gowns, tuxedos), 1960s Hippies (tie-dye, headbands, peace signs, flowers), Renaissance 1500s (ruffs, doublets), Baroque 1600s (velvet, lace), Victorian 1800s (corsets, top hats), Belle Époque 1890-1910 (elegant dresses, parasols). Add elaborate period-appropriate costumes, ornate backgrounds, dramatic lighting. CRITICAL: Keep faces PERFECTLY identical to original - same features, expressions, skin tone. Only costume and setting change. Artistic painting style.",
       text: "Você é uma figura histórica! Seus traços se transformaram em um personagem de época que captura sua essência! 🎨"
     },
     gender: {
