@@ -6,48 +6,40 @@ import { Upload, Camera, Loader2, ArrowLeft } from "lucide-react";
 import { useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 
-type Theme = "monster" | "animals" | "hero" | "art" | "movies";
+type Theme = "animals" | "monster" | "art" | "gender";
 
 const THEMES = [
   {
-    id: "monster" as Theme,
-    name: "Monstrinho",
-    emoji: "👾",
-    description: "Você como criatura fofa mantendo seus traços",
-    color: "from-purple-500 to-pink-500",
-    borderColor: "border-purple-500/30 hover:border-purple-500/60",
-  },
-  {
     id: "animals" as Theme,
-    name: "Bichos",
+    name: "Bichinho",
     emoji: "🐾",
     description: "Você como animal adorável mantendo suas características",
     color: "from-orange-500 to-yellow-500",
     borderColor: "border-orange-500/30 hover:border-orange-500/60",
   },
   {
-    id: "hero" as Theme,
-    name: "Heróis",
-    emoji: "🦸",
-    description: "Você como super-herói mantendo sua identidade",
-    color: "from-blue-500 to-cyan-500",
-    borderColor: "border-blue-500/30 hover:border-blue-500/60",
+    id: "monster" as Theme,
+    name: "Monstro",
+    emoji: "👾",
+    description: "Você como criatura fofa mantendo seus traços",
+    color: "from-purple-500 to-pink-500",
+    borderColor: "border-purple-500/30 hover:border-purple-500/60",
   },
   {
     id: "art" as Theme,
-    name: "Pinturas",
+    name: "Pintura",
     emoji: "🎨",
-    description: "Seu retrato em estilos artísticos preservando seus traços",
-    color: "from-orange-400 to-red-500",
-    borderColor: "border-orange-500/30 hover:border-orange-500/60",
+    description: "Você como personagem histórico de época (1600s-1800s)",
+    color: "from-amber-500 to-orange-600",
+    borderColor: "border-amber-500/30 hover:border-amber-500/60",
   },
   {
-    id: "movies" as Theme,
-    name: "Séries e Filmes",
-    emoji: "🎬",
-    description: "Você como personagem de cinema/TV mantendo sua aparência",
-    color: "from-red-500 to-fuchsia-500",
-    borderColor: "border-red-500/30 hover:border-red-500/60",
+    id: "gender" as Theme,
+    name: "Se tivesse nascido...",
+    emoji: "⚧️",
+    description: "Descubra como você seria do outro gênero",
+    color: "from-pink-500 to-blue-500",
+    borderColor: "border-pink-500/30 hover:border-pink-500/60",
   },
 ];
 

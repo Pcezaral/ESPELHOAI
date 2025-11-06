@@ -27,31 +27,28 @@ export async function uploadImageToS3(
  * Gerar transformação de imagem com IA
  */
 export async function generateTransformation(
-  theme: "monster" | "animals" | "hero" | "art" | "movies",
+  theme: "animals" | "monster" | "art" | "gender",
   imageUrl: string,
   userId: number
 ): Promise<{ generatedImageUrl: string; generatedText: string }> {
-  // Mapear tema para prompt
+  // Mapear tema para prompt - PROMPTS SIMPLIFICADOS para evitar timeout
+  // PROMPTS OTIMIZADOS: Simples, diretos, com Ênfase MÁXIMA em preservar identidade facial
   const themePrompts: Record<typeof theme, { prompt: string; text: string }> = {
-    monster: {
-      prompt: "Transform ALL people in this image into cute, colorful monster characters while STRICTLY preserving each person's unique facial features, expressions, hair characteristics, and distinctive traits. Each monster must be clearly identifiable as the original person. Create vibrant, playful creatures with creative details like horns, tails, or unusual textures, but keep facial recognition intact. If multiple people: transform ALL of them equally. Style: colorful, whimsical, highly detailed cartoon monsters.",
-      text: "Você é um monstrinho adorável! Mantendo seus traços únicos, você seria uma criatura fofa e divertida que conquista todos ao redor! 👾"
-    },
     animals: {
-      prompt: "Transform ALL people in this image into adorable animals while STRICTLY preserving each person's unique facial features, expressions, and distinctive characteristics. Each animal must clearly reflect the original person's identity and personality. Choose diverse animals that match each person's vibe. If multiple people: transform ALL of them into different animals. Style: cute, expressive, realistic-cartoon hybrid with rich details.",
+      prompt: "Transform ALL people into cute animals. CRITICAL: Keep each person's face HIGHLY recognizable - preserve facial features, expressions, eye shape, nose, mouth. Each person becomes a different adorable animal. Cartoon style.",
       text: "Você é um bichinho encantador! Suas características se transformaram em um animal adorável que mantém sua essência única! 🐾"
     },
-    hero: {
-      prompt: "Transform ALL people in this image into powerful superheroes while STRICTLY preserving each person's facial features, expressions and distinctive traits. Create dynamic superhero costumes with capes, masks, or armor. Each hero should maintain perfect facial recognition of the original person. If multiple people: create a superhero team with ALL members transformed. Style: epic comic book art, dramatic lighting, heroic poses.",
-      text: "Você é um super-herói incrível! Com seus traços marcantes, você protege o mundo com coragem e determinação! 🦸"
+    monster: {
+      prompt: "Transform ALL people into cute colorful monsters. CRITICAL: Keep each person's face HIGHLY recognizable - preserve facial features, expressions, eye shape, nose, mouth. Add fun monster details like horns or tails. Cartoon style.",
+      text: "Você é um monstrinho adorável! Mantendo seus traços únicos, você seria uma criatura fofa e divertida que conquista todos ao redor! 👾"
     },
     art: {
-      prompt: "Transform ALL people in this image into a DRAMATIC artistic masterpiece while STRICTLY preserving each person's facial features and expressions. Create an IMPACTFUL transformation with: elaborate period costumes (Renaissance, Baroque, Victorian), rich ornate backgrounds with architectural elements, dramatic lighting and colors, golden frames effect, classical painting techniques. Make it look like a museum-worthy portrait with significant visual changes in clothing, setting, and atmosphere, but keep faces perfectly recognizable. If multiple people: transform ALL into a grand classical group portrait. Style: oil painting, chiaroscuro lighting, highly detailed Renaissance or Baroque art.",
-      text: "Você é uma obra de arte! Seus traços se transformaram em uma pintura magnífica que captura sua essência! 🎨"
+      prompt: "Transform ALL people into historical figures from 1600-1800s. CRITICAL: Keep each person's face PERFECTLY recognizable - preserve all facial features, expressions, distinctive traits. Add period costumes and classical painting style.",
+      text: "Você é uma figura histórica! Seus traços se transformaram em um personagem de época que captura sua essência! 🎨"
     },
-    movies: {
-      prompt: "Transform ALL people in this image into cinematic characters inspired by iconic films and series (Lord of the Rings, Harry Potter, Star Wars, Tarantino films, Friends, Game of Thrones style) while STRICTLY preserving each person's facial features and expressions. Create DIVERSE character types: wizards, warriors, space heroes, quirky sitcom characters, western outlaws. Add dramatic costumes, props, and atmospheric backgrounds that match the cinematic universe. Avoid creating specific copyrighted characters - instead create original characters IN THE STYLE of these universes. Each person must remain clearly recognizable. If multiple people: transform ALL into a cinematic ensemble cast. Style: high-quality film production, dramatic lighting, rich costumes and sets, cinematic composition.",
-      text: "Você é um personagem icônico! Suas características brilham nas telas de cinema e TV! 🎬"
+    gender: {
+      prompt: "Transform ALL people to opposite gender. CRITICAL: Keep each person's face PERFECTLY recognizable - preserve facial structure, features, expressions. Only change gender presentation (hair, makeup, clothing). Realistic style.",
+      text: "Se tivesse nascido... Descubra como você seria do outro gênero! ⚧️"
     }
   };
 

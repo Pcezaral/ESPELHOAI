@@ -63,7 +63,7 @@ export default function Home() {
               </h2>
 
               <p className="text-xl text-slate-300 leading-relaxed">
-                Envie uma foto e deixe a IA revelar quem você seria em outro mundo. Monstrinho? Herói? Bicho? Descubra de forma divertida e compartilhe com seus amigos!
+                Envie uma foto e deixe a IA revelar quem você seria em outro mundo. Bichinho? Monstro? Personagem histórico? Ou do outro gênero? Descubra de forma divertida e compartilhe com seus amigos!
               </p>
             </div>
 
@@ -89,32 +89,27 @@ export default function Home() {
               </Button>
             </div>
 
-            {/* Features - ATUALIZADO COM 5 NOVOS TEMAS */}
+            {/* Features - 4 CATEGORIAS FINAIS */}
             <div className="grid grid-cols-2 gap-4 pt-8">
-              <div className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-purple-500/30 transition-colors">
-                <div className="text-3xl font-bold text-purple-400">👾</div>
-                <p className="font-semibold text-white">Monstrinho</p>
-                <p className="text-sm text-slate-400">Criatura fofa</p>
-              </div>
               <div className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-orange-500/30 transition-colors">
                 <div className="text-3xl font-bold text-orange-400">🐾</div>
-                <p className="font-semibold text-white">Bichos</p>
+                <p className="font-semibold text-white">Bichinho</p>
                 <p className="text-sm text-slate-400">Animal adorável</p>
               </div>
-              <div className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-blue-500/30 transition-colors">
-                <div className="text-3xl font-bold text-blue-400">🦸</div>
-                <p className="font-semibold text-white">Heróis</p>
-                <p className="text-sm text-slate-400">Super-herói</p>
+              <div className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-purple-500/30 transition-colors">
+                <div className="text-3xl font-bold text-purple-400">👾</div>
+                <p className="font-semibold text-white">Monstro</p>
+                <p className="text-sm text-slate-400">Criatura fofa</p>
               </div>
-              <div className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-red-500/30 transition-colors">
-                <div className="text-3xl font-bold text-red-400">🎨</div>
-                <p className="font-semibold text-white">Pinturas</p>
-                <p className="text-sm text-slate-400">Arte clássica</p>
+              <div className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-amber-500/30 transition-colors">
+                <div className="text-3xl font-bold text-amber-400">🎨</div>
+                <p className="font-semibold text-white">Pintura</p>
+                <p className="text-sm text-slate-400">Personagem histórico</p>
               </div>
-              <div className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-fuchsia-500/30 transition-colors col-span-2">
-                <div className="text-3xl font-bold text-fuchsia-400">🎬</div>
-                <p className="font-semibold text-white">Séries e Filmes</p>
-                <p className="text-sm text-slate-400">Personagem icônico</p>
+              <div className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-pink-500/30 transition-colors">
+                <div className="text-3xl font-bold text-pink-400">⚧️</div>
+                <p className="font-semibold text-white">Se tivesse nascido...</p>
+                <p className="text-sm text-slate-400">Outro gênero</p>
               </div>
             </div>
           </div>

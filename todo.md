@@ -37,3 +37,55 @@
 - [x] Todos os temas: Enfatizar preservação de características faciais únicas
 - [ ] Cinema: Melhorar performance (timeout em casal e grupo) - aguardando testes
 - [ ] Geral: Otimizar tempo de processamento para todos os temas - aguardando testes
+
+## Segundo Teste - Problemas Críticos (06/11/2025 - 15:47)
+
+### Resultados:
+- **Pintura**: FALHA - Idêntica à foto original, zero transformação
+- **Cinema**: FALHA - Timeout em loop OU perde identidade facial completamente
+- **Super Herói**: OK
+- **Bichinho**: OK
+- **Monstro**: OK
+
+### Problemas Fundamentais Identificados:
+1. Prompts muito complexos causam timeout
+2. Pintura não está transformando nada
+3. Cinema perde identidade facial ou dá timeout
+4. Falta: HUMOR, SURPRESA, VARIEDADE, RAPIDEZ
+
+### Proposta de Reformulação:
+- [ ] Simplificar drasticamente os prompts (menos instruções = mais rápido)
+- [ ] Mudar categorias para focar em TRANSFORMAÇÕES CLARAS e DIVERTIDAS
+- [ ] Remover "Pintura" (não funciona bem)
+- [ ] Remover "Cinema" (muito problemático)
+- [ ] Manter: Bichinho, Monstro, Super Herói (funcionam bem)
+- [ ] Adicionar novas categorias mais simples e impactantes
+
+### Novas Categorias Sugeridas:
+1. **Bichinho** 🐾 (mantém - funciona)
+2. **Monstro** 👾 (mantém - funciona)
+3. **Super Herói** 🦸 (mantém - funciona)
+4. **Desenho Animado** 🎨 (novo - simples e rápido)
+5. **Bebê** 👶 (novo - humor garantido)
+
+## Novas Solicitações do Usuário (06/11/2025 - 16:00)
+
+### Nova Categoria:
+- [x] **Se tivesse nascido...** ⚧️ - Mudança de gênero (homem→mulher, mulher→homem) - IMPLEMENTADO
+
+### Correções Urgentes:
+- [x] Bichinho e Monstro: Garantir que TODAS as pessoas em grupos sejam transformadas (prompts atualizados com "Transform ALL people")
+- [x] Todos os temas: Prompts otimizados com ênfase MÁXIMA em preservar identidade facial
+
+### Decisões Finais:
+- [x] Pintura: MANTER com foco em personagens históricos/antigos (versão anterior funcionava melhor)
+- [x] Remover categoria "Cinema" (substituído por "Se tivesse nascido...")
+- [x] Remover categoria "Super Herói" (muito infantil)
+
+### Categorias Finais do App (4 categorias):
+1. Bichinho 🐾 - Animal adorável
+2. Monstro 👾 - Criatura fofa
+3. Pintura 🎨 - Personagem histórico/antigo (1600s-1800s)
+4. Se tivesse nascido... ⚧️ - Mudança de gênero
+
+Removido: Super Herói (muito infantil)
