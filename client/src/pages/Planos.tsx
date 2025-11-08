@@ -217,30 +217,16 @@ export default function Planos() {
           })}
         </div>
 
-        {/* Bottom CTA */}
-        <div className="text-center space-y-6 bg-slate-900/50 border border-slate-700/50 rounded-2xl p-8 max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold text-white">
-            Seus créditos gratuitos estão acabando! Desbloqueie todos recursos com ESPELHO AI Premium.
+        {/* Bottom Info */}
+        <div className="text-center space-y-4 bg-slate-900/50 border border-slate-700/50 rounded-2xl p-8 max-w-3xl mx-auto">
+          <h2 className="text-2xl font-bold text-white">
+            Escolha o plano ideal e desbloqueie todo o potencial do ESPELHO AI
           </h2>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              onClick={() => handlePurchase("premium")}
-              size="lg"
-              className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold"
-            >
-              Desbloquear Agora
-            </Button>
-            <Button
-              onClick={() => setLocation("/")}
-              size="lg"
-              variant="outline"
-              className="border-slate-600 text-slate-300 hover:bg-slate-800"
-            >
-              Voltar
-            </Button>
-          </div>
-          <p className="text-sm text-slate-400">
-            🔒 Pagamento Seguro e Confixível
+          <p className="text-slate-400">
+            Transforme quantas fotos quiser e compartilhe momentos divertidos com seus amigos!
+          </p>
+          <p className="text-sm text-slate-500 pt-4 border-t border-slate-700">
+            🔒 Pagamento Seguro e Confiável
           </p>
         </div>
       </main>
