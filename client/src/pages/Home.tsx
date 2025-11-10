@@ -1,7 +1,7 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Sparkles, Wand2, Play, Star, Facebook, Instagram, Youtube, Send } from "lucide-react";
+import { Sparkles, Wand2, Play, Facebook, Instagram, Youtube, Send, Crown, Zap, InfinityIcon, Check } from "lucide-react";
 import { APP_LOGO, APP_TITLE, getLoginUrl } from "@/const";
 import { useLocation } from "wouter";
 import { CreditBadge } from "@/components/CreditBadge";
@@ -39,25 +39,49 @@ export default function Home() {
     setContactMessage("");
   };
 
-  const testimonials = [
+  const plans = [
     {
-      name: "Maria Silva",
-      location: "São Paulo, SP",
-      rating: 5,
-      text: "Adorei! Virei uma deusa grega e meus amigos não pararam de rir. Muito divertido!"
+      id: "light",
+      name: "Pacote Light",
+      price: "R$ 9,90",
+      credits: 50,
+      description: "50 Créditos",
+      color: "from-blue-500 to-cyan-500",
+      borderColor: "border-blue-500/30",
+      features: ["50 transformações", "Todos os 5 temas", "Download em alta qualidade"],
     },
     {
-      name: "João Santos",
-      location: "Rio de Janeiro, RJ",
-      rating: 5,
-      text: "As transformações são incríveis! Virei um viking e compartilhei no Instagram. Sucesso!"
+      id: "premium",
+      name: "Pacote Premium",
+      price: "R$ 19,90",
+      credits: 200,
+      description: "200 Créditos + Extras",
+      color: "from-orange-500 to-red-500",
+      borderColor: "border-orange-500/30",
+      popular: true,
+      features: ["200 transformações", "Todos os 5 temas", "Recursos extras", "Suporte prioritário"],
     },
     {
-      name: "Ana Costa",
-      location: "Belo Horizonte, MG",
-      rating: 5,
-      text: "Fiquei surpresa com a qualidade. A IA manteve meu rosto mas me transformou completamente!"
-    }
+      id: "monthly_unlimited",
+      name: "Ilimitado Mensal",
+      price: "R$ 29,90/mês",
+      credits: -1,
+      description: "Créditos Ilimitados",
+      color: "from-purple-500 to-pink-500",
+      borderColor: "border-purple-500/30",
+      features: ["Transformações ilimitadas", "Todos os 5 temas", "Renovação mensal"],
+    },
+    {
+      id: "annual_unlimited",
+      name: "Ilimitado Anual",
+      price: "R$ 119,90/ano",
+      credits: -1,
+      description: "Economize!",
+      color: "from-yellow-500 to-orange-600",
+      borderColor: "border-yellow-500/30",
+      badge: "Melhor Custo-Benefício",
+      features: ["Transformações ilimitadas", "Todos os 5 temas", "Economize R$ 238,90/ano"],
+    },
   ];
 
   const faqs = [
@@ -240,25 +264,52 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Seção de Opiniões */}
+        {/* Seção de Planos de Créditos */}
         <section className="mt-20 pt-12 border-t border-slate-800">
           <div className="text-center mb-12">
-            <h3 className="text-4xl font-bold text-white mb-4">Opiniões</h3>
-            <p className="text-xl text-slate-400">Veja o que nossos usuários dizem</p>
+            <h3 className="text-4xl font-bold text-white mb-4">Planos de Créditos</h3>
+            <p className="text-xl text-slate-400">Escolha o melhor plano para você e comece a transformar suas fotos!</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="bg-slate-900/50 border-slate-800 p-6 space-y-4">
-                <div className="flex gap-1">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-orange-500 text-orange-500" />
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {plans.map((plan) => (
+              <Card 
+                key={plan.id} 
+                className={`relative bg-slate-900/50 ${plan.borderColor} border-2 p-6 space-y-4 hover:scale-105 transition-transform`}
+              >
+                {plan.popular && (
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-bold px-4 py-1 rounded-full">
+                    MAIS POPULAR
+                  </div>
+                )}
+                {plan.badge && (
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-yellow-500 to-orange-600 text-white text-xs font-bold px-4 py-1 rounded-full">
+                    {plan.badge}
+                  </div>
+                )}
+                
+                <div className="text-center space-y-2">
+                  <h4 className="text-xl font-bold text-white">{plan.name}</h4>
+                  <div className={`text-3xl font-bold bg-gradient-to-r ${plan.color} bg-clip-text text-transparent`}>
+                    {plan.price}
+                  </div>
+                  <p className="text-sm text-slate-400">{plan.description}</p>
+                </div>
+
+                <ul className="space-y-2">
+                  {plan.features.map((feature, idx) => (
+                    <li key={idx} className="flex items-start gap-2 text-sm text-slate-300">
+                      <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span>{feature}</span>
+                    </li>
                   ))}
-                </div>
-                <p className="text-slate-300 leading-relaxed">{testimonial.text}</p>
-                <div className="pt-4 border-t border-slate-800">
-                  <p className="font-semibold text-white">{testimonial.name}</p>
-                  <p className="text-sm text-slate-500">{testimonial.location}</p>
-                </div>
+                </ul>
+
+                <Button
+                  onClick={() => setLocation("/planos")}
+                  className={`w-full bg-gradient-to-r ${plan.color} hover:opacity-90 text-white font-semibold`}
+                >
+                  Adquirir Agora
+                </Button>
               </Card>
             ))}
           </div>

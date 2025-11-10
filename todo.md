@@ -439,3 +439,17 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Adicionar seções faltantes ao app
 - [ ] Ajustar cores para combinar perfeitamente
 - [ ] Decidir se mantém 5 categorias no app ou alinha com as 4 do site
+
+## Ajuste de UX - Substituir Opiniões por Planos (09/11/2025)
+
+### Problema Identificado:
+- [x] Seção "Opiniões" com estrelas parece clicável mas não tem função
+- [x] Usuários podem ficar confusos tentando clicar nos botões de estrelas
+- [x] Espaço valioso na página Home não está sendo usado de forma útil
+
+### Solução:
+- [x] Substituir seção "Opiniões" por seção "Planos de Créditos"
+- [x] Mostrar os 4 pacotes de créditos disponíveis (Light, Premium, Mensal, Anual)
+- [x] Botões funcionais que levam para página /planos
+- [x] Destacar pacote "MAIS POPULAR" (Premium)
+- [x] Design consistente com o resto da página
