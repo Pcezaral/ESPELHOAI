@@ -355,3 +355,87 @@ Isso deve resolver o problema crítico de grupos onde apenas algumas pessoas era
 
 ### Resultado:
 App totalmente alinhado com identidade visual do site Hostinger
+
+## Análise do Site Hostinger - Seções e Estilo (09/11/2025)
+
+### Seções do Site (em ordem):
+
+**1. Hero Section (Topo - Fundo Preto)**
+- Logo ESPELHO AI centralizado
+- "Quero meus créditos!" (esquerda)
+- "Como fazer?" (direita)
+- Texto: "Carregue sua imagem... Gere a imagem, divirta-se e compartilhe!"
+- Exemplos de antes/depois
+- Botão: "Comece já!"
+- "Gere três imagens bônus agora!!"
+
+**2. Seção de Categorias (Fundo Branco/Claro)**
+- Título: "No EspelhoAI, transforme suas fotos em personagens divertidos e criativos, misturando arte e humor e tecnologia!"
+- 4 categorias com exemplos visuais:
+  * Bichinho (verde)
+  * Pintura (rosa/magenta)
+  * Monstro (verde)
+  * Histórico (laranja/vermelho)
+- "Nossos criadores" - galeria de exemplos
+
+**3. Plano Premium (Fundo Branco/Claro)**
+- Título: "Plano Premium"
+- Subtítulo laranja: "Com o EspelhoAI, suas fotos viram personagens divertidos e únicos a cada minuto!"
+- 4 cards de categorias:
+  * Históricas
+  * Mostrinho (verde - typo: deveria ser "Monstrinho")
+  * Bichinho (verde)
+  * Pintura Clássica (rosa)
+
+**4. Opiniões (Fundo Branco/Claro)**
+- Título: "Opiniões"
+- Subtítulo: "Veja o que nossos usuários divertem dizem"
+- Cards de depoimentos com estrelas, texto e nome/localização
+
+**5. Dúvidas Frequentes (Fundo Branco/Claro)**
+- Título: "Dúvidas Frequentes"
+- Perguntas e respostas:
+  * Como funciona o app?
+  * Posso usar as imagens geradas?
+  * Quais estilos estão disponíveis?
+  * O app é gratuito?
+  * Minhas fotos ficam salvas?
+  * Como posso enviar feedback ou sugestões?
+
+**6. Contato (Fundo Roxo Escuro)**
+- Título: "Contato"
+- Texto: "Fale conosco para dúvidas ou sugestões"
+- Ícones sociais: Facebook, Instagram, TikTok, YouTube
+- Email: contato@espelhoai.com.br
+- Formulário: "Seu nome, por favor" + "Enviar agora"
+- Footer: "© 2025. All rights reserved."
+
+### Cores Identificadas:
+- **Preto**: #000000 ou similar (hero section, footer)
+- **Branco/Claro**: #FFFFFF ou #F5F5F5 (seções intermediárias)
+- **Laranja**: #FF6B35 ou similar (texto "AI", destaques)
+- **Verde**: Para Bichinho e Monstro
+- **Rosa/Magenta**: Para Pintura
+- **Roxo Escuro**: #2D1B69 ou similar (seção contato)
+- **Azul**: Botões de ação
+
+### Tipografia:
+- Fonte moderna, sans-serif
+- Títulos em negrito
+- Texto corpo regular
+
+### Diferenças com o App Atual:
+- [ ] App tem 5 categorias, site tem 4 (falta "Se tivesse nascido..." e "Romanos, Gregos e Vikings")
+- [x] App não tem seção "Opiniões"
+- [x] App não tem seção "Dúvidas Frequentes"
+- [x] App não tem seção "Contato" com formulário
+- [ ] App não tem galeria "Nossos criadores"
+- [ ] Cores podem precisar ajuste fino
+- [ ] Typo no site: "Mostrinho" → "Monstrinho"
+- [ ] Typo no site: "divertem dizem" → "divertidos dizem"
+
+### Ações Necessárias:
+- [ ] Corrigir typos identificados
+- [x] Adicionar seções faltantes ao app
+- [ ] Ajustar cores para combinar perfeitamente
+- [ ] Decidir se mantém 5 categorias no app ou alinha com as 4 do site

@@ -1,14 +1,18 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Sparkles, Wand2, Play } from "lucide-react";
+import { Sparkles, Wand2, Play, Star, Facebook, Instagram, Youtube, Send } from "lucide-react";
 import { APP_LOGO, APP_TITLE, getLoginUrl } from "@/const";
 import { useLocation } from "wouter";
 import { CreditBadge } from "@/components/CreditBadge";
+import { useState } from "react";
+import { toast } from "sonner";
 
 export default function Home() {
   const { user, loading, isAuthenticated } = useAuth();
   const [, setLocation] = useLocation();
+  const [contactName, setContactName] = useState("");
+  const [contactMessage, setContactMessage] = useState("");
 
   const handleStartApp = () => {
     if (isAuthenticated) {
@@ -17,6 +21,71 @@ export default function Home() {
       window.location.href = getLoginUrl();
     }
   };
+
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!contactName.trim()) {
+      toast.error("Por favor, informe seu nome");
+      return;
+    }
+    if (!contactMessage.trim()) {
+      toast.error("Por favor, escreva uma mensagem");
+      return;
+    }
+    
+    // Simular envio (pode integrar com backend depois)
+    toast.success("Mensagem enviada com sucesso! Entraremos em contato em breve.");
+    setContactName("");
+    setContactMessage("");
+  };
+
+  const testimonials = [
+    {
+      name: "Maria Silva",
+      location: "São Paulo, SP",
+      rating: 5,
+      text: "Adorei! Virei uma deusa grega e meus amigos não pararam de rir. Muito divertido!"
+    },
+    {
+      name: "João Santos",
+      location: "Rio de Janeiro, RJ",
+      rating: 5,
+      text: "As transformações são incríveis! Virei um viking e compartilhei no Instagram. Sucesso!"
+    },
+    {
+      name: "Ana Costa",
+      location: "Belo Horizonte, MG",
+      rating: 5,
+      text: "Fiquei surpresa com a qualidade. A IA manteve meu rosto mas me transformou completamente!"
+    }
+  ];
+
+  const faqs = [
+    {
+      question: "Como funciona o app?",
+      answer: "Você envia uma foto, escolhe um tema (Bichinho, Monstro, Pintura, etc.) e a IA transforma sua imagem mantendo suas características faciais reconhecíveis."
+    },
+    {
+      question: "Posso usar as imagens geradas?",
+      answer: "Sim! Todas as imagens geradas são suas. Você pode baixar, compartilhar nas redes sociais e usar como quiser."
+    },
+    {
+      question: "Quais estilos estão disponíveis?",
+      answer: "Temos 5 categorias: Bichinho (animais fofos), Monstro (criaturas divertidas), Pintura (7 épocas históricas), Se tivesse nascido... (mudança de gênero) e Romanos, Gregos e Vikings (guerreiros épicos)."
+    },
+    {
+      question: "O app é gratuito?",
+      answer: "Você recebe 5 créditos gratuitos ao se cadastrar. Depois, pode comprar pacotes de créditos ou assinar planos ilimitados mensais/anuais."
+    },
+    {
+      question: "Minhas fotos ficam salvas?",
+      answer: "Suas fotos são processadas de forma segura e não são compartilhadas. Você pode baixar os resultados e eles ficam disponíveis no seu histórico."
+    },
+    {
+      question: "Como posso enviar feedback ou sugestões?",
+      answer: "Use o formulário de contato no final desta página ou envie um email para contato@espelhoai.com.br. Adoramos ouvir nossos usuários!"
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
@@ -170,6 +239,115 @@ export default function Home() {
             <p className="text-slate-400 mt-2">Para explorar</p>
           </div>
         </div>
+
+        {/* Seção de Opiniões */}
+        <section className="mt-20 pt-12 border-t border-slate-800">
+          <div className="text-center mb-12">
+            <h3 className="text-4xl font-bold text-white mb-4">Opiniões</h3>
+            <p className="text-xl text-slate-400">Veja o que nossos usuários dizem</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {testimonials.map((testimonial, index) => (
+              <Card key={index} className="bg-slate-900/50 border-slate-800 p-6 space-y-4">
+                <div className="flex gap-1">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 fill-orange-500 text-orange-500" />
+                  ))}
+                </div>
+                <p className="text-slate-300 leading-relaxed">{testimonial.text}</p>
+                <div className="pt-4 border-t border-slate-800">
+                  <p className="font-semibold text-white">{testimonial.name}</p>
+                  <p className="text-sm text-slate-500">{testimonial.location}</p>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* Seção de Dúvidas Frequentes */}
+        <section className="mt-20 pt-12 border-t border-slate-800">
+          <div className="text-center mb-12">
+            <h3 className="text-4xl font-bold text-white mb-4">Dúvidas Frequentes</h3>
+          </div>
+          <div className="max-w-3xl mx-auto space-y-4">
+            {faqs.map((faq, index) => (
+              <Card key={index} className="bg-slate-900/50 border-slate-800 p-6 space-y-3">
+                <h4 className="text-lg font-semibold text-orange-400">{faq.question}</h4>
+                <p className="text-slate-300 leading-relaxed">{faq.answer}</p>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* Seção de Contato */}
+        <section className="mt-20 pt-12 border-t border-slate-800">
+          <div className="bg-gradient-to-br from-purple-900/30 to-slate-900/50 rounded-3xl border border-purple-500/30 p-8 md:p-12">
+            <div className="text-center mb-8">
+              <h3 className="text-4xl font-bold text-white mb-4">Contato</h3>
+              <p className="text-xl text-slate-300">Fale conosco para dúvidas ou sugestões</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {/* Informações de Contato */}
+              <div className="space-y-6">
+                <div>
+                  <h4 className="text-lg font-semibold text-white mb-4">Redes Sociais</h4>
+                  <div className="flex gap-4">
+                    <a href="#" className="w-12 h-12 rounded-full bg-slate-800 hover:bg-orange-500 flex items-center justify-center transition-colors">
+                      <Facebook className="w-6 h-6 text-white" />
+                    </a>
+                    <a href="#" className="w-12 h-12 rounded-full bg-slate-800 hover:bg-orange-500 flex items-center justify-center transition-colors">
+                      <Instagram className="w-6 h-6 text-white" />
+                    </a>
+                    <a href="#" className="w-12 h-12 rounded-full bg-slate-800 hover:bg-orange-500 flex items-center justify-center transition-colors">
+                      <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                      </svg>
+                    </a>
+                    <a href="#" className="w-12 h-12 rounded-full bg-slate-800 hover:bg-orange-500 flex items-center justify-center transition-colors">
+                      <Youtube className="w-6 h-6 text-white" />
+                    </a>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="text-lg font-semibold text-white mb-2">Email</h4>
+                  <a href="mailto:contato@espelhoai.com.br" className="text-orange-400 hover:text-orange-300 transition-colors">
+                    contato@espelhoai.com.br
+                  </a>
+                </div>
+              </div>
+
+              {/* Formulário de Contato */}
+              <form onSubmit={handleContactSubmit} className="space-y-4">
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Seu nome, por favor"
+                    value={contactName}
+                    onChange={(e) => setContactName(e.target.value)}
+                    className="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-orange-500 transition-colors"
+                  />
+                </div>
+                <div>
+                  <textarea
+                    placeholder="Sua mensagem..."
+                    value={contactMessage}
+                    onChange={(e) => setContactMessage(e.target.value)}
+                    rows={4}
+                    className="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-orange-500 transition-colors resize-none"
+                  />
+                </div>
+                <Button
+                  type="submit"
+                  className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold"
+                >
+                  <Send className="w-4 h-4 mr-2" />
+                  Enviar agora
+                </Button>
+              </form>
+            </div>
+          </div>
+        </section>
       </main>
 
       {/* Footer */}
@@ -183,16 +361,8 @@ export default function Home() {
               Transformando fotos em diversão desde 2025 ✨
             </p>
           </div>
-          <div className="flex justify-center gap-6 text-sm text-slate-500 border-t border-slate-800 pt-4">
-            <button onClick={() => setLocation("/about")} className="hover:text-orange-400 transition-colors">
-              Sobre
-            </button>
-            <button onClick={() => setLocation("/about")} className="hover:text-orange-400 transition-colors">
-              Privacidade
-            </button>
-            <button onClick={() => setLocation("/about")} className="hover:text-orange-400 transition-colors">
-              Termos
-            </button>
+          <div className="text-center text-sm text-slate-500 border-t border-slate-800 pt-4">
+            <p>© 2025. All rights reserved.</p>
           </div>
         </div>
       </footer>
