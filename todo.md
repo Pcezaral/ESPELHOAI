@@ -453,3 +453,21 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Botões funcionais que levam para página /planos
 - [x] Destacar pacote "MAIS POPULAR" (Premium)
 - [x] Design consistente com o resto da página
+
+## PROBLEMA CRÍTICO - Geração de Imagens (09/11/2025) 🚨
+
+### Problema Reportado:
+- [x] Categoria "Romanos, Gregos e Vikings": foto de 1 mulher gerou GRUPO de pessoas
+- [x] NENHUMA pessoa no resultado correspondeu aos traços da mulher original
+- [x] Problema já foi mencionado mais de 10 vezes mas não foi resolvido definitivamente
+
+### Regras ABSOLUTAS que devem ser seguidas:
+1. **NÚMERO DE PESSOAS**: Se foto tem 1 pessoa → gerar 1 pessoa. Se tem 3 → gerar 3. NUNCA mudar quantidade!
+2. **PRESERVAÇÃO FACIAL TOTAL**: Exceto Bichinho/Monstro, TODOS os outros temas devem manter rostos 100% idênticos
+3. **Traços e expressões**: Mesma estrutura facial, mesma expressão, mesma idade, mesmo tom de pele
+
+### Ação Necessária:
+- [x] Revisar TODOS os prompts de geração
+- [x] Adicionar instruções EXPLÍCITAS sobre manter número de pessoas
+- [x] Reforçar preservação facial com linguagem mais forte
+- [ ] Testar com foto de 1 pessoa para garantir que gera 1 pessoa (AGUARDANDO TESTE DO USUÁRIO)
