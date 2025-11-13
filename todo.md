@@ -471,3 +471,15 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Adicionar instruções EXPLÍCITAS sobre manter número de pessoas
 - [x] Reforçar preservação facial com linguagem mais forte
 - [ ] Testar com foto de 1 pessoa para garantir que gera 1 pessoa (AGUARDANDO TESTE DO USUÁRIO)
+
+## Remover Seção Visual Confusa (09/11/2025)
+
+### Problema:
+- [x] Seção com card mostrando "Transformação Mágica" + caixas "Sua Foto" e "Sua Versão" parece clicável
+- [x] Usuários tentam clicar mas não faz nada
+- [x] Ocupa espaço sem agregar valor
+- [x] Já foi pedido ontem para remover
+
+### Solução:
+- [x] Remover completamente essa seção visual da página Home
+- [x] Manter apenas o texto explicativo e botões de ação

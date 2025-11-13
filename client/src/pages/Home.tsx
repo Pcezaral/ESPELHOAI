@@ -139,7 +139,7 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="container py-12 md:py-20 relative z-10">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="max-w-4xl mx-auto">
           {/* Left Column - Text & CTA */}
           <div className="space-y-8">
             <div className="space-y-4">
@@ -213,33 +213,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right Column - Visual */}
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 via-red-500/20 to-yellow-500/20 rounded-3xl blur-3xl" />
-            <Card className="relative border-orange-500/30 bg-gradient-to-br from-slate-900 to-slate-950 shadow-2xl overflow-hidden">
-              <div className="aspect-square bg-gradient-to-br from-orange-500/10 via-red-500/10 to-yellow-500/10 p-8 flex flex-col items-center justify-center space-y-6">
-                <div className="text-8xl animate-bounce">✨</div>
-                <div className="text-center space-y-2">
-                  <p className="text-2xl font-bold text-white">
-                    Transformação Mágica
-                  </p>
-                  <p className="text-slate-300">
-                    Sua foto + IA = Resultado Hilariante
-                  </p>
-                </div>
-                <div className="grid grid-cols-2 gap-4 w-full">
-                  <div className="bg-slate-800/50 backdrop-blur rounded-lg p-4 text-center border border-slate-700">
-                    <p className="text-3xl">📸</p>
-                    <p className="text-xs font-medium text-slate-300 mt-2">Sua Foto</p>
-                  </div>
-                  <div className="bg-gradient-to-br from-orange-500/20 to-red-500/20 backdrop-blur rounded-lg p-4 text-center border border-orange-500/30">
-                    <p className="text-3xl">🎭</p>
-                    <p className="text-xs font-medium text-orange-300 mt-2">Sua Versão</p>
-                  </div>
-                </div>
-              </div>
-            </Card>
-          </div>
+
         </div>
 
         {/* Social Proof / Stats - ATUALIZADO PARA 5 TEMAS */}
