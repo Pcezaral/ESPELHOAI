@@ -483,3 +483,18 @@ App totalmente alinhado com identidade visual do site Hostinger
 ### Solução:
 - [x] Remover completamente essa seção visual da página Home
 - [x] Manter apenas o texto explicativo e botões de ação
+
+## Aumentar Aleatoriedade e Evitar Capacetes (09/11/2025)
+
+### Problema Identificado:
+- [x] Mesma imagem gera transformações muito parecidas
+- [x] Usuário recarrega porque não gostou OU quer ver outra versão
+- [x] Capacetes dificultam identificação da pessoa
+- [x] Falta variação nos resultados
+
+### Solução:
+- [x] Adicionar mais opções aleatórias em cada categoria
+- [x] Instruir explicitamente: EVITAR capacetes
+- [x] Variar poses, ângulos, cenários
+- [x] Adicionar seed aleatório ou variações no prompt
+- [x] Categoria "Romanos, Gregos e Vikings": preferir coroas, tiaras, cabelos soltos ao invés de capacetes
