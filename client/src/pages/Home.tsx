@@ -183,33 +183,48 @@ export default function Home() {
               </Button>
             </div>
 
-            {/* Features - 5 CATEGORIAS FINAIS */}
+            {/* Features - 5 CATEGORIAS FINAIS - CLICÁVEIS */}
             <div className="grid grid-cols-2 gap-4 pt-8">
-              <div className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-orange-500/30 transition-colors">
+              <button
+                onClick={handleStartApp}
+                className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-orange-500/30 hover:bg-slate-800/50 transition-all cursor-pointer text-left"
+              >
                 <div className="text-3xl font-bold text-orange-400">🐾</div>
                 <p className="font-semibold text-white">Bichinho</p>
                 <p className="text-sm text-slate-400">Animal adorável</p>
-              </div>
-              <div className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-purple-500/30 transition-colors">
+              </button>
+              <button
+                onClick={handleStartApp}
+                className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-purple-500/30 hover:bg-slate-800/50 transition-all cursor-pointer text-left"
+              >
                 <div className="text-3xl font-bold text-purple-400">👾</div>
                 <p className="font-semibold text-white">Monstro</p>
                 <p className="text-sm text-slate-400">Criatura fofa</p>
-              </div>
-              <div className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-amber-500/30 transition-colors">
+              </button>
+              <button
+                onClick={handleStartApp}
+                className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-amber-500/30 hover:bg-slate-800/50 transition-all cursor-pointer text-left"
+              >
                 <div className="text-3xl font-bold text-amber-400">🎨</div>
                 <p className="font-semibold text-white">Pintura</p>
-                <p className="text-sm text-slate-400">Várias épocas</p>
-              </div>
-              <div className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-pink-500/30 transition-colors">
+                <p className="text-sm text-slate-400">Estilos artísticos</p>
+              </button>
+              <button
+                onClick={handleStartApp}
+                className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-pink-500/30 hover:bg-slate-800/50 transition-all cursor-pointer text-left"
+              >
                 <div className="text-3xl font-bold text-pink-400">⚧️</div>
                 <p className="font-semibold text-white">Se tivesse nascido...</p>
-                <p className="text-sm text-slate-400">Outro gênero</p>
-              </div>
-              <div className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-yellow-600/30 transition-colors col-span-2">
+                <p className="text-sm text-slate-400">Versão hilariante</p>
+              </button>
+              <button
+                onClick={handleStartApp}
+                className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-yellow-600/30 hover:bg-slate-800/50 transition-all cursor-pointer text-left col-span-2"
+              >
                 <div className="text-3xl font-bold text-yellow-600">⚔️</div>
                 <p className="font-semibold text-white">Romanos, Gregos e Vikings</p>
                 <p className="text-sm text-slate-400">Guerreiro/deusa épico</p>
-              </div>
+              </button>
             </div>
           </div>
 

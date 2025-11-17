@@ -498,3 +498,21 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Variar poses, ângulos, cenários
 - [x] Adicionar seed aleatório ou variações no prompt
 - [x] Categoria "Romanos, Gregos e Vikings": preferir coroas, tiaras, cabelos soltos ao invés de capacetes
+
+## Melhorias de Variedade e Humor (09/11/2025)
+
+### 1. Categoria Pintura - Mais Variada
+- [x] Problema: Sempre sai renascentista/nobreza francesa
+- [x] Solução: Adicionar estilos artísticos (Van Gogh, Picasso, Warhol, Monet)
+- [x] Adicionar temas diversos: gangster, rockstar, hippie, punk, etc.
+
+### 2. Categoria Gênero - Mais Humorada
+- [x] Problema: Mudança muito séria, falta humor
+- [x] Homem→Mulher: Roupas extravagantes (baiana, havaiana, freira, drag queen)
+- [x] Mulher→Homem: Bigode, profissões (bombeiro, policial, médico, rockstar)
+- [x] Cenários bem humorados e coloridos
+
+### 3. Cards de Categorias Clicáveis
+- [x] Problema: Cards são apenas visuais
+- [x] Solução: Transformar em botões que levam direto para /generator
+- [x] Usuário clica no card e já pode enviar foto naquele tema
