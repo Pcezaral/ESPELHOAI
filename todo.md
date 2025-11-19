@@ -548,3 +548,16 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Ler prompts atuais de Pintura, Épico e Gênero
 - [x] Identificar diferenças estruturais
 - [x] Reescrever prompt de Gênero usando técnicas dos que funcionam
+
+
+## Problema - Bichinho e Monstro (09/11/2025)
+
+### Observação do Usuário:
+- [x] Bichinho e Monstro estão ficando muito diferentes da foto carregada
+- [x] Não vão funcionar assim - precisam manter semelhança reconhecível
+- [x] Aplicar mesma estrutura de preservação facial dos outros prompts
+
+### Ação:
+- [x] Reescrever prompt de Bichinho com preservação facial
+- [x] Reescrever prompt de Monstro com preservação facial
+- [x] Manter criatividade mas com rosto reconhecível

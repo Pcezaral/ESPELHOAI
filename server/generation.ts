@@ -44,14 +44,14 @@ export async function generateTransformation(
   
   const themePrompts: Record<typeof theme, { prompt: string; text: string }> = {
     animals: {
-      // Bichinho: Alta variação de espécies
-      prompt: `Transform into cute animal (randomly choose: fluffy cat, playful dog, wise owl, gentle deer, curious fox, cuddly bear, happy bunny, colorful parrot, sleepy koala, energetic squirrel). Keep EXACT same number of people. Preserve facial expression and eye personality. Full fur/feathers, expressive animal features. Vibrant colors. Vary pose and angle. Cartoon style. Random seed: ${randomSeed}`,
+      // Bichinho: ROSTO RECONHECÍVEL mesmo como animal
+      prompt: `Cute animal portrait transformation. Keep EXACT same number of people. CRITICAL: Maintain RECOGNIZABLE facial features - same eye shape, eye color, nose proportions, mouth expression, facial structure must be identifiable. DO NOT create generic animal, DO NOT lose person's identity. ONLY change: add fur/feathers, animal ears, whiskers, tail. Randomly choose ONE animal: fluffy cat (soft fur, cat ears, whiskers), playful dog (floppy ears, friendly expression), wise owl (feathered face, big eyes but same eye color), gentle deer (soft features, small antlers), curious fox (orange fur, pointed ears), cuddly bear (round ears, soft fur), happy bunny (long ears, fluffy), colorful parrot (feathers, beak but recognizable face), sleepy koala (gray fur, round ears), energetic squirrel (bushy tail, alert expression). CRITICAL: Face must look like the person AS an animal, not a random animal. Keep facial proportions, eye spacing, expression identical. Vary pose naturally (sitting / standing / playful / resting). Soft lighting, vibrant but natural colors. Cute cartoon style with facial recognition. Random seed: ${randomSeed}`,
       text: "Você é um bichinho encantador! Suas características se transformaram em um animal adorável que mantém sua essência única! 🐾"
     },
     
     monster: {
-      // Monstro: Alta variação de cores e detalhes
-      prompt: `Transform into cute colorful monster (randomly vary: skin color from pink/purple/turquoise/mint/coral, horn style from curved/straight/spiral, eye size from big/huge/enormous, accessory from bow/hat/glasses). Keep EXACT same number of people. Preserve facial structure and expression. Playful details, unique patterns. Vary pose dramatically. Cartoon style. Random seed: ${randomSeed}`,
+      // Monstro: ROSTO RECONHECÍVEL mesmo como monstro
+      prompt: `Cute monster portrait transformation. Keep EXACT same number of people. CRITICAL: Maintain RECOGNIZABLE facial features - same eye shape, eye color, facial proportions, expression, smile/frown pattern must be identifiable. DO NOT create generic monster, DO NOT lose person's identity. ONLY change: add monster features (horns, colorful skin, playful details). Randomly vary monster style: skin color (pink / purple / turquoise / mint / coral / lavender / peach), horn style (small curved / tiny straight / mini spiral / cute nubs), accessory (bow / hat / glasses / flower / star), pattern (spots / stripes / sparkles / swirls). CRITICAL: Face structure must look like the person AS a monster, not a random creature. Keep same eye spacing, nose position, mouth shape, facial bone structure. Vary pose naturally (friendly wave / playful stance / cute sitting / happy jumping). Soft lighting, vibrant cheerful colors. Adorable cartoon style with facial recognition. Random seed: ${randomSeed}`,
       text: "Você é um monstrinho adorável! Mantendo seus traços únicos, você seria uma criatura fofa e divertida que conquista todos ao redor! 👾"
     },
     
