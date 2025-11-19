@@ -516,3 +516,35 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Problema: Cards são apenas visuais
 - [x] Solução: Transformar em botões que levam direto para /generator
 - [x] Usuário clica no card e já pode enviar foto naquele tema
+
+## PROBLEMA CRÍTICO - Falta de Preservação Facial (09/11/2025) 🚨🚨🚨
+
+### Problema GRAVE:
+- [ ] Foto de homem idoso careca com barba branca gerou mulher jovem com rosto completamente diferente
+- [ ] API atual (Manus ImageService) NÃO respeita instruções de preservação facial
+- [ ] Prompts em inglês sendo IGNORADOS pelo modelo
+- [ ] Sem preservação facial, o app PERDE TOTALMENTE O SENTIDO
+
+### Causa Raiz:
+- [ ] API atual só aceita `prompt` e `originalImages`
+- [ ] Sem parâmetros técnicos de controle de preservação facial
+- [ ] Modelo de IA ignora instruções textuais
+
+### Solução Necessária:
+- [ ] Buscar APIs alternativas com melhor preservação facial
+- [ ] Avaliar: Replicate, Stability AI, Midjourney API, Face Swap APIs
+- [ ] Integrar nova API que realmente preserve rostos
+- [ ] Testar com múltiplas fotos antes de entregar ao usuário
+
+
+## Análise de Prompts - Melhorar Gênero (09/11/2025)
+
+### Observação do Usuário:
+- [x] Pintura e Épico (Gregos/Romanos/Vikings) preservam rostos razoavelmente bem
+- [x] Mudança de Gênero ficou "sem graça" - não preserva bem
+- [x] Comparar prompts para identificar o que fazer diferente
+
+### Ação:
+- [x] Ler prompts atuais de Pintura, Épico e Gênero
+- [x] Identificar diferenças estruturais
+- [x] Reescrever prompt de Gênero usando técnicas dos que funcionam
