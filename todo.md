@@ -561,3 +561,16 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Reescrever prompt de Bichinho com preservação facial
 - [x] Reescrever prompt de Monstro com preservação facial
 - [x] Manter criatividade mas com rosto reconhecível
+
+
+## Layout - Seções Alternadas Branco/Preto (09/11/2025)
+
+### Requisito do Usuário:
+- [x] Layout do site deve ter seções alternando entre fundo branco e preto
+- [x] Inspirado no site em construção do Hostinger mostrado anteriormente
+- [x] Aplicar em Home.tsx (principal)
+
+### Ação:
+- [x] Ajustar Home.tsx com seções alternadas
+- [x] Ajustar cores de texto para contraste adequado
+- [ ] Verificar outras páginas (Generator, Planos, etc.) - SE NECESSÁRIO

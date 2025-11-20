@@ -48,54 +48,83 @@ export default function Home() {
       description: "50 Créditos",
       color: "from-blue-500 to-cyan-500",
       borderColor: "border-blue-500/30",
-      features: ["50 transformações", "Todos os 5 temas", "Download em alta qualidade"],
+      features: [
+        "50 transformações",
+        "Todos os 5 temas",
+        "Download em alta resolução",
+        "Suporte por email"
+      ]
     },
     {
       id: "premium",
       name: "Pacote Premium",
       price: "R$ 19,90",
       credits: 200,
-      description: "200 Créditos + Extras",
+      description: "200 Créditos",
       color: "from-orange-500 to-red-500",
-      borderColor: "border-orange-500/30",
+      borderColor: "border-orange-500/50",
       popular: true,
-      features: ["200 transformações", "Todos os 5 temas", "Recursos extras", "Suporte prioritário"],
+      features: [
+        "200 transformações",
+        "Todos os 5 temas",
+        "Download em alta resolução",
+        "Suporte prioritário",
+        "Acesso antecipado a novos temas"
+      ]
     },
     {
-      id: "monthly_unlimited",
+      id: "monthly",
       name: "Ilimitado Mensal",
       price: "R$ 29,90/mês",
-      credits: -1,
-      description: "Créditos Ilimitados",
+      credits: Infinity,
+      description: "Transformações Ilimitadas",
       color: "from-purple-500 to-pink-500",
       borderColor: "border-purple-500/30",
-      features: ["Transformações ilimitadas", "Todos os 5 temas", "Renovação mensal"],
+      features: [
+        "Transformações ilimitadas",
+        "Todos os 5 temas",
+        "Download em alta resolução",
+        "Suporte prioritário",
+        "Acesso antecipado a novos temas",
+        "Cancele quando quiser"
+      ]
     },
     {
-      id: "annual_unlimited",
+      id: "yearly",
       name: "Ilimitado Anual",
       price: "R$ 119,90/ano",
-      credits: -1,
-      description: "Economize!",
+      credits: Infinity,
+      description: "Transformações Ilimitadas + Economia",
       color: "from-yellow-500 to-orange-600",
       borderColor: "border-yellow-500/30",
       badge: "Melhor Custo-Benefício",
-      features: ["Transformações ilimitadas", "Todos os 5 temas", "Economize R$ 238,90/ano"],
-    },
+      features: [
+        "Transformações ilimitadas",
+        "Todos os 5 temas",
+        "Download em alta resolução",
+        "Suporte VIP",
+        "Acesso antecipado a novos temas",
+        "Economize 66% vs mensal"
+      ]
+    }
   ];
 
   const faqs = [
     {
-      question: "Como funciona o app?",
-      answer: "Você envia uma foto, escolhe um tema (Bichinho, Monstro, Pintura, etc.) e a IA transforma sua imagem mantendo suas características faciais reconhecíveis."
+      question: "Como funciona o ESPELHO AI?",
+      answer: "Você envia uma foto, escolhe um tema (Bichinho, Monstro, Pintura, Épico ou Gênero) e nossa IA generativa cria uma transformação única e divertida mantendo suas características!"
     },
     {
-      question: "Posso usar as imagens geradas?",
-      answer: "Sim! Todas as imagens geradas são suas. Você pode baixar, compartilhar nas redes sociais e usar como quiser."
+      question: "Quantos créditos preciso para gerar uma imagem?",
+      answer: "Cada transformação consome 1 crédito. Você recebe 5 créditos gratuitos ao se cadastrar e pode comprar mais ou assinar planos ilimitados."
     },
     {
-      question: "Quais estilos estão disponíveis?",
-      answer: "Temos 5 categorias: Bichinho (animais fofos), Monstro (criaturas divertidas), Pintura (7 épocas históricas), Se tivesse nascido... (mudança de gênero) e Romanos, Gregos e Vikings (guerreiros épicos)."
+      question: "Posso usar as imagens comercialmente?",
+      answer: "As imagens geradas são para uso pessoal e compartilhamento em redes sociais. Para uso comercial, entre em contato conosco."
+    },
+    {
+      question: "Quanto tempo leva para gerar uma transformação?",
+      answer: "Geralmente entre 10-30 segundos, dependendo da complexidade do tema escolhido e da demanda do servidor."
     },
     {
       question: "O app é gratuito?",
@@ -112,19 +141,13 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
-      {/* Animated background elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-red-500/10 rounded-full blur-3xl" />
-      </div>
-
+    <div className="min-h-screen bg-white">
       {/* Navigation Header */}
-      <header className="border-b border-slate-800 bg-slate-950/80 backdrop-blur-sm sticky top-0 z-50">
+      <header className="border-b border-gray-200 bg-white backdrop-blur-sm sticky top-0 z-50">
         <div className="container flex items-center justify-between h-16">
           <div className="flex items-center gap-3">
             <img src="/espelho-ai-logo-transp.png" alt="ESPELHO AI" className="h-10 w-10" />
-            <h1 className="text-2xl font-bold text-white">
+            <h1 className="text-2xl font-bold text-black">
               ESPELHO <span className="text-orange-500">AI</span>
             </h1>
           </div>
@@ -138,262 +161,261 @@ export default function Home() {
       </header>
 
       {/* Main Content */}
-      <main className="container py-12 md:py-20 relative z-10">
-        <div className="max-w-4xl mx-auto">
-          {/* Left Column - Text & CTA */}
-          <div className="space-y-8">
-            <div className="space-y-4">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-500/20 border border-orange-500/30 rounded-full">
-                <Sparkles className="w-4 h-4 text-orange-400" />
-                <span className="text-sm font-medium text-orange-300">
-                  Powered by IA Generativa
-                </span>
-              </div>
-              <h2 className="text-5xl md:text-6xl font-bold leading-tight">
-                <span className="text-white">ESPELHO</span> <br />
-                <span className="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
-                  AI
-                </span>
-              </h2>
-
-              <p className="text-xl text-slate-300 leading-relaxed">
-                Envie uma foto e deixe a IA revelar quem você seria em outro mundo. Bichinho? Monstro? Personagem histórico? Ou do outro gênero? Descubra de forma divertida e compartilhe com seus amigos!
-              </p>
-            </div>
-
-            {/* CTA Button */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button
-                onClick={handleStartApp}
-                disabled={loading}
-                size="lg"
-                className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-lg h-14 px-8 rounded-full shadow-lg hover:shadow-xl transition-all font-semibold"
-              >
-                <Wand2 className="w-5 h-5 mr-2" />
-                {loading ? "Carregando..." : "Enviar minha foto"}
-              </Button>
-              <Button
-                onClick={() => setLocation("/gallery")}
-                variant="outline"
-                size="lg"
-                className="text-lg h-14 px-8 rounded-full border-2 border-orange-500/50 text-orange-400 hover:bg-orange-500/10"
-              >
-                <Play className="w-4 h-4 mr-2" />
-                Ver exemplos
-              </Button>
-            </div>
-
-            {/* Features - 5 CATEGORIAS FINAIS - CLICÁVEIS */}
-            <div className="grid grid-cols-2 gap-4 pt-8">
-              <button
-                onClick={handleStartApp}
-                className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-orange-500/30 hover:bg-slate-800/50 transition-all cursor-pointer text-left"
-              >
-                <div className="text-3xl font-bold text-orange-400">🐾</div>
-                <p className="font-semibold text-white">Bichinho</p>
-                <p className="text-sm text-slate-400">Animal adorável</p>
-              </button>
-              <button
-                onClick={handleStartApp}
-                className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-purple-500/30 hover:bg-slate-800/50 transition-all cursor-pointer text-left"
-              >
-                <div className="text-3xl font-bold text-purple-400">👾</div>
-                <p className="font-semibold text-white">Monstro</p>
-                <p className="text-sm text-slate-400">Criatura fofa</p>
-              </button>
-              <button
-                onClick={handleStartApp}
-                className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-amber-500/30 hover:bg-slate-800/50 transition-all cursor-pointer text-left"
-              >
-                <div className="text-3xl font-bold text-amber-400">🎨</div>
-                <p className="font-semibold text-white">Pintura</p>
-                <p className="text-sm text-slate-400">Estilos artísticos</p>
-              </button>
-              <button
-                onClick={handleStartApp}
-                className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-pink-500/30 hover:bg-slate-800/50 transition-all cursor-pointer text-left"
-              >
-                <div className="text-3xl font-bold text-pink-400">⚧️</div>
-                <p className="font-semibold text-white">Se tivesse nascido...</p>
-                <p className="text-sm text-slate-400">Versão hilariante</p>
-              </button>
-              <button
-                onClick={handleStartApp}
-                className="space-y-2 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-yellow-600/30 hover:bg-slate-800/50 transition-all cursor-pointer text-left col-span-2"
-              >
-                <div className="text-3xl font-bold text-yellow-600">⚔️</div>
-                <p className="font-semibold text-white">Romanos, Gregos e Vikings</p>
-                <p className="text-sm text-slate-400">Guerreiro/deusa épico</p>
-              </button>
-            </div>
-          </div>
-
-
-        </div>
-
-        {/* Social Proof / Stats - ATUALIZADO PARA 5 TEMAS */}
-        <div className="grid md:grid-cols-3 gap-8 mt-20 pt-12 border-t border-slate-800">
-          <div className="text-center">
-            <p className="text-4xl font-bold bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
-              10K+
-            </p>
-            <p className="text-slate-400 mt-2">Transformações realizadas</p>
-          </div>
-          <div className="text-center">
-            <p className="text-4xl font-bold bg-gradient-to-r from-red-400 to-yellow-400 bg-clip-text text-transparent">
-              98%
-            </p>
-            <p className="text-slate-400 mt-2">Compartilharam o resultado</p>
-          </div>
-          <div className="text-center">
-            <p className="text-4xl font-bold bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
-              5 Temas
-            </p>
-            <p className="text-slate-400 mt-2">Para explorar</p>
-          </div>
-        </div>
-
-        {/* Seção de Planos de Créditos */}
-        <section className="mt-20 pt-12 border-t border-slate-800">
-          <div className="text-center mb-12">
-            <h3 className="text-4xl font-bold text-white mb-4">Planos de Créditos</h3>
-            <p className="text-xl text-slate-400">Escolha o melhor plano para você e comece a transformar suas fotos!</p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {plans.map((plan) => (
-              <Card 
-                key={plan.id} 
-                className={`relative bg-slate-900/50 ${plan.borderColor} border-2 p-6 space-y-4 hover:scale-105 transition-transform`}
-              >
-                {plan.popular && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-bold px-4 py-1 rounded-full">
-                    MAIS POPULAR
-                  </div>
-                )}
-                {plan.badge && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-yellow-500 to-orange-600 text-white text-xs font-bold px-4 py-1 rounded-full">
-                    {plan.badge}
-                  </div>
-                )}
-                
-                <div className="text-center space-y-2">
-                  <h4 className="text-xl font-bold text-white">{plan.name}</h4>
-                  <div className={`text-3xl font-bold bg-gradient-to-r ${plan.color} bg-clip-text text-transparent`}>
-                    {plan.price}
-                  </div>
-                  <p className="text-sm text-slate-400">{plan.description}</p>
+      <main className="relative z-10">
+        {/* Seção Hero - FUNDO BRANCO */}
+        <section className="bg-white py-12 md:py-20">
+          <div className="container max-w-4xl mx-auto">
+            <div className="space-y-8">
+              <div className="space-y-4">
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-orange-500/20 border border-orange-500/30 rounded-full">
+                  <Sparkles className="w-4 h-4 text-orange-500" />
+                  <span className="text-sm font-medium text-orange-600">
+                    Powered by IA Generativa
+                  </span>
                 </div>
+                <h2 className="text-5xl md:text-6xl font-bold leading-tight">
+                  <span className="text-black">ESPELHO</span> <br />
+                  <span className="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
+                    AI
+                  </span>
+                </h2>
 
-                <ul className="space-y-2">
-                  {plan.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-sm text-slate-300">
-                      <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+                <p className="text-xl text-gray-700 leading-relaxed">
+                  Envie uma foto e deixe a IA revelar quem você seria em outro mundo. Bichinho? Monstro? Personagem histórico? Ou do outro gênero? Descubra de forma divertida e compartilhe com seus amigos!
+                </p>
+              </div>
 
+              {/* CTA Button */}
+              <div className="flex flex-col sm:flex-row gap-4">
                 <Button
-                  onClick={() => setLocation("/planos")}
-                  className={`w-full bg-gradient-to-r ${plan.color} hover:opacity-90 text-white font-semibold`}
+                  onClick={handleStartApp}
+                  disabled={loading}
+                  size="lg"
+                  className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-lg h-14 px-8 rounded-full shadow-lg hover:shadow-xl transition-all font-semibold"
                 >
-                  Adquirir Agora
+                  <Wand2 className="w-5 h-5 mr-2" />
+                  {loading ? "Carregando..." : "Enviar minha foto"}
                 </Button>
-              </Card>
-            ))}
+                <Button
+                  onClick={() => setLocation("/gallery")}
+                  variant="outline"
+                  size="lg"
+                  className="text-lg h-14 px-8 rounded-full border-2 border-orange-500/50 text-orange-500 hover:bg-orange-500/10"
+                >
+                  <Play className="w-4 h-4 mr-2" />
+                  Ver exemplos
+                </Button>
+              </div>
+
+              {/* Features - 5 CATEGORIAS FINAIS - CLICÁVEIS */}
+              <div className="grid grid-cols-2 gap-4 pt-8">
+                <button
+                  onClick={handleStartApp}
+                  className="space-y-2 p-4 rounded-lg bg-gray-50 border border-gray-200 hover:border-orange-500/50 hover:bg-gray-100 transition-all cursor-pointer text-left"
+                >
+                  <div className="text-3xl font-bold text-orange-400">🐾</div>
+                  <p className="font-semibold text-black">Bichinho</p>
+                  <p className="text-sm text-gray-600">Animal adorável</p>
+                </button>
+                <button
+                  onClick={handleStartApp}
+                  className="space-y-2 p-4 rounded-lg bg-gray-50 border border-gray-200 hover:border-purple-500/50 hover:bg-gray-100 transition-all cursor-pointer text-left"
+                >
+                  <div className="text-3xl font-bold text-purple-400">👾</div>
+                  <p className="font-semibold text-black">Monstro</p>
+                  <p className="text-sm text-gray-600">Criatura fofa</p>
+                </button>
+                <button
+                  onClick={handleStartApp}
+                  className="space-y-2 p-4 rounded-lg bg-gray-50 border border-gray-200 hover:border-blue-500/50 hover:bg-gray-100 transition-all cursor-pointer text-left"
+                >
+                  <div className="text-3xl font-bold text-blue-400">🎨</div>
+                  <p className="font-semibold text-black">Pintura</p>
+                  <p className="text-sm text-gray-600">Obra de arte</p>
+                </button>
+                <button
+                  onClick={handleStartApp}
+                  className="space-y-2 p-4 rounded-lg bg-gray-50 border border-gray-200 hover:border-yellow-500/50 hover:bg-gray-100 transition-all cursor-pointer text-left"
+                >
+                  <div className="text-3xl font-bold text-yellow-600">⚔️</div>
+                  <p className="font-semibold text-black">Épico</p>
+                  <p className="text-sm text-gray-600">Guerreiro/deusa épico</p>
+                </button>
+                <button
+                  onClick={handleStartApp}
+                  className="col-span-2 space-y-2 p-4 rounded-lg bg-gray-50 border border-gray-200 hover:border-pink-500/50 hover:bg-gray-100 transition-all cursor-pointer text-left"
+                >
+                  <div className="text-3xl font-bold text-pink-400">⚧️</div>
+                  <p className="font-semibold text-black">Gênero</p>
+                  <p className="text-sm text-gray-600">Se tivesse nascido...</p>
+                </button>
+              </div>
+            </div>
+
+            {/* Social Proof / Stats */}
+            <div className="grid md:grid-cols-3 gap-8 mt-20 pt-12 border-t border-gray-200">
+              <div className="text-center">
+                <p className="text-4xl font-bold bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
+                  10K+
+                </p>
+                <p className="text-gray-600 mt-2">Transformações realizadas</p>
+              </div>
+              <div className="text-center">
+                <p className="text-4xl font-bold bg-gradient-to-r from-red-500 to-pink-500 bg-clip-text text-transparent">
+                  98%
+                </p>
+                <p className="text-gray-600 mt-2">Compartilharam o resultado</p>
+              </div>
+              <div className="text-center">
+                <p className="text-4xl font-bold bg-gradient-to-r from-yellow-500 to-orange-500 bg-clip-text text-transparent">
+                  5 Temas
+                </p>
+                <p className="text-gray-600 mt-2">Para explorar</p>
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* Seção de Dúvidas Frequentes */}
-        <section className="mt-20 pt-12 border-t border-slate-800">
-          <div className="text-center mb-12">
-            <h3 className="text-4xl font-bold text-white mb-4">Dúvidas Frequentes</h3>
-          </div>
-          <div className="max-w-3xl mx-auto space-y-4">
-            {faqs.map((faq, index) => (
-              <Card key={index} className="bg-slate-900/50 border-slate-800 p-6 space-y-3">
-                <h4 className="text-lg font-semibold text-orange-400">{faq.question}</h4>
-                <p className="text-slate-300 leading-relaxed">{faq.answer}</p>
-              </Card>
-            ))}
+        {/* Seção de Planos de Créditos - FUNDO PRETO */}
+        <section className="bg-black py-20">
+          <div className="container">
+            <div className="text-center mb-12">
+              <h3 className="text-4xl font-bold text-white mb-4">Planos de Créditos</h3>
+              <p className="text-xl text-gray-400">Escolha o melhor plano para você e comece a transformar suas fotos!</p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {plans.map((plan) => (
+                <Card 
+                  key={plan.id} 
+                  className={`relative bg-gray-900 ${plan.borderColor} border-2 p-6 space-y-4 hover:scale-105 transition-transform`}
+                >
+                  {plan.popular && (
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-bold px-4 py-1 rounded-full">
+                      MAIS POPULAR
+                    </div>
+                  )}
+                  {plan.badge && (
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-yellow-500 to-orange-600 text-white text-xs font-bold px-4 py-1 rounded-full">
+                      {plan.badge}
+                    </div>
+                  )}
+                  
+                  <div className="text-center space-y-2">
+                    <h4 className="text-xl font-bold text-white">{plan.name}</h4>
+                    <div className={`text-3xl font-bold bg-gradient-to-r ${plan.color} bg-clip-text text-transparent`}>
+                      {plan.price}
+                    </div>
+                    <p className="text-sm text-gray-400">{plan.description}</p>
+                  </div>
+
+                  <ul className="space-y-2">
+                    {plan.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-start gap-2 text-sm text-gray-300">
+                        <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Button
+                    onClick={() => setLocation("/planos")}
+                    className={`w-full bg-gradient-to-r ${plan.color} hover:opacity-90 text-white font-semibold`}
+                  >
+                    Adquirir Agora
+                  </Button>
+                </Card>
+              ))}
+            </div>
           </div>
         </section>
 
-        {/* Seção de Contato */}
-        <section className="mt-20 pt-12 border-t border-slate-800">
-          <div className="bg-gradient-to-br from-purple-900/30 to-slate-900/50 rounded-3xl border border-purple-500/30 p-8 md:p-12">
-            <div className="text-center mb-8">
-              <h3 className="text-4xl font-bold text-white mb-4">Contato</h3>
-              <p className="text-xl text-slate-300">Fale conosco para dúvidas ou sugestões</p>
+        {/* Seção de Dúvidas Frequentes - FUNDO BRANCO */}
+        <section className="bg-white py-20">
+          <div className="container">
+            <div className="text-center mb-12">
+              <h3 className="text-4xl font-bold text-black mb-4">Dúvidas Frequentes</h3>
             </div>
+            <div className="max-w-3xl mx-auto space-y-4">
+              {faqs.map((faq, index) => (
+                <Card key={index} className="bg-gray-50 border-gray-200 p-6 space-y-3">
+                  <h4 className="text-lg font-semibold text-orange-500">{faq.question}</h4>
+                  <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
 
-            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              {/* Informações de Contato */}
-              <div className="space-y-6">
-                <div>
-                  <h4 className="text-lg font-semibold text-white mb-4">Redes Sociais</h4>
-                  <div className="flex gap-4">
-                    <a href="#" className="w-12 h-12 rounded-full bg-slate-800 hover:bg-orange-500 flex items-center justify-center transition-colors">
-                      <Facebook className="w-6 h-6 text-white" />
-                    </a>
-                    <a href="#" className="w-12 h-12 rounded-full bg-slate-800 hover:bg-orange-500 flex items-center justify-center transition-colors">
-                      <Instagram className="w-6 h-6 text-white" />
-                    </a>
-                    <a href="#" className="w-12 h-12 rounded-full bg-slate-800 hover:bg-orange-500 flex items-center justify-center transition-colors">
-                      <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
-                      </svg>
-                    </a>
-                    <a href="#" className="w-12 h-12 rounded-full bg-slate-800 hover:bg-orange-500 flex items-center justify-center transition-colors">
-                      <Youtube className="w-6 h-6 text-white" />
-                    </a>
-                  </div>
-                </div>
-                <div>
-                  <h4 className="text-lg font-semibold text-white mb-2">Email</h4>
-                  <a href="mailto:contato@espelhoai.com.br" className="text-orange-400 hover:text-orange-300 transition-colors">
-                    contato@espelhoai.com.br
-                  </a>
-                </div>
+        {/* Seção de Contato - FUNDO PRETO */}
+        <section className="bg-black py-20">
+          <div className="container">
+            <div className="bg-gradient-to-br from-gray-900 to-black rounded-3xl border border-gray-800 p-8 md:p-12">
+              <div className="text-center mb-8">
+                <h3 className="text-4xl font-bold text-white mb-4">Contato</h3>
+                <p className="text-xl text-gray-300">Fale conosco para dúvidas ou sugestões</p>
               </div>
 
-              {/* Formulário de Contato */}
-              <form onSubmit={handleContactSubmit} className="space-y-4">
-                <div>
-                  <input
-                    type="text"
-                    placeholder="Seu nome, por favor"
-                    value={contactName}
-                    onChange={(e) => setContactName(e.target.value)}
-                    className="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-orange-500 transition-colors"
-                  />
+              <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                {/* Informações de Contato */}
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="text-lg font-semibold text-white mb-4">Redes Sociais</h4>
+                    <div className="flex gap-4">
+                      <a href="#" className="w-12 h-12 rounded-full bg-gray-800 hover:bg-orange-500 flex items-center justify-center transition-colors">
+                        <Facebook className="w-6 h-6 text-white" />
+                      </a>
+                      <a href="#" className="w-12 h-12 rounded-full bg-gray-800 hover:bg-orange-500 flex items-center justify-center transition-colors">
+                        <Instagram className="w-6 h-6 text-white" />
+                      </a>
+                      <a href="#" className="w-12 h-12 rounded-full bg-gray-800 hover:bg-orange-500 flex items-center justify-center transition-colors">
+                        <Youtube className="w-6 h-6 text-white" />
+                      </a>
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-white mb-2">Email</h4>
+                    <p className="text-gray-400">contato@espelhoai.com.br</p>
+                  </div>
                 </div>
-                <div>
-                  <textarea
-                    placeholder="Sua mensagem..."
-                    value={contactMessage}
-                    onChange={(e) => setContactMessage(e.target.value)}
-                    rows={4}
-                    className="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-orange-500 transition-colors resize-none"
-                  />
-                </div>
-                <Button
-                  type="submit"
-                  className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold"
-                >
-                  <Send className="w-4 h-4 mr-2" />
-                  Enviar agora
-                </Button>
-              </form>
+
+                {/* Formulário de Contato */}
+                <form onSubmit={handleContactSubmit} className="space-y-4">
+                  <div>
+                    <input
+                      type="text"
+                      placeholder="Seu nome, por favor"
+                      value={contactName}
+                      onChange={(e) => setContactName(e.target.value)}
+                      className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500 transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <textarea
+                      placeholder="Sua mensagem..."
+                      value={contactMessage}
+                      onChange={(e) => setContactMessage(e.target.value)}
+                      rows={4}
+                      className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-orange-500 transition-colors resize-none"
+                    />
+                  </div>
+                  <Button
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold"
+                  >
+                    <Send className="w-4 h-4 mr-2" />
+                    Enviar agora
+                  </Button>
+                </form>
+              </div>
             </div>
           </div>
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-800 bg-slate-950/50 backdrop-blur-sm mt-20">
+      {/* Footer - FUNDO PRETO */}
+      <footer className="border-t border-gray-800 bg-black backdrop-blur-sm">
         <div className="container py-8 space-y-4">
-          <div className="text-center text-slate-400">
+          <div className="text-center text-gray-400">
             <p>
               Desenvolvido por <span className="font-bold text-orange-400">Paulo Barboni</span>
             </p>
@@ -401,7 +423,7 @@ export default function Home() {
               Transformando fotos em diversão desde 2025 ✨
             </p>
           </div>
-          <div className="text-center text-sm text-slate-500 border-t border-slate-800 pt-4">
+          <div className="text-center text-sm text-gray-500 border-t border-gray-800 pt-4">
             <p>© 2025. All rights reserved.</p>
           </div>
         </div>
