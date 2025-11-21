@@ -574,3 +574,17 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Ajustar Home.tsx com seções alternadas
 - [x] Ajustar cores de texto para contraste adequado
 - [ ] Verificar outras páginas (Generator, Planos, etc.) - SE NECESSÁRIO
+
+
+## Problema - Pintura com Muita Discoteca (09/11/2025)
+
+### Observação do Usuário:
+- [x] Estilo Pintura tem tendência a gerar tema Discoteca com muita frequência
+- [x] Precisa aproveitar mais: Picasso, Rembrandt, Van Gogh, anos 20, gangsters
+- [x] Dar maior variabilidade aos estilos artísticos clássicos
+
+### Ação:
+- [x] Aumentar número de estilos artísticos clássicos no prompt
+- [x] Adicionar mais pintores famosos (Rembrandt, Caravaggio, Leonardo, Frida, Klimt, Munch)
+- [x] Reduzir peso de Disco/anos 70 (removido completamente)
+- [x] Manter variedade mas com foco em arte clássica (16 estilos, 9 são arte clássica)
