@@ -34,7 +34,7 @@ export async function uploadImageToS3(
  * 5. EVITAR CAPACETES - preferir coroas, tiaras, cabelos soltos para mostrar rosto
  */
 export async function generateTransformation(
-  theme: "animals" | "monster" | "art" | "gender" | "epic",
+  theme: "animals" | "monster" | "art" | "gender" | "epic" | "gangster",
   imageUrl: string,
   userId: number
 ): Promise<{ generatedImageUrl: string; generatedText: string }> {
@@ -71,6 +71,12 @@ export async function generateTransformation(
       // Épico: ROSTO 100% IDÊNTICO, variar cultura e acessórios SEM CAPACETES
       prompt: `Ancient warrior/goddess transformation. Keep EXACT same number of people - if 1 person in input, output must have 1 person. ULTRA CRITICAL: Face must be PIXEL-PERFECT IDENTICAL - same eyes, nose, mouth, expression, age, skin tone, facial structure. DO NOT modify face. ONLY change: costume, body, pose, background. Randomly choose ONE culture with varied style: Greek (laurel crown + flowing toga / golden headband + warrior dress / olive wreath + philosopher robe), Roman (golden tiara + senator robes / leaf crown + gladiator armor / jeweled circlet + empress gown), Viking (braided hair with beads + fur cloak / metal arm rings + leather armor / hair ornaments + shield maiden outfit). CRITICAL: NO helmets, NO face-covering headgear - use crowns, tiaras, headbands, hair ornaments, wreaths to keep face fully visible. Vary pose dramatically (heroic stance / battle ready / regal sitting / victorious). Vary background (temple / battlefield / throne room / forest / mountain). Epic lighting from different angles. Random seed: ${randomSeed}`,
       text: "Você é um guerreiro/deusa épico! Poderoso, belo e pronto para conquistar o mundo! 🏛️⚔️"
+    },
+    
+    gangster: {
+      // Gangster 1920s: ROSTO 100% IDÊNTICO, ALTA VARIEDADE de cenários de época
+      prompt: `1920s Gangster Era transformation. Keep EXACT same number of people. ULTRA CRITICAL: Face must be PIXEL-PERFECT IDENTICAL - same eyes, nose, mouth, expression, age, skin tone, facial structure. DO NOT modify face. ONLY change: 1920s costume, pose, props, background. Randomly choose ONE scenario with period-accurate details: Speakeasy Boss (pinstripe suit, fedora, cigar, behind bar with whiskey bottles, Art Deco interior), Tommy Gun Shootout (suit with suspenders, fedora, holding tommy gun, dramatic action pose, brick alley with vintage car), Vintage Car Getaway (driving 1920s Ford Model A, fedora, leather jacket, city street background, motion blur), Jazz Club Owner (elegant suit, bow tie, jazz club stage background, musicians silhouettes, smoky atmosphere), Casino High Roller (tuxedo, fedora, poker table with chips and cards, chandelier background, 1920s casino), Bootlegger Deal (trench coat, fedora, wooden crates labeled whiskey, dark warehouse, dramatic lighting), Mob Meeting (three-piece suit, fedora, round table with maps and money, cigar smoke, office with vintage phone), Flapper's Partner (suit and tie, dancing pose with flapper girl silhouette, Art Deco ballroom, champagne), Bank Heist (suit, fedora, money bags, vault door background, dramatic shadows, 1920s bank interior), Rooftop Lookout (overcoat, fedora, binoculars, 1920s city skyline at night, vintage neon signs), Dockyard Smuggler (work suit, cap, wooden barrels, harbor with old ships, foggy night), Valentine's Day Massacre (dramatic suit, fedora, brick wall background, vintage car, film noir lighting). CRITICAL: Period-accurate 1920s clothing, props, cars, architecture. Vary lighting dramatically (film noir shadows / golden hour / neon signs / dramatic spotlights). Cinematic realistic photo style. Random seed: ${randomSeed}`,
+      text: "Você é um gangster dos anos 1920! Elegante, perigoso e dono da noite na era da Lei Seca! 🎩🔫"
     }
   };
 

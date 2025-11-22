@@ -588,3 +588,20 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Adicionar mais pintores famosos (Rembrandt, Caravaggio, Leonardo, Frida, Klimt, Munch)
 - [x] Reduzir peso de Disco/anos 70 (removido completamente)
 - [x] Manter variedade mas com foco em arte clássica (16 estilos, 9 são arte clássica)
+
+
+## Nova Categoria - Gangster Anos 1920 (09/11/2025)
+
+### Requisito do Usuário:
+- [x] Criar categoria dedicada ao tema Gangster Anos 1920
+- [x] Diversos cenários: carros de época, boates, festas, conflitos
+- [x] Situações com armas, roupas de época (ternos, vestidos)
+- [x] Alta variedade de contextos
+
+### Ação:
+- [x] Criar prompt com 12 cenários diferentes (Speakeasy, Tommy Gun, Vintage Car, Jazz Club, Casino, Bootlegger, Mob Meeting, Flapper Partner, Bank Heist, Rooftop, Dockyard, Valentine Massacre)
+- [x] Adicionar tema ao generation.ts
+- [x] Adicionar card na Home.tsx
+- [x] Adicionar opção no Generator.tsx
+- [x] Atualizar schema do banco (theme enum)
+- [x] Atualizar contadores (5 temas → 6 temas)

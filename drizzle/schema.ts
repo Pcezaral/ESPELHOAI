@@ -36,7 +36,7 @@ export type InsertUser = typeof users.$inferInsert;
 export const ratings = mysqlTable("ratings", {
   id: int("id").autoincrement().primaryKey(),
   userId: int("userId").notNull(),
-  theme: mysqlEnum("theme", ["animals", "monster", "art", "gender", "epic"]).notNull(),
+  theme: mysqlEnum("theme", ["animals", "monster", "art", "gender", "epic", "gangster"]).notNull(),
   rating: int("rating").notNull(), // 1-5 stars
   comment: text("comment"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),

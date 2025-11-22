@@ -207,7 +207,7 @@ export default function Home() {
                 </Button>
               </div>
 
-              {/* Features - 5 CATEGORIAS FINAIS - CLICÁVEIS */}
+              {/* Features - 6 CATEGORIAS FINAIS - CLICÁVEIS */}
               <div className="grid grid-cols-2 gap-4 pt-8">
                 <button
                   onClick={handleStartApp}
@@ -243,11 +243,19 @@ export default function Home() {
                 </button>
                 <button
                   onClick={handleStartApp}
-                  className="col-span-2 space-y-2 p-4 rounded-lg bg-gray-50 border border-gray-200 hover:border-pink-500/50 hover:bg-gray-100 transition-all cursor-pointer text-left"
+                  className="space-y-2 p-4 rounded-lg bg-gray-50 border border-gray-200 hover:border-pink-500/50 hover:bg-gray-100 transition-all cursor-pointer text-left"
                 >
                   <div className="text-3xl font-bold text-pink-400">⚧️</div>
                   <p className="font-semibold text-black">Gênero</p>
                   <p className="text-sm text-gray-600">Se tivesse nascido...</p>
+                </button>
+                <button
+                  onClick={handleStartApp}
+                  className="space-y-2 p-4 rounded-lg bg-gray-50 border border-gray-200 hover:border-gray-700/50 hover:bg-gray-100 transition-all cursor-pointer text-left"
+                >
+                  <div className="text-3xl font-bold text-gray-700">🎩</div>
+                  <p className="font-semibold text-black">Gangster 1920s</p>
+                  <p className="text-sm text-gray-600">Era da Lei Seca</p>
                 </button>
               </div>
             </div>
@@ -268,7 +276,7 @@ export default function Home() {
               </div>
               <div className="text-center">
                 <p className="text-4xl font-bold bg-gradient-to-r from-yellow-500 to-orange-500 bg-clip-text text-transparent">
-                  5 Temas
+                  6 Temas
                 </p>
                 <p className="text-gray-600 mt-2">Para explorar</p>
               </div>

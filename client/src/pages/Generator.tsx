@@ -8,7 +8,7 @@ import { trpc } from "@/lib/trpc";
 import { StarRating } from "@/components/StarRating";
 import { toast } from "sonner";
 import { CreditBadge } from "@/components/CreditBadge";
-type Theme = "animals" | "monster" | "art" | "gender" | "epic";
+type Theme = "animals" | "monster" | "art" | "gender" | "epic" | "gangster";
 
 const THEMES = [
   {
@@ -50,6 +50,14 @@ const THEMES = [
     description: "Você como guerreiro/deusa épico e poderoso",
     color: "from-yellow-600 to-red-600",
     borderColor: "border-yellow-600/30 hover:border-yellow-600/60",
+  },
+  {
+    id: "gangster" as Theme,
+    name: "Gangster 1920s",
+    emoji: "🎩",
+    description: "Você na era da Lei Seca: carros, boates, conflitos",
+    color: "from-gray-700 to-gray-900",
+    borderColor: "border-gray-700/30 hover:border-gray-700/60",
   },
 ];
 
