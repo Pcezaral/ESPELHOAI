@@ -605,3 +605,20 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Adicionar opção no Generator.tsx
 - [x] Atualizar schema do banco (theme enum)
 - [x] Atualizar contadores (5 temas → 6 temas)
+
+
+## PROBLEMA CRÍTICO - Múltiplas Pessoas Perdem Características (09/11/2025)
+
+### Problema:
+- [x] Quando envia foto com 2+ pessoas, as gerações perdem características faciais individuais
+- [x] Expressões faciais não são preservadas em fotos de grupo
+- [x] Grande diferencial do app é criar variações que PAREÇAM as fotos originais
+- [x] Sem preservação facial em grupos, o app perde seu propósito
+
+### Ação:
+- [x] Reescrever TODOS os prompts com ênfase em "EACH person" / "EVERY face"
+- [x] Adicionar instrução explícita: "If 2 people, output 2 people with BOTH faces IDENTICAL"
+- [x] Adicionar instrução explícita: "If 3 people, output 3 people with ALL 3 faces IDENTICAL"
+- [x] Usar linguagem mais forte: "PRESERVE EACH INDIVIDUAL FACE"
+- [ ] Testar com foto de 2 pessoas (AGUARDANDO TESTE DO USUÁRIO)
+- [ ] Testar com foto de 3 pessoas (AGUARDANDO TESTE DO USUÁRIO)
