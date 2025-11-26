@@ -622,3 +622,29 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Usar linguagem mais forte: "PRESERVE EACH INDIVIDUAL FACE"
 - [ ] Testar com foto de 2 pessoas (AGUARDANDO TESTE DO USUÁRIO)
 - [ ] Testar com foto de 3 pessoas (AGUARDANDO TESTE DO USUÁRIO)
+
+
+## DECISÃO - Integrar API Alternativa para Múltiplas Pessoas (09/11/2025)
+
+### Problema Confirmado:
+- [x] API atual gera número errado de pessoas (envia 2, gera 3 ou 1)
+- [x] API atual clona pessoas (todas ficam iguais ao invés de manter identidades individuais)
+- [x] Prompts não resolvem - é limitação fundamental da API
+
+### Decisão:
+- [x] Opção 2: Buscar API alternativa especializada em face swap para grupos
+- [ ] Pesquisar APIs comercialmente viáveis
+- [ ] Escolher melhor custo-benefício
+- [ ] Integrar ao projeto
+- [ ] Testar com fotos de 2 e 3 pessoas
+
+
+## Solução Final - Limitar a 1-2 Pessoas (09/11/2025)
+
+### Decisão:
+- [x] Não adicionar custo de API externa
+- [x] Limitar app a fotos com 1-2 pessoas para garantir qualidade
+- [x] Adicionar mensagem clara: "ESPELHO AI oferece melhores resultados com fotos individuais ou até duas pessoas"
+- [x] Colocar mensagem em local visível (Home, Generator)
+- [x] Aumentar tamanho e destaque do logotipo na página inicial
+- [x] Logotipo deve ser mais proeminente no header (h-10 → h-14, text-2xl → text-3xl)

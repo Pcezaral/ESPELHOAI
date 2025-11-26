@@ -146,8 +146,8 @@ export default function Home() {
       <header className="border-b border-gray-200 bg-white backdrop-blur-sm sticky top-0 z-50">
         <div className="container flex items-center justify-between h-16">
           <div className="flex items-center gap-3">
-            <img src="/espelho-ai-logo-transp.png" alt="ESPELHO AI" className="h-10 w-10" />
-            <h1 className="text-2xl font-bold text-black">
+            <img src="/espelho-ai-logo-transp.png" alt="ESPELHO AI" className="h-14 w-14" />
+            <h1 className="text-3xl font-bold text-black">
               ESPELHO <span className="text-orange-500">AI</span>
             </h1>
           </div>
@@ -183,6 +183,12 @@ export default function Home() {
                 <p className="text-xl text-gray-700 leading-relaxed">
                   Envie uma foto e deixe a IA revelar quem você seria em outro mundo. Bichinho? Monstro? Personagem histórico? Ou do outro gênero? Descubra de forma divertida e compartilhe com seus amigos!
                 </p>
+                
+                <div className="bg-orange-50 border-l-4 border-orange-500 p-4 rounded-r-lg">
+                  <p className="text-sm font-medium text-orange-800">
+                    💡 <strong>Dica:</strong> O ESPELHO AI oferece melhores resultados com fotos individuais ou até duas pessoas.
+                  </p>
+                </div>
               </div>
 
               {/* CTA Button */}
