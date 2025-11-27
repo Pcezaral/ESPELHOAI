@@ -661,3 +661,16 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Reorganizar layout do header
 - [x] Colocar badge de créditos em posição que não cubra o logo
 - [x] Garantir que logo fique visível em todas as resoluções (flex-shrink-0, responsive sizes)
+
+
+## Problema - Logotipo Muito Pequeno em Mobile (09/11/2025)
+
+### Problema:
+- [x] Logotipo está visível mas MUITO PEQUENO em mobile
+- [x] Usuário não consegue notar o logo facilmente
+- [x] Logo precisa ser MUITO MAIOR para ter destaque
+
+### Solução:
+- [x] Aumentar significativamente tamanho do logo em mobile (h-12 → h-16, desktop h-20)
+- [x] Aumentar tamanho do texto também (text-xl → text-2xl, desktop text-4xl)
+- [x] Garantir que logo seja visualmente proeminente
