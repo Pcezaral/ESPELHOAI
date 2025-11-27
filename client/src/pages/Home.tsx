@@ -144,17 +144,19 @@ export default function Home() {
     <div className="min-h-screen bg-white">
       {/* Navigation Header */}
       <header className="border-b border-gray-200 bg-white backdrop-blur-sm sticky top-0 z-50">
-        <div className="container flex items-center justify-between h-16">
-          <div className="flex items-center gap-3">
-            <img src="/espelho-ai-logo-transp.png" alt="ESPELHO AI" className="h-14 w-14" />
-            <h1 className="text-3xl font-bold text-black">
-              ESPELHO <span className="text-orange-500">AI</span>
-            </h1>
-          </div>
-          <div className="flex items-center gap-4">
-            {isAuthenticated && <CreditBadge />}
-            <div className="text-sm font-medium text-orange-400">
-              Por <span className="font-bold text-orange-500">Paulo Barboni</span>
+        <div className="container">
+          <div className="flex items-center justify-between py-3 min-h-[64px]">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <img src="/espelho-ai-logo-transp.png" alt="ESPELHO AI" className="h-12 w-12 sm:h-14 sm:w-14 flex-shrink-0" />
+              <h1 className="text-xl sm:text-3xl font-bold text-black whitespace-nowrap">
+                ESPELHO <span className="text-orange-500">AI</span>
+              </h1>
+            </div>
+            <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
+              {isAuthenticated && <CreditBadge />}
+              <div className="hidden sm:block text-sm font-medium text-orange-400">
+                Por <span className="font-bold text-orange-500">Paulo Barboni</span>
+              </div>
             </div>
           </div>
         </div>

@@ -648,3 +648,16 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Colocar mensagem em local visível (Home, Generator)
 - [x] Aumentar tamanho e destaque do logotipo na página inicial
 - [x] Logotipo deve ser mais proeminente no header (h-10 → h-14, text-2xl → text-3xl)
+
+
+## Problema - Logotipo Encoberto no Mobile (09/11/2025)
+
+### Problema:
+- [x] Badge de créditos cobre o logotipo no mobile
+- [x] Logotipo não está totalmente visível
+- [x] Layout do header precisa ser ajustado para mobile
+
+### Solução:
+- [x] Reorganizar layout do header
+- [x] Colocar badge de créditos em posição que não cubra o logo
+- [x] Garantir que logo fique visível em todas as resoluções (flex-shrink-0, responsive sizes)
