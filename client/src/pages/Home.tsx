@@ -143,12 +143,12 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation Header */}
-      <header className="border-b border-gray-200 bg-white backdrop-blur-sm sticky top-0 z-50">
+      <header className="border-b border-gray-800 bg-black backdrop-blur-sm sticky top-0 z-50">
         <div className="container">
           <div className="flex items-center justify-between py-3 min-h-[64px]">
             <div className="flex items-center gap-3">
               <img src="/espelho-ai-logo-transp.png" alt="ESPELHO AI" className="h-16 w-16 sm:h-20 sm:w-20 flex-shrink-0" />
-              <h1 className="text-2xl sm:text-4xl font-bold text-black whitespace-nowrap">
+              <h1 className="text-2xl sm:text-4xl font-bold text-white whitespace-nowrap">
                 ESPELHO <span className="text-orange-500">AI</span>
               </h1>
             </div>

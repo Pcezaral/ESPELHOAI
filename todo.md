@@ -674,3 +674,16 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Aumentar significativamente tamanho do logo em mobile (h-12 → h-16, desktop h-20)
 - [x] Aumentar tamanho do texto também (text-xl → text-2xl, desktop text-4xl)
 - [x] Garantir que logo seja visualmente proeminente
+
+
+## Melhoria - Header com Fundo Preto (09/11/2025)
+
+### Problema:
+- [x] Logotipo laranja em fundo branco tem pouco contraste
+- [x] Logo não se destaca visualmente o suficiente
+- [x] Fundo preto faria o logo laranja "saltar" aos olhos
+
+### Solução:
+- [x] Mudar fundo do header de branco para preto (bg-white → bg-black)
+- [x] Ajustar texto para branco/laranja para contraste (text-black → text-white)
+- [x] Manter badge de créditos visível
