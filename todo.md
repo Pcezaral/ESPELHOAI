@@ -687,3 +687,16 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Mudar fundo do header de branco para preto (bg-white → bg-black)
 - [x] Ajustar texto para branco/laranja para contraste (text-black → text-white)
 - [x] Manter badge de créditos visível
+
+
+## Melhoria - Faixa de Aviso com Fundo Escuro (09/11/2025)
+
+### Problema:
+- [x] Faixa de aviso laranja claro não combina com header preto
+- [x] Falta consistência visual
+- [x] Fundo escuro daria mais destaque e elegância
+
+### Solução:
+- [x] Mudar fundo da faixa de aviso para tom escuro (bg-orange-50 → bg-orange-900)
+- [x] Manter texto legível com bom contraste (text-orange-800 → text-orange-100)
+- [x] Manter ícone 💡 visível

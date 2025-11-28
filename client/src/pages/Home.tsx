@@ -186,8 +186,8 @@ export default function Home() {
                   Envie uma foto e deixe a IA revelar quem você seria em outro mundo. Bichinho? Monstro? Personagem histórico? Ou do outro gênero? Descubra de forma divertida e compartilhe com seus amigos!
                 </p>
                 
-                <div className="bg-orange-50 border-l-4 border-orange-500 p-4 rounded-r-lg">
-                  <p className="text-sm font-medium text-orange-800">
+                <div className="bg-orange-900 border-l-4 border-orange-500 p-4 rounded-r-lg">
+                  <p className="text-sm font-medium text-orange-100">
                     💡 <strong>Dica:</strong> O ESPELHO AI oferece melhores resultados com fotos individuais ou até duas pessoas.
                   </p>
                 </div>
