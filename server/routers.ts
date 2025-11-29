@@ -7,6 +7,7 @@ import { TRPCError } from "@trpc/server";
 import { getDb } from "./db";
 import { ratings } from "../drizzle/schema";
 import { consumeCredit, getCreditBalance, addCredits, getSubscriptionInfo } from "./credits";
+import { createCheckoutSession, verifyPayment, type PackageType } from "./stripe";
 
 export const appRouter = router({
     // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
@@ -61,27 +62,53 @@ export const appRouter = router({
     getSubscription: protectedProcedure.query(async ({ ctx }) => {
       return getSubscriptionInfo(ctx.user.id);
     }),
-    purchase: protectedProcedure
+  }),
+
+  stripe: router({
+    createCheckout: protectedProcedure
       .input(z.object({
         packageType: z.enum(["light", "premium", "monthly_unlimited", "annual_unlimited"]),
-        paymentId: z.string(), // Stripe payment ID
       }))
       .mutation(async ({ input, ctx }) => {
-        // TODO: Verify payment with Stripe before adding credits
-        const creditsMap = {
-          light: 50,
-          premium: 200,
-          monthly_unlimited: 0,
-          annual_unlimited: 0,
-        };
-        
-        const newBalance = await addCredits(
+        const baseUrl = process.env.VITE_FRONTEND_FORGE_API_URL || "http://localhost:3000";
+        const successUrl = `${baseUrl}/planos?success=true&session_id={CHECKOUT_SESSION_ID}`;
+        const cancelUrl = `${baseUrl}/planos?canceled=true`;
+
+        const session = await createCheckoutSession(
+          input.packageType as PackageType,
           ctx.user.id,
-          creditsMap[input.packageType],
-          input.packageType
+          ctx.user.email,
+          successUrl,
+          cancelUrl
         );
+
+        return session;
+      }),
+    verifyPayment: protectedProcedure
+      .input(z.object({
+        sessionId: z.string(),
+      }))
+      .mutation(async ({ input, ctx }) => {
+        const result = await verifyPayment(input.sessionId);
         
-        return { success: true, newBalance };
+        if (result.success && result.packageType && result.userId === ctx.user.id) {
+          const creditsMap = {
+            light: 50,
+            premium: 200,
+            monthly_unlimited: 0,
+            annual_unlimited: 0,
+          };
+          
+          const newBalance = await addCredits(
+            ctx.user.id,
+            creditsMap[result.packageType],
+            result.packageType
+          );
+          
+          return { success: true, newBalance };
+        }
+        
+        return { success: false };
       }),
   }),
 

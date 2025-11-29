@@ -705,21 +705,23 @@ App totalmente alinhado com identidade visual do site Hostinger
 ## Tarefas Finais - Produção (27/11/2025)
 
 ### 1. GitHub
-- [ ] Configurar repositório GitHub
-- [ ] Fazer push do código completo
-- [ ] Verificar que todos os arquivos foram enviados
+- [x] Configurar repositório GitHub
+- [x] Fazer push do código completo
+- [x] Verificar que todos os arquivos foram enviados
 
 ### 2. Integração Stripe
-- [ ] Conectar botões "Adquirir Agora" ao Stripe Checkout
-- [ ] Implementar fluxo de pagamento para Pacote Light (R$ 9,90 / 50 créditos)
-- [ ] Implementar fluxo de pagamento para Pacote Premium (R$ 19,90 / 200 créditos)
-- [ ] Implementar fluxo de pagamento para Ilimitado Mensal (R$ 29,90)
-- [ ] Implementar fluxo de pagamento para Ilimitado Anual (R$ 119,90)
-- [ ] Configurar webhook para adicionar créditos após pagamento confirmado
-- [ ] Testar fluxo completo de compra
+- [x] Conectar botões "Adquirir Agora" ao Stripe Checkout
+- [x] Implementar fluxo de pagamento para Pacote Light (R$ 9,90 / 50 créditos)
+- [x] Implementar fluxo de pagamento para Pacote Premium (R$ 19,90 / 200 créditos)
+- [x] Implementar fluxo de pagamento para Ilimitado Mensal (R$ 29,90)
+- [x] Implementar fluxo de pagamento para Ilimitado Anual (R$ 119,90)
+- [x] Configurar webhook para adicionar créditos após pagamento confirmado
+- [ ] Testar fluxo completo de compra (requer ativação do sandbox Stripe)
 
 ### 3. Conexão de Domínio Hostinger
-- [ ] Criar guia passo a passo para conectar www.espelhoai.com.br
-- [ ] Incluir instruções de configuração DNS na Hostinger
-- [ ] Incluir instruções de configuração no painel Manus
-- [ ] Documentar tempo de propagação DNS
+- [x] Criar guia passo a passo para conectar www.espelhoai.com.br
+- [x] Incluir instruções de configuração DNS na Hostinger
+- [x] Incluir instruções de configuração no painel Manus
+- [x] Documentar tempo de propagação DNS
+- [x] Incluir instruções de atualização de URLs Stripe
+- [x] Incluir seção de solução de problemas

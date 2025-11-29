@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -89,7 +89,42 @@ export default function Planos() {
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
   
   const { data: subscription } = trpc.credits.getSubscription.useQuery();
-  const purchaseMutation = trpc.credits.purchase.useMutation();
+  const createCheckoutMutation = trpc.stripe.createCheckout.useMutation();
+  const verifyPaymentMutation = trpc.stripe.verifyPayment.useMutation();
+
+  // Check for payment success/cancel in URL
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const success = params.get('success');
+    const canceled = params.get('canceled');
+    const sessionId = params.get('session_id');
+
+    if (success === 'true' && sessionId) {
+      // Verify payment and add credits
+      verifyPaymentMutation.mutate(
+        { sessionId },
+        {
+          onSuccess: (result) => {
+            if (result.success) {
+              toast.success("Pagamento confirmado! Seus créditos foram adicionados.");
+              // Clean URL
+              window.history.replaceState({}, '', '/planos');
+              setLocation("/generator");
+            } else {
+              toast.error("Não foi possível verificar o pagamento.");
+            }
+          },
+          onError: () => {
+            toast.error("Erro ao verificar pagamento.");
+          },
+        }
+      );
+    } else if (canceled === 'true') {
+      toast.info("Pagamento cancelado.");
+      // Clean URL
+      window.history.replaceState({}, '', '/planos');
+    }
+  }, [verifyPaymentMutation, setLocation]);
 
   const handlePurchase = async (planId: string) => {
     if (!isAuthenticated) {
@@ -100,23 +135,16 @@ export default function Planos() {
     setSelectedPlan(planId);
 
     try {
-      // TODO: Integrate with Stripe payment
-      // For now, simulate payment
       toast.info("Redirecionando para pagamento...");
       
-      // Simulate payment ID
-      const fakePaymentId = `pay_${Date.now()}`;
-      
-      await purchaseMutation.mutateAsync({
+      const { url } = await createCheckoutMutation.mutateAsync({
         packageType: planId as any,
-        paymentId: fakePaymentId,
       });
 
-      toast.success("Pagamento confirmado! Seus créditos foram adicionados.");
-      setLocation("/generator");
+      // Redirect to Stripe Checkout
+      window.location.href = url;
     } catch (error: any) {
-      toast.error(error.message || "Erro ao processar pagamento");
-    } finally {
+      toast.error(error.message || "Erro ao criar sessão de pagamento");
       setSelectedPlan(null);
     }
   };
@@ -206,7 +234,7 @@ export default function Planos() {
                   {/* CTA Button */}
                   <Button
                     onClick={() => handlePurchase(plan.id)}
-                    disabled={selectedPlan === plan.id || purchaseMutation.isPending}
+                    disabled={selectedPlan === plan.id || createCheckoutMutation.isPending}
                     className={`w-full bg-gradient-to-r ${plan.color} hover:opacity-90 text-white font-semibold`}
                   >
                     {selectedPlan === plan.id ? "Processando..." : "Assinar"}
