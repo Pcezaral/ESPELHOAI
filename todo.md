@@ -700,3 +700,26 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Mudar fundo da faixa de aviso para tom escuro (bg-orange-50 → bg-orange-900)
 - [x] Manter texto legível com bom contraste (text-orange-800 → text-orange-100)
 - [x] Manter ícone 💡 visível
+
+
+## Tarefas Finais - Produção (27/11/2025)
+
+### 1. GitHub
+- [ ] Configurar repositório GitHub
+- [ ] Fazer push do código completo
+- [ ] Verificar que todos os arquivos foram enviados
+
+### 2. Integração Stripe
+- [ ] Conectar botões "Adquirir Agora" ao Stripe Checkout
+- [ ] Implementar fluxo de pagamento para Pacote Light (R$ 9,90 / 50 créditos)
+- [ ] Implementar fluxo de pagamento para Pacote Premium (R$ 19,90 / 200 créditos)
+- [ ] Implementar fluxo de pagamento para Ilimitado Mensal (R$ 29,90)
+- [ ] Implementar fluxo de pagamento para Ilimitado Anual (R$ 119,90)
+- [ ] Configurar webhook para adicionar créditos após pagamento confirmado
+- [ ] Testar fluxo completo de compra
+
+### 3. Conexão de Domínio Hostinger
+- [ ] Criar guia passo a passo para conectar www.espelhoai.com.br
+- [ ] Incluir instruções de configuração DNS na Hostinger
+- [ ] Incluir instruções de configuração no painel Manus
+- [ ] Documentar tempo de propagação DNS
