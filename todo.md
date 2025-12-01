@@ -725,3 +725,30 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Documentar tempo de propagação DNS
 - [x] Incluir instruções de atualização de URLs Stripe
 - [x] Incluir seção de solução de problemas
+
+
+## Melhorias - PWA e Ajustes de Conteúdo (27/11/2025)
+
+### 1. PWA (Progressive Web App)
+- [x] Criar manifest.json com ícones e configurações
+- [x] Adicionar service worker para funcionalidade offline
+- [x] Configurar meta tags para instalação
+- [x] Usar logo existente como ícone
+- [ ] Testar instalação em Android e iOS (requer teste manual)
+
+### 2. Ajustes Visuais
+- [x] Mudar cor do aviso "funciona melhor com 1-2 pessoas" para azul escuro (bg-blue-900)
+- [x] Manter consistência com design preto/branco alternado
+
+### 3. Atualização de Textos
+- [x] Dar destaque aos estilos: Gregos/Romanos/Vikings, Gangster, Pintura (bordas mais grossas, shadow)
+- [x] Reduzir destaque de Bichinho e Monstro (bordas finas, sem shadow)
+- [x] Atualizar descrições para mencionar Van Gogh, Picasso, Monet
+- [x] Garantir que Gangster apareça nas descrições
+- [x] Texto principal menciona todos os estilos principais
+
+### 4. Correção de Prompts
+- [x] Investigar repetição de estilo egípcio em Pintura (era confusão com temas de época)
+- [x] Ajustar prompts para maior variedade (removidos temas 1920s/1940s/1950s, adicionados mais artistas)
+- [x] Adicionar mais estilos artísticos famosos (Dalí, Matisse, Botticelli, Toulouse-Lautrec, Vermeer)
+- [ ] Testar gerações para confirmar diversidade (requer teste manual)

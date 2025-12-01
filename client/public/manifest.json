@@ -1,0 +1,32 @@
+{
+  "name": "ESPELHO AI - Transforme suas Fotos",
+  "short_name": "ESPELHO AI",
+  "description": "Transforme suas fotos em personagens épicos, pinturas artísticas, gangsters dos anos 1920 e muito mais com inteligência artificial!",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#f97316",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/espelho-ai-logo-transp.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/espelho-ai-logo-transp.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["photo", "entertainment", "lifestyle"],
+  "screenshots": [
+    {
+      "src": "/espelho-ai-logo-transp.png",
+      "sizes": "540x720",
+      "type": "image/png"
+    }
+  ]
+}

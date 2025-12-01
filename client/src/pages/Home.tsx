@@ -183,11 +183,11 @@ export default function Home() {
                 </h2>
 
                 <p className="text-xl text-gray-700 leading-relaxed">
-                  Envie uma foto e deixe a IA revelar quem você seria em outro mundo. Bichinho? Monstro? Personagem histórico? Ou do outro gênero? Descubra de forma divertida e compartilhe com seus amigos!
+                  Transforme suas fotos com IA! Vire um guerreiro romano, viking ou grego. Seja um gangster dos anos 1920. Veja-se como uma pintura de Van Gogh, Picasso ou Monet. Ou explore transformações divertidas! 6 estilos incríveis para descobrir.
                 </p>
                 
-                <div className="bg-orange-900 border-l-4 border-orange-500 p-4 rounded-r-lg">
-                  <p className="text-sm font-medium text-orange-100">
+                <div className="bg-blue-900 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                  <p className="text-sm font-medium text-blue-100">
                     💡 <strong>Dica:</strong> O ESPELHO AI oferece melhores resultados com fotos individuais ou até duas pessoas.
                   </p>
                 </div>
@@ -216,39 +216,35 @@ export default function Home() {
               </div>
 
               {/* Features - 6 CATEGORIAS FINAIS - CLICÁVEIS */}
-              <div className="grid grid-cols-2 gap-4 pt-8">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-8">
+                {/* DESTAQUE: Épico */}
                 <button
                   onClick={handleStartApp}
-                  className="space-y-2 p-4 rounded-lg bg-gray-50 border border-gray-200 hover:border-orange-500/50 hover:bg-gray-100 transition-all cursor-pointer text-left"
-                >
-                  <div className="text-3xl font-bold text-orange-400">🐾</div>
-                  <p className="font-semibold text-black">Bichinho</p>
-                  <p className="text-sm text-gray-600">Animal adorável</p>
-                </button>
-                <button
-                  onClick={handleStartApp}
-                  className="space-y-2 p-4 rounded-lg bg-gray-50 border border-gray-200 hover:border-purple-500/50 hover:bg-gray-100 transition-all cursor-pointer text-left"
-                >
-                  <div className="text-3xl font-bold text-purple-400">👾</div>
-                  <p className="font-semibold text-black">Monstro</p>
-                  <p className="text-sm text-gray-600">Criatura fofa</p>
-                </button>
-                <button
-                  onClick={handleStartApp}
-                  className="space-y-2 p-4 rounded-lg bg-gray-50 border border-gray-200 hover:border-blue-500/50 hover:bg-gray-100 transition-all cursor-pointer text-left"
-                >
-                  <div className="text-3xl font-bold text-blue-400">🎨</div>
-                  <p className="font-semibold text-black">Pintura</p>
-                  <p className="text-sm text-gray-600">Obra de arte</p>
-                </button>
-                <button
-                  onClick={handleStartApp}
-                  className="space-y-2 p-4 rounded-lg bg-gray-50 border border-gray-200 hover:border-yellow-500/50 hover:bg-gray-100 transition-all cursor-pointer text-left"
+                  className="space-y-2 p-4 rounded-lg bg-gray-50 border-2 border-yellow-500/50 hover:border-yellow-500 hover:bg-yellow-50 transition-all cursor-pointer text-left shadow-md"
                 >
                   <div className="text-3xl font-bold text-yellow-600">⚔️</div>
                   <p className="font-semibold text-black">Épico</p>
-                  <p className="text-sm text-gray-600">Guerreiro/deusa épico</p>
+                  <p className="text-sm text-gray-600">Romanos, Gregos, Vikings</p>
                 </button>
+                {/* DESTAQUE: Gangster */}
+                <button
+                  onClick={handleStartApp}
+                  className="space-y-2 p-4 rounded-lg bg-gray-50 border-2 border-gray-700/50 hover:border-gray-700 hover:bg-gray-100 transition-all cursor-pointer text-left shadow-md"
+                >
+                  <div className="text-3xl font-bold text-gray-700">🎩</div>
+                  <p className="font-semibold text-black">Gangster 1920s</p>
+                  <p className="text-sm text-gray-600">Era da Lei Seca</p>
+                </button>
+                {/* DESTAQUE: Pintura */}
+                <button
+                  onClick={handleStartApp}
+                  className="space-y-2 p-4 rounded-lg bg-gray-50 border-2 border-blue-500/50 hover:border-blue-500 hover:bg-blue-50 transition-all cursor-pointer text-left shadow-md"
+                >
+                  <div className="text-3xl font-bold text-blue-400">🎨</div>
+                  <p className="font-semibold text-black">Pintura</p>
+                  <p className="text-sm text-gray-600">Van Gogh, Picasso, Monet...</p>
+                </button>
+                {/* SECUNDÁRIO: Gênero */}
                 <button
                   onClick={handleStartApp}
                   className="space-y-2 p-4 rounded-lg bg-gray-50 border border-gray-200 hover:border-pink-500/50 hover:bg-gray-100 transition-all cursor-pointer text-left"
@@ -257,13 +253,23 @@ export default function Home() {
                   <p className="font-semibold text-black">Gênero</p>
                   <p className="text-sm text-gray-600">Se tivesse nascido...</p>
                 </button>
+                {/* SECUNDÁRIO: Bichinho */}
                 <button
                   onClick={handleStartApp}
-                  className="space-y-2 p-4 rounded-lg bg-gray-50 border border-gray-200 hover:border-gray-700/50 hover:bg-gray-100 transition-all cursor-pointer text-left"
+                  className="space-y-2 p-4 rounded-lg bg-gray-50 border border-gray-200 hover:border-orange-500/50 hover:bg-gray-100 transition-all cursor-pointer text-left"
                 >
-                  <div className="text-3xl font-bold text-gray-700">🎩</div>
-                  <p className="font-semibold text-black">Gangster 1920s</p>
-                  <p className="text-sm text-gray-600">Era da Lei Seca</p>
+                  <div className="text-3xl font-bold text-orange-400">🐾</div>
+                  <p className="font-semibold text-black">Bichinho</p>
+                  <p className="text-sm text-gray-600">Animal adorável</p>
+                </button>
+                {/* SECUNDÁRIO: Monstro */}
+                <button
+                  onClick={handleStartApp}
+                  className="space-y-2 p-4 rounded-lg bg-gray-50 border border-gray-200 hover:border-purple-500/50 hover:bg-gray-100 transition-all cursor-pointer text-left"
+                >
+                  <div className="text-3xl font-bold text-purple-400">👾</div>
+                  <p className="font-semibold text-black">Monstro</p>
+                  <p className="text-sm text-gray-600">Criatura fofa</p>
                 </button>
               </div>
             </div>
