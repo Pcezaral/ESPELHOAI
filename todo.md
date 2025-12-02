@@ -752,3 +752,29 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Ajustar prompts para maior variedade (removidos temas 1920s/1940s/1950s, adicionados mais artistas)
 - [x] Adicionar mais estilos artísticos famosos (Dalí, Matisse, Botticelli, Toulouse-Lautrec, Vermeer)
 - [ ] Testar gerações para confirmar diversidade (requer teste manual)
+
+
+## Melhorias - Aleatoriedade e Nova Categoria Circo (27/11/2025)
+
+### 1. Sistema de Aleatoriedade Melhorado
+- [x] Implementar timestamp + user ID no random seed para maior variação
+- [x] Adicionar mais variações de poses, ângulos e composições em cada estilo
+- [x] Garantir que gerações consecutivas sejam visivelmente diferentes (randomSeed + randomVariation)
+- [ ] Testar múltiplas gerações do mesmo estilo (requer teste manual)
+
+### 2. Nova Categoria: Circo 🎪
+- [x] Criar prompts para profissões circenses (12 profissões: acrobata, trapezista, palhaço, mágico, mestre de cerimônias, equilibrista, cuspidor de fogo, homem forte, contorcionista, malabarista, domador, equilibrista)
+- [x] Adicionar variações de roupas coloridas típicas de circo
+- [x] Incluir cenários de picadeiro, lona, palco circense
+- [x] Adicionar categoria "circus" ao tipo de transformação
+- [ ] Criar ícone e descrição para categoria Circo
+
+### 3. Integração UI
+- [x] Adicionar card Circo na página Home (com destaque: borda grossa + shadow)
+- [x] Adicionar opção Circo na página Generator
+- [x] Atualizar contadores (7 Temas ao invés de 6)
+- [x] Atualizar textos e descrições mencionando Circo
+- [x] Posicionar Circo como categoria de destaque (4ª posição)
+- [x] Atualizar schema do banco (adicionar circus ao enum theme)
+- [x] Atualizar routers.ts (adicionar circus aos tipos e themeNames)
+- [x] Aplicar migração do banco (pnpm db:push)

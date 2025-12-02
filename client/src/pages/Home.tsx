@@ -112,7 +112,7 @@ export default function Home() {
   const faqs = [
     {
       question: "Como funciona o ESPELHO AI?",
-      answer: "Você envia uma foto, escolhe um tema (Bichinho, Monstro, Pintura, Épico ou Gênero) e nossa IA generativa cria uma transformação única e divertida mantendo suas características!"
+      answer: "Você envia uma foto, escolhe um tema (Bichinho, Monstro, Pintura, Épico, Gênero, Gangster ou Circo) e nossa IA generativa cria uma transformação única e divertida mantendo suas características!"
     },
     {
       question: "Quantos créditos preciso para gerar uma imagem?",
@@ -183,7 +183,7 @@ export default function Home() {
                 </h2>
 
                 <p className="text-xl text-gray-700 leading-relaxed">
-                  Transforme suas fotos com IA! Vire um guerreiro romano, viking ou grego. Seja um gangster dos anos 1920. Veja-se como uma pintura de Van Gogh, Picasso ou Monet. Ou explore transformações divertidas! 6 estilos incríveis para descobrir.
+                  Transforme suas fotos com IA! Vire um guerreiro romano, viking ou grego. Seja um gangster dos anos 1920. Veja-se como uma pintura de Van Gogh, Picasso ou Monet. Ou vire um artista de circo! 7 estilos incríveis para descobrir.
                 </p>
                 
                 <div className="bg-blue-900 border-l-4 border-blue-500 p-4 rounded-r-lg">
@@ -244,6 +244,15 @@ export default function Home() {
                   <p className="font-semibold text-black">Pintura</p>
                   <p className="text-sm text-gray-600">Van Gogh, Picasso, Monet...</p>
                 </button>
+                {/* DESTAQUE: Circo */}
+                <button
+                  onClick={handleStartApp}
+                  className="space-y-2 p-4 rounded-lg bg-gray-50 border-2 border-red-500/50 hover:border-red-500 hover:bg-red-50 transition-all cursor-pointer text-left shadow-md"
+                >
+                  <div className="text-3xl font-bold text-red-500">🎪</div>
+                  <p className="font-semibold text-black">Circo</p>
+                  <p className="text-sm text-gray-600">Acrobatas, Palhaços, Mágicos...</p>
+                </button>
                 {/* SECUNDÁRIO: Gênero */}
                 <button
                   onClick={handleStartApp}
@@ -290,7 +299,7 @@ export default function Home() {
               </div>
               <div className="text-center">
                 <p className="text-4xl font-bold bg-gradient-to-r from-yellow-500 to-orange-500 bg-clip-text text-transparent">
-                  6 Temas
+                  7 Temas
                 </p>
                 <p className="text-gray-600 mt-2">Para explorar</p>
               </div>
