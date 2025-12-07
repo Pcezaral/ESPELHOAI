@@ -8,7 +8,7 @@ import { trpc } from "@/lib/trpc";
 import { StarRating } from "@/components/StarRating";
 import { toast } from "sonner";
 import { CreditBadge } from "@/components/CreditBadge";
-type Theme = "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus";
+type Theme = "animals" | "monster" | "art" | "gender" | "epic" | "gangster";
 
 const THEMES = [
   {
@@ -58,14 +58,6 @@ const THEMES = [
     description: "Você na era da Lei Seca: carros, boates, conflitos",
     color: "from-gray-700 to-gray-900",
     borderColor: "border-gray-700/30 hover:border-gray-700/60",
-  },
-  {
-    id: "circus" as Theme,
-    name: "Circo",
-    emoji: "🎪",
-    description: "Você como artista de circo: acrobata, palhaço, mágico...",
-    color: "from-red-500 to-yellow-500",
-    borderColor: "border-red-500/30 hover:border-red-500/60",
   },
 ];
 
