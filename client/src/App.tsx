@@ -9,36 +9,67 @@ import Generator from "./pages/Generator";
 import Gallery from "./pages/Gallery";
 import About from "./pages/About";
 import Planos from "./pages/Planos";
+import { useEffect } from "react";
 
-function Router() {
-  // make sure to consider if you need authentication for certain routes
-  return (
-    <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path={"/generator"} component={Generator} />
-      <Route path={"/gallery"} component={Gallery} />
-      <Route path={"/about"} component={About} />
-      <Route path={"/planos"} component={Planos} />
-      <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
-      <Route component={NotFound} />
-    </Switch>
-  );
+function MobileViewportFix() {
+  useEffect(() => {
+    const setViewportHeight = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+
+    const preventZoom = (e: TouchEvent) => {
+      if (e.touches.length > 1) {
+        e.preventDefault();
+      }
+    };
+
+    setViewportHeight();
+    window.addEventListener('resize', setViewportHeight);
+    window.addEventListener('orientationchange', setViewportHeight);
+    document.addEventListener('touchstart', preventZoom, { passive: false });
+
+    return () => {
+      window.removeEventListener('resize', setViewportHeight);
+      window.removeEventListener('orientationchange', setViewportHeight);
+      document.removeEventListener('touchstart', preventZoom);
+    };
+  }, []);
+
+  return null;
 }
 
-// NOTE: About Theme
-// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
-//   to keep consistent foreground/background color across components
-// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
+function Router() {
+  return (
+    <div className="min-h-screen overflow-x-hidden">
+      <Switch>
+        <Route path={"/"} component={Home} />
+        <Route path={"/generator"} component={Generator} />
+        <Route path={"/gallery"} component={Gallery} />
+        <Route path={"/about"} component={About} />
+        <Route path={"/planos"} component={Planos} />
+        <Route path={"/404"} component={NotFound} />
+        <Route component={NotFound} />
+      </Switch>
+    </div>
+  );
+}
 
 function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider
-        defaultTheme="dark"
-      >
+      <ThemeProvider defaultTheme="dark">
         <TooltipProvider>
-          <Toaster />
+          <MobileViewportFix />
+          <Toaster 
+            position="top-center"
+            toastOptions={{
+              style: {
+                fontSize: '16px',
+                padding: '12px 16px',
+              },
+            }}
+          />
           <Router />
         </TooltipProvider>
       </ThemeProvider>
