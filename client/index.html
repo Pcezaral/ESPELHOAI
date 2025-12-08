@@ -1,40 +1,31 @@
-<!doctype html>
-<html lang="en">
-
+<!DOCTYPE html>
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <link rel="icon" type="image/png" href="/espelho-ai-logo-transp.png" />
-    <link rel="apple-touch-icon" href="/espelho-ai-logo-transp.png" />
+    <link rel="icon" type="image/png" href="/icon-192x192.png" />
     
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#f97316" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="ESPELHO AI" />
+    <!-- CORREÇÕES MOBILE CRÍTICAS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1f2937">
+    <meta name="apple-mobile-web-app-title" content="ESPELHO AI">
     
-    <title>ESPELHO AI - Transforme suas fotos com IA</title>
-    <meta name="description" content="Transforme suas fotos em guerreiros épicos, gangsters dos anos 1920, pinturas de Van Gogh, Picasso e muito mais! 6 estilos incríveis com IA." />
-    <meta property="og:title" content="ESPELHO AI - Transforme suas fotos com IA" />
-    <meta property="og:description" content="Romanos, Vikings, Gangsters 1920s, Van Gogh, Picasso e mais! Transforme suas fotos com IA." />
-    <meta property="og:image" content="/espelho-ai-logo.png" />
-    <!-- Add Google Fonts here, example:
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    -->
+    <!-- SEO -->
+    <title>ESPELHO AI - Gerador de Imagens</title>
+    <meta name="description" content="Crie imagens incríveis com inteligência artificial">
+    
+    <!-- PWA -->
+    <link rel="apple-touch-icon" href="/icon-192x192.png">
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- PERFORMANCE -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   </head>
-
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <script
-      defer
-      src="%VITE_ANALYTICS_ENDPOINT%/umami"
-      data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
   </body>
-
 </html>
