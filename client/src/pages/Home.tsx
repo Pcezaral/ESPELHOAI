@@ -165,12 +165,10 @@ export default function Home() {
         <section className="bg-black py-16 md:py-24">
           <div className="container max-w-6xl mx-auto">
             <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
-              {/* Esquerda: Fotos Femininas */}
-              <div className="flex flex-col gap-4 items-center">
-                <div className="flex gap-3">
-                  <img src="/hero-mulher-1.png" alt="Mulher Antes" className="h-32 w-24 md:h-40 md:w-32 object-cover rounded-lg shadow-lg" />
-                  <img src="/hero-mulher-2.png" alt="Mulher Depois" className="h-32 w-24 md:h-40 md:w-32 object-cover rounded-lg shadow-lg" />
-                </div>
+              {/* Esquerda: Mulher e Homem Verticais */}
+              <div className="flex flex-col gap-3 items-center">
+                <img src="/hero-mulher-1.png" alt="Mulher" className="h-28 w-20 md:h-36 md:w-28 object-cover rounded-lg shadow-lg" />
+                <img src="/hero-homem-1.png" alt="Homem" className="h-28 w-20 md:h-36 md:w-28 object-cover rounded-lg shadow-lg" />
               </div>
               
               {/* Centro: Logo e Textos */}
@@ -218,12 +216,10 @@ export default function Home() {
                 </div>
               </div>
               
-              {/* Direita: Fotos Masculinas */}
-              <div className="flex flex-col gap-4 items-center">
-                <div className="flex gap-3">
-                  <img src="/hero-homem-1.png" alt="Homem Antes" className="h-32 w-24 md:h-40 md:w-32 object-cover rounded-lg shadow-lg" />
-                  <img src="/hero-homem-2.png" alt="Homem Depois" className="h-32 w-24 md:h-40 md:w-32 object-cover rounded-lg shadow-lg" />
-                </div>
+              {/* Direita: Mulher e Homem Verticais */}
+              <div className="flex flex-col gap-3 items-center">
+                <img src="/hero-mulher-2.png" alt="Mulher" className="h-28 w-20 md:h-36 md:w-28 object-cover rounded-lg shadow-lg" />
+                <img src="/hero-homem-2.png" alt="Homem" className="h-28 w-20 md:h-36 md:w-28 object-cover rounded-lg shadow-lg" />
               </div>
             </div>
           </div>
