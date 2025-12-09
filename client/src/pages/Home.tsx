@@ -196,7 +196,7 @@ export default function Home() {
                     className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-lg h-14 px-8 rounded-full shadow-lg hover:shadow-xl transition-all font-semibold"
                   >
                     <Wand2 className="w-5 h-5 mr-2" />
-                    {loading ? "Carregando..." : "Comece Agora"}
+                    {loading ? "Carregando..." : "Use seus 5 créditos agora!"}
                   </Button>
                   <Button
                     onClick={() => setLocation("/planos")}
