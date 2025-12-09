@@ -85,6 +85,13 @@
       "when": 1765305527604,
       "tag": "0011_exotic_christian_walker",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "5",
+      "when": 1765306846808,
+      "tag": "0012_noisy_raider",
+      "breakpoints": true
     }
   ]
 }

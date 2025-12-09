@@ -12,6 +12,8 @@ import Planos from "./pages/Planos";
 import Contato from "./pages/Contato";
 import Support from "./pages/Support";
 import Admin from "./pages/Admin";
+import Analytics from "./pages/Analytics";
+import Leaderboard from "./pages/Leaderboard";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -25,6 +27,8 @@ function Router() {
       <Route path={"/contato"} component={Contato} />
       <Route path={"/suporte"} component={Support} />
       <Route path={"/admin"} component={Admin} />
+      <Route path={"/analytics"} component={Analytics} />
+      <Route path={"/leaderboard"} component={Leaderboard} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

@@ -1,6 +1,6 @@
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, gte, lte, and } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, transformations, creditTransactions, adminAlerts, supportTickets } from "../drizzle/schema";
+import { InsertUser, users, transformations, creditTransactions, adminAlerts, supportTickets, oauthProviders, userBadges, analyticsData } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -215,6 +215,105 @@ export async function getTransactionHistory(limit: number = 50) {
     return result;
   } catch (error) {
     console.error("[Database] Failed to get transaction history:", error);
+    return [];
+  }
+}
+
+// OAuth Providers
+export async function createOAuthProvider(userId: number, provider: string, providerUserId: string, providerUsername?: string, accessToken?: string) {
+  const db = await getDb();
+  if (!db) return null;
+
+  try {
+    await db.insert(oauthProviders).values({
+      userId,
+      provider: provider as any,
+      providerUserId,
+      providerUsername,
+      accessToken,
+    });
+  } catch (error) {
+    console.error("[Database] Failed to create OAuth provider:", error);
+  }
+}
+
+export async function getOAuthProviders(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+
+  try {
+    return await db.select().from(oauthProviders).where(eq(oauthProviders.userId, userId));
+  } catch (error) {
+    console.error("[Database] Failed to get OAuth providers:", error);
+    return [];
+  }
+}
+
+// User Badges
+export async function unlockBadge(userId: number, badgeType: string) {
+  const db = await getDb();
+  if (!db) return null;
+
+  try {
+    const existing = await db.select().from(userBadges).where(
+      and(eq(userBadges.userId, userId), eq(userBadges.badgeType, badgeType as any))
+    ).limit(1);
+
+    if (existing.length > 0) return existing[0];
+
+    await db.insert(userBadges).values({
+      userId,
+      badgeType: badgeType as any,
+    });
+  } catch (error) {
+    console.error("[Database] Failed to unlock badge:", error);
+  }
+}
+
+export async function getUserBadges(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+
+  try {
+    return await db.select().from(userBadges).where(eq(userBadges.userId, userId));
+  } catch (error) {
+    console.error("[Database] Failed to get user badges:", error);
+    return [];
+  }
+}
+
+// Analytics
+export async function recordAnalytics(date: string, theme: string, transformationCount: number, uniqueUsers: number, shareCount: number, downloadCount: number) {
+  const db = await getDb();
+  if (!db) return;
+
+  try {
+    await db.insert(analyticsData).values({
+      date,
+      theme: theme as any,
+      transformationCount,
+      uniqueUsers,
+      shareCount,
+      downloadCount,
+    });
+  } catch (error) {
+    console.error("[Database] Failed to record analytics:", error);
+  }
+}
+
+export async function getAnalyticsByDate(startDate: string, endDate: string) {
+  const db = await getDb();
+  if (!db) return [];
+
+  try {
+    return await db.select().from(analyticsData).where(
+      and(
+        gte(analyticsData.date, startDate),
+        lte(analyticsData.date, endDate)
+      )
+    );
+  } catch (error) {
+    console.error("[Database] Failed to get analytics:", error);
     return [];
   }
 }

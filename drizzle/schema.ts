@@ -138,3 +138,52 @@ export const accessLogs = mysqlTable("access_logs", {
 
 export type AccessLog = typeof accessLogs.$inferSelect;
 export type InsertAccessLog = typeof accessLogs.$inferInsert;
+
+/**
+ * OAuth providers for social login
+ */
+export const oauthProviders = mysqlTable("oauth_providers", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  provider: mysqlEnum("provider", ["instagram", "tiktok", "twitter", "youtube"]).notNull(),
+  providerUserId: varchar("providerUserId", { length: 255 }).notNull(),
+  providerUsername: varchar("providerUsername", { length: 255 }),
+  accessToken: text("accessToken"),
+  refreshToken: text("refreshToken"),
+  expiresAt: timestamp("expiresAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type OAuthProvider = typeof oauthProviders.$inferSelect;
+export type InsertOAuthProvider = typeof oauthProviders.$inferInsert;
+
+/**
+ * User badges and achievements
+ */
+export const userBadges = mysqlTable("user_badges", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  badgeType: mysqlEnum("badgeType", ["transformations_10", "transformations_50", "transformations_100", "social_sharer", "early_adopter", "power_user", "collector"]).notNull(),
+  unlockedAt: timestamp("unlockedAt").defaultNow().notNull(),
+});
+
+export type UserBadge = typeof userBadges.$inferSelect;
+export type InsertUserBadge = typeof userBadges.$inferInsert;
+
+/**
+ * Analytics data for dashboard
+ */
+export const analyticsData = mysqlTable("analytics_data", {
+  id: int("id").autoincrement().primaryKey(),
+  date: varchar("date", { length: 10 }).notNull(),
+  theme: mysqlEnum("theme", ["animals", "monster", "art", "gender", "epic", "gangster", "circus", "natal", "reveillon"]).notNull(),
+  transformationCount: int("transformationCount").default(0).notNull(),
+  uniqueUsers: int("uniqueUsers").default(0).notNull(),
+  shareCount: int("shareCount").default(0).notNull(),
+  downloadCount: int("downloadCount").default(0).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type AnalyticsData = typeof analyticsData.$inferSelect;
+export type InsertAnalyticsData = typeof analyticsData.$inferInsert;

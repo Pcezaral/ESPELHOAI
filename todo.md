@@ -875,3 +875,49 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Botões de Natal e Réveillon corrigidos para ir direto ao upload
 - [x] Fluxo agora: Home → Clica "Transforme" → Upload/Câmera (sem página intermediária)
 - [x] Testado e validado: Todos os botões funcionando corretamente
+
+
+## Integração com Redes Sociais e Marca d'Água (09/12/2025)
+
+- [ ] Adicionar OAuth providers (Instagram, TikTok, Twitter, YouTube) ao schema
+- [ ] Implementar login com redes sociais na página de autenticação
+- [ ] Criar função para adicionar marca d'água nas imagens geradas
+- [ ] Integrar marca d'água no fluxo de geração de imagens
+- [ ] Testar compartilhamento com marca d'água
+- [ ] Validar login com cada rede social
+
+
+## Integração com Redes Sociais, Marca d'Água e Gamificação (09/12/2025)
+
+### ✅ COMPLETO - Login com Redes Sociais
+- [x] Adicionar tabela oauth_providers ao schema
+- [x] Criar componente SocialLoginButtons com Instagram, TikTok, Twitter, YouTube
+- [x] Adicionar funções de OAuth no db.ts (createOAuthProvider, getOAuthProviders)
+
+### ✅ COMPLETO - Marca d'Água
+- [x] Instalar dependência sharp para processamento de imagens
+- [x] Criar função addWatermark em server/watermark.ts
+- [x] Watermark com logo ESPELHO AI em formato SVG
+- [x] Posicionamento no canto inferior direito com fundo semi-transparente
+
+### ✅ COMPLETO - Analytics Dashboard
+- [x] Adicionar tabela analyticsData ao schema
+- [x] Criar página Analytics.tsx com métricas em tempo real
+- [x] Gráficos de transformações, usuários, compartilhamentos, downloads
+- [x] Top estilos mais populares (Natal, Bichinho, Monstro, Épico)
+- [x] Taxa de conversão por estilo
+- [x] Adicionar funções de analytics no db.ts (recordAnalytics, getAnalyticsByDate)
+
+### ✅ COMPLETO - Gamificação - Badges e Leaderboard
+- [x] Adicionar tabela userBadges ao schema com 7 tipos de badges
+- [x] Criar página Leaderboard.tsx com ranking de usuários
+- [x] Badges: Iniciante (10 transformações), Explorador (50), Mestre (100), Compartilhador Social, Pioneiro, Power User, Colecionador
+- [x] Leaderboard com top 5 usuários e posição do usuário atual
+- [x] Adicionar funções de badges no db.ts (unlockBadge, getUserBadges)
+
+### ✅ COMPLETO - Integração no App
+- [x] Adicionar rotas /analytics e /leaderboard no App.tsx
+- [x] Adicionar links no footer da Home com 4 colunas (App, Comunidade, Suporte, Legal)
+- [x] Atualizar navegação com links para comunidade
+- [x] Testado: Analytics página funcionando com métricas
+- [x] Testado: Leaderboard página funcionando com badges e ranking

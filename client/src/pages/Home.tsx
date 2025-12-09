@@ -586,6 +586,47 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Footer com Links */}
+      <footer className="bg-black text-slate-400 py-12 border-t border-slate-800">
+        <div className="container max-w-6xl mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <h3 className="text-white font-semibold mb-4">App</h3>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#" onClick={() => setLocation("/")} className="hover:text-white transition">Home</a></li>
+                <li><a href="#" onClick={() => setLocation("/planos")} className="hover:text-white transition">Planos</a></li>
+                <li><a href="#" onClick={() => setLocation("/gallery")} className="hover:text-white transition">Galeria</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-white font-semibold mb-4">Comunidade</h3>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#" onClick={() => setLocation("/leaderboard")} className="hover:text-white transition">Leaderboard</a></li>
+                <li><a href="#" onClick={() => setLocation("/analytics")} className="hover:text-white transition">Analytics</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-white font-semibold mb-4">Suporte</h3>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#" onClick={() => setLocation("/suporte")} className="hover:text-white transition">Suporte</a></li>
+                <li><a href="#" onClick={() => setLocation("/contato")} className="hover:text-white transition">Contato</a></li>
+                <li><a href="#" onClick={() => setLocation("/about")} className="hover:text-white transition">Sobre</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-white font-semibold mb-4">Legal</h3>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#" className="hover:text-white transition">Privacidade</a></li>
+                <li><a href="#" className="hover:text-white transition">Termos</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-slate-800 pt-8 text-center text-sm">
+            <p>&copy; 2025 {APP_TITLE}. Todos os direitos reservados.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
