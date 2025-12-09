@@ -167,8 +167,8 @@ export default function Home() {
             <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
               {/* Esquerda: Mulher e Homem Verticais */}
               <div className="flex flex-col gap-3 items-center">
-                <img src="/hero-mulher-1.png" alt="Mulher" className="h-28 w-20 md:h-36 md:w-28 object-cover rounded-lg shadow-lg" />
-                <img src="/hero-homem-1.png" alt="Homem" className="h-28 w-20 md:h-36 md:w-28 object-cover rounded-lg shadow-lg" />
+                <img src="/hero-mulher-1.png" alt="Mulher" className="h-28 w-20 md:h-36 md:w-28 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
+                <img src="/hero-homem-1.png" alt="Homem" className="h-28 w-20 md:h-36 md:w-28 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
               </div>
               
               {/* Centro: Logo e Textos */}
@@ -218,8 +218,8 @@ export default function Home() {
               
               {/* Direita: Mulher e Homem Verticais */}
               <div className="flex flex-col gap-3 items-center">
-                <img src="/hero-mulher-2.png" alt="Mulher" className="h-28 w-20 md:h-36 md:w-28 object-cover rounded-lg shadow-lg" />
-                <img src="/hero-homem-2.png" alt="Homem" className="h-28 w-20 md:h-36 md:w-28 object-cover rounded-lg shadow-lg" />
+                <img src="/hero-mulher-2.png" alt="Mulher" className="h-28 w-20 md:h-36 md:w-28 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
+                <img src="/hero-homem-2.png" alt="Homem" className="h-28 w-20 md:h-36 md:w-28 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
               </div>
             </div>
           </div>
