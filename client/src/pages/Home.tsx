@@ -100,7 +100,7 @@ export default function Home() {
             </div>
             
             {/* Fotos em mobile: abaixo do logo e apresentação */}
-            <div className="md:hidden flex flex-col gap-1 w-full items-center">
+            <div className="md:hidden flex flex-row gap-2 w-full justify-center">
               <div className="flex flex-col gap-1 items-center">
                 <img src="/hero-mulher-1.png" alt="Mulher" className="h-40 w-36 object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
                 <img src="/hero-homem-1.png" alt="Homem" className="h-40 w-36 object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
