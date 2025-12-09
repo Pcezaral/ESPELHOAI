@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { useAuth } from "@/_core/hooks/useAuth";
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Upload, Camera, Loader2, ArrowLeft } from "lucide-react";
@@ -74,16 +75,27 @@ export default function Generator() {
   const [, setLocation] = useLocation();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
-
-  const [step, setStep] = useState<"theme" | "upload" | "processing" | "result">(
-    "theme"
-  );
-  const [selectedTheme, setSelectedTheme] = useState<Theme | null>(null);
+  const [searchParams] = useLocation();
+  const themeFromUrl = searchParams.includes('?') ? new URLSearchParams(searchParams.split('?')[1]).get('theme') as Theme | null : null;
+  
+  const [selectedTheme, setSelectedTheme] = useState<Theme | null>(themeFromUrl);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [generatedImage, setGeneratedImage] = useState<string | null>(null);
   const [generatedText, setGeneratedText] = useState<string | null>(null);
   const [hasRated, setHasRated] = useState(false);
+  
+  // Se tema vem da URL, pula direto para upload
+  const initialStep = themeFromUrl ? "upload" : "theme";
+  const [step, setStep] = useState<"theme" | "upload" | "processing" | "result">(initialStep as any);
+  
+  // Atualizar tema se vem da URL
+  useEffect(() => {
+    if (themeFromUrl) {
+      setSelectedTheme(themeFromUrl);
+      setStep("upload");
+    }
+  }, [themeFromUrl]);
 
   if (!isAuthenticated && !user) {
     setLocation("/");
