@@ -921,3 +921,12 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Atualizar navegação com links para comunidade
 - [x] Testado: Analytics página funcionando com métricas
 - [x] Testado: Leaderboard página funcionando com badges e ranking
+
+
+## Bugs Corrigidos (09/12/2025)
+
+- [x] Mobile: Preview de foto corrigido com object-cover e max-h-96
+- [x] Compartilhamento: Implementado com Web Share API para enviar imagem + texto
+- [x] Antes e Depois: Visualização lado a lado com grid 2 colunas implementada
+- [x] Final de Ano: Câmera já disponível, texto atualizado
+- [x] Generator: Corrigido erro de autenticação e ordem de hooks

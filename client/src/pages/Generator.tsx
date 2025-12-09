@@ -1,4 +1,3 @@
-import { useAuth } from "@/_core/hooks/useAuth";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -8,6 +7,7 @@ import { trpc } from "@/lib/trpc";
 import { StarRating } from "@/components/StarRating";
 import { toast } from "sonner";
 import { CreditBadge } from "@/components/CreditBadge";
+import { useAuth } from "@/_core/hooks/useAuth";
 
 type Theme = "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus" | "natal" | "reveillon";
 
@@ -69,7 +69,7 @@ const THEMES = [
 ];
 
 export default function Generator() {
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, loading } = useAuth();
   const [location, setLocation] = useLocation();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
@@ -87,8 +87,17 @@ export default function Generator() {
   const initialStep = themeFromUrl ? "upload" : "theme";
   const [step, setStep] = useState<"theme" | "upload" | "processing" | "result">(initialStep as any);
 
-  if (!isAuthenticated && !user) {
-    setLocation("/");
+  const generateMutation = trpc.generation.generate.useMutation();
+  const uploadMutation = trpc.generation.uploadImage.useMutation();
+  const ratingMutation = trpc.rating.submit.useMutation();
+
+  useEffect(() => {
+    if (!loading && !isAuthenticated && !user) {
+      setLocation("/");
+    }
+  }, [loading, isAuthenticated, user, setLocation]);
+
+  if (loading) {
     return null;
   }
 
@@ -117,10 +126,6 @@ export default function Generator() {
   const handleCameraClick = () => {
     cameraInputRef.current?.click();
   };
-
-  const generateMutation = trpc.generation.generate.useMutation();
-  const uploadMutation = trpc.generation.uploadImage.useMutation();
-  const ratingMutation = trpc.rating.submit.useMutation();
 
   const handleGenerate = async () => {
     if (!selectedImage || !selectedTheme || !previewUrl) return;
@@ -193,11 +198,31 @@ export default function Generator() {
     document.body.removeChild(link);
   };
 
-  const handleShare = (message: string) => {
+  const handleShare = async (message: string) => {
     const isHolidayTheme = selectedTheme === "natal" || selectedTheme === "reveillon";
     const hashtag = isHolidayTheme ? " #EspelhoAI2026 🎄🎆" : "";
     const appUrl = `https://descubraeu-ipcsmflf.manus.space?ref=share`;
     const text = `✨ ESPELHO AI ✨\n${message}${hashtag}\n\nDescubra seu verdadeiro eu!\n${appUrl}`;
+    
+    if (navigator.share && generatedImage) {
+      try {
+        const response = await fetch(generatedImage);
+        const blob = await response.blob();
+        const file = new File([blob], `espelho-ai-${selectedTheme}.jpg`, { type: "image/jpeg" });
+        
+        if (navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            title: "ESPELHO AI",
+            text,
+            files: [file],
+          });
+          return;
+        }
+      } catch (error) {
+        console.error("Erro ao compartilhar com imagem:", error);
+      }
+    }
+    
     const url = encodeURIComponent(text);
     window.open(`https://wa.me/?text=${url}`, "_blank");
   };
@@ -269,7 +294,7 @@ export default function Generator() {
           <div className="max-w-2xl mx-auto space-y-8">
             <div className="text-center space-y-2">
               <h2 className="text-4xl font-bold text-white">Carregue sua foto</h2>
-              <p className="text-slate-300 text-lg">Escolha uma imagem para transformar</p>
+              <p className="text-slate-300 text-lg">Escolha uma imagem ou tire uma foto para transformar</p>
             </div>
 
             {!previewUrl ? (
@@ -364,8 +389,20 @@ export default function Generator() {
               <p className="text-slate-300">Confira o resultado</p>
             </div>
 
-            <div className="rounded-lg overflow-hidden border-2 border-orange-500/30">
-              <img src={generatedImage} alt="Generated" className="w-full h-auto" />
+            {/* Antes e Depois */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <p className="text-center text-slate-400 font-semibold text-sm">Antes</p>
+                <div className="rounded-lg overflow-hidden border-2 border-slate-700 bg-slate-900">
+                  <img src={previewUrl || ""} alt="Antes" className="w-full h-auto object-cover aspect-square" />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <p className="text-center text-slate-400 font-semibold text-sm">Depois</p>
+                <div className="rounded-lg overflow-hidden border-2 border-orange-500/30 bg-slate-900">
+                  <img src={generatedImage} alt="Depois" className="w-full h-auto object-cover aspect-square" />
+                </div>
+              </div>
             </div>
 
             {!hasRated && (
