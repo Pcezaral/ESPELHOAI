@@ -214,12 +214,12 @@ export default function Home() {
                 </div>
                 <h3 className="text-2xl font-bold mb-2">Pacote Premium</h3>
                 <div className="text-3xl font-bold text-orange-600 mb-2">R$ 19,90</div>
-                <p className="text-gray-600">200 Créditos + Extras</p>
+                <p className="text-gray-600">150 Créditos + Extras</p>
               </div>
               <ul className="space-y-3 mb-6">
                 <li className="flex items-start gap-2">
                   <Check className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm">200 transformações</span>
+                  <span className="text-sm">150 transformações</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
