@@ -866,9 +866,12 @@ App totalmente alinhado com identidade visual do site Hostinger
 ### Problema Identificado:
 - [x] Quando usuário clicava em "✨ Transforme" em um estilo, ia para página de seleção de temas novamente (redundante)
 - [x] Página de seleção de temas deveria ser pulada se tema vinha da URL
+- [x] Botões "🎄 Natal" e "🎆 Réveillon" também iam para página de seleção de temas
 
 ### Solução Implementada:
 - [x] Generator.tsx reescrito para ir direto ao upload quando tema vem da URL
 - [x] Quando usuário clica em "Transforme", URL é atualizada com `?theme=TEMA`
 - [x] Página de seleção de temas só aparece se acessar `/generator` sem tema
+- [x] Botões de Natal e Réveillon corrigidos para ir direto ao upload
 - [x] Fluxo agora: Home → Clica "Transforme" → Upload/Câmera (sem página intermediária)
+- [x] Testado e validado: Todos os botões funcionando corretamente

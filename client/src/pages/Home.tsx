@@ -170,14 +170,22 @@ export default function Home() {
             </div>
           </div>
           
-          <div className="mt-12 text-center">
+          <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
             <Button
-              onClick={handleStartApp}
+              onClick={() => setLocation('/generator?theme=natal')}
               disabled={loading}
-              className="bg-gradient-to-r from-red-500 via-orange-500 to-blue-500 hover:from-red-600 hover:via-orange-600 hover:to-blue-600 text-white text-lg h-12 px-8 rounded-full shadow-lg hover:shadow-xl transition-all font-semibold"
+              className="bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white text-lg h-12 px-8 rounded-full shadow-lg hover:shadow-xl transition-all font-semibold"
             >
               <Sparkles className="w-5 h-5 mr-2" />
-              Criar Transformação de Final de Ano
+              🎄 Natal
+            </Button>
+            <Button
+              onClick={() => setLocation('/generator?theme=reveillon')}
+              disabled={loading}
+              className="bg-gradient-to-r from-blue-600 to-purple-500 hover:from-blue-700 hover:to-purple-600 text-white text-lg h-12 px-8 rounded-full shadow-lg hover:shadow-xl transition-all font-semibold"
+            >
+              <Sparkles className="w-5 h-5 mr-2" />
+              🎆 Réveillon
             </Button>
           </div>
         </div>
