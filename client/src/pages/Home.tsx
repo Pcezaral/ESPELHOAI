@@ -39,7 +39,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="bg-black py-16 md:py-24 relative overflow-hidden">
         {/* Animated Background */}
-        <div className="absolute inset-0 opacity-75 pointer-events-none">
+        <div className="absolute inset-0 opacity-30 pointer-events-none">
           <div className="absolute top-10 left-10 text-6xl animate-float-slow">🏛️</div>
           <div className="absolute top-20 right-20 text-5xl animate-float-medium">🗽</div>
           <div className="absolute bottom-20 left-20 text-7xl animate-float-fast">🏛️</div>
@@ -131,7 +131,7 @@ export default function Home() {
       {/* Seção Exemplos de Transformações - Antes/Depois */}
       <section className="bg-white py-12 md:py-20 relative overflow-hidden">
         {/* Animated Background */}
-        <div className="absolute inset-0 opacity-75 pointer-events-none">
+        <div className="absolute inset-0 opacity-30 pointer-events-none">
           <div className="absolute top-10 left-10 text-6xl animate-float-slow">🏛️</div>
           <div className="absolute top-20 right-20 text-5xl animate-float-medium">🗽</div>
           <div className="absolute bottom-20 left-20 text-7xl animate-float-fast">🏯</div>
