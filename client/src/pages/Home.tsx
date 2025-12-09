@@ -208,27 +208,68 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Seção Exemplos de Transformações */}
-        <section className="bg-gray-50 py-12 md:py-20">
+        {/* Seção Exemplos de Transformações - Antes/Depois */}
+        <section className="bg-white py-12 md:py-20">
           <div className="container max-w-6xl mx-auto">
-            <h2 className="text-4xl font-bold text-center mb-12">Exemplos de Transformações</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              <div className="text-center">
-                <img src="/Screenshot2025-12-09at09.29.06.png" alt="Bichinho" className="w-full rounded-lg mb-3" />
-                <p className="font-semibold text-lg text-teal-600">Bichinho</p>
+            <h2 className="text-4xl font-bold text-center mb-4">Veja a Magia Acontecer</h2>
+            <p className="text-center text-gray-600 mb-12 text-lg">Transformações incríveis em segundos</p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {/* Exemplo 1: Pintura */}
+              <div className="flex flex-col items-center space-y-4">
+                <div className="flex gap-4 w-full justify-center">
+                  <div className="text-center">
+                    <img src="/examples/exemplo-pintura-mulher-antes.jpg" alt="Antes - Pintura" className="w-32 h-40 object-cover rounded-lg shadow-md" />
+                    <p className="text-sm text-gray-600 mt-2 font-medium">Antes</p>
+                  </div>
+                  <div className="text-center">
+                    <img src="/examples/exemplo-pintura-mulher-depois.jpg" alt="Depois - Pintura" className="w-32 h-40 object-cover rounded-lg shadow-md" />
+                    <p className="text-sm text-gray-600 mt-2 font-medium">Depois</p>
+                  </div>
+                </div>
+                <p className="font-semibold text-lg text-pink-600">🎨 Pintura</p>
               </div>
-              <div className="text-center">
-                <img src="/Screenshot2025-12-09at09.29.06.png" alt="Pintura" className="w-full rounded-lg mb-3" />
-                <p className="font-semibold text-lg text-pink-600">Pintura</p>
+              
+              {/* Exemplo 2: Monstro */}
+              <div className="flex flex-col items-center space-y-4">
+                <div className="flex gap-4 w-full justify-center">
+                  <div className="text-center">
+                    <img src="/examples/exemplo-monstro-mulher-antes.jpg" alt="Antes - Monstro" className="w-32 h-40 object-cover rounded-lg shadow-md" />
+                    <p className="text-sm text-gray-600 mt-2 font-medium">Antes</p>
+                  </div>
+                  <div className="text-center">
+                    <img src="/examples/exemplo-monstro-mulher-depois.jpg" alt="Depois - Monstro" className="w-32 h-40 object-cover rounded-lg shadow-md" />
+                    <p className="text-sm text-gray-600 mt-2 font-medium">Depois</p>
+                  </div>
+                </div>
+                <p className="font-semibold text-lg text-green-600">👾 Monstro</p>
               </div>
-              <div className="text-center">
-                <img src="/Screenshot2025-12-09at09.29.06.png" alt="Monstro" className="w-full rounded-lg mb-3" />
-                <p className="font-semibold text-lg text-green-600">Monstro</p>
+              
+              {/* Exemplo 3: Épico */}
+              <div className="flex flex-col items-center space-y-4">
+                <div className="flex gap-4 w-full justify-center">
+                  <div className="text-center">
+                    <img src="/examples/exemplo-epico-menina-antes.jpg" alt="Antes - Épico" className="w-32 h-40 object-cover rounded-lg shadow-md" />
+                    <p className="text-sm text-gray-600 mt-2 font-medium">Antes</p>
+                  </div>
+                  <div className="text-center">
+                    <img src="/examples/exemplo-epico-menina-depois.jpg" alt="Depois - Épico" className="w-32 h-40 object-cover rounded-lg shadow-md" />
+                    <p className="text-sm text-gray-600 mt-2 font-medium">Depois</p>
+                  </div>
+                </div>
+                <p className="font-semibold text-lg text-orange-600">🏛️ Épico</p>
               </div>
-              <div className="text-center">
-                <img src="/Screenshot2025-12-09at09.29.06.png" alt="Histórico" className="w-full rounded-lg mb-3" />
-                <p className="font-semibold text-lg text-orange-600">Histórico</p>
-              </div>
+            </div>
+            
+            <div className="mt-12 text-center">
+              <Button
+                onClick={handleStartApp}
+                disabled={loading}
+                className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-lg h-12 px-8 rounded-full shadow-lg hover:shadow-xl transition-all font-semibold"
+              >
+                <Wand2 className="w-5 h-5 mr-2" />
+                Crie Sua Transformação
+              </Button>
             </div>
           </div>
         </section>
