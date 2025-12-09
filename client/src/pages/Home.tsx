@@ -160,13 +160,13 @@ export default function Home() {
               {/* Exemplo 3: Réveillon - Praia */}
               <div className="flex flex-col items-center space-y-4 flex-shrink-0">
                 <img src="/example-reveillon-praia.png" alt="Transformação Réveillon - Praia" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer border-2 border-blue-200" />
-                <p className="font-semibold text-base md:text-lg text-blue-600">🎆 Réveillon Praia</p>
+                <p className="font-semibold text-base md:text-lg text-blue-600">🎆 Réveillon</p>
               </div>
               
               {/* Exemplo 4: Réveillon - Jantar */}
               <div className="flex flex-col items-center space-y-4 flex-shrink-0">
                 <img src="/example-reveillon-jantar.png" alt="Transformação Réveillon - Jantar" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer border-2 border-blue-200" />
-                <p className="font-semibold text-base md:text-lg text-blue-600">🍾 Réveillon Jantar</p>
+                <p className="font-semibold text-base md:text-lg text-blue-600">🎆 Réveillon</p>
               </div>
             </div>
           </div>
