@@ -257,37 +257,6 @@ export default function Generator() {
       </header>
 
       <main className="container py-12 relative z-10">
-        {/* Step 1: Theme Selection */}
-        {step === "theme" && (
-          <div className="max-w-6xl mx-auto space-y-8">
-            <div className="text-center space-y-2">
-              <h2 className="text-4xl font-bold text-white">Escolha seu tema</h2>
-              <p className="text-slate-300 text-lg">
-                Qual transformação você quer fazer?
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {THEMES.map((theme) => (
-                <Card
-                  key={theme.id}
-                  className={`cursor-pointer transition-all border-2 ${theme.borderColor} bg-slate-900/50 hover:shadow-lg hover:shadow-orange-500/20`}
-                  onClick={() => handleThemeSelect(theme.id)}
-                >
-                  <div className={`bg-gradient-to-br ${theme.color} p-8 rounded-t-lg`}>
-                    <p className="text-6xl text-center">{theme.emoji}</p>
-                  </div>
-                  <div className="p-6 space-y-2">
-                    <h3 className="text-2xl font-bold text-white">
-                      {theme.name}
-                    </h3>
-                    <p className="text-slate-400">{theme.description}</p>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </div>
-        )}
 
         {/* Step 2: Upload Image */}
         {step === "upload" && selectedTheme && (
