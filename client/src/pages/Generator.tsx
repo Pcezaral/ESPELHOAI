@@ -451,7 +451,20 @@ export default function Generator() {
                 variant="outline"
                 className="flex-1 border-orange-500/50 text-orange-400 hover:bg-orange-500/10"
               >
-                Compartilhar
+                📱 Compartilhar
+              </Button>
+              <Button
+                onClick={() => {
+                  const isHolidayTheme = selectedTheme === "natal" || selectedTheme === "reveillon";
+                  const hashtag = isHolidayTheme ? " #EspelhoAI2026 🎄🎆" : "";
+                  const text = `Veja minha transformação no ESPELHO AI!${hashtag}`;
+                  window.open(`https://www.tiktok.com/share/video?url=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(text)}`, "_blank");
+                }}
+                size="lg"
+                variant="outline"
+                className="flex-1 border-slate-600 text-slate-300 hover:bg-slate-800"
+              >
+                🎵 TikTok
               </Button>
               <Button
                 onClick={handleReset}

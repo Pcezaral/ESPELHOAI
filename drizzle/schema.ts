@@ -62,3 +62,20 @@ export const creditTransactions = mysqlTable("credit_transactions", {
 
 export type CreditTransaction = typeof creditTransactions.$inferSelect;
 export type InsertCreditTransaction = typeof creditTransactions.$inferInsert;
+/**
+ * Transformations table for storing generated images and their metadata.
+ * Used for gallery, trending, and analytics.
+ */
+export const transformations = mysqlTable("transformations", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  theme: mysqlEnum("theme", ["animals", "monster", "art", "gender", "epic", "gangster", "circus", "natal", "reveillon"]).notNull(),
+  imageUrl: text("imageUrl").notNull(),
+  averageRating: int("averageRating").default(0),
+  ratingCount: int("ratingCount").default(0),
+  isPublic: int("isPublic").default(1).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type Transformation = typeof transformations.$inferSelect;
+export type InsertTransformation = typeof transformations.$inferInsert;

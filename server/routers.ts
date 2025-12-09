@@ -139,6 +139,14 @@ export const appRouter = router({
         return { success: true };
       }),
   }),
+
+  gallery: router({
+    trending: publicProcedure
+      .query(async () => {
+        const { getTrendingTransformations } = await import("./db");
+        return getTrendingTransformations(6);
+      }),
+  }),
 });
 
 export type AppRouter = typeof appRouter;
