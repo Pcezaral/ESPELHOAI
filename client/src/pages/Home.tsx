@@ -1,6 +1,7 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import CountdownTimer from "@/components/CountdownTimer";
+import React from "react";
 import { Card } from "@/components/ui/card";
 import { Loader2, Wand2, Zap, Sparkles, Crown, Infinity as InfinityIcon, Check, MessageSquare, Share2 } from "lucide-react";
 import { APP_LOGO, APP_TITLE, getLoginUrl } from "@/const";
@@ -11,11 +12,15 @@ export default function Home() {
   const { user, loading, error, isAuthenticated, logout } = useAuth();
   const [, setLocation] = useLocation();
 
-  const handleStartApp = () => {
+  const handleStartApp = (theme?: string | React.MouseEvent) => {
     if (!isAuthenticated) {
       window.location.href = getLoginUrl();
     } else {
-      setLocation("/app");
+      if (theme && typeof theme === 'string') {
+        setLocation(`/generator?theme=${theme}`);
+      } else {
+        setLocation("/generator");
+      }
     }
   };
 
@@ -203,37 +208,55 @@ export default function Home() {
               {/* Exemplo 1: Bichinho */}
               <div className="flex flex-col items-center space-y-4 flex-shrink-0">
                 <img src="/example-bichinho.png" alt="Transformação Bichinho" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
-                <p className="font-semibold text-base md:text-lg text-pink-600">🐶 Bichinho</p>
+                <div className="flex items-center gap-2">
+                  <p className="font-semibold text-base md:text-lg text-pink-600">🐶 Bichinho</p>
+                  <Button onClick={() => handleStartApp('animals')} size="sm" className="bg-pink-500 hover:bg-pink-600 text-white rounded-full px-3 py-1 text-xs font-semibold">✨ Transforme</Button>
+                </div>
               </div>
               
               {/* Exemplo 2: Monstro */}
               <div className="flex flex-col items-center space-y-4 flex-shrink-0">
                 <img src="/example-monstro.png" alt="Transformação Monstro" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
-                <p className="font-semibold text-base md:text-lg text-green-600">👾 Monstro</p>
+                <div className="flex items-center gap-2">
+                  <p className="font-semibold text-base md:text-lg text-green-600">👾 Monstro</p>
+                  <Button onClick={() => handleStartApp('monster')} size="sm" className="bg-green-500 hover:bg-green-600 text-white rounded-full px-3 py-1 text-xs font-semibold">✨ Transforme</Button>
+                </div>
               </div>
               
               {/* Exemplo 3: Épico (Romanos/Gregos/Vikings) */}
               <div className="flex flex-col items-center space-y-4 flex-shrink-0">
                 <img src="/example-romana.png" alt="Transformação Épica - Romana" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
-                <p className="font-semibold text-base md:text-lg text-orange-600">🏛️ Épico</p>
+                <div className="flex items-center gap-2">
+                  <p className="font-semibold text-base md:text-lg text-orange-600">🏛️ Épico</p>
+                  <Button onClick={() => handleStartApp('epic')} size="sm" className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-3 py-1 text-xs font-semibold">✨ Transforme</Button>
+                </div>
               </div>
               
               {/* Exemplo 4: Gangster */}
               <div className="flex flex-col items-center space-y-4 flex-shrink-0">
                 <img src="/example-gangster-new.png" alt="Transformação Gangster" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
-                <p className="font-semibold text-base md:text-lg text-gray-700">🔫 Gangster</p>
+                <div className="flex items-center gap-2">
+                  <p className="font-semibold text-base md:text-lg text-gray-700">🔫 Gangster</p>
+                  <Button onClick={() => handleStartApp('gangster')} size="sm" className="bg-gray-700 hover:bg-gray-800 text-white rounded-full px-3 py-1 text-xs font-semibold">✨ Transforme</Button>
+                </div>
               </div>
               
               {/* Exemplo 5: Pintura */}
               <div className="flex flex-col items-center space-y-4 flex-shrink-0">
                 <img src="/example-pintura-new.png" alt="Transformação Pintura" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
-                <p className="font-semibold text-base md:text-lg text-purple-600">🎨 Pintura</p>
+                <div className="flex items-center gap-2">
+                  <p className="font-semibold text-base md:text-lg text-purple-600">🎨 Pintura</p>
+                  <Button onClick={() => handleStartApp('art')} size="sm" className="bg-purple-500 hover:bg-purple-600 text-white rounded-full px-3 py-1 text-xs font-semibold">✨ Transforme</Button>
+                </div>
               </div>
               
               {/* Exemplo 6: Circo */}
               <div className="flex flex-col items-center space-y-4 flex-shrink-0">
                 <img src="/example-circo.png" alt="Transformação Circo" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
-                <p className="font-semibold text-base md:text-lg text-red-600">🎪 Circo</p>
+                <div className="flex items-center gap-2">
+                  <p className="font-semibold text-base md:text-lg text-red-600">🎪 Circo</p>
+                  <Button onClick={() => handleStartApp('circus')} size="sm" className="bg-red-500 hover:bg-red-600 text-white rounded-full px-3 py-1 text-xs font-semibold">✨ Transforme</Button>
+                </div>
               </div>
             </div>
           </div>
