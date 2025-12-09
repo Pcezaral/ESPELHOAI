@@ -1,7 +1,7 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Loader2, Wand2, Zap, Sparkles, Crown, Infinity as InfinityIcon, Check } from "lucide-react";
+import { Loader2, Wand2, Zap, Sparkles, Crown, Infinity as InfinityIcon, Check, MessageSquare } from "lucide-react";
 import { APP_LOGO, APP_TITLE, getLoginUrl } from "@/const";
 import { useLocation } from "wouter";
 import { useEffect, useState } from "react";
@@ -328,25 +328,30 @@ export default function Home() {
         <div className="container max-w-4xl mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-12">Perguntas Frequentes</h2>
           
-          <div className="space-y-6">
+          <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-white p-6 rounded-lg shadow-sm">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Quanto tempo leva para gerar uma transformação?</h3>
-              <p className="text-gray-600">Geralmente entre 30 segundos a 2 minutos, dependendo do estilo escolhido.</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Como funciona o app?</h3>
+              <p className="text-gray-600">Você carrega uma foto e o app cria versões engraçadas e criativas dela.</p>
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-sm">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Quantos créditos cada transformação custa?</h3>
-              <p className="text-gray-600">Cada transformação custa 1 crédito. Novos usuários recebem 5 créditos grátis!</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Quais estilos estão disponíveis?</h3>
+              <p className="text-gray-600">Temos bonequinhos, monstrinhos, pinturas antigas e personagens históricos para escolher.</p>
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-sm">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Posso usar fotos de outras pessoas?</h3>
-              <p className="text-gray-600">Sim, mas certifique-se de ter permissão. Respeite a privacidade e direitos autorais.</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Posso usar as imagens geradas?</h3>
+              <p className="text-gray-600">Sim! As imagens são suas para compartilhar nas redes sociais ou guardar como quiser.</p>
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-sm">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Qual é a qualidade das imagens geradas?</h3>
-              <p className="text-gray-600">Nossas transformações usam IA de última geração para máxima qualidade e realismo.</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">O app é gratuito?</h3>
+              <p className="text-gray-600">Você recebe créditos para gerar 1ª5 imagens, após isso, você pode escolher entre os três planos.</p>
+            </div>
+            
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Minhas fotos ficam salvas?</h3>
+              <p className="text-gray-600">Não, respeitamos sua privacidade e não armazenamos suas fotos.</p>
             </div>
           </div>
         </div>
@@ -357,14 +362,24 @@ export default function Home() {
         <div className="container max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-4">Pronto para se transformar?</h2>
           <p className="text-lg mb-8 opacity-90">Use seus 5 créditos grátis agora mesmo!</p>
-          <Button
-            onClick={handleStartApp}
-            disabled={loading}
-            className="bg-white text-orange-500 hover:bg-gray-100 text-lg h-14 px-12 rounded-full font-semibold"
-          >
-            <Wand2 className="w-5 h-5 mr-2" />
-            {loading ? "Carregando..." : "Começar Agora"}
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Button
+              onClick={handleStartApp}
+              disabled={loading}
+              className="bg-white text-orange-500 hover:bg-gray-100 text-lg h-14 px-12 rounded-full font-semibold"
+            >
+              <Wand2 className="w-5 h-5 mr-2" />
+              {loading ? "Carregando..." : "Começar Agora"}
+            </Button>
+            <Button
+              onClick={() => setLocation("/contato")}
+              variant="outline"
+              className="border-2 border-white text-white hover:bg-white/10 text-lg h-14 px-12 rounded-full font-semibold"
+            >
+              <MessageSquare className="w-5 h-5 mr-2" />
+              Contato
+            </Button>
+          </div>
         </div>
       </section>
     </div>
