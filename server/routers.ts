@@ -35,7 +35,7 @@ export const appRouter = router({
       }),
     generate: protectedProcedure
       .input(z.object({
-        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus"]),
+        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus", "natal", "reveillon"]),
         imageUrl: z.string(),
       }))
       .mutation(async ({ input, ctx }) => {
@@ -47,13 +47,16 @@ export const appRouter = router({
           gender: "Se tivesse nascido...",
           epic: "Romanos, Gregos e Vikings",
           gangster: "Gangster 1920s",
-          circus: "Circo"
+          circus: "Circo",
+          natal: "Natal",
+          reveillon: "Réveillon"
         };
         await consumeCredit(ctx.user.id, themeNames[input.theme]);
         
         const { generateTransformation } = await import("./generation");
         return generateTransformation(input.theme, input.imageUrl, ctx.user.id);
       }),
+
   }),
 
   credits: router({

@@ -73,6 +73,9 @@ export default function Home() {
                   <p className="text-xl md:text-2xl font-bold bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
                     Épico, Gangster, Pintura, Circo, Bichinho ou Monstro!
                   </p>
+                  <p className="text-lg md:text-xl font-bold bg-gradient-to-r from-red-500 to-blue-500 bg-clip-text text-transparent">
+                    🎄 + ESPECIAL FINAL DE ANO: Natal e Réveillon! 🎆
+                  </p>
                 </div>
               </div>
               
@@ -98,27 +101,85 @@ export default function Home() {
               </div>
             </div>
             
-            {/* Fotos: 2 de cada lado em desktop, abaixo em mobile */}
-            <div className="hidden md:flex flex-row items-center justify-center gap-12 w-full">
-              {/* Esquerda: Mulher e Homem Verticais */}
-              <div className="flex flex-col gap-4 items-center">
-                <img src="/hero-mulher-1.png" alt="Mulher" className="h-48 w-40 object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
-                <img src="/hero-homem-1.png" alt="Homem" className="h-48 w-40 object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
+            {/* Fotos: 4 exemplos antes/depois - Vertical mobile, 2 colunas desktop */}
+            <div className="w-full max-w-4xl">
+              {/* Mobile: 4 imagens verticais com gap mínimo */}
+              <div className="flex flex-col gap-1 items-center md:hidden">
+                <img src="/hero-exemplo-1.png" alt="Exemplo Pintura" className="w-full max-w-md object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
+                <img src="/hero-exemplo-2.png" alt="Exemplo Monstro" className="w-full max-w-md object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
+                <img src="/hero-exemplo-3.png" alt="Exemplo Épico" className="w-full max-w-md object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
+                <img src="/hero-exemplo-4.png" alt="Exemplo Bichinho" className="w-full max-w-md object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
               </div>
               
-              {/* Direita: Mulher e Homem Verticais */}
-              <div className="flex flex-col gap-4 items-center">
-                <img src="/hero-mulher-2.png" alt="Mulher" className="h-48 w-40 object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
-                <img src="/hero-homem-2.png" alt="Homem" className="h-48 w-40 object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
+              {/* Desktop: 2 colunas com 2 imagens cada */}
+              <div className="hidden md:grid md:grid-cols-2 gap-6">
+                <img src="/hero-exemplo-1.png" alt="Exemplo Pintura" className="w-full object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
+                <img src="/hero-exemplo-2.png" alt="Exemplo Monstro" className="w-full object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
+                <img src="/hero-exemplo-3.png" alt="Exemplo Épico" className="w-full object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
+                <img src="/hero-exemplo-4.png" alt="Exemplo Bichinho" className="w-full object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
               </div>
             </div>
-            
-            {/* Fotos em mobile: abaixo do logo e apresentação - 3 imagens verticais */}
-            <div className="md:hidden flex flex-col gap-1 w-full items-center">
-              <img src="/hero-mulher-1.png" alt="Mulher" className="h-40 w-36 object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
-              <img src="/hero-mulher-2.png" alt="Mulher" className="h-40 w-36 object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
-              <img src="/hero-homem-2.png" alt="Homem" className="h-40 w-36 object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
+          </div>
+        </div>
+      </section>
+
+      {/* Seção FINAL DE ANO ESPECIAL */}
+      <section className="bg-gradient-to-br from-red-50 via-white to-blue-50 py-12 md:py-20 relative overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0 opacity-20 pointer-events-none">
+          <div className="absolute top-10 left-10 text-6xl animate-float-slow">🎄</div>
+          <div className="absolute top-20 right-20 text-5xl animate-float-medium">🎆</div>
+          <div className="absolute bottom-20 left-20 text-7xl animate-float-fast">🎅</div>
+          <div className="absolute bottom-10 right-10 text-6xl animate-float-slow">🎇</div>
+          <div className="absolute top-1/3 left-1/4 text-5xl animate-float-medium">❄️</div>
+          <div className="absolute top-2/3 right-1/3 text-6xl animate-float-fast">🎉</div>
+        </div>
+        
+        <div className="w-full">
+          <div className="text-center mb-12">
+            <span className="inline-block bg-gradient-to-r from-red-500 to-blue-500 text-white px-6 py-2 rounded-full text-sm font-bold mb-4">🎄 ESPECIAL FINAL DE ANO 🎆</span>
+            <h2 className="text-4xl font-bold mb-4">Celebre com Estilo!</h2>
+            <p className="text-gray-600 text-lg">Transforme-se para o Natal e Réveillon</p>
+          </div>
+          
+          {/* Container com scroll horizontal em mobile */}
+          <div className="overflow-x-auto md:overflow-visible -mx-4 md:mx-0">
+            <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 px-4 md:px-8 lg:px-16 min-w-max md:min-w-full">
+              {/* Exemplo 1: Natal - Mamãe Noel */}
+              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
+                <img src="/example-natal-mamae-noel.png" alt="Transformação Natal - Mamãe Noel" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer border-2 border-red-200" />
+                <p className="font-semibold text-base md:text-lg text-red-600">🎅 Mamãe Noel</p>
+              </div>
+              
+              {/* Exemplo 2: Natal - Papai Noel */}
+              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
+                <img src="/example-natal-papai-noel.png" alt="Transformação Natal - Papai Noel" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer border-2 border-red-200" />
+                <p className="font-semibold text-base md:text-lg text-red-600">🎄 Papai Noel</p>
+              </div>
+              
+              {/* Exemplo 3: Réveillon - Praia */}
+              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
+                <img src="/example-reveillon-praia.png" alt="Transformação Réveillon - Praia" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer border-2 border-blue-200" />
+                <p className="font-semibold text-base md:text-lg text-blue-600">🎆 Réveillon Praia</p>
+              </div>
+              
+              {/* Exemplo 4: Réveillon - Jantar */}
+              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
+                <img src="/example-reveillon-jantar.png" alt="Transformação Réveillon - Jantar" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer border-2 border-blue-200" />
+                <p className="font-semibold text-base md:text-lg text-blue-600">🍾 Réveillon Jantar</p>
+              </div>
             </div>
+          </div>
+          
+          <div className="mt-12 text-center">
+            <Button
+              onClick={handleStartApp}
+              disabled={loading}
+              className="bg-gradient-to-r from-red-500 via-orange-500 to-blue-500 hover:from-red-600 hover:via-orange-600 hover:to-blue-600 text-white text-lg h-12 px-8 rounded-full shadow-lg hover:shadow-xl transition-all font-semibold"
+            >
+              <Sparkles className="w-5 h-5 mr-2" />
+              Criar Transformação de Final de Ano
+            </Button>
           </div>
         </div>
       </section>
@@ -139,34 +200,46 @@ export default function Home() {
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-transparent to-red-500/5 pointer-events-none"></div>
         <div className="w-full">
-          <h2 className="text-4xl font-bold text-center mb-4">Veja a Magia Acontecer</h2>
+          <h2 className="text-4xl font-bold text-center mb-4">Mais Estilos Disponíveis</h2>
           <p className="text-center text-gray-600 mb-12 text-lg">Transformações incríveis em segundos</p>
           
           {/* Container com scroll horizontal em mobile */}
           <div className="overflow-x-auto md:overflow-visible -mx-4 md:mx-0">
-            <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 px-4 md:px-8 lg:px-16 min-w-max md:min-w-full">
+            <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 px-4 md:px-8 lg:px-16 min-w-max md:min-w-full">
               {/* Exemplo 1: Bichinho */}
               <div className="flex flex-col items-center space-y-4 flex-shrink-0">
-                <img src="/example-bichinho.png" alt="Brad Pitt transformado em cachorro" className="w-64 h-32 md:w-80 md:h-40 object-contain rounded-lg shadow-lg" />
+                <img src="/example-bichinho.png" alt="Transformação Bichinho" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
                 <p className="font-semibold text-base md:text-lg text-pink-600">🐶 Bichinho</p>
               </div>
               
-              {/* Exemplo 2: Épico */}
+              {/* Exemplo 2: Monstro */}
               <div className="flex flex-col items-center space-y-4 flex-shrink-0">
-                <img src="/example-epico.png" alt="Homem transformado em imperador romano" className="w-64 h-32 md:w-80 md:h-40 object-contain rounded-lg shadow-lg" />
+                <img src="/example-monstro.png" alt="Transformação Monstro" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
+                <p className="font-semibold text-base md:text-lg text-green-600">👾 Monstro</p>
+              </div>
+              
+              {/* Exemplo 3: Épico (Romanos/Gregos/Vikings) */}
+              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
+                <img src="/example-romana.png" alt="Transformação Épica - Romana" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
                 <p className="font-semibold text-base md:text-lg text-orange-600">🏛️ Épico</p>
               </div>
               
-              {/* Exemplo 3: Gangster */}
+              {/* Exemplo 4: Gangster */}
               <div className="flex flex-col items-center space-y-4 flex-shrink-0">
-                <img src="/example-gangster-new.png" alt="Homem transformado em gangster" className="w-64 h-32 md:w-80 md:h-40 object-contain rounded-lg shadow-lg" />
+                <img src="/example-gangster-new.png" alt="Transformação Gangster" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
                 <p className="font-semibold text-base md:text-lg text-gray-700">🔫 Gangster</p>
               </div>
               
-              {/* Exemplo 4: Pintura */}
+              {/* Exemplo 5: Pintura */}
               <div className="flex flex-col items-center space-y-4 flex-shrink-0">
-                <img src="/example-pintura-new.png" alt="Homem transformado em pintura militar" className="w-64 h-32 md:w-80 md:h-40 object-contain rounded-lg shadow-lg" />
+                <img src="/example-pintura-new.png" alt="Transformação Pintura" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
                 <p className="font-semibold text-base md:text-lg text-purple-600">🎨 Pintura</p>
+              </div>
+              
+              {/* Exemplo 6: Circo */}
+              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
+                <img src="/example-circo.png" alt="Transformação Circo" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
+                <p className="font-semibold text-base md:text-lg text-red-600">🎪 Circo</p>
               </div>
             </div>
           </div>
