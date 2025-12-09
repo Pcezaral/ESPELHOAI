@@ -859,3 +859,16 @@ App totalmente alinhado com identidade visual do site Hostinger
 ### Navegação
 - [x] Link "Suporte" adicionado no footer da Home
 - [x] Rota /admin criada e protegida
+
+
+## Correção - Fluxo Direto ao Upload (09/12/2025)
+
+### Problema Identificado:
+- [x] Quando usuário clicava em "✨ Transforme" em um estilo, ia para página de seleção de temas novamente (redundante)
+- [x] Página de seleção de temas deveria ser pulada se tema vinha da URL
+
+### Solução Implementada:
+- [x] Generator.tsx reescrito para ir direto ao upload quando tema vem da URL
+- [x] Quando usuário clica em "Transforme", URL é atualizada com `?theme=TEMA`
+- [x] Página de seleção de temas só aparece se acessar `/generator` sem tema
+- [x] Fluxo agora: Home → Clica "Transforme" → Upload/Câmera (sem página intermediária)
