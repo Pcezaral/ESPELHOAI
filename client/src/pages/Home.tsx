@@ -164,6 +164,78 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="relative z-10">
+        {/* Seção Hero - FUNDO PRETO COM EXEMPLOS */}
+        <section className="bg-black py-12 md:py-20">
+          <div className="container max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+              {/* Esquerda: CTA */}
+              <div className="text-center md:text-left">
+                <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">Quero meus<br />créditos!</h3>
+                <Button
+                  onClick={() => setLocation("/planos")}
+                  className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-full px-8 py-3 font-semibold"
+                >
+                  Comprar Créditos
+                </Button>
+              </div>
+              
+              {/* Centro: Logo e CTA Principal */}
+              <div className="text-center space-y-6">
+                <div className="flex justify-center">
+                  <img src="/espelho-ai-logo-transp.png" alt="ESPELHO AI" className="h-32 w-32" />
+                </div>
+                <div>
+                  <img src="/Screenshot2025-12-09at09.28.31.png" alt="Exemplo Guerreiro" className="w-full max-w-xs mx-auto rounded-lg" />
+                </div>
+                <Button
+                  onClick={handleStartApp}
+                  disabled={loading}
+                  size="lg"
+                  className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-lg h-14 px-8 rounded-full shadow-lg hover:shadow-xl transition-all font-semibold w-full"
+                >
+                  <Wand2 className="w-5 h-5 mr-2" />
+                  {loading ? "Carregando..." : "Comece já!"}
+                </Button>
+              </div>
+              
+              {/* Direita: Como fazer */}
+              <div className="text-center md:text-right space-y-4">
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">Como fazer?</h3>
+                <div className="space-y-2">
+                  <p className="text-lg font-semibold text-orange-400">Carregue sua imagem...</p>
+                  <p className="text-lg font-semibold text-pink-400">Gere a imagem, divirta-se e compartilhe!</p>
+                </div>
+                <img src="/Screenshot2025-12-09at09.28.39.png" alt="Exemplos" className="w-full max-w-xs mx-auto md:ml-auto rounded-lg" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Seção Exemplos de Transformações */}
+        <section className="bg-gray-50 py-12 md:py-20">
+          <div className="container max-w-6xl mx-auto">
+            <h2 className="text-4xl font-bold text-center mb-12">Exemplos de Transformações</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="text-center">
+                <img src="/Screenshot2025-12-09at09.29.06.png" alt="Bichinho" className="w-full rounded-lg mb-3" />
+                <p className="font-semibold text-lg text-teal-600">Bichinho</p>
+              </div>
+              <div className="text-center">
+                <img src="/Screenshot2025-12-09at09.29.06.png" alt="Pintura" className="w-full rounded-lg mb-3" />
+                <p className="font-semibold text-lg text-pink-600">Pintura</p>
+              </div>
+              <div className="text-center">
+                <img src="/Screenshot2025-12-09at09.29.06.png" alt="Monstro" className="w-full rounded-lg mb-3" />
+                <p className="font-semibold text-lg text-green-600">Monstro</p>
+              </div>
+              <div className="text-center">
+                <img src="/Screenshot2025-12-09at09.29.06.png" alt="Histórico" className="w-full rounded-lg mb-3" />
+                <p className="font-semibold text-lg text-orange-600">Histórico</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Seção Hero - FUNDO BRANCO */}
         <section className="bg-white py-12 md:py-20">
           <div className="container max-w-4xl mx-auto">
