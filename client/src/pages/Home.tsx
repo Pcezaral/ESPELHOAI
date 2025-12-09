@@ -229,21 +229,21 @@ export default function Home() {
         </section>
 
         {/* Seção Exemplos de Transformações - Antes/Depois */}
-        <section className="bg-white py-12 md:py-20">
-          <div className="container max-w-6xl mx-auto">
+        <section className="bg-white py-12 md:py-20 overflow-x-hidden">
+          <div className="w-full px-2 md:px-4">
             <h2 className="text-4xl font-bold text-center mb-4">Veja a Magia Acontecer</h2>
             <p className="text-center text-gray-600 mb-12 text-lg">Transformações incríveis em segundos</p>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 px-2 md:px-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 justify-items-center">
               {/* Exemplo 1: Pintura */}
-              <div className="flex flex-col items-center space-y-4">
-                <div className="flex gap-1 md:gap-3 w-full justify-center flex-wrap">
-                  <div className="text-center">
-                    <img src="/examples/exemplo-pintura-mulher-antes.jpg" alt="Antes - Pintura" className="w-20 h-28 md:w-32 md:h-40 object-cover rounded-lg shadow-md" />
+              <div className="flex flex-col items-center space-y-4 w-full">
+                <div className="flex gap-1 md:gap-2 justify-center items-center">
+                  <div className="text-center flex-shrink-0">
+                    <img src="/examples/exemplo-pintura-mulher-antes.jpg" alt="Antes - Pintura" className="w-16 h-24 md:w-28 md:h-36 object-cover rounded-lg shadow-md" />
                     <p className="text-xs md:text-sm text-gray-600 mt-1 md:mt-2 font-medium">Antes</p>
                   </div>
-                  <div className="text-center">
-                    <img src="/examples/exemplo-pintura-mulher-depois.jpg" alt="Depois - Pintura" className="w-20 h-28 md:w-32 md:h-40 object-cover rounded-lg shadow-md" />
+                  <div className="text-center flex-shrink-0">
+                    <img src="/examples/exemplo-pintura-mulher-depois.jpg" alt="Depois - Pintura" className="w-16 h-24 md:w-28 md:h-36 object-cover rounded-lg shadow-md" />
                     <p className="text-xs md:text-sm text-gray-600 mt-1 md:mt-2 font-medium">Depois</p>
                   </div>
                 </div>
@@ -251,14 +251,14 @@ export default function Home() {
               </div>
               
               {/* Exemplo 2: Monstro */}
-              <div className="flex flex-col items-center space-y-4">
-                <div className="flex gap-1 md:gap-3 w-full justify-center flex-wrap">
-                  <div className="text-center">
-                    <img src="/examples/exemplo-monstro-mulher-antes.jpg" alt="Antes - Monstro" className="w-20 h-28 md:w-32 md:h-40 object-cover rounded-lg shadow-md" />
+              <div className="flex flex-col items-center space-y-4 w-full">
+                <div className="flex gap-1 md:gap-2 justify-center items-center">
+                  <div className="text-center flex-shrink-0">
+                    <img src="/examples/exemplo-monstro-mulher-antes.jpg" alt="Antes - Monstro" className="w-16 h-24 md:w-28 md:h-36 object-cover rounded-lg shadow-md" />
                     <p className="text-xs md:text-sm text-gray-600 mt-1 md:mt-2 font-medium">Antes</p>
                   </div>
-                  <div className="text-center">
-                    <img src="/examples/exemplo-monstro-mulher-depois.jpg" alt="Depois - Monstro" className="w-20 h-28 md:w-32 md:h-40 object-cover rounded-lg shadow-md" />
+                  <div className="text-center flex-shrink-0">
+                    <img src="/examples/exemplo-monstro-mulher-depois.jpg" alt="Depois - Monstro" className="w-16 h-24 md:w-28 md:h-36 object-cover rounded-lg shadow-md" />
                     <p className="text-xs md:text-sm text-gray-600 mt-1 md:mt-2 font-medium">Depois</p>
                   </div>
                 </div>
@@ -266,14 +266,14 @@ export default function Home() {
               </div>
               
               {/* Exemplo 3: Épico */}
-              <div className="flex flex-col items-center space-y-4">
-                <div className="flex gap-1 md:gap-3 w-full justify-center flex-wrap">
-                  <div className="text-center">
-                    <img src="/examples/exemplo-epico-menina-antes.jpg" alt="Antes - Épico" className="w-20 h-28 md:w-32 md:h-40 object-cover rounded-lg shadow-md" />
+              <div className="flex flex-col items-center space-y-4 w-full">
+                <div className="flex gap-1 md:gap-2 justify-center items-center">
+                  <div className="text-center flex-shrink-0">
+                    <img src="/examples/exemplo-epico-menina-antes.jpg" alt="Antes - Épico" className="w-16 h-24 md:w-28 md:h-36 object-cover rounded-lg shadow-md" />
                     <p className="text-xs md:text-sm text-gray-600 mt-1 md:mt-2 font-medium">Antes</p>
                   </div>
-                  <div className="text-center">
-                    <img src="/examples/exemplo-epico-menina-depois.jpg" alt="Depois - Épico" className="w-20 h-28 md:w-32 md:h-40 object-cover rounded-lg shadow-md" />
+                  <div className="text-center flex-shrink-0">
+                    <img src="/examples/exemplo-epico-menina-depois.jpg" alt="Depois - Épico" className="w-16 h-24 md:w-28 md:h-36 object-cover rounded-lg shadow-md" />
                     <p className="text-xs md:text-sm text-gray-600 mt-1 md:mt-2 font-medium">Depois</p>
                   </div>
                 </div>
