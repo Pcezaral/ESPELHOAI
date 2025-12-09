@@ -154,9 +154,6 @@ export default function Home() {
             </div>
             <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
               {isAuthenticated && <CreditBadge />}
-              <div className="hidden sm:block text-sm font-medium text-orange-400">
-                Por <span className="font-bold text-orange-500">Paulo Barboni</span>
-              </div>
             </div>
           </div>
         </div>
