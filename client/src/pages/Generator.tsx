@@ -268,8 +268,8 @@ export default function Generator() {
               <p className="text-slate-300 text-lg">
                 Tema: <span className="font-bold text-orange-400">{THEMES.find(t => t.id === selectedTheme)?.name}</span>
               </p>
-              <div className="bg-orange-50 border-l-4 border-orange-500 p-4 rounded-r-lg mt-4">
-                <p className="text-sm font-medium text-orange-800">
+              <div className="bg-blue-900 border-l-4 border-blue-500 p-4 rounded-r-lg mt-4">
+                <p className="text-sm font-medium text-blue-100">
                   💡 <strong>Dica:</strong> O ESPELHO AI oferece melhores resultados com fotos individuais ou até duas pessoas.
                 </p>
               </div>
@@ -383,8 +383,8 @@ export default function Generator() {
               <p className="text-slate-300 text-lg">
                 Tema: <span className="font-bold text-orange-400">{THEMES.find(t => t.id === selectedTheme)?.name}</span>
               </p>
-              <div className="bg-orange-50 border-l-4 border-orange-500 p-4 rounded-r-lg mt-4">
-                <p className="text-sm font-medium text-orange-800">
+              <div className="bg-blue-900 border-l-4 border-blue-500 p-4 rounded-r-lg mt-4">
+                <p className="text-sm font-medium text-blue-100">
                   💡 <strong>Dica:</strong> O ESPELHO AI oferece melhores resultados com fotos individuais ou até duas pessoas.
                 </p>
               </div>

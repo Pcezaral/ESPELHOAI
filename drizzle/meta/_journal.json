@@ -43,6 +43,20 @@
       "when": 1764680418999,
       "tag": "0005_acoustic_smiling_tiger",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1765099146942,
+      "tag": "0006_regular_madame_masque",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1765281725758,
+      "tag": "0007_previous_mikhail_rasputin",
+      "breakpoints": true
     }
   ]
 }
