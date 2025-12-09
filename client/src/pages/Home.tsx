@@ -567,6 +567,14 @@ export default function Home() {
               <MessageSquare className="w-5 h-5 mr-2" />
               Contato
             </Button>
+            <Button
+              onClick={() => setLocation("/suporte")}
+              variant="outline"
+              className="border-2 border-white text-white hover:bg-white/10 text-lg h-14 px-12 rounded-full font-semibold"
+            >
+              <MessageSquare className="w-5 h-5 mr-2" />
+              Suporte
+            </Button>
           </div>
         </div>
       </section>

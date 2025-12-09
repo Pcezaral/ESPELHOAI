@@ -3,7 +3,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Upload, Camera, Loader2, ArrowLeft } from "lucide-react";
+import { Upload, Camera, Loader2, ArrowLeft, Wand2 } from "lucide-react";
 import { useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { StarRating } from "@/components/StarRating";
@@ -88,11 +88,10 @@ const THEMES = [
 
 export default function Generator() {
   const { user, isAuthenticated } = useAuth();
-  const [, setLocation] = useLocation();
+  const [location, setLocation] = useLocation();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
-  const [searchParams] = useLocation();
-  const themeFromUrl = searchParams.includes('?') ? new URLSearchParams(searchParams.split('?')[1]).get('theme') as Theme | null : null;
+  const themeFromUrl = location.includes('?') ? new URLSearchParams(location.split('?')[1]).get('theme') as Theme | null : null;
   
   const [selectedTheme, setSelectedTheme] = useState<Theme | null>(themeFromUrl);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -257,6 +256,44 @@ export default function Generator() {
       </header>
 
       <main className="container py-12 relative z-10">
+
+        {/* Step 1: Theme Selection */}
+        {step === "theme" && (
+          <div className="max-w-4xl mx-auto space-y-8">
+            <div className="text-center space-y-2">
+              <h2 className="text-4xl font-bold text-white">
+                Escolha um estilo
+              </h2>
+              <p className="text-slate-300 text-lg">
+                Selecione como você quer se transformar
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {THEMES.map((theme) => (
+                <Card
+                  key={theme.id}
+                  onClick={() => handleThemeSelect(theme.id)}
+                  className="cursor-pointer border-2 border-slate-700 hover:border-orange-500 transition-all hover:shadow-lg hover:shadow-orange-500/20 bg-slate-900/50 overflow-hidden group"
+                >
+                  <div className="p-6 space-y-4">
+                    <div className="text-5xl text-center">{theme.emoji}</div>
+                    <div className="space-y-2">
+                      <h3 className="text-xl font-bold text-white text-center">{theme.name}</h3>
+                      <p className="text-sm text-slate-300 text-center">{theme.description}</p>
+                    </div>
+                    <Button
+                      className="w-full gap-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold"
+                    >
+                      <Wand2 className="w-4 h-4" />
+                      Transforme
+                    </Button>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Step 2: Upload Image */}
         {step === "upload" && selectedTheme && (

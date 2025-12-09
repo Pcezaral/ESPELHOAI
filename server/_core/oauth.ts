@@ -28,10 +28,13 @@ export function registerOAuthRoutes(app: Express) {
         return;
       }
 
+      if (!userInfo.email) {
+        throw new Error("User email is required");
+      }
       await db.upsertUser({
         openId: userInfo.openId,
         name: userInfo.name || null,
-        email: userInfo.email ?? null,
+        email: userInfo.email,
         loginMethod: userInfo.loginMethod ?? userInfo.platform ?? null,
         lastSignedIn: new Date(),
       });

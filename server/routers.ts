@@ -66,6 +66,10 @@ export const appRouter = router({
     getSubscription: protectedProcedure.query(async ({ ctx }) => {
       return getSubscriptionInfo(ctx.user.id);
     }),
+    getTransactionHistory: protectedProcedure.query(async ({ ctx }) => {
+      const { getTransactionHistory } = await import("./db");
+      return getTransactionHistory(50);
+    }),
   }),
 
   stripe: router({
@@ -146,6 +150,42 @@ export const appRouter = router({
         const { getTrendingTransformations } = await import("./db");
         return getTrendingTransformations(6);
       }),
+  }),
+
+  support: router({
+    createTicket: protectedProcedure
+      .input(z.object({
+        subject: z.string(),
+        message: z.string(),
+        category: z.enum(["generation", "connection", "credits", "payment", "other"]),
+      }))
+      .mutation(async ({ input, ctx }) => {
+        const db = await getDb();
+        if (!db) {
+          throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database not available" });
+        }
+        
+        const { supportTickets } = await import("../drizzle/schema");
+        
+        await db.insert(supportTickets).values({
+          userId: ctx.user.id,
+          subject: input.subject,
+          message: input.message,
+          status: "open",
+          priority: input.category === "generation" ? "high" : "medium",
+        });
+        
+        return { success: true };
+      }),
+    getTickets: protectedProcedure.query(async ({ ctx }) => {
+      const db = await getDb();
+      if (!db) return [];
+      
+      const { supportTickets } = await import("../drizzle/schema");
+      const { eq } = await import("drizzle-orm");
+      
+      return db.select().from(supportTickets).where(eq(supportTickets.userId, ctx.user.id));
+    }),
   }),
 });
 

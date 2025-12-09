@@ -802,3 +802,60 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Criar cenários variados e imersivos
 - [x] Implementar aleatoriedade forte (random seeds)
 - [x] Validar qualidade e consistência das gerações
+
+
+## Novas Funcionalidades - Fase 2 (09/12/2025)
+
+### Sistema de Cadastro de Clientes
+- [x] Email obrigatório para todos os usuários
+- [x] Campos opcionais: telefone, username, Instagram, TikTok, Twitter, YouTube
+- [x] Schema atualizado no banco de dados
+- [x] Migração executada com sucesso
+
+### Sistema de Suporte com Respostas Automáticas
+- [x] Página de suporte com 5 categorias:
+  * Problema de Geração
+  * Problema de Conexão
+  * Problemas com Créditos
+  * Problemas de Pagamento
+  * Outro Assunto
+- [x] Respostas automáticas para cada categoria
+- [x] Perguntas pré-definidas dentro de cada categoria
+- [x] Opção de escalação para ticket manual
+- [x] Criação de tickets de suporte no banco
+- [x] Rota /suporte acessível
+
+### Painel Admin
+- [x] Página admin protegida (apenas para role="admin")
+- [x] Dashboard com 4 cards de estatísticas (em desenvolvimento)
+- [x] Visualização de alertas recentes
+- [x] Visualização de tickets de suporte
+- [x] Formulário para comunicar problemas/solicitar ajustes
+- [x] Rota /admin acessível
+- [x] Auto-refresh toggle
+
+### Contador de Créditos Aprimorado
+- [x] CreditBadge já implementado no header
+- [x] Modal de detalhes de créditos (CreditDetailsModal)
+- [x] Histórico de transações
+- [x] Estimativa de transformações restantes
+- [x] Alerta visual quando créditos < 3
+- [x] Clicável para ir para página de planos
+
+### Procedures tRPC Adicionados
+- [x] credits.getTransactionHistory
+- [x] support.createTicket
+- [x] support.getTickets
+
+### Database - Novas Tabelas
+- [x] admin_alerts (para alertas do sistema)
+- [x] support_tickets (para tickets de suporte)
+- [x] access_logs (para analytics de acessos)
+
+### Frontend - Novas Páginas
+- [x] /suporte - Central de suporte com categorias
+- [x] /admin - Painel administrativo
+
+### Navegação
+- [x] Link "Suporte" adicionado no footer da Home
+- [x] Rota /admin criada e protegida

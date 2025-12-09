@@ -10,6 +10,8 @@ import Gallery from "./pages/Gallery";
 import About from "./pages/About";
 import Planos from "./pages/Planos";
 import Contato from "./pages/Contato";
+import Support from "./pages/Support";
+import Admin from "./pages/Admin";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -21,6 +23,8 @@ function Router() {
       <Route path={"/about"} component={About} />
       <Route path={"/planos"} component={Planos} />
       <Route path={"/contato"} component={Contato} />
+      <Route path={"/suporte"} component={Support} />
+      <Route path={"/admin"} component={Admin} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

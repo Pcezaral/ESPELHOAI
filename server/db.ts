@@ -1,6 +1,6 @@
 import { eq, desc } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, transformations } from "../drizzle/schema";
+import { InsertUser, users, transformations, creditTransactions, adminAlerts, supportTickets } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -22,6 +22,9 @@ export async function upsertUser(user: InsertUser): Promise<void> {
   if (!user.openId) {
     throw new Error("User openId is required for upsert");
   }
+  if (!user.email) {
+    throw new Error("User email is required for upsert");
+  }
 
   const db = await getDb();
   if (!db) {
@@ -32,10 +35,11 @@ export async function upsertUser(user: InsertUser): Promise<void> {
   try {
     const values: InsertUser = {
       openId: user.openId,
+      email: user.email,
     };
     const updateSet: Record<string, unknown> = {};
 
-    const textFields = ["name", "email", "loginMethod"] as const;
+    const textFields = ["name", "loginMethod"] as const;
     type TextField = (typeof textFields)[number];
 
     const assignNullable = (field: TextField) => {
@@ -113,3 +117,104 @@ export async function getTrendingTransformations(limit: number = 6) {
 }
 
 // TODO: add feature queries here as your schema grows.
+
+
+// Admin Dashboard Queries
+
+export async function getAdminStats() {
+  const db = await getDb();
+  if (!db) return null;
+
+  try {
+    const totalUsers = await db.select().from(users);
+    const totalTransformations = await db.select().from(transformations);
+    const totalCreditsSpent = await db.select().from(creditTransactions);
+    
+    return {
+      totalUsers: totalUsers.length,
+      totalTransformations: totalTransformations.length,
+      totalRevenue: totalCreditsSpent
+        .filter(t => t.type === 'purchase')
+        .reduce((sum, t) => sum + t.amount, 0),
+      activeUsers: totalUsers.filter(u => {
+        const lastSignedIn = new Date(u.lastSignedIn);
+        const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+        return lastSignedIn > thirtyDaysAgo;
+      }).length,
+    };
+  } catch (error) {
+    console.error("[Database] Failed to get admin stats:", error);
+    return null;
+  }
+}
+
+export async function getRecentAlerts(limit: number = 10) {
+  const db = await getDb();
+  if (!db) return [];
+
+  try {
+    const { adminAlerts } = await import("../drizzle/schema");
+    const result = await db
+      .select()
+      .from(adminAlerts)
+      .orderBy(desc(adminAlerts.createdAt))
+      .limit(limit);
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to get alerts:", error);
+    return [];
+  }
+}
+
+export async function getSupportTickets(status?: string) {
+  const db = await getDb();
+  if (!db) return [];
+
+  try {
+    let query: any = db.select().from(supportTickets);
+    
+    if (status) {
+      query = query.where(eq(supportTickets.status, status as any));
+    }
+    
+    const result = await query.orderBy(desc(supportTickets.createdAt));
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to get support tickets:", error);
+    return [];
+  }
+}
+
+export async function getUsersWithStats(limit: number = 20) {
+  const db = await getDb();
+  if (!db) return [];
+
+  try {
+    const result = await db
+      .select()
+      .from(users)
+      .orderBy(desc(users.createdAt))
+      .limit(limit);
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to get users:", error);
+    return [];
+  }
+}
+
+export async function getTransactionHistory(limit: number = 50) {
+  const db = await getDb();
+  if (!db) return [];
+
+  try {
+    const result = await db
+      .select()
+      .from(creditTransactions)
+      .orderBy(desc(creditTransactions.createdAt))
+      .limit(limit);
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to get transaction history:", error);
+    return [];
+  }
+}
