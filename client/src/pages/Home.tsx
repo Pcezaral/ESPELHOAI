@@ -122,50 +122,29 @@ export default function Home() {
           
           {/* Container com scroll horizontal em mobile */}
           <div className="overflow-x-auto md:overflow-visible -mx-4 md:mx-0">
-            <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 px-4 md:px-8 lg:px-16 min-w-max md:min-w-full">
-              {/* Exemplo 1: Pintura */}
-              <div className="flex flex-col items-center space-y-4 flex-shrink-0 w-44 md:w-auto">
-                <div className="flex gap-0 justify-center items-center">
-                  <div className="text-center flex-shrink-0">
-                    <img src="/examples/exemplo-pintura-mulher-antes.jpg" alt="Antes - Pintura" className="w-16 h-24 md:w-28 md:h-40 object-cover rounded-lg shadow-md" />
-                    <p className="text-xs md:text-sm text-gray-600 mt-2 font-medium">Antes</p>
-                  </div>
-                  <div className="text-center flex-shrink-0">
-                    <img src="/examples/exemplo-pintura-mulher-depois.jpg" alt="Depois - Pintura" className="w-16 h-24 md:w-28 md:h-40 object-cover rounded-lg shadow-md" />
-                    <p className="text-xs md:text-sm text-gray-600 mt-2 font-medium">Depois</p>
-                  </div>
-                </div>
-                <p className="font-semibold text-base md:text-lg text-pink-600">🎨 Pintura</p>
+            <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 px-4 md:px-8 lg:px-16 min-w-max md:min-w-full">
+              {/* Exemplo 1: Bichinho */}
+              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
+                <img src="/example-bichinho.png" alt="Brad Pitt transformado em cachorro" className="w-64 h-32 md:w-80 md:h-40 object-contain rounded-lg shadow-lg" />
+                <p className="font-semibold text-base md:text-lg text-pink-600">🐶 Bichinho</p>
               </div>
               
-              {/* Exemplo 2: Monstro */}
-              <div className="flex flex-col items-center space-y-4 flex-shrink-0 w-44 md:w-auto">
-                <div className="flex gap-0 justify-center items-center">
-                  <div className="text-center flex-shrink-0">
-                    <img src="/examples/exemplo-monstro-mulher-antes.jpg" alt="Antes - Monstro" className="w-16 h-24 md:w-28 md:h-40 object-cover rounded-lg shadow-md" />
-                    <p className="text-xs md:text-sm text-gray-600 mt-2 font-medium">Antes</p>
-                  </div>
-                  <div className="text-center flex-shrink-0">
-                    <img src="/examples/exemplo-monstro-mulher-depois.jpg" alt="Depois - Monstro" className="w-16 h-24 md:w-28 md:h-40 object-cover rounded-lg shadow-md" />
-                    <p className="text-xs md:text-sm text-gray-600 mt-2 font-medium">Depois</p>
-                  </div>
-                </div>
+              {/* Exemplo 2: Épico */}
+              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
+                <img src="/example-epico.png" alt="Homem transformado em imperador romano" className="w-64 h-32 md:w-80 md:h-40 object-contain rounded-lg shadow-lg" />
+                <p className="font-semibold text-base md:text-lg text-orange-600">🏛️ Épico</p>
+              </div>
+              
+              {/* Exemplo 3: Monstro */}
+              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
+                <img src="/example-monstro.png" alt="Homem transformado em monstro colorido" className="w-64 h-32 md:w-80 md:h-40 object-contain rounded-lg shadow-lg" />
                 <p className="font-semibold text-base md:text-lg text-green-600">👾 Monstro</p>
               </div>
               
-              {/* Exemplo 3: Épico */}
-              <div className="flex flex-col items-center space-y-4 flex-shrink-0 w-44 md:w-auto">
-                <div className="flex gap-0 justify-center items-center">
-                  <div className="text-center flex-shrink-0">
-                    <img src="/examples/exemplo-epico-menina-antes.jpg" alt="Antes - Épico" className="w-16 h-24 md:w-28 md:h-40 object-cover rounded-lg shadow-md" />
-                    <p className="text-xs md:text-sm text-gray-600 mt-2 font-medium">Antes</p>
-                  </div>
-                  <div className="text-center flex-shrink-0">
-                    <img src="/examples/exemplo-epico-menina-depois.jpg" alt="Depois - Épico" className="w-16 h-24 md:w-28 md:h-40 object-cover rounded-lg shadow-md" />
-                    <p className="text-xs md:text-sm text-gray-600 mt-2 font-medium">Depois</p>
-                  </div>
-                </div>
-                <p className="font-semibold text-base md:text-lg text-orange-600">🏛️ Épico</p>
+              {/* Exemplo 4: Pintura */}
+              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
+                <img src="/example-pintura.png" alt="Homem transformado em pintura militar" className="w-64 h-32 md:w-80 md:h-40 object-contain rounded-lg shadow-lg" />
+                <p className="font-semibold text-base md:text-lg text-purple-600">🎨 Pintura</p>
               </div>
             </div>
           </div>
