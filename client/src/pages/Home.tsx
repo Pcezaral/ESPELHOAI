@@ -150,28 +150,16 @@ export default function Home() {
           
           {/* Container com scroll horizontal em mobile */}
           <div className="overflow-x-auto md:overflow-visible -mx-4 md:mx-0">
-            <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 px-4 md:px-8 lg:px-16 min-w-max md:min-w-full">
+            <div className="flex md:grid md:grid-cols-2 gap-6 md:gap-8 px-4 md:px-8 lg:px-16 min-w-max md:min-w-full justify-center">
               {/* Exemplo 1: Natal */}
               <div className="flex flex-col items-center space-y-4 flex-shrink-0">
                 <img src="/example-natal-mamae-noel.png" alt="Transformação Natal" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer border-2 border-red-200" />
                 <p className="font-semibold text-base md:text-lg text-red-600">🎄 Natal</p>
               </div>
               
-              {/* Exemplo 2: Natal */}
+              {/* Exemplo 2: Réveillon - Praia */}
               <div className="flex flex-col items-center space-y-4 flex-shrink-0">
-                <img src="/example-natal-papai-noel.png" alt="Transformação Natal" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer border-2 border-red-200" />
-                <p className="font-semibold text-base md:text-lg text-red-600">🎄 Natal</p>
-              </div>
-              
-              {/* Exemplo 3: Réveillon - Praia */}
-              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
-                <img src="/example-reveillon-praia.png" alt="Transformação Réveillon - Praia" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer border-2 border-blue-200" />
-                <p className="font-semibold text-base md:text-lg text-blue-600">🎆 Réveillon</p>
-              </div>
-              
-              {/* Exemplo 4: Réveillon - Jantar */}
-              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
-                <img src="/example-reveillon-jantar.png" alt="Transformação Réveillon - Jantar" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer border-2 border-blue-200" />
+                <img src="/example-reveillon-praia.png" alt="Transformação Réveillon" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer border-2 border-blue-200" />
                 <p className="font-semibold text-base md:text-lg text-blue-600">🎆 Réveillon</p>
               </div>
             </div>
