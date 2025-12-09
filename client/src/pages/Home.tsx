@@ -88,26 +88,26 @@ export default function Home() {
             <div className="hidden md:flex flex-row items-center justify-center gap-12 w-full">
               {/* Esquerda: Mulher e Homem Verticais */}
               <div className="flex flex-col gap-4 items-center">
-                <img src="/hero-mulher-1.png" alt="Mulher" className="h-40 w-32 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
-                <img src="/hero-homem-1.png" alt="Homem" className="h-40 w-32 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
+                <img src="/hero-mulher-1.png" alt="Mulher" className="h-48 w-40 object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
+                <img src="/hero-homem-1.png" alt="Homem" className="h-48 w-40 object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
               </div>
               
               {/* Direita: Mulher e Homem Verticais */}
               <div className="flex flex-col gap-4 items-center">
-                <img src="/hero-mulher-2.png" alt="Mulher" className="h-40 w-32 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
-                <img src="/hero-homem-2.png" alt="Homem" className="h-40 w-32 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
+                <img src="/hero-mulher-2.png" alt="Mulher" className="h-48 w-40 object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
+                <img src="/hero-homem-2.png" alt="Homem" className="h-48 w-40 object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
               </div>
             </div>
             
             {/* Fotos em mobile: abaixo do logo e apresentação */}
             <div className="md:hidden flex flex-col gap-4 w-full items-center">
               <div className="flex flex-col gap-3 items-center">
-                <img src="/hero-mulher-1.png" alt="Mulher" className="h-28 w-20 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
-                <img src="/hero-homem-1.png" alt="Homem" className="h-28 w-20 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
+                <img src="/hero-mulher-1.png" alt="Mulher" className="h-32 w-28 object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
+                <img src="/hero-homem-1.png" alt="Homem" className="h-32 w-28 object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
               </div>
               <div className="flex flex-col gap-3 items-center">
-                <img src="/hero-mulher-2.png" alt="Mulher" className="h-28 w-20 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
-                <img src="/hero-homem-2.png" alt="Homem" className="h-28 w-20 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
+                <img src="/hero-mulher-2.png" alt="Mulher" className="h-32 w-28 object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
+                <img src="/hero-homem-2.png" alt="Homem" className="h-32 w-28 object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
               </div>
             </div>
           </div>
