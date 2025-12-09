@@ -101,11 +101,11 @@ export default function Home() {
             
             {/* Fotos em mobile: abaixo do logo e apresentação */}
             <div className="md:hidden flex flex-col gap-1 w-full items-center">
-              <div className="flex flex-col gap-3 items-center">
+              <div className="flex flex-col gap-1 items-center">
                 <img src="/hero-mulher-1.png" alt="Mulher" className="h-32 w-28 object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
                 <img src="/hero-homem-1.png" alt="Homem" className="h-32 w-28 object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
               </div>
-              <div className="flex flex-col gap-3 items-center">
+              <div className="flex flex-col gap-1 items-center">
                 <img src="/hero-mulher-2.png" alt="Mulher" className="h-32 w-28 object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
                 <img src="/hero-homem-2.png" alt="Homem" className="h-32 w-28 object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
               </div>
