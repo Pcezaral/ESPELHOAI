@@ -1,6 +1,7 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { Loader2, Wand2, Zap } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { Loader2, Wand2, Zap, Sparkles, Crown, Infinity as InfinityIcon, Check } from "lucide-react";
 import { APP_LOGO, APP_TITLE, getLoginUrl } from "@/const";
 import { useLocation } from "wouter";
 import { useEffect, useState } from "react";
@@ -158,6 +159,166 @@ export default function Home() {
               <Wand2 className="w-5 h-5 mr-2" />
               Crie Sua Transformação
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Planos Section */}
+      <section className="bg-gradient-to-b from-gray-50 to-white py-12 md:py-20">
+        <div className="container max-w-7xl mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center mb-4">Escolha Seu Pacote</h2>
+          <p className="text-center text-gray-600 mb-12 text-lg">Transformações ilimitadas ou pacotes de créditos</p>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            {/* Pacote Light */}
+            <Card className="p-6 border-2 border-blue-500/30 hover:border-blue-500/60 transition-all hover:shadow-xl">
+              <div className="text-center mb-4">
+                <div className="inline-flex p-3 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white mb-3">
+                  <Sparkles className="w-6 h-6" />
+                </div>
+                <h3 className="text-2xl font-bold mb-2">Pacote Light</h3>
+                <div className="text-3xl font-bold text-blue-600 mb-2">R$ 9,90</div>
+                <p className="text-gray-600">50 Créditos</p>
+              </div>
+              <ul className="space-y-3 mb-6">
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">50 transformações</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Todos os 6 estilos</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Download em alta qualidade</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Compartilhamento ilimitado</span>
+                </li>
+              </ul>
+              <Button onClick={() => setLocation("/planos")} className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600">
+                Escolher Light
+              </Button>
+            </Card>
+
+            {/* Pacote Premium */}
+            <Card className="p-6 border-2 border-orange-500/30 hover:border-orange-500/60 transition-all hover:shadow-xl relative">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                POPULAR
+              </div>
+              <div className="text-center mb-4">
+                <div className="inline-flex p-3 rounded-full bg-gradient-to-r from-orange-500 to-red-500 text-white mb-3">
+                  <Crown className="w-6 h-6" />
+                </div>
+                <h3 className="text-2xl font-bold mb-2">Pacote Premium</h3>
+                <div className="text-3xl font-bold text-orange-600 mb-2">R$ 19,90</div>
+                <p className="text-gray-600">200 Créditos + Extras</p>
+              </div>
+              <ul className="space-y-3 mb-6">
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">200 transformações</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Todos os 6 estilos</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Download em alta qualidade</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Recursos e cursos extras</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Suporte prioritário</span>
+                </li>
+              </ul>
+              <Button onClick={() => setLocation("/planos")} className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600">
+                Escolher Premium
+              </Button>
+            </Card>
+
+            {/* Ilimitado Mensal */}
+            <Card className="p-6 border-2 border-purple-500/30 hover:border-purple-500/60 transition-all hover:shadow-xl">
+              <div className="text-center mb-4">
+                <div className="inline-flex p-3 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white mb-3">
+                  <Zap className="w-6 h-6" />
+                </div>
+                <h3 className="text-2xl font-bold mb-2">Ilimitado Mensal</h3>
+                <div className="text-3xl font-bold text-purple-600 mb-2">R$ 29,90</div>
+                <p className="text-gray-600">por mês</p>
+              </div>
+              <ul className="space-y-3 mb-6">
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Transformações ilimitadas</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Todos os 6 estilos</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Download em alta qualidade</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Renovação automática</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Cancele quando quiser</span>
+                </li>
+              </ul>
+              <Button onClick={() => setLocation("/planos")} className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
+                Escolher Mensal
+              </Button>
+            </Card>
+
+            {/* Ilimitado Anual */}
+            <Card className="p-6 border-2 border-yellow-500/30 hover:border-yellow-500/60 transition-all hover:shadow-xl relative">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-yellow-500 to-orange-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                MELHOR CUSTO
+              </div>
+              <div className="text-center mb-4">
+                <div className="inline-flex p-3 rounded-full bg-gradient-to-r from-yellow-500 to-orange-600 text-white mb-3">
+                  <InfinityIcon className="w-6 h-6" />
+                </div>
+                <h3 className="text-2xl font-bold mb-2">Ilimitado Anual</h3>
+                <div className="text-3xl font-bold text-yellow-600 mb-2">R$ 119,90</div>
+                <p className="text-gray-600">por ano</p>
+              </div>
+              <ul className="space-y-3 mb-6">
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Transformações ilimitadas</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Todos os 6 estilos</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Download em alta qualidade</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm font-semibold">Economize R$ 238,90/ano</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Cancele quando quiser</span>
+                </li>
+              </ul>
+              <Button onClick={() => setLocation("/planos")} className="w-full bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700">
+                Escolher Anual
+              </Button>
+            </Card>
           </div>
         </div>
       </section>
