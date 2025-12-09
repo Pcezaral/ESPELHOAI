@@ -39,7 +39,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="bg-black py-16 md:py-24 relative overflow-hidden">
         {/* Animated Background */}
-        <div className="absolute inset-0 opacity-10 pointer-events-none">
+        <div className="absolute inset-0 opacity-75 pointer-events-none">
           <div className="absolute top-10 left-10 text-6xl animate-float-slow">🏛️</div>
           <div className="absolute top-20 right-20 text-5xl animate-float-medium">🗽</div>
           <div className="absolute bottom-20 left-20 text-7xl animate-float-fast">🏛️</div>
@@ -129,7 +129,20 @@ export default function Home() {
       </section>
 
       {/* Seção Exemplos de Transformações - Antes/Depois */}
-      <section className="bg-white py-12 md:py-20">
+      <section className="bg-white py-12 md:py-20 relative overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0 opacity-75 pointer-events-none">
+          <div className="absolute top-10 left-10 text-6xl animate-float-slow">🏛️</div>
+          <div className="absolute top-20 right-20 text-5xl animate-float-medium">🗽</div>
+          <div className="absolute bottom-20 left-20 text-7xl animate-float-fast">🏯</div>
+          <div className="absolute bottom-10 right-10 text-6xl animate-float-slow">🗾</div>
+          <div className="absolute top-1/3 left-1/4 text-5xl animate-float-medium">🗼</div>
+          <div className="absolute top-2/3 right-1/3 text-6xl animate-float-fast">🏛️</div>
+          <div className="absolute top-1/2 left-1/2 text-7xl animate-float-slow">🏯</div>
+        </div>
+        
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-transparent to-red-500/5 pointer-events-none"></div>
         <div className="w-full">
           <h2 className="text-4xl font-bold text-center mb-4">Veja a Magia Acontecer</h2>
           <p className="text-center text-gray-600 mb-12 text-lg">Transformações incríveis em segundos</p>
