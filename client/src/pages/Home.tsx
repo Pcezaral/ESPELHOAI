@@ -161,42 +161,70 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="relative z-10">
-        {/* Seção Hero - FUNDO PRETO LIMPO */}
+        {/* Seção Hero - FUNDO PRETO COM IMAGENS */}
         <section className="bg-black py-16 md:py-24">
-          <div className="container max-w-4xl mx-auto text-center space-y-8">
-            <div className="flex justify-center">
-              <img src="/espelho-ai-logo-transp.png" alt="ESPELHO AI" className="h-40 w-40" />
-            </div>
-            
-            <div className="space-y-4">
-              <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight">
-                Descubra Quem Você Seria<br />
-                <span className="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">em Outro Mundo</span>
-              </h2>
-              <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-                Transforme sua foto em 6 estilos incríveis: Épico, Gangster, Pintura, Circo, Bichinho ou Monstro!
-              </p>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Button
-                onClick={handleStartApp}
-                disabled={loading}
-                size="lg"
-                className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-lg h-14 px-8 rounded-full shadow-lg hover:shadow-xl transition-all font-semibold"
-              >
-                <Wand2 className="w-5 h-5 mr-2" />
-                {loading ? "Carregando..." : "Comece Agora"}
-              </Button>
-              <Button
-                onClick={() => setLocation("/planos")}
-                variant="outline"
-                size="lg"
-                className="border-orange-500 text-orange-400 hover:bg-orange-500/10 text-lg h-14 px-8 rounded-full font-semibold"
-              >
-                <Zap className="w-5 h-5 mr-2" />
-                Comprar Créditos
-              </Button>
+          <div className="container max-w-6xl mx-auto">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
+              {/* Esquerda: Fotos Femininas */}
+              <div className="flex flex-col gap-4 items-center">
+                <div className="flex gap-3">
+                  <img src="/hero-mulher-1.png" alt="Mulher Antes" className="h-32 w-24 md:h-40 md:w-32 object-cover rounded-lg shadow-lg" />
+                  <img src="/hero-mulher-2.png" alt="Mulher Depois" className="h-32 w-24 md:h-40 md:w-32 object-cover rounded-lg shadow-lg" />
+                </div>
+              </div>
+              
+              {/* Centro: Logo e Textos */}
+              <div className="flex flex-col items-center space-y-6 text-center">
+                <div className="flex justify-center">
+                  <img src="/espelho-ai-logo-transp.png" alt="ESPELHO AI" className="h-32 w-32 md:h-40 md:w-40" />
+                </div>
+                
+                <div className="space-y-4 max-w-2xl">
+                  <h2 className="text-3xl md:text-5xl font-bold leading-tight">
+                    <span className="text-white">Você</span>
+                    <br />
+                    <span className="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">em Outro Mundo!</span>
+                  </h2>
+                  
+                  <div className="space-y-2 pt-4">
+                    <p className="text-lg md:text-xl text-white font-medium">
+                      Transforme suas fotos em estilos incríveis
+                    </p>
+                    <p className="text-xl md:text-2xl font-bold bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
+                      Épico, Gangster, Pintura, Circo, Bichinho ou Monstro!
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                  <Button
+                    onClick={handleStartApp}
+                    disabled={loading}
+                    size="lg"
+                    className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-lg h-14 px-8 rounded-full shadow-lg hover:shadow-xl transition-all font-semibold"
+                  >
+                    <Wand2 className="w-5 h-5 mr-2" />
+                    {loading ? "Carregando..." : "Comece Agora"}
+                  </Button>
+                  <Button
+                    onClick={() => setLocation("/planos")}
+                    variant="outline"
+                    size="lg"
+                    className="border-orange-500 text-orange-400 hover:bg-orange-500/10 text-lg h-14 px-8 rounded-full font-semibold"
+                  >
+                    <Zap className="w-5 h-5 mr-2" />
+                    Comprar Créditos
+                  </Button>
+                </div>
+              </div>
+              
+              {/* Direita: Fotos Masculinas */}
+              <div className="flex flex-col gap-4 items-center">
+                <div className="flex gap-3">
+                  <img src="/hero-homem-1.png" alt="Homem Antes" className="h-32 w-24 md:h-40 md:w-32 object-cover rounded-lg shadow-lg" />
+                  <img src="/hero-homem-2.png" alt="Homem Depois" className="h-32 w-24 md:h-40 md:w-32 object-cover rounded-lg shadow-lg" />
+                </div>
+              </div>
             </div>
           </div>
         </section>
