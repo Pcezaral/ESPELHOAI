@@ -218,10 +218,10 @@ export default function Generator() {
   };
 
   const handleShare = (message: string) => {
-    // Adicionar hashtag #EspelhoAI2026 para temas de Final de Ano
     const isHolidayTheme = selectedTheme === "natal" || selectedTheme === "reveillon";
     const hashtag = isHolidayTheme ? " #EspelhoAI2026 🎄🎆" : "";
-    const text = `${message}${hashtag}\n\nDescubra seu verdadeiro eu! Acesse: https://descubraeu-ipcsmflf.manus.space`;
+    const appUrl = `https://descubraeu-ipcsmflf.manus.space?ref=share`;
+    const text = `✨ ESPELHO AI ✨\n${message}${hashtag}\n\nDescubra seu verdadeiro eu!\n${appUrl}`;
     const url = encodeURIComponent(text);
     window.open(`https://wa.me/?text=${url}`, "_blank");
   };
@@ -457,8 +457,9 @@ export default function Generator() {
                 onClick={() => {
                   const isHolidayTheme = selectedTheme === "natal" || selectedTheme === "reveillon";
                   const hashtag = isHolidayTheme ? " #EspelhoAI2026 🎄🎆" : "";
-                  const text = `Veja minha transformação no ESPELHO AI!${hashtag}`;
-                  window.open(`https://www.tiktok.com/share/video?url=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(text)}`, "_blank");
+                  const appUrl = `https://descubraeu-ipcsmflf.manus.space?ref=tiktok`;
+                  const text = `✨ ESPELHO AI ✨\nVeja minha transformação no ESPELHO AI!${hashtag}\n\nDescubra seu verdadeiro eu!\n${appUrl}`;
+                  window.open(`https://www.tiktok.com/share/video?url=${encodeURIComponent(appUrl)}&quote=${encodeURIComponent(text)}`, "_blank");
                 }}
                 size="lg"
                 variant="outline"
