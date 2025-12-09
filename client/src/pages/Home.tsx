@@ -162,15 +162,15 @@ export default function Home() {
                 <p className="font-semibold text-base md:text-lg text-orange-600">🏛️ Épico</p>
               </div>
               
-              {/* Exemplo 3: Monstro */}
+              {/* Exemplo 3: Gangster */}
               <div className="flex flex-col items-center space-y-4 flex-shrink-0">
-                <img src="/example-monstro.png" alt="Homem transformado em monstro colorido" className="w-64 h-32 md:w-80 md:h-40 object-contain rounded-lg shadow-lg" />
-                <p className="font-semibold text-base md:text-lg text-green-600">👾 Monstro</p>
+                <img src="/example-gangster-new.png" alt="Homem transformado em gangster" className="w-64 h-32 md:w-80 md:h-40 object-contain rounded-lg shadow-lg" />
+                <p className="font-semibold text-base md:text-lg text-gray-700">🔫 Gangster</p>
               </div>
               
               {/* Exemplo 4: Pintura */}
               <div className="flex flex-col items-center space-y-4 flex-shrink-0">
-                <img src="/example-pintura.png" alt="Homem transformado em pintura militar" className="w-64 h-32 md:w-80 md:h-40 object-contain rounded-lg shadow-lg" />
+                <img src="/example-pintura-new.png" alt="Homem transformado em pintura militar" className="w-64 h-32 md:w-80 md:h-40 object-contain rounded-lg shadow-lg" />
                 <p className="font-semibold text-base md:text-lg text-purple-600">🎨 Pintura</p>
               </div>
             </div>
