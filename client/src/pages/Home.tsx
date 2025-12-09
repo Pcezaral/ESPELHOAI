@@ -161,49 +161,42 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="relative z-10">
-        {/* Seção Hero - FUNDO PRETO COM EXEMPLOS */}
-        <section className="bg-black py-12 md:py-20">
-          <div className="container max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-              {/* Esquerda: CTA */}
-              <div className="text-center md:text-left">
-                <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">Quero meus<br />créditos!</h3>
-                <Button
-                  onClick={() => setLocation("/planos")}
-                  className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-full px-8 py-3 font-semibold"
-                >
-                  Comprar Créditos
-                </Button>
-              </div>
-              
-              {/* Centro: Logo e CTA Principal */}
-              <div className="text-center space-y-6">
-                <div className="flex justify-center">
-                  <img src="/espelho-ai-logo-transp.png" alt="ESPELHO AI" className="h-32 w-32" />
-                </div>
-                <div>
-                  <img src="/Screenshot2025-12-09at09.28.31.png" alt="Exemplo Guerreiro" className="w-full max-w-xs mx-auto rounded-lg" />
-                </div>
-                <Button
-                  onClick={handleStartApp}
-                  disabled={loading}
-                  size="lg"
-                  className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-lg h-14 px-8 rounded-full shadow-lg hover:shadow-xl transition-all font-semibold w-full"
-                >
-                  <Wand2 className="w-5 h-5 mr-2" />
-                  {loading ? "Carregando..." : "Comece já!"}
-                </Button>
-              </div>
-              
-              {/* Direita: Como fazer */}
-              <div className="text-center md:text-right space-y-4">
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">Como fazer?</h3>
-                <div className="space-y-2">
-                  <p className="text-lg font-semibold text-orange-400">Carregue sua imagem...</p>
-                  <p className="text-lg font-semibold text-pink-400">Gere a imagem, divirta-se e compartilhe!</p>
-                </div>
-                <img src="/Screenshot2025-12-09at09.28.39.png" alt="Exemplos" className="w-full max-w-xs mx-auto md:ml-auto rounded-lg" />
-              </div>
+        {/* Seção Hero - FUNDO PRETO LIMPO */}
+        <section className="bg-black py-16 md:py-24">
+          <div className="container max-w-4xl mx-auto text-center space-y-8">
+            <div className="flex justify-center">
+              <img src="/espelho-ai-logo-transp.png" alt="ESPELHO AI" className="h-40 w-40" />
+            </div>
+            
+            <div className="space-y-4">
+              <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight">
+                Descubra Quem Você Seria<br />
+                <span className="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">em Outro Mundo</span>
+              </h2>
+              <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+                Transforme sua foto em 6 estilos incríveis: Épico, Gangster, Pintura, Circo, Bichinho ou Monstro!
+              </p>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+              <Button
+                onClick={handleStartApp}
+                disabled={loading}
+                size="lg"
+                className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-lg h-14 px-8 rounded-full shadow-lg hover:shadow-xl transition-all font-semibold"
+              >
+                <Wand2 className="w-5 h-5 mr-2" />
+                {loading ? "Carregando..." : "Comece Agora"}
+              </Button>
+              <Button
+                onClick={() => setLocation("/planos")}
+                variant="outline"
+                size="lg"
+                className="border-orange-500 text-orange-400 hover:bg-orange-500/10 text-lg h-14 px-8 rounded-full font-semibold"
+              >
+                <Zap className="w-5 h-5 mr-2" />
+                Comprar Créditos
+              </Button>
             </div>
           </div>
         </section>
