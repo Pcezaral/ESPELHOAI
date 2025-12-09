@@ -1,5 +1,6 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
+import CountdownTimer from "@/components/CountdownTimer";
 import { Card } from "@/components/ui/card";
 import { Loader2, Wand2, Zap, Sparkles, Crown, Infinity as InfinityIcon, Check, MessageSquare, Share2 } from "lucide-react";
 import { APP_LOGO, APP_TITLE, getLoginUrl } from "@/const";
@@ -140,6 +141,11 @@ export default function Home() {
             <span className="inline-block bg-gradient-to-r from-red-500 to-blue-500 text-white px-6 py-2 rounded-full text-sm font-bold mb-4">🎄 ESPECIAL FINAL DE ANO 🎆</span>
             <h2 className="text-4xl font-bold mb-4">Celebre com Estilo!</h2>
             <p className="text-gray-600 text-lg">Transforme-se para o Natal e Réveillon</p>
+          </div>
+          
+          {/* Contador Regressivo */}
+          <div className="max-w-4xl mx-auto mb-12 px-4">
+            <CountdownTimer />
           </div>
           
           {/* Container com scroll horizontal em mobile */}

@@ -778,3 +778,27 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Atualizar schema do banco (adicionar circus ao enum theme)
 - [x] Atualizar routers.ts (adicionar circus aos tipos e themeNames)
 - [x] Aplicar migração do banco (pnpm db:push)
+
+
+## Novas Funcionalidades - Final de Ano 2026 (09/12/2025)
+
+### 1. Contador Regressivo para 2026 ✅ CONCLUÍDO
+- [x] Criar componente CountdownTimer
+- [x] Exibir dias/horas/minutos/segundos até 01/01/2026 00:00
+- [x] Adicionar na seção Final de Ano (Home.tsx)
+- [x] Animação e estilo festivo
+
+### 2. Botão de Compartilhamento com Hashtag ✅ CONCLUÍDO
+- [x] Atualizar função handleShare no Generator.tsx
+- [x] Incluir hashtag #EspelhoAI2026 automaticamente para Natal/Réveillon
+- [x] Adicionar temas natal e reveillon ao sistema completo
+- [x] Atualizar schema do banco de dados
+- [x] Aplicar migrações (pnpm db:push)
+
+### 3. Otimização de Prompts ✅ CONCLUÍDO
+- [x] Revisar prompts de todos os 9 temas
+- [x] Garantir preservação impecável de fisionomias (PIXEL-PERFECT IDENTICAL)
+- [x] Adicionar diversidade de roupas/acessórios para cada tema
+- [x] Criar cenários variados e imersivos
+- [x] Implementar aleatoriedade forte (random seeds)
+- [x] Validar qualidade e consistência das gerações

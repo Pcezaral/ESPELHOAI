@@ -119,7 +119,7 @@ export const appRouter = router({
   rating: router({
     submit: protectedProcedure
       .input(z.object({
-        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus"]),
+        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus", "natal", "reveillon"]),
         rating: z.number().min(1).max(5),
         comment: z.string().optional(),
       }))

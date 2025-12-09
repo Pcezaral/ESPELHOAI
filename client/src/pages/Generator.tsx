@@ -9,7 +9,7 @@ import { trpc } from "@/lib/trpc";
 import { StarRating } from "@/components/StarRating";
 import { toast } from "sonner";
 import { CreditBadge } from "@/components/CreditBadge";
-type Theme = "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus";
+type Theme = "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus" | "natal" | "reveillon";
 
 const THEMES = [
   {
@@ -67,6 +67,22 @@ const THEMES = [
     description: "Você como artista de circo: acrobata, palhaço, mágico...",
     color: "from-red-500 to-yellow-500",
     borderColor: "border-red-500/30 hover:border-red-500/60",
+  },
+  {
+    id: "natal" as Theme,
+    name: "Natal",
+    emoji: "🎄",
+    description: "Você como personagem natalino: Papai Noel, Mamãe Noel, Rena, Elfo...",
+    color: "from-red-600 to-green-600",
+    borderColor: "border-red-600/30 hover:border-red-600/60",
+  },
+  {
+    id: "reveillon" as Theme,
+    name: "Réveillon 2026",
+    emoji: "🎆",
+    description: "Você celebrando o Ano Novo com estilo: praia, fogos, festas...",
+    color: "from-blue-600 to-purple-600",
+    borderColor: "border-blue-600/30 hover:border-blue-600/60",
   },
 ];
 
@@ -202,7 +218,10 @@ export default function Generator() {
   };
 
   const handleShare = (message: string) => {
-    const text = `${message}\n\nDescubra seu verdadeiro eu! Acesse: [link do app]`;
+    // Adicionar hashtag #EspelhoAI2026 para temas de Final de Ano
+    const isHolidayTheme = selectedTheme === "natal" || selectedTheme === "reveillon";
+    const hashtag = isHolidayTheme ? " #EspelhoAI2026 🎄🎆" : "";
+    const text = `${message}${hashtag}\n\nDescubra seu verdadeiro eu! Acesse: https://descubraeu-ipcsmflf.manus.space`;
     const url = encodeURIComponent(text);
     window.open(`https://wa.me/?text=${url}`, "_blank");
   };
