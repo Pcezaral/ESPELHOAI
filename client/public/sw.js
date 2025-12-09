@@ -1,4 +1,5 @@
 // Service Worker para ESPELHO AI PWA
+// Estratégia: Network-first para sempre pegar versão mais recente
 const CACHE_NAME = 'espelho-ai-v1';
 const urlsToCache = [
   '/',
@@ -35,17 +36,44 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Fetch event - serve from cache, fallback to network
+// Fetch event - Network-first strategy
+// Tenta rede primeiro, usa cache como fallback
 self.addEventListener('fetch', (event) => {
+  // Não fazer cache de requisições POST, DELETE, PUT
+  if (event.request.method !== 'GET') {
+    return;
+  }
+
   event.respondWith(
-    caches.match(event.request)
+    fetch(event.request)
       .then((response) => {
-        // Cache hit - return response
-        if (response) {
+        // Não cachear respostas de erro
+        if (!response || response.status !== 200 || response.type === 'error') {
           return response;
         }
-        return fetch(event.request);
-      }
-    )
+
+        // Clonar a resposta
+        const responseToCache = response.clone();
+
+        caches.open(CACHE_NAME)
+          .then((cache) => {
+            cache.put(event.request, responseToCache);
+          });
+
+        return response;
+      })
+      .catch(() => {
+        // Se falhar a rede, tenta cache
+        return caches.match(event.request)
+          .then((response) => {
+            return response || new Response('Offline - página não disponível em cache', {
+              status: 503,
+              statusText: 'Service Unavailable',
+              headers: new Headers({
+                'Content-Type': 'text/plain'
+              })
+            });
+          });
+      })
   );
 });
