@@ -164,14 +164,8 @@ export default function Home() {
         {/* Seção Hero - FUNDO PRETO COM IMAGENS */}
         <section className="bg-black py-16 md:py-24">
           <div className="container max-w-6xl mx-auto">
-            <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
-              {/* Esquerda: Mulher e Homem Verticais */}
-              <div className="flex flex-col gap-3 items-center">
-                <img src="/hero-mulher-1.png" alt="Mulher" className="h-28 w-20 md:h-36 md:w-28 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
-                <img src="/hero-homem-1.png" alt="Homem" className="h-28 w-20 md:h-36 md:w-28 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
-              </div>
-              
-              {/* Centro: Logo e Textos */}
+            <div className="flex flex-col items-center justify-center gap-8 md:gap-12">
+              {/* Centro: Logo e Textos - Sempre no topo */}
               <div className="flex flex-col items-center space-y-6 text-center">
                 <div className="flex justify-center">
                   <img src="/espelho-ai-logo-transp.png" alt="ESPELHO AI" className="h-32 w-32 md:h-40 md:w-40" />
@@ -216,10 +210,19 @@ export default function Home() {
                 </div>
               </div>
               
-              {/* Direita: Mulher e Homem Verticais */}
-              <div className="flex flex-col gap-3 items-center">
-                <img src="/hero-mulher-2.png" alt="Mulher" className="h-28 w-20 md:h-36 md:w-28 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
-                <img src="/hero-homem-2.png" alt="Homem" className="h-28 w-20 md:h-36 md:w-28 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
+              {/* Fotos: Lado a lado em desktop, abaixo em mobile */}
+              <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 w-full">
+                {/* Esquerda: Mulher e Homem Verticais */}
+                <div className="flex flex-col gap-3 items-center">
+                  <img src="/hero-mulher-1.png" alt="Mulher" className="h-28 w-20 md:h-36 md:w-28 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
+                  <img src="/hero-homem-1.png" alt="Homem" className="h-28 w-20 md:h-36 md:w-28 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
+                </div>
+                
+                {/* Direita: Mulher e Homem Verticais */}
+                <div className="flex flex-col gap-3 items-center">
+                  <img src="/hero-mulher-2.png" alt="Mulher" className="h-28 w-20 md:h-36 md:w-28 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
+                  <img src="/hero-homem-2.png" alt="Homem" className="h-28 w-20 md:h-36 md:w-28 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-110 cursor-pointer" />
+                </div>
               </div>
             </div>
           </div>
