@@ -183,7 +183,7 @@ export default function Home() {
                 </h2>
 
                 <p className="text-xl text-gray-700 leading-relaxed">
-                  Transforme suas fotos com IA! Vire um guerreiro romano, viking ou grego. Seja um gangster dos anos 1920. Veja-se como uma pintura de Van Gogh, Picasso ou Monet. Ou vire um artista de circo! 7 estilos incríveis para descobrir.
+                  Transforme suas fotos com IA! Seja uma deusa grega, rainha viking ou imperatriz romana. Vire uma femme fatale dos anos 1920 ou um crime boss moderno. Veja-se como uma obra de Van Gogh, Picasso ou Monet. Ou brilhe como uma artista de circo! 7 estilos incríveis para descobrir.
                 </p>
                 
                 <div className="bg-blue-900 border-l-4 border-blue-500 p-4 rounded-r-lg">
