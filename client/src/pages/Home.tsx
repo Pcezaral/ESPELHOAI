@@ -30,8 +30,7 @@ export default function Home() {
       <header className="bg-black text-white py-4 px-4 md:px-8">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img src={APP_LOGO} alt={APP_TITLE} className="h-10 w-10" />
-            <span className="text-xl font-bold">{APP_TITLE}</span>
+            <span className="text-2xl md:text-3xl font-black bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 bg-clip-text text-transparent tracking-tight">Surpreenda sua Família e Amigos!</span>
           </div>
           {isAuthenticated && (
             <div className="flex items-center gap-2 bg-orange-500/20 px-4 py-2 rounded-full">

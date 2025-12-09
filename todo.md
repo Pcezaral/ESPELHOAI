@@ -930,3 +930,17 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Antes e Depois: Visualização lado a lado com grid 2 colunas implementada
 - [x] Final de Ano: Câmera já disponível, texto atualizado
 - [x] Generator: Corrigido erro de autenticação e ordem de hooks
+
+
+## Atualizações de Branding (09/12/2025)
+
+- [x] Substituir frase "Descubra seu verdadeiro eu!" por "Surpreenda sua Família e Amigos!"
+- [x] Aplicar cor laranja e fonte moderna, chamativa e alegre (gradiente orange-400 via orange-500 to red-500)
+- [x] Remover ícone branco à esquerda da frase
+
+
+## Atualização de Tipografia (09/12/2025)
+
+- [x] Adicionar fontes modernas do Google Fonts (Poppins + Space Grotesk)
+- [x] Aplicar novas fontes ao CSS global (Poppins para corpo, Space Grotesk para títulos)
+- [x] Testar visual em desktop e mobile - Visual muito mais moderno e contemporâneo
