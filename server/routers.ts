@@ -127,6 +127,13 @@ export const appRouter = router({
     getBalance: protectedProcedure.query(async ({ ctx }) => {
       return getCreditBalance(ctx.user.id);
     }),
+    testAddCredits: protectedProcedure
+      .input(z.object({
+        amount: z.number().min(1).max(10000),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        return addCredits(ctx.user.id, input.amount, "light", "Test credits");
+      }),
     getSubscription: protectedProcedure.query(async ({ ctx }) => {
       return getSubscriptionInfo(ctx.user.id);
     }),

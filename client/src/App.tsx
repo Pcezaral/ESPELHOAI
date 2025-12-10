@@ -15,6 +15,7 @@ import Admin from "./pages/Admin";
 import Analytics from "./pages/Analytics";
 import Leaderboard from "./pages/Leaderboard";
 import Referral from "./pages/Referral";
+import TestDashboard from "./pages/TestDashboard";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -31,6 +32,7 @@ function Router() {
       <Route path={"/analytics"} component={Analytics} />
       <Route path={"/leaderboard"} component={Leaderboard} />
       <Route path={"/referral"} component={Referral} />
+      <Route path={"/test"} component={TestDashboard} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

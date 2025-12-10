@@ -1260,3 +1260,14 @@ Destacar a vantagem comercial de cancelamento a qualquer momento em toda a plata
 - [x] Fluxo de compra não funciona (precisa integração com Stripe ou teste local)
 - [x] Criar mockups visuais para camiseta, caneca e poster
 - [x] Implementar fluxo de teste local para simular compra
+
+
+## Sistema de Teste Completo (10/12/2025)
+- [x] Criar endpoint de teste para gerar créditos ilimitados
+- [x] Configurar Stripe em modo teste
+- [x] Criar página /test com ferramentas de debug
+- [ ] Testar transformações (Bichinho, Épico, etc)
+- [ ] Testar downloads em alta resolução
+- [ ] Testar compra de créditos
+- [ ] Testar sistema de referral
+- [ ] Testar galeria de produtos
