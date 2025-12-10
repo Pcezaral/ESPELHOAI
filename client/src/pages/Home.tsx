@@ -209,7 +209,7 @@ export default function Home() {
         <div className="w-full">
           <h2 className="text-4xl font-bold text-center mb-4">Mais Estilos Disponíveis</h2>
           <p className="text-center text-gray-600 mb-2 text-lg">Transformações incríveis em segundos</p>
-          <p className="text-center text-orange-500 mb-12 text-lg font-semibold">Rolê para ver ➜</p>
+          <p className="text-center text-orange-500 mb-12 text-lg font-semibold">Scroll para ver ➜</p>
           
           {/* Container com scroll horizontal em mobile */}
           <div className="overflow-x-auto md:overflow-visible -mx-4 md:mx-0">

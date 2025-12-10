@@ -1186,3 +1186,11 @@ Destacar a vantagem comercial de cancelamento a qualquer momento em toda a plata
 - [x] Seção de formas de pagamento mantida no final da página também
 - [x] Modal com fundo escuro (overlay) e design consistente com tema
 - [x] Botão X para fechar modal
+
+
+## Correção: "Rolê" para "Role" / "Scrow" para "Scroll para ver" (10/12/2025)
+
+- [x] Corrigido texto na seção de estilos disponíveis
+- [x] Alterado de "Rolê para ver ➜" para "Scroll para ver ➜"
+- [x] Mantém mesmo tamanho e cor (laranja)
+- [x] Melhora clareza e profissionalismo do texto
