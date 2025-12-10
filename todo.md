@@ -1124,3 +1124,11 @@ Destacar a vantagem comercial de cancelamento a qualquer momento em toda a plata
 - [x] Font-semibold para destaque
 - [x] Seta para indicar scroll horizontal (➜)
 - [x] Cor laranja (text-orange-500) para combinar com identidade visual
+
+
+## Melhoria: Aumentar Logo em 20% no Desktop (10/12/2025)
+
+- [x] Alterado tamanho do logo de md:h-40 md:w-40 para md:h-48 md:w-48
+- [x] Aumento de 20% no desktop (40 → 48)
+- [x] Mobile mantém h-32 w-32 (sem alteração)
+- [x] Logo mais destacado e visível no hero section
