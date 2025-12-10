@@ -14,13 +14,7 @@ import Support from "./pages/Support";
 import Admin from "./pages/Admin";
 import Analytics from "./pages/Analytics";
 import Leaderboard from "./pages/Leaderboard";
-import Perfil from "./pages/Perfil";
-import Assinatura from "./pages/Assinatura";
-import Historico from "./pages/Historico";
-import Configuracoes from "./pages/Configuracoes";
-import Termos from "./pages/Termos";
-import TermosServico from "./pages/TermosServico";
-import PoliticaPrivacidade from "./pages/PoliticaPrivacidade";
+import Referral from "./pages/Referral";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -36,13 +30,7 @@ function Router() {
       <Route path={"/admin"} component={Admin} />
       <Route path={"/analytics"} component={Analytics} />
       <Route path={"/leaderboard"} component={Leaderboard} />
-      <Route path={"/perfil"} component={Perfil} />
-      <Route path={"/assinatura"} component={Assinatura} />
-      <Route path={"/historico"} component={Historico} />
-      <Route path={"/configuracoes"} component={Configuracoes} />
-      <Route path={"/termos"} component={Termos} />
-      <Route path={"/termos-servico"} component={TermosServico} />
-      <Route path={"/politica-privacidade"} component={PoliticaPrivacidade} />
+      <Route path={"/referral"} component={Referral} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

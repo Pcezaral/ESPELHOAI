@@ -1,161 +1,219 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { Download, Shirt, Coffee, Image as ImageIcon, AlertCircle } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { Sparkles, X } from "lucide-react";
+import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 
 interface HighResolutionDownloadProps {
   imageUrl: string;
-  theme: string;
-  onDownload?: (resolution: "hd" | "4k") => void;
+  theme?: string;
 }
 
-export default function HighResolutionDownload({
-  imageUrl,
-  theme,
-  onDownload,
-}: HighResolutionDownloadProps) {
+type ResolutionType = "hd" | "4k";
+
+export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownloadProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedResolution, setSelectedResolution] = useState<"hd" | "4k" | null>(null);
+  const [selectedResolution, setSelectedResolution] = useState<ResolutionType | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<"camiseta" | "caneca" | "poster" | null>(null);
+
+  const downloadMutation = trpc.generation.downloadHighResolution.useMutation();
 
   const resolutions = [
     {
-      id: "hd",
-      name: "HD - 2400x2400",
-      dpi: "300 DPI",
-      credits: 10,
-      price: "R$ 10,00",
+      id: "hd" as ResolutionType,
+      name: "HD (300 DPI)",
+      size: "2400x2400px",
       description: "Perfeito para camisetas e canecas",
-      icon: Shirt,
+      credits: 10,
+      price: "R$ 10",
+      color: "from-blue-500 to-cyan-500",
     },
     {
-      id: "4k",
-      name: "4K - 4800x4800",
-      dpi: "600 DPI",
+      id: "4k" as ResolutionType,
+      name: "Premium 4K (600 DPI)",
+      size: "4800x6000px",
+      description: "Qualidade máxima para fotos e posters",
       credits: 25,
-      price: "R$ 25,00",
-      description: "Ideal para posters e impressão profissional",
-      icon: ImageIcon,
+      price: "R$ 25",
+      color: "from-purple-500 to-pink-500",
+      badge: "MELHOR QUALIDADE",
     },
   ];
 
-  const handleDownload = (resolution: "hd" | "4k") => {
-    setSelectedResolution(resolution);
-    const res = resolutions.find((r) => r.id === resolution);
-    
-    toast.success(`Download iniciado! ${res?.credits} créditos debitados.`);
-    
-    if (onDownload) {
-      onDownload(resolution);
+  const products = [
+    { id: "camiseta", name: "👕 Camiseta", description: "Estampa em camiseta de qualidade" },
+    { id: "caneca", name: "☕ Caneca", description: "Impressão em caneca cerâmica" },
+    { id: "poster", name: "🖼️ Poster", description: "Impressão em papel fotográfico" },
+  ];
+
+  const handleDownload = async () => {
+    if (!selectedResolution || !selectedProduct) {
+      toast.error("Selecione a resolução e o produto");
+      return;
     }
-    
-    setIsOpen(false);
-    setSelectedResolution(null);
+
+    try {
+      downloadMutation.mutate(
+        {
+          imageUrl,
+          resolution: selectedResolution,
+          product: selectedProduct as "camiseta" | "caneca" | "poster",
+          theme: theme || "unknown",
+        },
+        {
+          onSuccess: () => {
+            toast.success("Download iniciado! Você será redirecionado em breve.");
+            setIsOpen(false);
+            setSelectedResolution(null);
+            setSelectedProduct(null);
+          },
+          onError: (error: any) => {
+            toast.error(error.message || "Erro ao processar download");
+          },
+        }
+      );
+    } catch (error) {
+      console.error("Download error:", error);
+      toast.error("Erro ao processar download");
+    }
   };
 
   return (
     <>
-      {/* Botão de Download Premium */}
-      <div className="mt-6 p-4 bg-gradient-to-r from-orange-500/10 to-red-500/10 border border-orange-500/30 rounded-lg">
-        <div className="flex items-center justify-between mb-3">
-          <div>
-            <h3 className="font-bold text-orange-600 mb-1">🎁 Não perca a chance!</h3>
-            <p className="text-sm text-gray-700">
-              Baixe sua imagem transformada em alta resolução!
-            </p>
-            <p className="text-xs text-gray-600 mt-1">
-              Para impressão em camisetas, canecas, fotos e posters
+      <div className="bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/50 rounded-lg p-6 space-y-4">
+        <div className="flex items-start justify-between">
+          <div className="space-y-2">
+            <h3 className="text-xl font-bold text-white flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-amber-400" />
+              Não perca a chance!
+            </h3>
+            <p className="text-slate-300">
+              Baixe suas imagens transformadas em alta resolução para impressão em produtos físicos
             </p>
           </div>
-          <Button
-            onClick={() => setIsOpen(true)}
-            className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold"
-          >
-            <Download className="w-4 h-4 mr-2" />
-            Download Premium
-          </Button>
         </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {resolutions.map((res) => (
+            <button
+              key={res.id}
+              onClick={() => setSelectedResolution(res.id)}
+              className={`p-3 rounded-lg border-2 transition-all text-left ${
+                selectedResolution === res.id
+                  ? `border-${res.id === "hd" ? "blue" : "purple"}-500 bg-slate-800/50`
+                  : "border-slate-700 hover:border-slate-600"
+              }`}
+            >
+              <p className="font-semibold text-white">{res.name}</p>
+              <p className="text-sm text-slate-400">{res.size}</p>
+              <p className="text-sm text-slate-300 mt-1">{res.credits} créditos • {res.price}</p>
+            </button>
+          ))}
+        </div>
+
+        <Button
+          onClick={() => setIsOpen(true)}
+          disabled={downloadMutation.isPending}
+          className="w-full gap-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold"
+        >
+          <Sparkles className="w-4 h-4" />
+          {downloadMutation.isPending ? "Processando..." : "Baixar em Alta Resolução"}
+        </Button>
       </div>
 
-      {/* Modal de Seleção de Resolução */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="bg-slate-950 border-slate-800 max-w-2xl">
           <DialogHeader>
-            <DialogTitle>Baixe em Alta Resolução</DialogTitle>
-            <DialogDescription>
-              Escolha a resolução ideal para seu projeto
+            <DialogTitle className="text-white text-2xl">Escolha seu Produto</DialogTitle>
+            <DialogDescription className="text-slate-400">
+              Selecione o produto onde deseja imprimir sua transformação
             </DialogDescription>
           </DialogHeader>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
-            {resolutions.map((res) => {
-              const Icon = res.icon;
-              return (
-                <Card
-                  key={res.id}
-                  className={`p-4 cursor-pointer transition-all ${
-                    selectedResolution === res.id
-                      ? "border-orange-500 bg-orange-50"
-                      : "border-gray-200 hover:border-orange-300"
+          <div className="space-y-4">
+            {/* Mockups de Produtos */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {products.map((product) => (
+                <button
+                  key={product.id}
+                  onClick={() => setSelectedProduct(product.id as "camiseta" | "caneca" | "poster")}
+                  className={`p-4 rounded-lg border-2 transition-all text-center ${
+                    selectedProduct === product.id
+                      ? "border-orange-500 bg-orange-500/10"
+                      : "border-slate-700 hover:border-slate-600"
                   }`}
-                  onClick={() => handleDownload(res.id as "hd" | "4k")}
                 >
-                  <div className="flex items-start justify-between mb-3">
-                    <div>
-                      <h3 className="font-bold text-gray-900">{res.name}</h3>
-                      <p className="text-sm text-gray-600">{res.dpi}</p>
-                    </div>
-                    <Icon className="w-6 h-6 text-orange-500" />
+                  <p className="text-2xl mb-2">{product.name.split(" ")[0]}</p>
+                  <p className="text-sm text-slate-300">{product.name}</p>
+                  <p className="text-xs text-slate-400 mt-2">{product.description}</p>
+                </button>
+              ))}
+            </div>
+
+            {/* Mockup Preview */}
+            {selectedProduct && (
+              <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-4 space-y-3">
+                <p className="text-white font-semibold text-center">Prévia do Produto</p>
+                <div className="bg-slate-800 rounded-lg p-4 flex items-center justify-center min-h-48">
+                  <div className="text-center space-y-2">
+                    <p className="text-slate-400">
+                      {selectedProduct === "camiseta" && "👕 Sua transformação em uma camiseta"}
+                      {selectedProduct === "caneca" && "☕ Sua transformação em uma caneca"}
+                      {selectedProduct === "poster" && "🖼️ Sua transformação em um poster"}
+                    </p>
+                    <img
+                      src={imageUrl}
+                      alt="Preview"
+                      className="w-32 h-32 rounded-lg mx-auto object-cover"
+                    />
                   </div>
-
-                  <p className="text-sm text-gray-700 mb-3">{res.description}</p>
-
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-xs text-gray-500">Custo:</p>
-                      <p className="font-bold text-orange-600">{res.credits} créditos</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-xs text-gray-500">Preço:</p>
-                      <p className="font-bold text-gray-900">{res.price}</p>
-                    </div>
-                  </div>
-
-                  <Button
-                    className="w-full mt-3 bg-orange-500 hover:bg-orange-600"
-                    onClick={() => handleDownload(res.id as "hd" | "4k")}
-                  >
-                    Baixar Agora
-                  </Button>
-                </Card>
-              );
-            })}
-          </div>
-
-          {/* Exemplos de Uso */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-            <div className="flex gap-2">
-              <AlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-              <div className="text-sm text-blue-900">
-                <p className="font-semibold mb-1">Dicas de uso:</p>
-                <ul className="space-y-1 text-xs">
-                  <li>• <strong>HD (300 DPI):</strong> Camisetas, canecas, fotos 10x15cm</li>
-                  <li>• <strong>4K (600 DPI):</strong> Posters, quadros, impressão profissional</li>
-                </ul>
+                </div>
               </div>
-            </div>
-          </div>
+            )}
 
-          {/* Mockups de Produtos */}
-          <div className="grid grid-cols-2 gap-3">
-            <div className="text-center">
-              <img src="/mockup-camiseta-crianca.png" alt="Camiseta" className="w-full h-32 object-cover rounded-lg mb-2" />
-              <p className="text-xs font-semibold">Camiseta</p>
-            </div>
-            <div className="text-center">
-              <img src="/mockup-caneca-crianca.png" alt="Caneca" className="w-full h-32 object-cover rounded-lg mb-2" />
-              <p className="text-xs font-semibold">Caneca</p>
+            {/* Resumo */}
+            {selectedResolution && selectedProduct && (
+              <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-4 space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-slate-300">Resolução:</span>
+                  <span className="text-white font-semibold">
+                    {resolutions.find((r) => r.id === selectedResolution)?.name}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-slate-300">Produto:</span>
+                  <span className="text-white font-semibold">
+                    {products.find((p) => p.id === selectedProduct)?.name}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center pt-2 border-t border-slate-700">
+                  <span className="text-slate-300">Créditos:</span>
+                  <span className="text-orange-400 font-bold text-lg">
+                    {resolutions.find((r) => r.id === selectedResolution)?.credits}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* Botões */}
+            <div className="flex gap-3">
+              <Button
+                onClick={() => setIsOpen(false)}
+                variant="outline"
+                className="flex-1 border-slate-700 text-white hover:bg-slate-800"
+              >
+                Cancelar
+              </Button>
+              <Button
+                onClick={handleDownload}
+                disabled={!selectedResolution || !selectedProduct || downloadMutation.isPending}
+                className="flex-1 gap-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600"
+              >
+                <Sparkles className="w-4 h-4" />
+                {downloadMutation.isPending ? "Processando..." : "Confirmar Compra"}
+              </Button>
             </div>
           </div>
         </DialogContent>

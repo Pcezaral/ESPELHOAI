@@ -172,6 +172,39 @@ export type UserBadge = typeof userBadges.$inferSelect;
 export type InsertUserBadge = typeof userBadges.$inferInsert;
 
 /**
+ * Premium downloads for high-resolution images
+ */
+export const premiumDownloads = mysqlTable("premium_downloads", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  imageUrl: text("imageUrl").notNull(),
+  resolution: mysqlEnum("resolution", ["hd", "4k"]).notNull(),
+  product: mysqlEnum("product", ["camiseta", "caneca", "poster"]).notNull(),
+  theme: varchar("theme", { length: 64 }).notNull(),
+  creditsCost: int("creditsCost").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type PremiumDownload = typeof premiumDownloads.$inferSelect;
+export type InsertPremiumDownload = typeof premiumDownloads.$inferInsert;
+
+/**
+ * Referral program tracking
+ */
+export const referrals = mysqlTable("referrals", {
+  id: int("id").autoincrement().primaryKey(),
+  referrerId: int("referrerId").notNull(),
+  referredId: int("referredId").notNull(),
+  creditsAwarded: int("creditsAwarded").default(5).notNull(),
+  status: mysqlEnum("status", ["pending", "completed", "expired"]).default("pending").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  completedAt: timestamp("completedAt"),
+});
+
+export type Referral = typeof referrals.$inferSelect;
+export type InsertReferral = typeof referrals.$inferInsert;
+
+/**
  * Analytics data for dashboard
  */
 export const analyticsData = mysqlTable("analytics_data", {
@@ -187,112 +220,3 @@ export const analyticsData = mysqlTable("analytics_data", {
 
 export type AnalyticsData = typeof analyticsData.$inferSelect;
 export type InsertAnalyticsData = typeof analyticsData.$inferInsert;
-
-
-/**
- * Subscription plans with tiered pricing and limits
- */
-export const subscriptionPlans = mysqlTable("subscription_plans", {
-  id: int("id").autoincrement().primaryKey(),
-  name: varchar("name", { length: 50 }).notNull(),
-  displayName: varchar("displayName", { length: 100 }).notNull(),
-  monthlyPrice: int("monthlyPrice").notNull(),
-  transformationsPerMonth: int("transformationsPerMonth").notNull(),
-  maxExtraCredits: int("maxExtraCredits").notNull(),
-  extraCreditPrice: int("extraCreditPrice").notNull(),
-  includesHDDownload: int("includesHDDownload").default(0).notNull(),
-  includes4KDownload: int("includes4KDownload").default(0).notNull(),
-  supportLevel: mysqlEnum("supportLevel", ["email", "priority", "vip"]).default("email").notNull(),
-  hasAPI: int("hasAPI").default(0).notNull(),
-  hasWebhooks: int("hasWebhooks").default(0).notNull(),
-  renewalBonus: int("renewalBonus").default(0).notNull(),
-  active: int("active").default(1).notNull(),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
-});
-
-export type SubscriptionPlan = typeof subscriptionPlans.$inferSelect;
-export type InsertSubscriptionPlan = typeof subscriptionPlans.$inferInsert;
-
-/**
- * User subscriptions tracking
- */
-export const userSubscriptions = mysqlTable("user_subscriptions", {
-  id: int("id").autoincrement().primaryKey(),
-  userId: int("userId").notNull(),
-  planId: int("planId").notNull(),
-  status: mysqlEnum("status", ["active", "paused", "cancelled", "expired"]).default("active").notNull(),
-  startDate: timestamp("startDate").defaultNow().notNull(),
-  renewalDate: timestamp("renewalDate").notNull(),
-  transformationsUsedThisMonth: int("transformationsUsedThisMonth").default(0).notNull(),
-  extraCreditsUsed: int("extraCreditsUsed").default(0).notNull(),
-  autoRenew: int("autoRenew").default(1).notNull(),
-  cancellationReason: text("cancellationReason"),
-  cancelledAt: timestamp("cancelledAt"),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
-});
-
-export type UserSubscription = typeof userSubscriptions.$inferSelect;
-export type InsertUserSubscription = typeof userSubscriptions.$inferInsert;
-
-/**
- * Abuse detection and monitoring
- */
-export const abuseReports = mysqlTable("abuse_reports", {
-  id: int("id").autoincrement().primaryKey(),
-  userId: int("userId").notNull(),
-  abuseScore: int("abuseScore").notNull(),
-  indicators: text("indicators").notNull(),
-  riskLevel: mysqlEnum("riskLevel", ["low", "medium", "high"]).notNull(),
-  status: mysqlEnum("status", ["active", "warned", "suspended", "resolved"]).default("active").notNull(),
-  actionTaken: varchar("actionTaken", { length: 100 }),
-  adminNotes: text("adminNotes"),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
-});
-
-export type AbuseReport = typeof abuseReports.$inferSelect;
-export type InsertAbuseReport = typeof abuseReports.$inferInsert;
-
-/**
- * User behavior metrics for abuse detection
- */
-export const userBehaviorMetrics = mysqlTable("user_behavior_metrics", {
-  id: int("id").autoincrement().primaryKey(),
-  userId: int("userId").notNull(),
-  date: varchar("date", { length: 10 }).notNull(),
-  transformationsCount: int("transformationsCount").default(0).notNull(),
-  uniqueStylesUsed: int("uniqueStylesUsed").default(0).notNull(),
-  downloadCount: int("downloadCount").default(0).notNull(),
-  downloadRatio: int("downloadRatio").default(0).notNull(),
-  ipAddresses: text("ipAddresses"),
-  userAgents: text("userAgents"),
-  suspiciousKeywordsInBio: int("suspiciousKeywordsInBio").default(0).notNull(),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-});
-
-export type UserBehaviorMetrics = typeof userBehaviorMetrics.$inferSelect;
-export type InsertUserBehaviorMetrics = typeof userBehaviorMetrics.$inferInsert;
-
-
-/**
- * High Resolution Downloads - Rastreamento de downloads premium
- * Usuários podem fazer download de imagens em alta resolução (HD ou 4K)
- * Cada download consome créditos
- */
-export const highResolutionDownloads = mysqlTable("high_resolution_downloads", {
-  id: int("id").autoincrement().primaryKey(),
-  userId: int("userId").notNull(),
-  theme: varchar("theme", { length: 64 }).notNull(),
-  resolution: mysqlEnum("resolution", ["hd", "4k"]).notNull(),
-  creditsUsed: int("creditsUsed").notNull(),
-  downloadUrl: text("downloadUrl"),
-  fileName: varchar("fileName", { length: 255 }),
-  fileSize: int("fileSize"),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
-});
-
-export type HighResolutionDownload = typeof highResolutionDownloads.$inferSelect;
-export type InsertHighResolutionDownload = typeof highResolutionDownloads.$inferInsert;

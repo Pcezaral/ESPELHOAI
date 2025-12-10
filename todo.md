@@ -340,15 +340,6 @@ Isso deve resolver o problema crítico de grupos onde apenas algumas pessoas era
 - Favicon e meta tags atualizados para SEO
 - Cores laranja/vermelho mantidas em harmonia com o logo
 
-## Implementação: Proteção Legal e Técnica (Sem Custo)
-- [x] Middleware de segurança (rate limiting, CORS, detecção de bots)
-- [x] Páginas de Termos de Serviço e Política de Privacidade
-- [x] Footer com links legais
-- [x] Proteção técnica contra abuso (scoring, detecção de padrões)
-- [x] Headers de segurança (X-Frame-Options, CSP, etc)
-- [x] Avisos de copyright no código
-- [x] Instalação de express-rate-limit
-
 ## Alinhamento Visual com Site Hostinger ✅ CONCLUÍDO
 
 ### Análise:
@@ -1237,44 +1228,28 @@ Destacar a vantagem comercial de cancelamento a qualquer momento em toda a plata
 - [x] Posicionado antes do modal de pagamento
 
 
-## Melhoria: Menu de Conta ao Lado dos Créditos (10/12/2025)
+## Fase 1: Integrar HighResolutionDownload na página Generator (10/12/2025)
+- [x] Adicionar componente HighResolutionDownload na seção de resultado do Generator
+- [x] Posicionar após a imagem transformada para capturar usuário no momento ideal
+- [x] Testar fluxo de compra de HD e 4K
 
-- [x] Adicionado botão de conta com nome do usuário no header
-- [x] Criado dropdown menu com 5 opções: Perfil, Assinatura, Histórico, Configurações, Sair
-- [x] Menu aparece ao lado dos créditos (direita do header)
-- [x] Design responsivo com hover effect
-- [x] Ícones emoji para melhor UX
-- [x] Cores consistentes com tema (slate-800/700)
+## Fase 2: Galeria de Produtos (10/12/2025)
+- [x] Criar página /galeria com exemplos de camisetas/canecas/posters personalizadas
+- [x] Adicionar rota no App.tsx
+- [x] Exibir 6-8 exemplos de diferentes públicos (crianças, jovens, adultos, idosos)
+- [x] Adicionar botão "Criar Meu Produto" que leva para Generator
+- [x] Integrar com trending transformations do banco
 
-## Análise: Dados Mínimos para Abertura de Conta (10/12/2025)
+## Fase 3: Sistema de Referral (10/12/2025)
+- [x] Criar tabela referrals no banco (referrer_id, referred_id, credits_awarded, created_at)
+- [x] Gerar link único de referral para cada usuário (?ref=USER_ID)
+- [x] Adicionar lógica no signup: se ?ref=USER_ID, ambos ganham 5 créditos
+- [x] Criar página /referral com link compartilhável e contador de referências
+- [x] Adicionar botão de compartilhamento (WhatsApp, TikTok, etc)
+- [x] Integrar notificação quando usuário ganha créditos de referral
 
-- [x] Criado documento com benchmarking de 6 apps famosos (Instagram, TikTok, Snapchat, Netflix, Spotify, Discord)
-- [x] Identificado padrão: Email, Senha, Nome, Data de Nascimento (obrigatórios)
-- [x] Recomendado: Foto de Perfil (opcional, sugerir após primeira transformação)
-- [x] Estruturado onboarding em 4 fases: Bem-vindo, Primeira Transformação, Checkout, Perfil
-- [x] Documento salvo em /home/ubuntu/analise-dados-conta.md
-
-
-## Implementação: 3 Sugestões (10/12/2025)
-
-- [x] Criar página de Perfil do usuário com edição de dados
-- [x] Criar página de Assinatura com status e opção de cancelamento
-- [x] Criar página de Histórico de transformações
-- [x] Criar página de Configurações (notificações, privacidade, segurança, dados)
-- [x] Criar componente OnboardingModal com 3 steps
-- [x] Integrar OnboardingModal na Home page com localStorage
-- [x] Criar página de Termos & Política de Cancelamento (completa com Lei do Consumidor)
-- [x] Adicionar rotas no App.tsx para todas as novas páginas
-- [x] Menu de conta no header com dropdown funcional
-
-
-## Nova Funcionalidade: Venda de Imagens em Alta Resolução
-- [x] Adicionar opção de download em alta resolução na página de resultado
-- [x] Criar chamariz atraente "Não perca a chance!"
-- [x] Avisar quantos créditos serão debitados (10 créditos = R$ 10)
-- [x] Gerar mockups de camisetas com imagens transformadas
-- [x] Gerar mockups de canecas com imagens transformadas
-- [x] Gerar mockups de posters com imagens transformadas
-- [x] Criar exemplos com crianças, jovens, adultos e idosos
-- [x] Integrar sistema de créditos para downloads premium
-- [x] Criar componente HighResolutionDownload
+## Fase 4: Testes e Checkpoint (10/12/2025)
+- [x] Testar integração HighResolutionDownload no Generator
+- [x] Testar página de Galeria
+- [x] Testar fluxo completo de Referral
+- [x] Salvar checkpoint final

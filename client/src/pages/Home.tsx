@@ -2,7 +2,6 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import CountdownTimer from "@/components/CountdownTimer";
 import DownloadButtons from "@/components/DownloadButtons";
-import OnboardingModal from "@/components/OnboardingModal";
 import React from "react";
 import { Card } from "@/components/ui/card";
 import { Loader2, Wand2, Zap, Sparkles, Crown, Infinity as InfinityIcon, Check, MessageSquare, Share2 } from "lucide-react";
@@ -13,15 +12,6 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const { user, loading, error, isAuthenticated, logout } = useAuth();
   const [, setLocation] = useLocation();
-  const [showOnboarding, setShowOnboarding] = useState(false);
-
-  useEffect(() => {
-    // Mostrar onboarding apenas na primeira vez que o usuário autentica
-    if (isAuthenticated && !localStorage.getItem('onboarding-completed')) {
-      setShowOnboarding(true);
-      localStorage.setItem('onboarding-completed', 'true');
-    }
-  }, [isAuthenticated]);
 
   const handleStartApp = (theme?: string | React.MouseEvent) => {
     if (!isAuthenticated) {
@@ -44,40 +34,9 @@ export default function Home() {
             <span className="text-2xl md:text-3xl font-black bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 bg-clip-text text-transparent tracking-tight">Surpreenda sua Família e Amigos!</span>
           </div>
           {isAuthenticated && (
-            <div className="flex items-center gap-4">
-              {/* Créditos */}
-              <div className="flex items-center gap-2 bg-orange-500/20 px-4 py-2 rounded-full">
-                <span className="text-orange-400">⚡</span>
-                <span className="font-semibold">{user?.credits || 0} créditos</span>
-              </div>
-              
-              {/* Menu de Conta */}
-              <div className="relative group">
-                <button className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-full transition">
-                  <span className="text-lg">👤</span>
-                  <span className="text-sm font-medium">{user?.name?.split(' ')[0] || 'Conta'}</span>
-                  <span className="text-xs">▼</span>
-                </button>
-                
-                {/* Dropdown Menu */}
-                <div className="absolute right-0 mt-2 w-48 bg-slate-900 border border-slate-700 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                  <button onClick={() => setLocation('/perfil')} className="w-full text-left px-4 py-3 hover:bg-slate-800 transition text-sm">
-                    👤 Meu Perfil
-                  </button>
-                  <button onClick={() => setLocation('/assinatura')} className="w-full text-left px-4 py-3 hover:bg-slate-800 transition text-sm border-t border-slate-700">
-                    💳 Minha Assinatura
-                  </button>
-                  <button onClick={() => setLocation('/historico')} className="w-full text-left px-4 py-3 hover:bg-slate-800 transition text-sm border-t border-slate-700">
-                    📜 Histórico
-                  </button>
-                  <button onClick={() => setLocation('/configuracoes')} className="w-full text-left px-4 py-3 hover:bg-slate-800 transition text-sm border-t border-slate-700">
-                    ⚙️ Configurações
-                  </button>
-                  <button onClick={logout} className="w-full text-left px-4 py-3 hover:bg-red-900/20 transition text-sm text-red-400 border-t border-slate-700">
-                    🚪 Sair
-                  </button>
-                </div>
-              </div>
+            <div className="flex items-center gap-2 bg-orange-500/20 px-4 py-2 rounded-full">
+              <span className="text-orange-400">⚡</span>
+              <span className="font-semibold">{user?.credits || 0} créditos</span>
             </div>
           )}
         </div>
@@ -689,57 +648,6 @@ export default function Home() {
           </div>
         </div>
       </footer>
-
-      {/* Onboarding Modal */}
-      <OnboardingModal
-        isOpen={showOnboarding}
-        onClose={() => setShowOnboarding(false)}
-        userName={user?.name?.split(' ')[0]}
-        credits={user?.credits}
-      />
-        {/* Footer com Links Legais */}
-        <footer className="bg-black text-white py-8 px-4 md:px-8 mt-12 border-t border-orange-500/20">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-              {/* Sobre */}
-              <div>
-                <h3 className="font-bold text-orange-500 mb-3">Sobre ESPELHO AI</h3>
-                <p className="text-sm text-gray-400">
-                  Transforme suas fotos em estilos incríveis com IA. Divirta-se, compartilhe e surpreenda seus amigos!
-                </p>
-              </div>
-
-              {/* Links Rápidos */}
-              <div>
-                <h3 className="font-bold text-orange-500 mb-3">Links Rápidos</h3>
-                <ul className="space-y-2 text-sm">
-                  <li><a href="/" className="text-gray-400 hover:text-orange-500 transition">Home</a></li>
-                  <li><a href="/planos" className="text-gray-400 hover:text-orange-500 transition">Planos</a></li>
-                  <li><a href="/gallery" className="text-gray-400 hover:text-orange-500 transition">Galeria</a></li>
-                  <li><a href="/contato" className="text-gray-400 hover:text-orange-500 transition">Contato</a></li>
-                </ul>
-              </div>
-
-              {/* Legal */}
-              <div>
-                <h3 className="font-bold text-orange-500 mb-3">Legal</h3>
-                <ul className="space-y-2 text-sm">
-                  <li><a href="/termos-servico" className="text-gray-400 hover:text-orange-500 transition">Termos de Serviço</a></li>
-                  <li><a href="/politica-privacidade" className="text-gray-400 hover:text-orange-500 transition">Política de Privacidade</a></li>
-                  <li><a href="mailto:contato@espelhoai.com.br" className="text-gray-400 hover:text-orange-500 transition">Contato Legal</a></li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Copyright */}
-            <div className="border-t border-gray-800 pt-6 text-center text-sm text-gray-500">
-              <p>© 2025 ESPELHO AI. Todos os direitos reservados.</p>
-              <p className="mt-2 text-xs">
-                Lei nº 9.610/1998 (Direito Autoral) | Lei nº 13.709/2018 (LGPD)
-              </p>
-            </div>
-          </div>
-        </footer>
     </div>
   );
 }

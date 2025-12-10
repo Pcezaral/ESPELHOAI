@@ -8,6 +8,7 @@ import { StarRating } from "@/components/StarRating";
 import { toast } from "sonner";
 import { CreditBadge } from "@/components/CreditBadge";
 import { ShareButtons } from "@/components/ShareButtons";
+import { HighResolutionDownload } from "@/components/HighResolutionDownload";
 import { useAuth } from "@/_core/hooks/useAuth";
 
 type Theme = "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus" | "natal" | "reveillon";
@@ -421,6 +422,8 @@ export default function Generator() {
                 <ShareButtons message="Veja minha transformação no ESPELHO AI!" imageUrl={generatedImage} theme={selectedTheme || undefined} />
               </div>
             </div>
+
+            <HighResolutionDownload imageUrl={generatedImage} theme={selectedTheme || undefined} />
 
             <Button onClick={handleReset} variant="outline" className="w-full border-slate-700 text-white hover:bg-slate-800">
               Fazer Outra Transformação

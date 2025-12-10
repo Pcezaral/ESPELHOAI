@@ -56,6 +56,37 @@ export const appRouter = router({
         const { generateTransformation } = await import("./generation");
         return generateTransformation(input.theme, input.imageUrl, ctx.user.id);
       }),
+    
+    downloadHighResolution: protectedProcedure
+      .input(z.object({
+        imageUrl: z.string(),
+        resolution: z.enum(["hd", "4k"]),
+        product: z.enum(["camiseta", "caneca", "poster"]),
+        theme: z.string(),
+      }))
+      .mutation(async ({ input, ctx }) => {
+        const creditCost = input.resolution === "hd" ? 10 : 25;
+        const resolutionName = input.resolution === "hd" ? "HD (300 DPI)" : "Premium 4K (600 DPI)";
+        
+        // Consume credits
+        await consumeCredit(ctx.user.id, `Download ${resolutionName} - ${input.product}`, creditCost);
+        
+        // Record download in database
+        const db = await getDb();
+        if (db) {
+          const { premiumDownloads } = await import("../drizzle/schema");
+          await db.insert(premiumDownloads).values({
+            userId: ctx.user.id,
+            imageUrl: input.imageUrl,
+            resolution: input.resolution,
+            product: input.product,
+            theme: input.theme,
+            creditsCost: creditCost,
+          });
+        }
+        
+        return { success: true, creditsCost: creditCost };
+      }),
 
   }),
 
@@ -149,6 +180,74 @@ export const appRouter = router({
       .query(async () => {
         const { getTrendingTransformations } = await import("./db");
         return getTrendingTransformations(6);
+      }),
+  }),
+
+  referral: router({
+    getReferralStats: protectedProcedure.query(async ({ ctx }) => {
+      const db = await getDb();
+      if (!db) {
+        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database not available" });
+      }
+
+      const { referrals } = await import("../drizzle/schema");
+      const { eq } = await import("drizzle-orm");
+
+      const myReferrals = await db
+        .select()
+        .from(referrals)
+        .where(eq(referrals.referrerId, ctx.user.id));
+
+      const completedReferrals = myReferrals.filter((r) => r.status === "completed");
+      const totalCreditsEarned = completedReferrals.reduce((sum, r) => sum + r.creditsAwarded, 0);
+
+      return {
+        totalReferrals: myReferrals.length,
+        completedReferrals: completedReferrals.length,
+        totalCreditsEarned,
+        referrals: myReferrals,
+      };
+    }),
+
+    processReferral: publicProcedure
+      .input(z.object({
+        referrerId: z.number(),
+      }))
+      .mutation(async ({ input, ctx }) => {
+        if (!ctx.user) {
+          throw new TRPCError({ code: "UNAUTHORIZED", message: "User not authenticated" });
+        }
+
+        const db = await getDb();
+        if (!db) {
+          throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database not available" });
+        }
+
+        const { referrals } = await import("../drizzle/schema");
+        const { eq } = await import("drizzle-orm");
+
+        const existingReferral = await db
+          .select()
+          .from(referrals)
+          .where(eq(referrals.referredId, ctx.user.id))
+          .limit(1);
+
+        if (existingReferral.length > 0) {
+          throw new TRPCError({ code: "CONFLICT", message: "You already have a referrer" });
+        }
+
+        await db.insert(referrals).values({
+          referrerId: input.referrerId,
+          referredId: ctx.user.id,
+          creditsAwarded: 5,
+          status: "completed",
+          completedAt: new Date(),
+        });
+
+        await addCredits(input.referrerId, 5, "light", "Referral bonus");
+        await addCredits(ctx.user.id, 5, "light", "Referral bonus");
+
+        return { success: true };
       }),
   }),
 
