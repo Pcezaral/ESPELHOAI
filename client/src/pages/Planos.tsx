@@ -88,6 +88,7 @@ export default function Planos() {
   const [, setLocation] = useLocation();
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [showComparator, setShowComparator] = useState(false);
   
   const { data: subscription } = trpc.credits.getSubscription.useQuery();
   const createCheckoutMutation = trpc.stripe.createCheckout.useMutation();
@@ -186,6 +187,78 @@ export default function Planos() {
           </p>
         </div>
 
+        {/* Botão de Comparador */}
+        <div className="text-center mb-8">
+          <Button
+            onClick={() => setShowComparator(!showComparator)}
+            variant="outline"
+            className="border-orange-500/50 text-orange-500 hover:bg-orange-500/10"
+          >
+            {showComparator ? "Ocultar Comparador" : "📊 Ver Comparador de Planos"}
+          </Button>
+        </div>
+
+        {/* Comparador de Planos */}
+        {showComparator && (
+          <div className="bg-slate-900/50 border border-slate-700/50 rounded-2xl p-8 max-w-6xl mx-auto mb-12 overflow-x-auto">
+            <h3 className="text-2xl font-bold text-white mb-6 text-center">Comparador de Planos</h3>
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-slate-700">
+                  <th className="text-left py-3 px-4 text-slate-300 font-semibold">Recurso</th>
+                  {PLANS.map((plan) => (
+                    <th key={plan.id} className="text-center py-3 px-4 text-white font-semibold">
+                      {plan.name}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b border-slate-700/30">
+                  <td className="py-3 px-4 text-slate-300">Preço</td>
+                  {PLANS.map((plan) => (
+                    <td key={plan.id} className="text-center py-3 px-4 text-orange-400 font-semibold">
+                      {plan.price}
+                    </td>
+                  ))}
+                </tr>
+                <tr className="border-b border-slate-700/30">
+                  <td className="py-3 px-4 text-slate-300">Transformações</td>
+                  {PLANS.map((plan) => (
+                    <td key={plan.id} className="text-center py-3 px-4 text-green-400">
+                      {plan.credits === -1 ? "Ilimitadas" : plan.credits}
+                    </td>
+                  ))}
+                </tr>
+                <tr className="border-b border-slate-700/30">
+                  <td className="py-3 px-4 text-slate-300">Todos os Temas</td>
+                  {PLANS.map((plan) => (
+                    <td key={plan.id} className="text-center py-3 px-4">
+                      <span className="text-green-400">✅</span>
+                    </td>
+                  ))}
+                </tr>
+                <tr className="border-b border-slate-700/30">
+                  <td className="py-3 px-4 text-slate-300">Download HD</td>
+                  {PLANS.map((plan) => (
+                    <td key={plan.id} className="text-center py-3 px-4">
+                      <span className="text-green-400">✅</span>
+                    </td>
+                  ))}
+                </tr>
+                <tr className="border-b border-slate-700/30">
+                  <td className="py-3 px-4 text-slate-300">Cancelar Anytime</td>
+                  {PLANS.map((plan) => (
+                    <td key={plan.id} className="text-center py-3 px-4">
+                      <span className="text-green-400">✅</span>
+                    </td>
+                  ))}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        )}
+
         {/* Plans Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto mb-12">
           {PLANS.map((plan) => {
@@ -237,6 +310,9 @@ export default function Planos() {
                   <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-3 text-center">
                     <p className="text-xs font-semibold text-green-400">
                       ✅ Cancele a Qualquer Momento
+                    </p>
+                    <p className="text-xs text-green-300 mt-1">
+                      Sem Taxas de Cancelamento
                     </p>
                   </div>
 
@@ -304,6 +380,75 @@ export default function Planos() {
           <p className="text-sm text-slate-500 pt-4 border-t border-slate-700">
             Pagamento 100% Seguro e Confiável
           </p>
+        </div>
+
+        {/* Depoimentos de Usuários */}
+        <div className="max-w-6xl mx-auto mb-12">
+          <h2 className="text-3xl font-bold text-white text-center mb-12">O Que Nossos Usuários Dizem</h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* Depoimento 1 */}
+            <Card className="bg-slate-900/50 border-slate-700/50 p-6">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center text-white font-bold">
+                  MC
+                </div>
+                <div>
+                  <h4 className="font-semibold text-white">Maria Clara</h4>
+                  <p className="text-xs text-slate-400">Usuária desde Setembro</p>
+                </div>
+              </div>
+              <p className="text-slate-300 text-sm mb-4">
+                "Adorei o ESPELHO AI! Testei o plano premium por um mês e quando cancelei, foi super fácil. Sem complicações, sem taxas. Voltei a assinar porque realmente vale a pena!"
+              </p>
+              <div className="flex gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} className="text-yellow-400">⭐</span>
+                ))}
+              </div>
+            </Card>
+
+            {/* Depoimento 2 */}
+            <Card className="bg-slate-900/50 border-slate-700/50 p-6">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center text-white font-bold">
+                  JL
+                </div>
+                <div>
+                  <h4 className="font-semibold text-white">João Lucas</h4>
+                  <p className="text-xs text-slate-400">Usuário desde Julho</p>
+                </div>
+              </div>
+              <p className="text-slate-300 text-sm mb-4">
+                "Melhor app de transformação de fotos que já usei! A qualidade é incrível e o suporte é ótimo. Cancelei uma vez por falta de tempo, mas já voltei. Recomendo!"
+              </p>
+              <div className="flex gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} className="text-yellow-400">⭐</span>
+                ))}
+              </div>
+            </Card>
+
+            {/* Depoimento 3 */}
+            <Card className="bg-slate-900/50 border-slate-700/50 p-6">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-cyan-500 flex items-center justify-center text-white font-bold">
+                  AS
+                </div>
+                <div>
+                  <h4 className="font-semibold text-white">Ana Silva</h4>
+                  <p className="text-xs text-slate-400">Usuária desde Agosto</p>
+                </div>
+              </div>
+              <p className="text-slate-300 text-sm mb-4">
+                "Fiquei com medo de se inscrever por causa de cancelamento, mas vocês foram honestos desde o início. Cancelei, testei outros apps, e voltei porque nenhum é tão bom quanto!"
+              </p>
+              <div className="flex gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} className="text-yellow-400">⭐</span>
+                ))}
+              </div>
+            </Card>
+          </div>
         </div>
 
         {/* Modal de Formas de Pagamento */}

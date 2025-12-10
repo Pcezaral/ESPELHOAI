@@ -1203,3 +1203,26 @@ Destacar a vantagem comercial de cancelamento a qualquer momento em toda a plata
 - [x] Design: fundo verde semitransparente com borda verde
 - [x] Posicionado entre features e botão "Assinar"
 - [x] Reforça confiança e vantagem competitiva em cada opção de plano
+
+
+## Melhoria: 3 Sugestões Implementadas (10/12/2025)
+
+### 1. Expandir Texto de Cancelamento
+- [x] Adicionado "Sem Taxas de Cancelamento" abaixo de "Cancele a Qualquer Momento"
+- [x] Texto em verde claro para melhor legibilidade
+- [x] Aplicado em todos os cards de plano
+
+### 2. Comparador de Planos Interativo
+- [x] Criado botão "📊 Ver Comparador de Planos" (toggle)
+- [x] Tabela comparativa mostrando: Preço, Transformações, Temas, Download HD, Cancelar Anytime
+- [x] Design responsivo com overflow-x-auto para mobile
+- [x] Cores consistentes com tema (orange para preço, green para features)
+- [x] Botão alterna entre "Ver Comparador" e "Ocultar Comparador"
+
+### 3. Depoimentos de Usuários
+- [x] Adicionada seção "O Que Nossos Usuários Dizem"
+- [x] 3 depoimentos com avatares coloridos (MC, JL, AS)
+- [x] Cada depoimento inclui: nome, data de inscrição, texto, 5 estrelas
+- [x] Depoimentos focam em cancelamento fácil e retorno de clientes
+- [x] Grid responsivo (3 colunas em desktop, 1 em mobile)
+- [x] Posicionado antes do modal de pagamento
