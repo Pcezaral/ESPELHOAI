@@ -1115,3 +1115,12 @@ Destacar a vantagem comercial de cancelamento a qualquer momento em toda a plata
 - Melhor NPS (Net Promoter Score)
 - Mais recomendações (boca-a-boca)
 - Redução de reclamações sobre cancelamento
+
+
+## Melhoria: "Rolê para ver ➜" em Laranja (10/12/2025)
+
+- [x] Adicionado texto "Rolê para ver ➜" em laranja abaixo de "Transformações incríveis em segundos"
+- [x] Mesmo tamanho da frase principal (text-lg)
+- [x] Font-semibold para destaque
+- [x] Seta para indicar scroll horizontal (➜)
+- [x] Cor laranja (text-orange-500) para combinar com identidade visual
