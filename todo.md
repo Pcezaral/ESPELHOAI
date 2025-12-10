@@ -1253,3 +1253,10 @@ Destacar a vantagem comercial de cancelamento a qualquer momento em toda a plata
 - [x] Testar página de Galeria
 - [x] Testar fluxo completo de Referral
 - [x] Salvar checkpoint final
+
+
+## Bugs Encontrados e Corrigidos (10/12/2025)
+- [x] Prévia do produto em HighResolutionDownload não mostra mockups
+- [x] Fluxo de compra não funciona (precisa integração com Stripe ou teste local)
+- [x] Criar mockups visuais para camiseta, caneca e poster
+- [x] Implementar fluxo de teste local para simular compra

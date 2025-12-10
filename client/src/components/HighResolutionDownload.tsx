@@ -80,6 +80,15 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
     }
   };
 
+  const getMockupImage = (product: string) => {
+    const mockups: Record<string, string> = {
+      camiseta: "/mockup-camiseta-jovem.png",
+      caneca: "/mockup-caneca-adulto.png",
+      poster: "/mockup-camiseta-adulto.png",
+    };
+    return mockups[product] || "/mockup-camiseta-jovem.png";
+  };
+
   return (
     <>
       <div className="bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/50 rounded-lg p-6 space-y-4">
@@ -156,18 +165,18 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
             {selectedProduct && (
               <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-4 space-y-3">
                 <p className="text-white font-semibold text-center">Prévia do Produto</p>
-                <div className="bg-slate-800 rounded-lg p-4 flex items-center justify-center min-h-48">
-                  <div className="text-center space-y-2">
-                    <p className="text-slate-400">
-                      {selectedProduct === "camiseta" && "👕 Sua transformação em uma camiseta"}
-                      {selectedProduct === "caneca" && "☕ Sua transformação em uma caneca"}
-                      {selectedProduct === "poster" && "🖼️ Sua transformação em um poster"}
-                    </p>
+                <div className="bg-slate-800 rounded-lg p-6 flex items-center justify-center min-h-64">
+                  <div className="text-center space-y-4 w-full">
                     <img
-                      src={imageUrl}
-                      alt="Preview"
-                      className="w-32 h-32 rounded-lg mx-auto object-cover"
+                      src={getMockupImage(selectedProduct)}
+                      alt={`Mockup ${selectedProduct}`}
+                      className="w-full max-w-sm rounded-lg mx-auto object-contain"
                     />
+                    <p className="text-slate-400 text-sm">
+                      {selectedProduct === "camiseta" && "👕 Sua transformação em uma camiseta premium"}
+                      {selectedProduct === "caneca" && "☕ Sua transformação em uma caneca cerâmica"}
+                      {selectedProduct === "poster" && "🖼️ Sua transformação em um poster fotográfico"}
+                    </p>
                   </div>
                 </div>
               </div>
