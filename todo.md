@@ -1164,3 +1164,13 @@ Destacar a vantagem comercial de cancelamento a qualquer momento em toda a plata
 - ✅ Suporte para dark/light themes
 - ✅ Favicon otimizado para todos os dispositivos e navegadores
 - ✅ Melhor branding em abas do navegador, home screen e favoritos
+
+
+## Melhoria: Adicionar "Cancele a Qualquer Momento" em Formas de Pagamento (10/12/2025)
+
+- [x] Adicionada nova seção "Formas de Pagamento" na página Planos.tsx
+- [x] Exibição de métodos: Cartão de Crédito + Stripe Seguro
+- [x] Informação: "Pagamento processado instantaneamente | Receba comprovante por email"
+- [x] Destaque verde: "✅ Cancele a Qualquer Momento - Sem Taxas de Cancelamento!"
+- [x] Posicionada entre disclaimer de cancelamento e seção de informações finais
+- [x] Reforça confiança e segurança do pagamento

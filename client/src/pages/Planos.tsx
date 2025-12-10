@@ -262,6 +262,28 @@ export default function Planos() {
           </p>
         </div>
 
+        {/* Formas de Pagamento */}
+        <div className="text-center space-y-4 bg-slate-900/50 border border-slate-700/50 rounded-2xl p-8 max-w-3xl mx-auto mb-8">
+          <h3 className="text-xl font-bold text-white">Formas de Pagamento</h3>
+          <div className="flex items-center justify-center gap-4 flex-wrap">
+            <div className="flex items-center gap-2 text-slate-300">
+              <span className="text-2xl">💳</span>
+              <span>Cartao de Credito</span>
+            </div>
+            <div className="text-slate-500">•</div>
+            <div className="flex items-center gap-2 text-slate-300">
+              <span className="text-2xl">🔒</span>
+              <span>Stripe Seguro</span>
+            </div>
+          </div>
+          <p className="text-xs text-slate-400 pt-2 border-t border-slate-700">
+            Pagamento processado instantaneamente | Receba comprovante por email
+          </p>
+          <p className="text-xs text-green-400 font-semibold">
+            ✅ Cancele a Qualquer Momento - Sem Taxas de Cancelamento!
+          </p>
+        </div>
+
         {/* Bottom Info */}
         <div className="text-center space-y-4 bg-slate-900/50 border border-slate-700/50 rounded-2xl p-8 max-w-3xl mx-auto">
           <h2 className="text-2xl font-bold text-white">
@@ -271,7 +293,7 @@ export default function Planos() {
             Transforme quantas fotos quiser e compartilhe momentos divertidos com seus amigos!
           </p>
           <p className="text-sm text-slate-500 pt-4 border-t border-slate-700">
-            🔒 Pagamento Seguro e Confiável
+            Pagamento 100% Seguro e Confiável
           </p>
         </div>
       </main>
