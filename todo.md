@@ -1050,3 +1050,28 @@ App totalmente alinhado com identidade visual do site Hostinger
 - ✅ Fisionomias preservadas em TODOS os estilos, mesmo em transformações intensas
 - ✅ `randomVariation` parameter garante diversidade mesmo com mesmo `randomSeed`
 - ✅ Instruções CRITICAL reforçadas para máxima preservação facial
+
+
+## Correção: Ícone do App em Mobile com Fundo Preto (10/12/2025)
+
+### Problema Identificado:
+- [x] Ícone do app em mobile aparecia com fundo branco
+- [x] Falta de contraste com fundo da tela de instalação
+
+### Solução Implementada:
+- [x] Gerado novo ícone com fundo preto sólido (#000000)
+- [x] Logo ESPELHO AI (split face design) mantida com cores orange/red e white
+- [x] Atualizado manifest.json para usar `/espelho-ai-icon-black.png`
+- [x] Atualizado index.html favicon e apple-touch-icon
+- [x] Ícone otimizado para 192x192 e 512x512 pixels
+- [x] Melhor contraste e visibilidade em mobile
+
+### Arquivos Modificados:
+- `/client/public/espelho-ai-icon-black.png` (novo arquivo)
+- `/client/public/manifest.json` (atualizado)
+- `/client/index.html` (atualizado)
+
+### Resultado:
+✅ Ícone com fundo preto sólido
+✅ Excelente contraste contra qualquer fundo de tela
+✅ Pronto para instalação em mobile

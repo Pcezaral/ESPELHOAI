@@ -9,13 +9,13 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/espelho-ai-logo-transp.png",
+      "src": "/espelho-ai-icon-black.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/espelho-ai-logo-transp.png",
+      "src": "/espelho-ai-icon-black.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
@@ -24,7 +24,7 @@
   "categories": ["photo", "entertainment", "lifestyle"],
   "screenshots": [
     {
-      "src": "/espelho-ai-logo-transp.png",
+      "src": "/espelho-ai-icon-black.png",
       "sizes": "540x720",
       "type": "image/png"
     }
