@@ -1174,3 +1174,15 @@ Destacar a vantagem comercial de cancelamento a qualquer momento em toda a plata
 - [x] Destaque verde: "✅ Cancele a Qualquer Momento - Sem Taxas de Cancelamento!"
 - [x] Posicionada entre disclaimer de cancelamento e seção de informações finais
 - [x] Reforça confiança e segurança do pagamento
+
+
+## Melhoria: Modal de Formas de Pagamento ao Clicar em Plano (10/12/2025)
+
+- [x] Criado modal que aparece ao clicar em "Assinar" em qualquer plano
+- [x] Exibe formas de pagamento: Cartão de Crédito + Stripe Seguro
+- [x] Inclui destaque verde: "✅ Cancele a Qualquer Momento - Sem Taxas de Cancelamento!"
+- [x] Informações de processamento: "Pagamento processado instantaneamente | Receba comprovante por email"
+- [x] Botões: "Cancelar" e "Continuar Pagamento"
+- [x] Seção de formas de pagamento mantida no final da página também
+- [x] Modal com fundo escuro (overlay) e design consistente com tema
+- [x] Botão X para fechar modal

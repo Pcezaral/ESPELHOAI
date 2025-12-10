@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Check, Sparkles, Zap, Crown, Infinity as InfinityIcon } from "lucide-react";
+import { Check, Sparkles, Zap, Crown, Infinity as InfinityIcon, X } from "lucide-react";
 import { useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
@@ -87,6 +87,7 @@ export default function Planos() {
   const { user, isAuthenticated } = useAuth();
   const [, setLocation] = useLocation();
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
   
   const { data: subscription } = trpc.credits.getSubscription.useQuery();
   const createCheckoutMutation = trpc.stripe.createCheckout.useMutation();
@@ -126,26 +127,27 @@ export default function Planos() {
     }
   }, [verifyPaymentMutation, setLocation]);
 
-  const handlePurchase = async (planId: string) => {
+  const handlePurchase = (planId: string) => {
     if (!isAuthenticated) {
       window.location.href = getLoginUrl();
       return;
     }
-
     setSelectedPlan(planId);
+    setShowPaymentModal(true);
+  };
 
+  const handleConfirmPayment = async () => {
+    if (!selectedPlan) return;
     try {
       toast.info("Redirecionando para pagamento...");
-      
       const { url } = await createCheckoutMutation.mutateAsync({
-        packageType: planId as any,
+        packageType: selectedPlan as any,
       });
-
-      // Redirect to Stripe Checkout
       window.location.href = url;
     } catch (error: any) {
-      toast.error(error.message || "Erro ao criar sessão de pagamento");
+      toast.error(error.message || "Erro ao criar sessao de pagamento");
       setSelectedPlan(null);
+      setShowPaymentModal(false);
     }
   };
 
@@ -296,6 +298,73 @@ export default function Planos() {
             Pagamento 100% Seguro e Confiável
           </p>
         </div>
+
+        {/* Modal de Formas de Pagamento */}
+        {showPaymentModal && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+            <Card className="bg-slate-900 border-slate-700 max-w-md w-full">
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-2xl font-bold text-white">Formas de Pagamento</h2>
+                  <button
+                    onClick={() => setShowPaymentModal(false)}
+                    className="text-slate-400 hover:text-white transition"
+                  >
+                    <X className="w-6 h-6" />
+                  </button>
+                </div>
+
+                <div className="space-y-4 mb-6">
+                  <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="text-3xl">💳</span>
+                      <div>
+                        <h3 className="font-semibold text-white">Cartao de Credito</h3>
+                        <p className="text-sm text-slate-400">Visa, Mastercard, Elo</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="text-3xl">🔒</span>
+                      <div>
+                        <h3 className="font-semibold text-white">Stripe Seguro</h3>
+                        <p className="text-sm text-slate-400">Processamento seguro</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4 mb-6">
+                  <p className="text-sm text-green-400 font-semibold">
+                    ✅ Cancele a Qualquer Momento - Sem Taxas de Cancelamento!
+                  </p>
+                  <p className="text-xs text-slate-400 mt-2">
+                    Pagamento processado instantaneamente | Receba comprovante por email
+                  </p>
+                </div>
+
+                <div className="flex gap-3">
+                  <Button
+                    onClick={() => setShowPaymentModal(false)}
+                    variant="outline"
+                    className="flex-1 border-slate-600 text-slate-300 hover:bg-slate-800"
+                  >
+                    Cancelar
+                  </Button>
+                  <Button
+                    onClick={handleConfirmPayment}
+                    disabled={createCheckoutMutation.isPending}
+                    className="flex-1 bg-gradient-to-r from-orange-500 to-red-500 hover:opacity-90 text-white font-semibold"
+                  >
+                    {createCheckoutMutation.isPending ? "Processando..." : "Continuar Pagamento"}
+                  </Button>
+                </div>
+              </div>
+            </Card>
+          </div>
+        )}
       </main>
     </div>
   );
