@@ -985,3 +985,68 @@ App totalmente alinhado com identidade visual do site Hostinger
 - Transformação clara e bem-humorada
 - Cenários realistas que fazem sentido
 - Expressões alegres que transmitem diversão
+
+
+## Melhoria: Alta Variabilidade de Cenários e Preservação de Fisionomias (10/12/2025)
+
+### Objetivo:
+- [x] Aumentar drasticamente a variabilidade de cenários em TODOS os 9 estilos
+- [x] Reforçar preservação de fisionomias MÁXIMA mesmo em transformações intensas
+- [x] Adicionar `randomVariation` parameter para mais diversidade
+
+### Implementação por Estilo:
+
+**1. Bichinho 🐾**
+- [x] Adicionados 15 animais diferentes (gato, cachorro, coruja, cervo, raposa, urso, coelho, papagaio, coala, esquilo, leão, golfinho, elefante, pinguim, peixe)
+- [x] Backgrounds variados: floresta, selva, savana, oceano, montanhas, parque, casa, neve, deserto, subaquático, céu
+- [x] Poses variadas: sentado, em pé, brincando, descansando, ação, nadando, voando, escalando
+- [x] ULTRA CRITICAL: Preservação PIXEL-PERFECT de fisionomias
+
+**2. Monstro 👾**
+- [x] Cores de pele expandidas: pink, purple, turquoise, mint, coral, lavender, peach, gold, silver, rainbow
+- [x] Estilos de chifres: curved, straight, spiral, nubs, crown, tiara
+- [x] Acessórios: bow, hat, glasses, flower, star, jewelry, crown
+- [x] Padrões: spots, stripes, sparkles, swirls, scales, dots, waves
+- [x] Backgrounds mágicos: enchanted forest, magical castle, candy land, underwater cave, space, rainbow sky, mystical garden, spooky mansion, cloud kingdom, crystal cavern
+- [x] Poses variadas: wave, stance, sitting, jumping, dancing, flying, riding, floating
+- [x] CRITICAL: Face structure mantém identidade 100%
+
+**3. Pintura 🎨**
+- [x] 15 estilos artísticos famosos mantidos
+- [x] Backgrounds expandidos: gardens, interiors, abstract, landscapes, urban scenes, museums, studios, nature, water, sky, mountains, forests, deserts, historical settings, fantasy worlds
+- [x] Variation parameter adicionado para mais diversidade
+
+**4. Gênero ⚧️**
+- [x] Poses expandidas: confident, relaxed, professional, casual, action, sitting, standing, walking, dancing, jumping, leaning
+- [x] Backgrounds expandidos: workplace, stage, outdoor, indoor, street, beach, park, nightclub, office, studio, home, restaurant, bar, theater, concert hall
+- [x] Variation parameter adicionado
+
+**5. Épico 🏛️⚔️**
+- [x] Poses expandidas: heroic, battle ready, regal sitting, victorious, action, riding, flying, commanding, meditating, celebrating
+- [x] Backgrounds expandidos: temple, battlefield, throne room, forest, mountain, ocean, palace, arena, cliff, castle, fortress, sacred ground, ancient ruins, mythical landscape, sky, clouds, divine realm
+- [x] Lighting variado: dramatic shadows, golden glow, divine light, battle fire, mystical glow
+- [x] Variation parameter adicionado
+
+**6. Gangster 🎩🔫**
+- [x] Mantém ALTA VARIEDADE de cenários (1920s, moderno, Tarantino-style)
+- [x] Variation parameter adicionado
+
+**7. Circo 🎪✨**
+- [x] 16 profissões circenses com detalhes vibrantes
+- [x] Variation parameter adicionado
+
+**8. Natal 🎄**
+- [x] 10 cenários realistas bem-humorados
+- [x] Backgrounds expandidos: city streets, shopping malls, homes, parks, neighborhoods, plazas, forests, snowy landscapes, decorated buildings, markets, cafes, offices, schools, churches
+- [x] Variation parameter adicionado
+
+**9. Réveillon 🎆**
+- [x] Poses expandidas: toasting, celebrating, elegant, joyful, dancing, laughing, embracing, jumping, waving, raising glass
+- [x] Backgrounds expandidos: beach, restaurant, rooftop, yacht, nightclub, ballroom, plaza, garden, mansion, resort, city streets, mountains, countryside
+- [x] Variation parameter adicionado
+
+### Resultado:
+- ✅ Cada estilo agora tem 10+ cenários/poses/backgrounds diferentes
+- ✅ Fisionomias preservadas em TODOS os estilos, mesmo em transformações intensas
+- ✅ `randomVariation` parameter garante diversidade mesmo com mesmo `randomSeed`
+- ✅ Instruções CRITICAL reforçadas para máxima preservação facial
