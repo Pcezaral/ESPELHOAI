@@ -34,9 +34,40 @@ export default function Home() {
             <span className="text-2xl md:text-3xl font-black bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 bg-clip-text text-transparent tracking-tight">Surpreenda sua Família e Amigos!</span>
           </div>
           {isAuthenticated && (
-            <div className="flex items-center gap-2 bg-orange-500/20 px-4 py-2 rounded-full">
-              <span className="text-orange-400">⚡</span>
-              <span className="font-semibold">{user?.credits || 0} créditos</span>
+            <div className="flex items-center gap-4">
+              {/* Créditos */}
+              <div className="flex items-center gap-2 bg-orange-500/20 px-4 py-2 rounded-full">
+                <span className="text-orange-400">⚡</span>
+                <span className="font-semibold">{user?.credits || 0} créditos</span>
+              </div>
+              
+              {/* Menu de Conta */}
+              <div className="relative group">
+                <button className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-full transition">
+                  <span className="text-lg">👤</span>
+                  <span className="text-sm font-medium">{user?.name?.split(' ')[0] || 'Conta'}</span>
+                  <span className="text-xs">▼</span>
+                </button>
+                
+                {/* Dropdown Menu */}
+                <div className="absolute right-0 mt-2 w-48 bg-slate-900 border border-slate-700 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <button onClick={() => setLocation('/perfil')} className="w-full text-left px-4 py-3 hover:bg-slate-800 transition text-sm">
+                    👤 Meu Perfil
+                  </button>
+                  <button onClick={() => setLocation('/assinatura')} className="w-full text-left px-4 py-3 hover:bg-slate-800 transition text-sm border-t border-slate-700">
+                    💳 Minha Assinatura
+                  </button>
+                  <button onClick={() => setLocation('/historico')} className="w-full text-left px-4 py-3 hover:bg-slate-800 transition text-sm border-t border-slate-700">
+                    📜 Histórico
+                  </button>
+                  <button onClick={() => setLocation('/configuracoes')} className="w-full text-left px-4 py-3 hover:bg-slate-800 transition text-sm border-t border-slate-700">
+                    ⚙️ Configurações
+                  </button>
+                  <button onClick={logout} className="w-full text-left px-4 py-3 hover:bg-red-900/20 transition text-sm text-red-400 border-t border-slate-700">
+                    🚪 Sair
+                  </button>
+                </div>
+              </div>
             </div>
           )}
         </div>

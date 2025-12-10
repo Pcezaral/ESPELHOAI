@@ -1226,3 +1226,21 @@ Destacar a vantagem comercial de cancelamento a qualquer momento em toda a plata
 - [x] Depoimentos focam em cancelamento fácil e retorno de clientes
 - [x] Grid responsivo (3 colunas em desktop, 1 em mobile)
 - [x] Posicionado antes do modal de pagamento
+
+
+## Melhoria: Menu de Conta ao Lado dos Créditos (10/12/2025)
+
+- [x] Adicionado botão de conta com nome do usuário no header
+- [x] Criado dropdown menu com 5 opções: Perfil, Assinatura, Histórico, Configurações, Sair
+- [x] Menu aparece ao lado dos créditos (direita do header)
+- [x] Design responsivo com hover effect
+- [x] Ícones emoji para melhor UX
+- [x] Cores consistentes com tema (slate-800/700)
+
+## Análise: Dados Mínimos para Abertura de Conta (10/12/2025)
+
+- [x] Criado documento com benchmarking de 6 apps famosos (Instagram, TikTok, Snapchat, Netflix, Spotify, Discord)
+- [x] Identificado padrão: Email, Senha, Nome, Data de Nascimento (obrigatórios)
+- [x] Recomendado: Foto de Perfil (opcional, sugerir após primeira transformação)
+- [x] Estruturado onboarding em 4 fases: Bem-vindo, Primeira Transformação, Checkout, Perfil
+- [x] Documento salvo em /home/ubuntu/analise-dados-conta.md
