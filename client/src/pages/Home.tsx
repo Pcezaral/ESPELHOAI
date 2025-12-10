@@ -62,7 +62,7 @@ export default function Home() {
             {/* Centro: Logo e Textos - Sempre no topo */}
             <div className="flex flex-col items-center space-y-6 text-center w-full md:w-auto">
               <div className="flex justify-center">
-                <img src="/espelho-ai-logo-transp.png" alt="ESPELHO AI" className="h-32 w-32 md:h-48 md:w-48" />
+                <img src="/espelho-ai-logo-transp.png" alt="ESPELHO AI" className="h-32 w-32 md:h-48 md:w-48 transition-transform duration-500 hover:scale-110 hover:rotate-6 cursor-pointer" />
               </div>
               
               <div className="space-y-4 max-w-2xl">

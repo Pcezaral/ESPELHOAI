@@ -1132,3 +1132,35 @@ Destacar a vantagem comercial de cancelamento a qualquer momento em toda a plata
 - [x] Aumento de 20% no desktop (40 → 48)
 - [x] Mobile mantém h-32 w-32 (sem alteração)
 - [x] Logo mais destacado e visível no hero section
+
+
+## Melhoria: Hover Effect, Dark/Light Logo e Favicons (10/12/2025)
+
+### 1. Hover Effect no Logo
+- [x] Adicionado transition-transform duration-500
+- [x] Implementado hover:scale-110 (aumenta 10%)
+- [x] Implementado hover:rotate-6 (rotação de 6 graus)
+- [x] Adicionado cursor-pointer para indicar interatividade
+
+### 2. Versões Dark/Light do Logo
+- [x] Gerado espelho-ai-logo-dark.png (fundo preto, texto branco)
+- [x] Gerado espelho-ai-logo-light.png (fundo branco, texto escuro)
+- [x] Mantém mesmo estilo artístico (leão laranja/vermelho + rosto humano)
+- [x] Pronto para uso em diferentes temas
+
+### 3. Favicon em Múltiplas Resoluções
+- [x] Gerado favicon-square.png (512x512px, transparent background)
+- [x] Convertido para favicon-16x16.png
+- [x] Convertido para favicon-32x32.png
+- [x] Convertido para favicon-64x64.png
+- [x] Convertido para favicon-128x128.png
+- [x] Convertido para favicon-256x256.png
+- [x] Atualizado index.html com todos os favicons
+- [x] Adicionado apple-touch-icon (128x128)
+- [x] Adicionado shortcut icon (32x32)
+
+### Resultado:
+- ✅ Logo com interatividade visual (hover effect)
+- ✅ Suporte para dark/light themes
+- ✅ Favicon otimizado para todos os dispositivos e navegadores
+- ✅ Melhor branding em abas do navegador, home screen e favoritos
