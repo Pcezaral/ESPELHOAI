@@ -107,7 +107,7 @@ export async function consumeCredit(userId: number, themeName: string, amount: n
 export async function addCredits(
   userId: number, 
   amount: number, 
-  packageType: "light" | "premium" | "monthly_unlimited" | "annual_unlimited",
+  packageType: "credits_50" | "credits_200" | "credits_500" | "credits_1000" | "light" | "premium" | "monthly_unlimited" | "annual_unlimited",
   description?: string
 ): Promise<number> {
   const db = await getDb();
@@ -149,12 +149,11 @@ export async function addCredits(
     return -1; // Return -1 to indicate unlimited
   }
 
-  // Handle credit packages (light, premium)
+  // Handle credit packages
   const newBalance = currentCredits + amount;
   await db.update(users)
     .set({ 
       credits: newBalance,
-      subscriptionType: packageType
     })
     .where(eq(users.id, userId));
 

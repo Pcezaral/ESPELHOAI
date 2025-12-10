@@ -1271,3 +1271,11 @@ Destacar a vantagem comercial de cancelamento a qualquer momento em toda a plata
 - [ ] Testar compra de créditos
 - [ ] Testar sistema de referral
 - [ ] Testar galeria de produtos
+
+
+## Desconto Progressivo nos Planos (10/12/2025)
+- [x] Remover planos ilimitados (monthly_unlimited, annual_unlimited)
+- [x] Criar tabela de desconto progressivo
+- [x] Atualizar página de planos com novo sistema
+- [x] Atualizar Stripe para novos pacotes
+- [x] Testar fluxo de compra com descontos

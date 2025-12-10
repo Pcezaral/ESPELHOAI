@@ -140,13 +140,13 @@ export const appRouter = router({
     getTransactionHistory: protectedProcedure.query(async ({ ctx }) => {
       const { getTransactionHistory } = await import("./db");
       return getTransactionHistory(50);
-    }),
+    }) as any,
   }),
 
   stripe: router({
     createCheckout: protectedProcedure
       .input(z.object({
-        packageType: z.enum(["light", "premium", "monthly_unlimited", "annual_unlimited"]),
+        packageType: z.enum(["credits_50", "credits_200", "credits_500", "credits_1000"]),
       }))
       .mutation(async ({ input, ctx }) => {
         const baseUrl = process.env.VITE_FRONTEND_FORGE_API_URL || "http://localhost:3000";
@@ -171,16 +171,12 @@ export const appRouter = router({
         const result = await verifyPayment(input.sessionId);
         
         if (result.success && result.packageType && result.userId === ctx.user.id) {
-          const creditsMap = {
-            light: 50,
-            premium: 200,
-            monthly_unlimited: 0,
-            annual_unlimited: 0,
-          };
+          const { PACKAGE_CREDITS } = await import("./stripe");
+          const credits = PACKAGE_CREDITS[result.packageType] || 0;
           
           const newBalance = await addCredits(
             ctx.user.id,
-            creditsMap[result.packageType],
+            credits,
             result.packageType
           );
           
