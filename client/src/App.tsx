@@ -14,6 +14,11 @@ import Support from "./pages/Support";
 import Admin from "./pages/Admin";
 import Analytics from "./pages/Analytics";
 import Leaderboard from "./pages/Leaderboard";
+import Perfil from "./pages/Perfil";
+import Assinatura from "./pages/Assinatura";
+import Historico from "./pages/Historico";
+import Configuracoes from "./pages/Configuracoes";
+import Termos from "./pages/Termos";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -29,6 +34,11 @@ function Router() {
       <Route path={"/admin"} component={Admin} />
       <Route path={"/analytics"} component={Analytics} />
       <Route path={"/leaderboard"} component={Leaderboard} />
+      <Route path={"/perfil"} component={Perfil} />
+      <Route path={"/assinatura"} component={Assinatura} />
+      <Route path={"/historico"} component={Historico} />
+      <Route path={"/configuracoes"} component={Configuracoes} />
+      <Route path={"/termos"} component={Termos} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

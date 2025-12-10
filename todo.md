@@ -1244,3 +1244,16 @@ Destacar a vantagem comercial de cancelamento a qualquer momento em toda a plata
 - [x] Recomendado: Foto de Perfil (opcional, sugerir após primeira transformação)
 - [x] Estruturado onboarding em 4 fases: Bem-vindo, Primeira Transformação, Checkout, Perfil
 - [x] Documento salvo em /home/ubuntu/analise-dados-conta.md
+
+
+## Implementação: 3 Sugestões (10/12/2025)
+
+- [x] Criar página de Perfil do usuário com edição de dados
+- [x] Criar página de Assinatura com status e opção de cancelamento
+- [x] Criar página de Histórico de transformações
+- [x] Criar página de Configurações (notificações, privacidade, segurança, dados)
+- [x] Criar componente OnboardingModal com 3 steps
+- [x] Integrar OnboardingModal na Home page com localStorage
+- [x] Criar página de Termos & Política de Cancelamento (completa com Lei do Consumidor)
+- [x] Adicionar rotas no App.tsx para todas as novas páginas
+- [x] Menu de conta no header com dropdown funcional

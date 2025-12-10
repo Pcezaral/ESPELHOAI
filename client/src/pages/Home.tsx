@@ -2,6 +2,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import CountdownTimer from "@/components/CountdownTimer";
 import DownloadButtons from "@/components/DownloadButtons";
+import OnboardingModal from "@/components/OnboardingModal";
 import React from "react";
 import { Card } from "@/components/ui/card";
 import { Loader2, Wand2, Zap, Sparkles, Crown, Infinity as InfinityIcon, Check, MessageSquare, Share2 } from "lucide-react";
@@ -12,6 +13,15 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const { user, loading, error, isAuthenticated, logout } = useAuth();
   const [, setLocation] = useLocation();
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  useEffect(() => {
+    // Mostrar onboarding apenas na primeira vez que o usuário autentica
+    if (isAuthenticated && !localStorage.getItem('onboarding-completed')) {
+      setShowOnboarding(true);
+      localStorage.setItem('onboarding-completed', 'true');
+    }
+  }, [isAuthenticated]);
 
   const handleStartApp = (theme?: string | React.MouseEvent) => {
     if (!isAuthenticated) {
@@ -679,6 +689,14 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Onboarding Modal */}
+      <OnboardingModal
+        isOpen={showOnboarding}
+        onClose={() => setShowOnboarding(false)}
+        userName={user?.name?.split(' ')[0]}
+        credits={user?.credits}
+      />
     </div>
   );
 }
