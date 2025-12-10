@@ -1194,3 +1194,12 @@ Destacar a vantagem comercial de cancelamento a qualquer momento em toda a plata
 - [x] Alterado de "Rolê para ver ➜" para "Scroll para ver ➜"
 - [x] Mantém mesmo tamanho e cor (laranja)
 - [x] Melhora clareza e profissionalismo do texto
+
+
+## Melhoria: "Cancele a Qualquer Momento" em Cada Card de Plano (10/12/2025)
+
+- [x] Adicionado badge verde embaixo das features de cada plano
+- [x] Texto: "✅ Cancele a Qualquer Momento"
+- [x] Design: fundo verde semitransparente com borda verde
+- [x] Posicionado entre features e botão "Assinar"
+- [x] Reforça confiança e vantagem competitiva em cada opção de plano

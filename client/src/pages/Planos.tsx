@@ -233,6 +233,13 @@ export default function Planos() {
                     ))}
                   </ul>
 
+                  {/* Cancele a Qualquer Momento */}
+                  <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-3 text-center">
+                    <p className="text-xs font-semibold text-green-400">
+                      ✅ Cancele a Qualquer Momento
+                    </p>
+                  </div>
+
                   {/* CTA Button */}
                   <Button
                     onClick={() => handlePurchase(plan.id)}
