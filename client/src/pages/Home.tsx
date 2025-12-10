@@ -697,6 +697,49 @@ export default function Home() {
         userName={user?.name?.split(' ')[0]}
         credits={user?.credits}
       />
+        {/* Footer com Links Legais */}
+        <footer className="bg-black text-white py-8 px-4 md:px-8 mt-12 border-t border-orange-500/20">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+              {/* Sobre */}
+              <div>
+                <h3 className="font-bold text-orange-500 mb-3">Sobre ESPELHO AI</h3>
+                <p className="text-sm text-gray-400">
+                  Transforme suas fotos em estilos incríveis com IA. Divirta-se, compartilhe e surpreenda seus amigos!
+                </p>
+              </div>
+
+              {/* Links Rápidos */}
+              <div>
+                <h3 className="font-bold text-orange-500 mb-3">Links Rápidos</h3>
+                <ul className="space-y-2 text-sm">
+                  <li><a href="/" className="text-gray-400 hover:text-orange-500 transition">Home</a></li>
+                  <li><a href="/planos" className="text-gray-400 hover:text-orange-500 transition">Planos</a></li>
+                  <li><a href="/gallery" className="text-gray-400 hover:text-orange-500 transition">Galeria</a></li>
+                  <li><a href="/contato" className="text-gray-400 hover:text-orange-500 transition">Contato</a></li>
+                </ul>
+              </div>
+
+              {/* Legal */}
+              <div>
+                <h3 className="font-bold text-orange-500 mb-3">Legal</h3>
+                <ul className="space-y-2 text-sm">
+                  <li><a href="/termos-servico" className="text-gray-400 hover:text-orange-500 transition">Termos de Serviço</a></li>
+                  <li><a href="/politica-privacidade" className="text-gray-400 hover:text-orange-500 transition">Política de Privacidade</a></li>
+                  <li><a href="mailto:contato@espelhoai.com.br" className="text-gray-400 hover:text-orange-500 transition">Contato Legal</a></li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Copyright */}
+            <div className="border-t border-gray-800 pt-6 text-center text-sm text-gray-500">
+              <p>© 2025 ESPELHO AI. Todos os direitos reservados.</p>
+              <p className="mt-2 text-xs">
+                Lei nº 9.610/1998 (Direito Autoral) | Lei nº 13.709/2018 (LGPD)
+              </p>
+            </div>
+          </div>
+        </footer>
     </div>
   );
 }

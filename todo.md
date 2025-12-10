@@ -340,6 +340,15 @@ Isso deve resolver o problema crítico de grupos onde apenas algumas pessoas era
 - Favicon e meta tags atualizados para SEO
 - Cores laranja/vermelho mantidas em harmonia com o logo
 
+## Implementação: Proteção Legal e Técnica (Sem Custo)
+- [x] Middleware de segurança (rate limiting, CORS, detecção de bots)
+- [x] Páginas de Termos de Serviço e Política de Privacidade
+- [x] Footer com links legais
+- [x] Proteção técnica contra abuso (scoring, detecção de padrões)
+- [x] Headers de segurança (X-Frame-Options, CSP, etc)
+- [x] Avisos de copyright no código
+- [x] Instalação de express-rate-limit
+
 ## Alinhamento Visual com Site Hostinger ✅ CONCLUÍDO
 
 ### Análise:
@@ -1257,3 +1266,15 @@ Destacar a vantagem comercial de cancelamento a qualquer momento em toda a plata
 - [x] Criar página de Termos & Política de Cancelamento (completa com Lei do Consumidor)
 - [x] Adicionar rotas no App.tsx para todas as novas páginas
 - [x] Menu de conta no header com dropdown funcional
+
+
+## Nova Funcionalidade: Venda de Imagens em Alta Resolução
+- [x] Adicionar opção de download em alta resolução na página de resultado
+- [x] Criar chamariz atraente "Não perca a chance!"
+- [x] Avisar quantos créditos serão debitados (10 créditos = R$ 10)
+- [x] Gerar mockups de camisetas com imagens transformadas
+- [x] Gerar mockups de canecas com imagens transformadas
+- [x] Gerar mockups de posters com imagens transformadas
+- [x] Criar exemplos com crianças, jovens, adultos e idosos
+- [x] Integrar sistema de créditos para downloads premium
+- [x] Criar componente HighResolutionDownload

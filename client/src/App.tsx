@@ -19,6 +19,8 @@ import Assinatura from "./pages/Assinatura";
 import Historico from "./pages/Historico";
 import Configuracoes from "./pages/Configuracoes";
 import Termos from "./pages/Termos";
+import TermosServico from "./pages/TermosServico";
+import PoliticaPrivacidade from "./pages/PoliticaPrivacidade";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -39,6 +41,8 @@ function Router() {
       <Route path={"/historico"} component={Historico} />
       <Route path={"/configuracoes"} component={Configuracoes} />
       <Route path={"/termos"} component={Termos} />
+      <Route path={"/termos-servico"} component={TermosServico} />
+      <Route path={"/politica-privacidade"} component={PoliticaPrivacidade} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
