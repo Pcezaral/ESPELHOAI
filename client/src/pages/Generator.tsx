@@ -7,6 +7,7 @@ import { trpc } from "@/lib/trpc";
 import { StarRating } from "@/components/StarRating";
 import { toast } from "sonner";
 import { CreditBadge } from "@/components/CreditBadge";
+import { ShareButtons } from "@/components/ShareButtons";
 import { useAuth } from "@/_core/hooks/useAuth";
 
 type Theme = "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus" | "natal" | "reveillon";
@@ -210,14 +211,12 @@ export default function Generator() {
         const blob = await response.blob();
         const file = new File([blob], `espelho-ai-${selectedTheme}.jpg`, { type: "image/jpeg" });
         
-        if (navigator.canShare({ files: [file] })) {
-          await navigator.share({
-            title: "ESPELHO AI",
-            text,
-            files: [file],
-          });
-          return;
-        }
+        await navigator.share({
+          title: "ESPELHO AI",
+          text,
+          files: [file],
+        });
+        return;
       } catch (error) {
         console.error("Erro ao compartilhar com imagem:", error);
       }
@@ -412,15 +411,15 @@ export default function Generator() {
               </div>
             )}
 
-            <div className="grid grid-cols-2 gap-4">
-              <Button onClick={handleDownload} className="gap-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600">
+            <div className="space-y-4">
+              <Button onClick={handleDownload} className="w-full gap-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600">
                 <Download className="w-4 h-4" />
-                Baixar
+                Baixar Imagem
               </Button>
-              <Button onClick={() => handleShare("Veja minha transformação!")} variant="outline" className="gap-2 border-slate-700 text-white hover:bg-slate-800">
-                <Share2 className="w-4 h-4" />
-                Compartilhar
-              </Button>
+              <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-4">
+                <p className="text-white font-semibold mb-3 text-center">Compartilhe com seus amigos!</p>
+                <ShareButtons message="Veja minha transformação no ESPELHO AI!" imageUrl={generatedImage} theme={selectedTheme || undefined} />
+              </div>
             </div>
 
             <Button onClick={handleReset} variant="outline" className="w-full border-slate-700 text-white hover:bg-slate-800">
