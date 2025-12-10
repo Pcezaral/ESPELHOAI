@@ -1,6 +1,7 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import CountdownTimer from "@/components/CountdownTimer";
+import DownloadButtons from "@/components/DownloadButtons";
 import React from "react";
 import { Card } from "@/components/ui/card";
 import { Loader2, Wand2, Zap, Sparkles, Crown, Infinity as InfinityIcon, Check, MessageSquare, Share2 } from "lucide-react";
@@ -446,6 +447,16 @@ export default function Home() {
         <div className="container max-w-4xl mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-12">Perguntas Frequentes</h2>
           
+          {/* Disclaimer Destaque */}
+          <div className="mb-8 p-6 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-300 rounded-xl text-center">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <span className="text-2xl">✨</span>
+              <h3 className="text-xl font-bold text-green-700">Cancele a Qualquer Momento!</h3>
+              <span className="text-2xl">✨</span>
+            </div>
+            <p className="text-green-600 text-sm">Sem compromisso. Sem surpresas. Sem taxas ocultas. Porque confiamos que você vai amar o ESPELHO AI! 💚</p>
+          </div>
+          
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Como funciona o app?</h3>
@@ -470,6 +481,16 @@ export default function Home() {
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Minhas fotos ficam salvas?</h3>
               <p className="text-gray-600">Não, respeitamos sua privacidade e não armazenamos suas fotos.</p>
+            </div>
+            
+            <div className="bg-white p-6 rounded-lg shadow-sm border-2 border-green-200 bg-green-50">
+              <h3 className="text-lg font-semibold text-green-900 mb-2">✨ Posso cancelar a qualquer momento?</h3>
+              <p className="text-green-700">Sim! Sem compromisso, sem taxas de cancelamento. Você é livre para cancelar sua assinatura quando quiser, diretamente na sua conta.</p>
+            </div>
+            
+            <div className="bg-white p-6 rounded-lg shadow-sm border-2 border-green-200 bg-green-50">
+              <h3 className="text-lg font-semibold text-green-900 mb-2">💚 Como faço para cancelar?</h3>
+              <p className="text-green-700">Muito fácil! Acesse sua conta, vá em 'Minha Assinatura' e clique em 'Cancelar'. Seu acesso continua até o final do período pago.</p>
             </div>
           </div>
         </div>

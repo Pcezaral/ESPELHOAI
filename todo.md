@@ -1075,3 +1075,43 @@ App totalmente alinhado com identidade visual do site Hostinger
 ✅ Ícone com fundo preto sólido
 ✅ Excelente contraste contra qualquer fundo de tela
 ✅ Pronto para instalação em mobile
+
+
+## Melhoria: Destaque "Cancele a Qualquer Momento" (10/12/2025)
+
+### Objetivo:
+Destacar a vantagem comercial de cancelamento a qualquer momento em toda a plataforma
+
+### Implementação:
+
+**1. Página de Planos (Planos.tsx)**
+- [x] Adicionado disclaimer simpático com fundo verde
+- [x] Texto: "Sem compromisso. Sem surpresas. Sem taxas ocultas."
+- [x] Emoji de confiança (✨ e 💚)
+- [x] Posicionado acima da seção de planos para máxima visibilidade
+
+**2. Seção de FAQ (Home.tsx)**
+- [x] Adicionado banner destaque com fundo verde/emerald
+- [x] Título: "Cancele a Qualquer Momento!"
+- [x] Texto explicativo simpático
+- [x] Adicionados 2 cards de FAQ com tópicos de cancelamento:
+  - "Posso cancelar a qualquer momento?"
+  - "Como faço para cancelar?"
+- [x] Cards destacados com fundo verde e borda verde
+
+**3. Planos.tsx - Features Atualizadas**
+- [x] Adicionado "✅ Cancele quando quiser" aos planos Mensal e Anual
+- [x] Adicionado "Sem renovação automática" aos planos Light e Premium
+
+### Resultado Visual:
+- ✅ Destaque verde em ambas as páginas (Planos e Home)
+- ✅ Mensagem clara e simpática sobre cancelamento
+- ✅ FAQ com respostas diretas
+- ✅ Aumento de confiança do usuário
+- ✅ Redução de fricção psicológica na compra
+
+### Impacto Esperado:
+- Aumento de conversão no checkout (remove medo de aprisionamento)
+- Melhor NPS (Net Promoter Score)
+- Mais recomendações (boca-a-boca)
+- Redução de reclamações sobre cancelamento

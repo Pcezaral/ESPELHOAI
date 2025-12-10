@@ -245,6 +245,23 @@ export default function Planos() {
           })}
         </div>
 
+        {/* Disclaimer: Cancele a Qualquer Momento */}
+        <div className="text-center space-y-3 bg-gradient-to-r from-green-500/10 via-emerald-500/10 to-teal-500/10 border-2 border-green-500/30 rounded-2xl p-6 max-w-3xl mx-auto mb-8">
+          <div className="flex items-center justify-center gap-2">
+            <span className="text-2xl">✨</span>
+            <h3 className="text-xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+              Cancele a Qualquer Momento!
+            </h3>
+            <span className="text-2xl">✨</span>
+          </div>
+          <p className="text-slate-300 text-sm">
+            Sem compromisso. Sem surpresas. Sem taxas ocultas. Você é livre para cancelar sua assinatura quando quiser, diretamente na sua conta.
+          </p>
+          <p className="text-xs text-slate-400 italic">
+            Porque confiamos que você vai amar o ESPELHO AI! 💚
+          </p>
+        </div>
+
         {/* Bottom Info */}
         <div className="text-center space-y-4 bg-slate-900/50 border border-slate-700/50 rounded-2xl p-8 max-w-3xl mx-auto">
           <h2 className="text-2xl font-bold text-white">
