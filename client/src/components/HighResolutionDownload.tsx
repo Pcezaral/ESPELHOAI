@@ -27,7 +27,7 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
       size: "2400x2400px",
       description: "Perfeito para camisetas e canecas",
       credits: 5,
-      price: "R$ 5",
+      price: "5 créditos",
       color: "from-blue-500 to-cyan-500",
     },
     {
@@ -36,7 +36,7 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
       size: "4800x6000px",
       description: "Qualidade máxima para fotos e posters",
       credits: 10,
-      price: "R$ 10",
+      price: "10 créditos",
       color: "from-purple-500 to-pink-500",
       badge: "MELHOR QUALIDADE",
     },
