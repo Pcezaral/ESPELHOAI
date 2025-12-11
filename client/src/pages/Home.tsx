@@ -5,7 +5,7 @@ import TransformationShowcase from "@/components/TransformationShowcase";
 import React from "react";
 import { Card } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { Loader2, Wand2, Zap, Sparkles, Crown, Infinity as InfinityIcon, Check, MessageSquare, Share2, Gift } from "lucide-react";
+import { Loader2, Wand2, Zap, Sparkles, Crown, Infinity as InfinityIcon, Check, MessageSquare, Share2, Gift, Download } from "lucide-react";
 import { APP_LOGO, APP_TITLE, getLoginUrl } from "@/const";
 import { useLocation } from "wouter";
 import { useEffect, useState } from "react";
@@ -145,6 +145,68 @@ export default function Home() {
                 <img src="/hero-exemplo-3.png" alt="Exemplo Épico" className="w-full object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
                 <img src="/hero-exemplo-4.png" alt="Exemplo Bichinho" className="w-full object-contain rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SEÇÃO DE INSTALAÇÃO PWA - SUPER ATRAENTE */}
+      <section className="bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 py-16 md:py-24 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 pointer-events-none">
+          <div className="absolute top-10 left-10 text-6xl animate-float-slow">📱</div>
+          <div className="absolute top-20 right-20 text-5xl animate-float-medium">⚡</div>
+          <div className="absolute bottom-20 left-20 text-7xl animate-float-fast">🎁</div>
+          <div className="absolute bottom-10 right-10 text-6xl animate-float-slow">✨</div>
+        </div>
+        
+        <div className="container max-w-4xl mx-auto px-4 relative z-10">
+          <div className="text-center space-y-6">
+            <div className="inline-block bg-white/20 backdrop-blur-sm px-6 py-2 rounded-full text-white font-bold text-sm mb-4">
+              🚀 INSTALE AGORA E GANHE BÔNUS
+            </div>
+            
+            <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight">
+              Tenha o App na Sua Tela Inicial
+            </h2>
+            
+            <p className="text-xl text-white/90 max-w-2xl mx-auto">
+              Acesso rápido, sem barras de navegador, funciona offline e você ganha <span className="font-bold text-yellow-200">5 créditos grátis</span> ao instalar!
+            </p>
+            
+            <div className="grid md:grid-cols-3 gap-4 mt-8">
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-white">
+                <div className="text-3xl mb-2">⚡</div>
+                <p className="font-semibold">Mais Rápido</p>
+                <p className="text-sm text-white/80">Sem barras do navegador</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-white">
+                <div className="text-3xl mb-2">📱</div>
+                <p className="font-semibold">Acesso Direto</p>
+                <p className="text-sm text-white/80">Na tela inicial do seu celular</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-white">
+                <div className="text-3xl mb-2">🎁</div>
+                <p className="font-semibold">5 Créditos</p>
+                <p className="text-sm text-white/80">Grátis ao instalar</p>
+              </div>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
+              <Button
+                onClick={() => setShowWelcomeModal(true)}
+                className="bg-white text-orange-600 hover:bg-orange-50 text-lg h-14 px-8 rounded-full shadow-xl hover:shadow-2xl transition-all font-bold"
+              >
+                <Download className="w-5 h-5 mr-2" />
+                Instalar Agora
+              </Button>
+              <Button
+                onClick={handleStartApp}
+                variant="outline"
+                className="border-2 border-white text-white hover:bg-white/10 text-lg h-14 px-8 rounded-full font-bold"
+              >
+                <Wand2 className="w-5 h-5 mr-2" />
+                Usar Versão Web
+              </Button>
             </div>
           </div>
         </div>
