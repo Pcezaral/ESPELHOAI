@@ -1,32 +1,78 @@
 {
-  "name": "Descubra seu Verdadeiro Eu",
-  "short_name": "Descubra Seu Eu",
+  "name": "Descubra seu Verdadeiro Eu - ESPELHO AI",
+  "short_name": "ESPELHO AI",
   "description": "Transforme suas fotos em personagens épicos, gangsters, pinturas e muito mais com IA. Descubra seu verdadeiro eu!",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#f97316",
-  "orientation": "portrait",
+  "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/descubra-seu-verdadeiro-eu-icon.png",
+      "src": "/pwa-icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "/descubra-seu-verdadeiro-eu-icon.png",
+      "src": "/pwa-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/pwa-icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "categories": ["photo", "entertainment", "lifestyle"],
   "screenshots": [
     {
-      "src": "/descubra-seu-verdadeiro-eu-icon.png",
-      "sizes": "540x720",
-      "type": "image/png"
+      "src": "/pwa-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/pwa-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Transformar Foto",
+      "short_name": "Transformar",
+      "description": "Comece uma nova transformação",
+      "url": "/generator",
+      "icons": [
+        {
+          "src": "/pwa-icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Ver Planos",
+      "short_name": "Planos",
+      "description": "Comprar créditos",
+      "url": "/planos",
+      "icons": [
+        {
+          "src": "/pwa-icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ]
 }
