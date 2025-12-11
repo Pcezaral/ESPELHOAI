@@ -65,7 +65,7 @@ export const appRouter = router({
         theme: z.string(),
       }))
       .mutation(async ({ input, ctx }) => {
-        const creditCost = input.resolution === "hd" ? 10 : 25;
+        const creditCost = input.resolution === "hd" ? 5 : 10;
         const resolutionName = input.resolution === "hd" ? "HD (300 DPI)" : "Premium 4K (600 DPI)";
         
         // Consume credits
@@ -96,7 +96,7 @@ export const appRouter = router({
         theme: z.string(),
       }))
       .mutation(async ({ input, ctx }) => {
-        const creditCost = input.resolution === "hd" ? 10 : 25;
+        const creditCost = input.resolution === "hd" ? 5 : 10;
         const resolutionName = input.resolution === "hd" ? "HD (300 DPI)" : "Premium 4K (600 DPI)";
         
         await consumeCredit(ctx.user.id, `[TESTE] Download ${resolutionName} - ${input.product}`, creditCost);

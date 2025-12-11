@@ -26,8 +26,8 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
       name: "HD (300 DPI)",
       size: "2400x2400px",
       description: "Perfeito para camisetas e canecas",
-      credits: 10,
-      price: "R$ 10",
+      credits: 5,
+      price: "R$ 5",
       color: "from-blue-500 to-cyan-500",
     },
     {
@@ -35,8 +35,8 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
       name: "Premium 4K (600 DPI)",
       size: "4800x6000px",
       description: "Qualidade máxima para fotos e posters",
-      credits: 25,
-      price: "R$ 25",
+      credits: 10,
+      price: "R$ 10",
       color: "from-purple-500 to-pink-500",
       badge: "MELHOR QUALIDADE",
     },
@@ -78,15 +78,6 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
       console.error("Download error:", error);
       toast.error("Erro ao processar download");
     }
-  };
-
-  const getMockupImage = (product: string) => {
-    const mockups: Record<string, string> = {
-      camiseta: "/mockup-camiseta-jovem.png",
-      caneca: "/mockup-caneca-adulto.png",
-      poster: "/mockup-camiseta-adulto.png",
-    };
-    return mockups[product] || "/mockup-camiseta-jovem.png";
   };
 
   return (
@@ -142,7 +133,7 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
           </DialogHeader>
 
           <div className="space-y-4">
-            {/* Mockups de Produtos */}
+            {/* Seleção de Produtos */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {products.map((product) => (
                 <button
@@ -161,18 +152,69 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
               ))}
             </div>
 
-            {/* Mockup Preview */}
+            {/* Mockup Preview com Imagem Gerada */}
             {selectedProduct && (
-              <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-4 space-y-3">
+              <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-6 space-y-4">
                 <p className="text-white font-semibold text-center">Prévia do Produto</p>
-                <div className="bg-slate-800 rounded-lg p-6 flex items-center justify-center min-h-64">
+                <div className="bg-slate-800 rounded-lg p-8 flex items-center justify-center min-h-80">
                   <div className="text-center space-y-4 w-full">
-                    <img
-                      src={getMockupImage(selectedProduct)}
-                      alt={`Mockup ${selectedProduct}`}
-                      className="w-full max-w-sm rounded-lg mx-auto object-contain"
-                    />
-                    <p className="text-slate-400 text-sm">
+                    {/* Mockup Camiseta */}
+                    {selectedProduct === "camiseta" && (
+                      <div className="flex justify-center">
+                        <div className="relative w-48 h-64">
+                          {/* Corpo da camiseta */}
+                          <div className="absolute inset-0 bg-gradient-to-b from-blue-600 via-blue-700 to-blue-800 rounded-b-3xl rounded-t-2xl shadow-2xl"></div>
+                          {/* Gola */}
+                          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-16 h-6 bg-blue-700 rounded-b-lg"></div>
+                          {/* Área de impressão com imagem */}
+                          <div className="absolute top-12 left-1/2 transform -translate-x-1/2 w-36 h-36 bg-white rounded-lg shadow-lg overflow-hidden border-2 border-blue-500">
+                            <img
+                              src={imageUrl}
+                              alt="Transformação"
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Mockup Caneca */}
+                    {selectedProduct === "caneca" && (
+                      <div className="flex justify-center">
+                        <div className="relative w-44 h-56">
+                          {/* Corpo da caneca */}
+                          <div className="absolute inset-0 bg-gradient-to-r from-amber-100 to-amber-50 rounded-b-3xl rounded-t-lg shadow-2xl border-4 border-amber-200"></div>
+                          {/* Alça */}
+                          <div className="absolute right-0 top-8 w-8 h-20 border-4 border-amber-200 rounded-r-full"></div>
+                          {/* Área de impressão */}
+                          <div className="absolute top-14 left-1/2 transform -translate-x-1/2 w-32 h-24 bg-white rounded shadow-lg overflow-hidden border border-amber-300">
+                            <img
+                              src={imageUrl}
+                              alt="Transformação"
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Mockup Poster */}
+                    {selectedProduct === "poster" && (
+                      <div className="flex justify-center">
+                        <div className="relative w-40 h-56">
+                          {/* Moldura do poster */}
+                          <div className="absolute inset-0 bg-white rounded-lg shadow-2xl border-8 border-gray-400"></div>
+                          {/* Imagem do poster */}
+                          <img
+                            src={imageUrl}
+                            alt="Transformação"
+                            className="absolute inset-2 rounded object-cover"
+                          />
+                        </div>
+                      </div>
+                    )}
+
+                    <p className="text-slate-400 text-sm mt-4">
                       {selectedProduct === "camiseta" && "👕 Sua transformação em uma camiseta premium"}
                       {selectedProduct === "caneca" && "☕ Sua transformação em uma caneca cerâmica"}
                       {selectedProduct === "poster" && "🖼️ Sua transformação em um poster fotográfico"}

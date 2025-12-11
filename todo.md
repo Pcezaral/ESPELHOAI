@@ -1279,3 +1279,11 @@ Destacar a vantagem comercial de cancelamento a qualquer momento em toda a plata
 - [x] Atualizar página de planos com novo sistema
 - [x] Atualizar Stripe para novos pacotes
 - [x] Testar fluxo de compra com descontos
+
+
+## Correções Finalizadas (10/12/2025)
+- [x] Calcular custo HD/4K com 40% de retorno (5 e 10 créditos)
+- [x] Atualizar mock-ups para usar imagem gerada do usuário
+- [x] Adicionar Referral em /planos
+- [x] Melhorar Gangster: preservar faces, variar cenários (anos 20, Tarantino, rua, carro)
+- [x] Estabilizar faces em Épico/Gregos/Romanos/Vikings com prompts consistentes

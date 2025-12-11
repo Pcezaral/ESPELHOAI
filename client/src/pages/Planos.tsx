@@ -239,6 +239,25 @@ export default function Planos() {
           ))}
         </div>
 
+        {/* Seção de Referral */}
+        {isAuthenticated && (
+          <Card className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 border-green-500/50 p-8 mb-16">
+            <div className="flex items-start justify-between">
+              <div className="space-y-4 flex-1">
+                <h3 className="text-2xl font-bold text-white">🎁 Ganhe Créditos Indicando Amigos</h3>
+                <p className="text-slate-300">Indique seus amigos e ambos ganham 5 créditos grátis quando eles se cadastram usando seu link!</p>
+                <Button
+                  onClick={() => setLocation("/referral")}
+                  className="gap-2 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-semibold"
+                >
+                  Ver Meu Link de Referral
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
+          </Card>
+        )}
+
         {/* Comparação de Valor */}
         <Card className="bg-slate-900/50 border-slate-800 p-8 mb-16">
           <h3 className="text-2xl font-bold text-white mb-6">💰 Economize Mais Comprando em Maior Volume</h3>
