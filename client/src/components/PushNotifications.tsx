@@ -25,18 +25,7 @@ export function PushNotifications() {
       });
     }
 
-    // Simular notificações de teste
-    const timer = setTimeout(() => {
-      addNotification({
-        id: "1",
-        title: "Transformação em Trending!",
-        message: "Sua transformação no estilo 'Epic' entrou para trending!",
-        type: "trending",
-        timestamp: new Date(),
-      });
-    }, 5000);
-
-    return () => clearTimeout(timer);
+    // Notificações de teste removidas
   }, []);
 
   const addNotification = (notification: Notification) => {

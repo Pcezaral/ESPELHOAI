@@ -164,30 +164,14 @@ export default function Home() {
             </div>
             
             <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight">
-              Tenha o App na Sua Tela Inicial
+              Baixe o App!
             </h2>
             
             <p className="text-xl text-white/90 max-w-2xl mx-auto">
               Acesso rápido, sem barras de navegador, funciona offline e você ganha <span className="font-bold text-yellow-200">5 créditos grátis</span> ao instalar!
             </p>
             
-            <div className="grid md:grid-cols-3 gap-4 mt-8">
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-white">
-                <div className="text-3xl mb-2">⚡</div>
-                <p className="font-semibold">Mais Rápido</p>
-                <p className="text-sm text-white/80">Sem barras do navegador</p>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-white">
-                <div className="text-3xl mb-2">📱</div>
-                <p className="font-semibold">Acesso Direto</p>
-                <p className="text-sm text-white/80">Na tela inicial do seu celular</p>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-white">
-                <div className="text-3xl mb-2">🎁</div>
-                <p className="font-semibold">5 Créditos</p>
-                <p className="text-sm text-white/80">Grátis ao instalar</p>
-              </div>
-            </div>
+
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
               <Button
