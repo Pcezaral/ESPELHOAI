@@ -66,10 +66,10 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' })
       .then((registration) => {
         console.log('[PWA] Service Worker registered:', registration);
-        // Verificar atualizacoes a cada 5 minutos
+        // Verificar atualizacoes a cada 30 segundos
         setInterval(() => {
           registration.update();
-        }, 5 * 60 * 1000);
+        }, 30 * 1000);
       })
       .catch((error) => {
         console.log('[PWA] Service Worker registration failed:', error);
