@@ -71,13 +71,21 @@ export const appRouter = router({
         // Consume credits
         await consumeCredit(ctx.user.id, `Download ${resolutionName} - ${input.product}`, creditCost);
         
+        // Generate high-resolution image
+        const { generateHighResolutionImage } = await import("./generation");
+        const { url: downloadUrl } = await generateHighResolutionImage(
+          input.imageUrl,
+          input.resolution,
+          ctx.user.id
+        );
+        
         // Record download in database
         const db = await getDb();
         if (db) {
           const { premiumDownloads } = await import("../drizzle/schema");
           await db.insert(premiumDownloads).values({
             userId: ctx.user.id,
-            imageUrl: input.imageUrl,
+            imageUrl: downloadUrl,
             resolution: input.resolution,
             product: input.product,
             theme: input.theme,
@@ -85,7 +93,7 @@ export const appRouter = router({
           });
         }
         
-        return { success: true, creditsCost: creditCost };
+        return { success: true, creditsCost: creditCost, downloadUrl: downloadUrl };
       }),
 
     testDownload: protectedProcedure

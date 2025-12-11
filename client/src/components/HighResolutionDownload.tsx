@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Card } from "@/components/ui/card";
-import { Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
+import { Sparkles, ChevronLeft, ChevronRight, Download } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 
@@ -18,6 +18,8 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
   const [isOpen, setIsOpen] = useState(false);
   const [selectedResolution, setSelectedResolution] = useState<ResolutionType>("hd");
   const [selectedProduct, setSelectedProduct] = useState<ProductType>("camiseta");
+  const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
+  const [isDownloading, setIsDownloading] = useState(false);
 
   const downloadMutation = trpc.generation.downloadHighResolution.useMutation();
 
@@ -51,6 +53,7 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
 
   const handleDownload = async () => {
     try {
+      setIsDownloading(true);
       downloadMutation.mutate(
         {
           imageUrl,
@@ -59,17 +62,31 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
           theme: theme || "unknown",
         },
         {
-          onSuccess: () => {
-            toast.success("✅ Download processado! Você pode explorar outras opções.");
+          onSuccess: (data: any) => {
+            if (data.downloadUrl) {
+              setDownloadUrl(data.downloadUrl);
+              toast.success("✅ Imagem em alta resolução pronta para download!");
+              // Auto-download
+              const link = document.createElement('a');
+              link.href = data.downloadUrl;
+              link.download = `transformacao-${selectedResolution}-${Date.now()}.jpg`;
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            }
           },
           onError: (error: any) => {
             toast.error(error.message || "Erro ao processar download");
+          },
+          onSettled: () => {
+            setIsDownloading(false);
           },
         }
       );
     } catch (error) {
       console.error("Download error:", error);
       toast.error("Erro ao processar download");
+      setIsDownloading(false);
     }
   };
 
@@ -85,6 +102,18 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
   const handleNextProduct = () => {
     const newIndex = productIndex === products.length - 1 ? 0 : productIndex + 1;
     setSelectedProduct(products[newIndex].id);
+  };
+
+  const handleManualDownload = () => {
+    if (downloadUrl) {
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = `transformacao-${selectedResolution}-${Date.now()}.jpg`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      toast.success("Download iniciado!");
+    }
   };
 
   return (
@@ -311,10 +340,29 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
               </div>
             </div>
 
+            {/* Download Success Message */}
+            {downloadUrl && (
+              <div className="p-4 bg-green-900/30 border border-green-700/50 rounded-lg space-y-3">
+                <p className="text-green-200 text-sm">
+                  ✅ Seu arquivo está pronto! O download deve começar automaticamente.
+                </p>
+                <Button
+                  onClick={handleManualDownload}
+                  className="w-full bg-green-600 hover:bg-green-700 text-white flex items-center justify-center gap-2"
+                >
+                  <Download className="w-4 h-4" />
+                  Clique aqui se o download não começou
+                </Button>
+              </div>
+            )}
+
             {/* Botões */}
             <div className="flex gap-3">
               <Button
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  setIsOpen(false);
+                  setDownloadUrl(null);
+                }}
                 variant="outline"
                 className="flex-1 border-slate-700 text-white hover:bg-slate-800"
               >
@@ -322,11 +370,11 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
               </Button>
               <Button
                 onClick={handleDownload}
-                disabled={downloadMutation.isPending}
+                disabled={downloadMutation.isPending || isDownloading}
                 className="flex-1 gap-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600"
               >
                 <Sparkles className="w-4 h-4" />
-                {downloadMutation.isPending ? "Processando..." : "Confirmar Compra"}
+                {downloadMutation.isPending || isDownloading ? "Processando..." : "Confirmar Compra"}
               </Button>
             </div>
           </div>

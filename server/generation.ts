@@ -145,3 +145,61 @@ gangster: {
     generatedText: text
   };
 }
+
+
+/**
+ * Gerar imagem em alta resolução (HD 300 DPI ou 4K 600 DPI)
+ * Usa upscaling com IA para melhorar qualidade da imagem original
+ */
+export async function generateHighResolutionImage(
+  imageUrl: string,
+  resolution: "hd" | "4k",
+  userId: number
+): Promise<{ url: string; key: string }> {
+  try {
+    // Determinar tamanho e DPI baseado na resolução
+    const isHD = resolution === "hd";
+    const dpi = isHD ? 300 : 600;
+    const size = isHD ? "2400x2400" : "4800x6000";
+    
+    // Prompt para upscaling com IA
+    const upscalePrompt = `
+      Enhance and upscale this image to ${size}px at ${dpi} DPI quality.
+      Preserve all facial features and details exactly as they are.
+      Improve clarity, sharpness, and color vibrancy.
+      Remove any compression artifacts.
+      Maintain the original composition and framing.
+      Output should be suitable for high-quality print on t-shirts, mugs, and posters.
+    `;
+
+    // Gerar imagem upscalada
+    const result = await generateImage({
+      prompt: upscalePrompt,
+      originalImages: [{
+        url: imageUrl,
+        mimeType: "image/jpeg"
+      }]
+    });
+
+    if (!result.url) {
+      throw new Error("Failed to generate high-resolution image");
+    }
+
+    // Fazer download da imagem upscalada
+    const response = await fetch(result.url);
+    const buffer = await response.arrayBuffer();
+
+    // Upload para S3 com nome descritivo
+    const timestamp = Date.now();
+    const randomSuffix = Math.random().toString(36).substring(7);
+    const fileKey = `user-${userId}/downloads/${resolution}-${timestamp}-${randomSuffix}.jpg`;
+
+    const { storagePut } = await import("./storage");
+    const { url: s3Url } = await storagePut(fileKey, Buffer.from(buffer), "image/jpeg");
+
+    return { url: s3Url, key: fileKey };
+  } catch (error) {
+    console.error("[Generation] Failed to generate high-resolution image:", error);
+    throw new Error("Falha ao gerar imagem em alta resolução");
+  }
+}
