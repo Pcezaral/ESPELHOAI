@@ -38,7 +38,7 @@ export function DownloadAppBanner({ showAfterShare = false }: DownloadAppBannerP
     <div className={`bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 rounded-lg p-6 text-white ${showAfterShare ? "mt-6" : "my-6"}`}>
       <div className="flex items-center justify-between gap-4">
         <div className="flex-1">
-          <h3 className="text-xl font-bold mb-2">📱 Baixe o App Agora!</h3>
+          <h3 className="text-xl font-bold mb-2">📱 Baixe o App!</h3>
           <p className="text-sm opacity-90">Acesso rápido, offline, e ganhe créditos extras</p>
         </div>
 
