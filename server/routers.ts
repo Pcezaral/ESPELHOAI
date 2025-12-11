@@ -73,11 +73,19 @@ export const appRouter = router({
         
         // Generate high-resolution image
         const { generateHighResolutionImage } = await import("./generation");
-        const { url: downloadUrl } = await generateHighResolutionImage(
-          input.imageUrl,
-          input.resolution,
-          ctx.user.id
-        );
+        let downloadUrl: string;
+        try {
+          const result = await generateHighResolutionImage(
+            input.imageUrl,
+            input.resolution,
+            ctx.user.id
+          );
+          downloadUrl = result.url;
+          console.log("[Download] Generated URL:", downloadUrl);
+        } catch (error) {
+          console.error("[Download] Generation failed:", error);
+          throw new Error("Falha ao gerar imagem em alta resolucao");
+        }
         
         // Record download in database
         const db = await getDb();
@@ -93,7 +101,12 @@ export const appRouter = router({
           });
         }
         
-        return { success: true, creditsCost: creditCost, downloadUrl: downloadUrl };
+        return { 
+          success: true, 
+          creditsCost: creditCost, 
+          downloadUrl: downloadUrl,
+          message: `Imagem ${resolutionName} pronta para download!`
+        };
       }),
 
     testDownload: protectedProcedure

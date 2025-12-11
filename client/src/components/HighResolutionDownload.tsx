@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Card } from "@/components/ui/card";
-import { Sparkles, ChevronLeft, ChevronRight, Download } from "lucide-react";
+import { Sparkles, ChevronLeft, ChevronRight, Download, CheckCircle } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 
@@ -20,6 +20,7 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
   const [selectedProduct, setSelectedProduct] = useState<ProductType>("camiseta");
   const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [downloadSuccess, setDownloadSuccess] = useState(false);
 
   const downloadMutation = trpc.generation.downloadHighResolution.useMutation();
 
@@ -51,9 +52,63 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
     { id: "poster", name: "Poster", emoji: "🖼️", description: "Impressão em papel fotográfico" },
   ];
 
+  /**
+   * Detecta se é Android ou iOS e salva na galeria/fotos apropriada
+   */
+  const downloadToDevice = async (url: string, filename: string) => {
+    try {
+      // Fetch the image
+      const response = await fetch(url);
+      const blob = await response.blob();
+
+      // Detectar dispositivo
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      const isAndroid = /Android/.test(navigator.userAgent);
+
+      if (isIOS) {
+        // iOS: Salvar em Fotos
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onload = () => {
+          const link = document.createElement('a');
+          link.href = reader.result as string;
+          link.download = filename;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          toast.success("✅ Imagem salva! Verifique o app Fotos");
+        };
+      } else if (isAndroid) {
+        // Android: Usar download manager se disponível
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        link.setAttribute('target', '_blank');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        toast.success("✅ Imagem baixada! Verifique a Galeria");
+      } else {
+        // Desktop: Download normal
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        toast.success("✅ Download iniciado!");
+      }
+    } catch (error) {
+      console.error("Download error:", error);
+      toast.error("Erro ao baixar imagem");
+    }
+  };
+
   const handleDownload = async () => {
     try {
       setIsDownloading(true);
+      setDownloadSuccess(false);
+
       downloadMutation.mutate(
         {
           imageUrl,
@@ -65,18 +120,26 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
           onSuccess: (data: any) => {
             if (data.downloadUrl) {
               setDownloadUrl(data.downloadUrl);
-              toast.success("✅ Imagem em alta resolução pronta para download!");
-              // Auto-download
-              const link = document.createElement('a');
-              link.href = data.downloadUrl;
-              link.download = `transformacao-${selectedResolution}-${Date.now()}.jpg`;
-              document.body.appendChild(link);
-              link.click();
-              document.body.removeChild(link);
+              
+              // Gerar nome do arquivo
+              const filename = `transformacao-${selectedResolution}-${selectedProduct}-${Date.now()}.jpg`;
+              
+              // Baixar para o dispositivo
+              downloadToDevice(data.downloadUrl, filename);
+              
+              // Mostrar sucesso
+              setDownloadSuccess(true);
+              toast.success("✅ Imagem em alta resolução baixada com sucesso!");
+              
+              // Resetar após 3 segundos
+              setTimeout(() => {
+                setDownloadSuccess(false);
+              }, 3000);
             }
           },
           onError: (error: any) => {
             toast.error(error.message || "Erro ao processar download");
+            setDownloadSuccess(false);
           },
           onSettled: () => {
             setIsDownloading(false);
@@ -104,278 +167,144 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
     setSelectedProduct(products[newIndex].id);
   };
 
-  const handleManualDownload = () => {
-    if (downloadUrl) {
-      const link = document.createElement('a');
-      link.href = downloadUrl;
-      link.download = `transformacao-${selectedResolution}-${Date.now()}.jpg`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      toast.success("Download iniciado!");
-    }
-  };
-
   return (
     <>
-      <div className="bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/50 rounded-lg p-6 space-y-4">
-        <div className="flex items-start justify-between">
-          <div className="space-y-2">
-            <h3 className="text-xl font-bold text-white flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-amber-400" />
-              Não perca a chance!
-            </h3>
-            <p className="text-slate-300">
-              Baixe suas imagens transformadas em alta resolução para impressão em produtos físicos
-            </p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {resolutions.map((res) => (
-            <button
-              key={res.id}
-              onClick={() => setSelectedResolution(res.id)}
-              className={`p-3 rounded-lg border-2 transition-all text-left ${
-                selectedResolution === res.id
-                  ? `border-${res.id === "hd" ? "blue" : "purple"}-500 bg-slate-800/50`
-                  : "border-slate-700 hover:border-slate-600"
-              }`}
-            >
-              <p className="font-semibold text-white">{res.name}</p>
-              <p className="text-sm text-slate-400">{res.size}</p>
-              <p className="text-sm text-slate-300 mt-1">{res.credits} créditos • {res.price}</p>
-            </button>
-          ))}
-        </div>
-
-        <Button
-          onClick={() => setIsOpen(true)}
-          disabled={downloadMutation.isPending}
-          className="w-full gap-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold"
-        >
-          <Sparkles className="w-4 h-4" />
-          {downloadMutation.isPending ? "Processando..." : "Baixar em Alta Resolução"}
-        </Button>
-      </div>
+      <Button
+        onClick={() => setIsOpen(true)}
+        className="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white font-bold gap-2"
+        size="lg"
+      >
+        <Sparkles className="w-5 h-5" />
+        Baixar em Maior Resolução
+      </Button>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="bg-slate-950 border-slate-800 max-w-3xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl bg-slate-900 border-slate-700">
           <DialogHeader>
-            <DialogTitle className="text-white text-2xl">Escolha seu Produto</DialogTitle>
+            <DialogTitle className="text-2xl text-white flex items-center gap-2">
+              <Download className="w-6 h-6 text-orange-500" />
+              Download em Alta Resolução
+            </DialogTitle>
             <DialogDescription className="text-slate-400">
-              Selecione a resolução e veja diferentes mockups
+              Escolha a resolução e o tipo de produto para sua transformação
             </DialogDescription>
           </DialogHeader>
 
-          <div className="space-y-6">
+          <div className="space-y-6 py-6">
+            {/* Preview da Imagem */}
+            <div className="flex justify-center">
+              <div className="relative">
+                <img
+                  src={imageUrl}
+                  alt="Preview"
+                  className="w-48 h-48 rounded-lg object-cover border-2 border-orange-500/50"
+                />
+                <div className="absolute -bottom-2 -right-2 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                  {currentProduct?.emoji} {currentProduct?.name}
+                </div>
+              </div>
+            </div>
+
             {/* Seleção de Resolução */}
-            <div className="space-y-3">
-              <p className="text-white font-semibold">Resolução</p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <h3 className="text-white font-bold mb-3">Escolha a Resolução:</h3>
+              <div className="grid grid-cols-2 gap-3">
                 {resolutions.map((res) => (
                   <button
                     key={res.id}
                     onClick={() => setSelectedResolution(res.id)}
-                    className={`p-4 rounded-lg border-2 transition-all text-left ${
+                    className={`p-4 rounded-lg border-2 transition-all ${
                       selectedResolution === res.id
-                        ? `border-${res.id === "hd" ? "blue" : "purple"}-500 bg-slate-800/50`
-                        : "border-slate-700 hover:border-slate-600"
-                    }`}
-                  >
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <p className="font-semibold text-white">{res.name}</p>
-                        <p className="text-xs text-slate-400 mt-1">{res.size}</p>
-                      </div>
-                      <span className="text-sm font-bold text-orange-400">{res.credits}⚡</span>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Seleção de Produto com Navegação */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <p className="text-white font-semibold">Produto</p>
-                <div className="flex gap-2">
-                  <Button
-                    onClick={handlePrevProduct}
-                    variant="outline"
-                    size="sm"
-                    className="border-slate-700 text-slate-300 hover:bg-slate-800"
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                  </Button>
-                  <Button
-                    onClick={handleNextProduct}
-                    variant="outline"
-                    size="sm"
-                    className="border-slate-700 text-slate-300 hover:bg-slate-800"
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </Button>
-                </div>
-              </div>
-
-              {/* Seleção de Produto com Botões */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {products.map((product) => (
-                  <button
-                    key={product.id}
-                    onClick={() => setSelectedProduct(product.id)}
-                    className={`p-4 rounded-lg border-2 transition-all text-center ${
-                      selectedProduct === (product.id as ProductType)
                         ? "border-orange-500 bg-orange-500/10"
-                        : "border-slate-700 hover:border-slate-600"
+                        : "border-slate-700 bg-slate-800 hover:border-slate-600"
                     }`}
                   >
-                    <p className="text-3xl mb-2">{product.emoji}</p>
-                    <p className="text-sm font-semibold text-white">{product.name}</p>
-                    <p className="text-xs text-slate-400 mt-2">{product.description}</p>
+                    <div className="text-left">
+                      <div className="font-bold text-white">{res.name}</div>
+                      <div className="text-sm text-slate-400">{res.size}</div>
+                      <div className="text-sm text-slate-300 mt-1">{res.description}</div>
+                      <div className="text-orange-400 font-bold mt-2">{res.price}</div>
+                      {res.badge && (
+                        <div className="text-xs bg-purple-600 text-white px-2 py-1 rounded mt-2 inline-block">
+                          {res.badge}
+                        </div>
+                      )}
+                    </div>
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Mockup Preview */}
-            <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-8 space-y-4">
-              <div className="flex items-center justify-between mb-4">
-                <p className="text-white font-semibold">Prévia do Produto</p>
-                <div className="flex gap-2 text-xs bg-slate-800 px-3 py-1 rounded-full text-slate-300">
-                  <span>{currentProduct?.emoji} {currentProduct?.name}</span>
-                  <span>•</span>
-                  <span>{currentResolution?.id === "hd" ? "300 DPI" : "600 DPI"}</span>
-                </div>
-              </div>
-
-              <div className="bg-slate-800 rounded-lg p-8 flex items-center justify-center min-h-96">
-                <div className="text-center space-y-4 w-full">
-                  {/* Mockup Camiseta */}
-                  {selectedProduct === ("camiseta" as ProductType) && (
-                    <div className="flex justify-center">
-                      <div className="relative w-48 h-64">
-                        {/* Corpo da camiseta */}
-                        <div className="absolute inset-0 bg-gradient-to-b from-blue-600 via-blue-700 to-blue-800 rounded-b-3xl rounded-t-2xl shadow-2xl"></div>
-                        {/* Gola */}
-                        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-16 h-6 bg-blue-700 rounded-b-lg"></div>
-                        {/* Área de impressão com imagem */}
-                        <div className="absolute top-12 left-1/2 transform -translate-x-1/2 w-36 h-36 bg-white rounded-lg shadow-lg overflow-hidden border-2 border-blue-500">
-                          <img
-                            src={imageUrl}
-                            alt="Transformação"
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Mockup Caneca */}
-                  {selectedProduct === ("caneca" as ProductType) && (
-                    <div className="flex justify-center">
-                      <div className="relative w-44 h-56">
-                        {/* Corpo da caneca */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-amber-100 to-amber-50 rounded-b-3xl rounded-t-lg shadow-2xl border-4 border-amber-200"></div>
-                        {/* Alça */}
-                        <div className="absolute right-0 top-8 w-8 h-20 border-4 border-amber-200 rounded-r-full"></div>
-                        {/* Área de impressão */}
-                        <div className="absolute top-14 left-1/2 transform -translate-x-1/2 w-32 h-24 bg-white rounded shadow-lg overflow-hidden border border-amber-300">
-                          <img
-                            src={imageUrl}
-                            alt="Transformação"
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Mockup Poster */}
-                  {selectedProduct === ("poster" as ProductType) && (
-                    <div className="flex justify-center">
-                      <div className="relative w-40 h-56">
-                        {/* Moldura do poster */}
-                        <div className="absolute inset-0 bg-white rounded-lg shadow-2xl border-8 border-gray-400"></div>
-                        {/* Imagem do poster */}
-                        <img
-                          src={imageUrl}
-                          alt="Transformação"
-                          className="absolute inset-2 rounded object-cover"
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  <p className="text-slate-400 text-sm mt-6">
-                    {selectedProduct === "camiseta" && "👕 Sua transformação em uma camiseta premium"}
-                    {selectedProduct === "caneca" && "☕ Sua transformação em uma caneca cerâmica"}
-                    {selectedProduct === "poster" && "🖼️ Sua transformação em um poster fotográfico"}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Aviso de Créditos */}
-            <div className="bg-blue-900/30 border border-blue-700/50 rounded-lg p-4">
-              <p className="text-blue-200 text-sm text-center">
-                <span className="font-semibold">ℹ️ Você será cobrado {currentResolution?.credits} créditos</span> ao confirmar esta compra
-              </p>
-            </div>
-
-            {/* Resumo */}
-            <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-4 space-y-2">
-              <div className="flex justify-between items-center">
-                <span className="text-slate-300">Resolução:</span>
-                <span className="text-white font-semibold">{currentResolution?.name}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-slate-300">Produto:</span>
-                <span className="text-white font-semibold">{currentProduct?.name}</span>
-              </div>
-              <div className="flex justify-between items-center pt-2 border-t border-slate-700">
-                <span className="text-slate-300">Créditos:</span>
-                <span className="text-orange-400 font-bold text-lg">{currentResolution?.credits}⚡</span>
-              </div>
-            </div>
-
-            {/* Download Success Message */}
-            {downloadUrl && (
-              <div className="p-4 bg-green-900/30 border border-green-700/50 rounded-lg space-y-3">
-                <p className="text-green-200 text-sm">
-                  ✅ Seu arquivo está pronto! O download deve começar automaticamente.
-                </p>
+            {/* Seleção de Produto */}
+            <div>
+              <h3 className="text-white font-bold mb-3">Escolha o Produto:</h3>
+              <div className="flex items-center justify-between gap-4">
                 <Button
-                  onClick={handleManualDownload}
-                  className="w-full bg-green-600 hover:bg-green-700 text-white flex items-center justify-center gap-2"
+                  onClick={handlePrevProduct}
+                  variant="outline"
+                  size="icon"
+                  className="border-slate-600 hover:bg-slate-800"
                 >
-                  <Download className="w-4 h-4" />
-                  Clique aqui se o download não começou
+                  <ChevronLeft className="w-4 h-4" />
                 </Button>
+
+                <Card className="flex-1 bg-slate-800 border-slate-700 p-4 text-center">
+                  <div className="text-4xl mb-2">{currentProduct?.emoji}</div>
+                  <div className="font-bold text-white text-lg">{currentProduct?.name}</div>
+                  <div className="text-sm text-slate-400 mt-1">{currentProduct?.description}</div>
+                </Card>
+
+                <Button
+                  onClick={handleNextProduct}
+                  variant="outline"
+                  size="icon"
+                  className="border-slate-600 hover:bg-slate-800"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
+
+            {/* Status de Download */}
+            {downloadSuccess && (
+              <div className="bg-green-900/30 border border-green-600 rounded-lg p-4 flex items-center gap-3">
+                <CheckCircle className="w-6 h-6 text-green-500" />
+                <div>
+                  <div className="font-bold text-green-400">Download Concluído!</div>
+                  <div className="text-sm text-green-300">
+                    A imagem foi salva em sua Galeria/Fotos
+                  </div>
+                </div>
               </div>
             )}
 
-            {/* Botões */}
-            <div className="flex gap-3">
-              <Button
-                onClick={() => {
-                  setIsOpen(false);
-                  setDownloadUrl(null);
-                }}
-                variant="outline"
-                className="flex-1 border-slate-700 text-white hover:bg-slate-800"
-              >
-                Fechar
-              </Button>
-              <Button
-                onClick={handleDownload}
-                disabled={downloadMutation.isPending || isDownloading}
-                className="flex-1 gap-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600"
-              >
-                <Sparkles className="w-4 h-4" />
-                {downloadMutation.isPending || isDownloading ? "Processando..." : "Confirmar Compra"}
-              </Button>
+            {/* Botão de Download */}
+            <Button
+              onClick={handleDownload}
+              disabled={isDownloading || downloadMutation.isPending}
+              className="w-full bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white font-bold py-6 text-lg gap-2"
+            >
+              {isDownloading || downloadMutation.isPending ? (
+                <>
+                  <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-white"></div>
+                  Processando...
+                </>
+              ) : (
+                <>
+                  <Download className="w-5 h-5" />
+                  Confirmar e Baixar ({currentResolution?.price})
+                </>
+              )}
+            </Button>
+
+            {/* Informações */}
+            <div className="bg-blue-900/20 border border-blue-600/50 rounded-lg p-4 text-sm text-blue-200">
+              <div className="font-bold mb-2">💡 Dica:</div>
+              <ul className="space-y-1 text-xs">
+                <li>✓ A imagem será salva automaticamente em sua Galeria (Android) ou Fotos (iOS)</li>
+                <li>✓ Você pode compartilhar direto do seu dispositivo</li>
+                <li>✓ Qualidade garantida para impressão</li>
+              </ul>
             </div>
           </div>
         </DialogContent>
