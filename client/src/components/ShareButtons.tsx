@@ -13,6 +13,41 @@ export function ShareButtons({ message, imageUrl, theme }: ShareButtonsProps) {
   const encodedText = encodeURIComponent(fullText);
   const encodedUrl = encodeURIComponent(appUrl);
 
+  const handleWhatsAppShare = async () => {
+    if (!imageUrl) {
+      // Se não há imagem, usa o link padrão
+      window.open(`https://wa.me/?text=${encodedText}`, "_blank");
+      return;
+    }
+
+    // Tentar usar Web Share API se disponível
+    if (navigator.share && navigator.canShare) {
+      try {
+        // Fazer download da imagem e converter para blob
+        const response = await fetch(imageUrl);
+        const blob = await response.blob();
+        const file = new File([blob], "transformacao.jpg", { type: "image/jpeg" });
+
+        // Verificar se o navegador pode compartilhar com arquivo
+        if (navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            title: "Minha transformação no ESPELHO AI",
+            text: message,
+            files: [file],
+          });
+          return;
+        }
+      } catch (error) {
+        console.log("Web Share API não disponível, usando fallback");
+      }
+    }
+
+    // Fallback: Abrir WhatsApp com link + instruções para adicionar imagem
+    const fallbackText = `${message}\n\n📸 Clique no link abaixo para ver minha transformação:\n${appUrl}\n\nDescubra seu verdadeiro eu!`;
+    const encodedFallback = encodeURIComponent(fallbackText);
+    window.open(`https://wa.me/?text=${encodedFallback}`, "_blank");
+  };
+
   const shareLinks = {
     whatsapp: `https://wa.me/?text=${encodedText}`,
     telegram: `https://t.me/share/url?url=${encodedUrl}&text=${encodedText}`,
@@ -29,9 +64,10 @@ export function ShareButtons({ message, imageUrl, theme }: ShareButtonsProps) {
   return (
     <div className="flex flex-wrap gap-2 justify-center">
       <Button
-        onClick={() => window.open(shareLinks.whatsapp, "_blank")}
+        onClick={handleWhatsAppShare}
         className="bg-green-500 hover:bg-green-600 text-white gap-2 text-xs"
         size="sm"
+        title={imageUrl ? "Compartilhar com imagem" : "Compartilhar com link"}
       >
         <MessageCircle className="w-4 h-4" />
         WhatsApp
