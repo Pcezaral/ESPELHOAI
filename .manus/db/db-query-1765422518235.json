@@ -1,0 +1,9 @@
+{
+  "query": "DROP TABLE IF EXISTS download_history; DROP TABLE IF EXISTS push_notifications; DROP TABLE IF EXISTS user_push_subscriptions;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4TyPH5sRp98Bbib.22eb3b977414 --database iPCSMFLfBQ2PWRu3Un3kaW --execute DROP TABLE IF EXISTS download_history; DROP TABLE IF EXISTS push_notifications; DROP TABLE IF EXISTS user_push_subscriptions;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 704
+}

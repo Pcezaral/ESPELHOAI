@@ -20,7 +20,9 @@ import TermsOfUse from "./pages/TermsOfUse";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import SecurityFAQ from "./pages/SecurityFAQ";
 import Trending from "./pages/Trending";
+import Profile from "./pages/Profile";
 import { CookieBanner } from "./components/CookieBanner";
+import { PushNotifications } from "./components/PushNotifications";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -42,6 +44,7 @@ function Router() {
       <Route path={"/privacidade"} component={PrivacyPolicy} />
       <Route path={"/seguranca"} component={SecurityFAQ} />
       <Route path={"/trending"} component={Trending} />
+      <Route path={"/perfil"} component={Profile} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
@@ -64,6 +67,7 @@ function App() {
           <Toaster />
           <Router />
           <CookieBanner />
+          <PushNotifications />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

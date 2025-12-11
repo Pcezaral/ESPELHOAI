@@ -1,0 +1,97 @@
+{
+  "query": "SHOW TABLES;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4TyPH5sRp98Bbib.22eb3b977414 --database iPCSMFLfBQ2PWRu3Un3kaW --execute SHOW TABLES;",
+  "rows": [
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "__drizzle_migrations"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "abuse_reports"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "access_logs"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "admin_alerts"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "affiliate_clicks"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "affiliate_payouts"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "affiliates"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "analytics_data"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "credit_transactions"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "download_history"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "email_history"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "high_resolution_downloads"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "oauth_providers"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "premium_downloads"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "promo_code_usage"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "promo_codes"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "push_notifications"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "ratings"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "referrals"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "social_shares"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "subscription_plans"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "support_tickets"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "transformations"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "trending_transformations"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "user_badges"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "user_behavior_metrics"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "user_subscriptions"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "users"
+    },
+    {
+      "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW": "whatsapp_shares"
+    }
+  ],
+  "messages": [],
+  "stdout": "Tables_in_iPCSMFLfBQ2PWRu3Un3kaW\n__drizzle_migrations\nabuse_reports\naccess_logs\nadmin_alerts\naffiliate_clicks\naffiliate_payouts\naffiliates\nanalytics_data\ncredit_transactions\ndownload_history\nemail_history\nhigh_resolution_downloads\noauth_providers\npremium_downloads\npromo_code_usage\npromo_codes\npush_notifications\nratings\nreferrals\nsocial_shares\nsubscription_plans\nsupport_tickets\ntransformations\ntrending_transformations\nuser_badges\nuser_behavior_metrics\nuser_subscriptions\nusers\nwhatsapp_shares\n",
+  "stderr": "",
+  "execution_time_ms": 58
+}

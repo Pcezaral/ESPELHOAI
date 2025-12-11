@@ -1,4 +1,4 @@
-import { int, mysqlEnum, mysqlTable, text, varchar, timestamp } from "drizzle-orm/mysql-core";
+import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, boolean } from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
@@ -392,3 +392,59 @@ export const whatsappShares = mysqlTable("whatsapp_shares", {
 
 export type WhatsappShare = typeof whatsappShares.$inferSelect;
 export type InsertWhatsappShare = typeof whatsappShares.$inferInsert;
+
+
+/**
+ * Push Notifications - Rastreia notificações enviadas aos usuários
+ */
+export const pushNotifications = mysqlTable("push_notifications", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  title: varchar("title", { length: 255 }).notNull(),
+  message: text("message").notNull(),
+  type: mysqlEnum("type", ["trending", "download_ready", "promotion", "general"]).notNull(),
+  relatedTransformationId: int("relatedTransformationId"), // ID da transformação se for trending
+  read: boolean("read").default(false).notNull(),
+  clickedAt: timestamp("clickedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type PushNotification = typeof pushNotifications.$inferSelect;
+export type InsertPushNotification = typeof pushNotifications.$inferInsert;
+
+/**
+ * Download History - Histórico de downloads de alta resolução
+ */
+export const downloadHistory = mysqlTable("download_history", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  transformationId: int("transformationId").notNull(),
+  imageUrl: text("imageUrl").notNull(),
+  resolution: mysqlEnum("resolution", ["hd", "4k"]).notNull(),
+  product: mysqlEnum("product", ["camiseta", "caneca", "poster"]).notNull(),
+  theme: varchar("theme", { length: 64 }).notNull(),
+  creditsCost: int("creditsCost").notNull(),
+  downloadedAt: timestamp("downloadedAt").defaultNow().notNull(),
+  fileSize: int("fileSize"), // Tamanho do arquivo em bytes
+  downloadStatus: mysqlEnum("downloadStatus", ["pending", "completed", "failed"]).default("pending").notNull(),
+});
+
+export type DownloadHistory = typeof downloadHistory.$inferSelect;
+export type InsertDownloadHistory = typeof downloadHistory.$inferInsert;
+
+/**
+ * User Push Subscriptions - Armazena endpoints de push notifications
+ */
+export const userPushSubscriptions = mysqlTable("user_push_subscriptions", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  endpoint: varchar("endpoint", { length: 1024 }).notNull(),
+  auth: varchar("auth", { length: 255 }).notNull(),
+  p256dh: varchar("p256dh", { length: 255 }).notNull(),
+  isActive: boolean("isActive").default(true).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type UserPushSubscription = typeof userPushSubscriptions.$inferSelect;
+export type InsertUserPushSubscription = typeof userPushSubscriptions.$inferInsert;
