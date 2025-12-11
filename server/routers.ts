@@ -132,7 +132,7 @@ export const appRouter = router({
         amount: z.number().min(1).max(10000),
       }))
       .mutation(async ({ ctx, input }) => {
-        return addCredits(ctx.user.id, input.amount, "light", "Test credits");
+        return addCredits(ctx.user.id, input.amount, "credits_50", "Test credits");
       }),
     getSubscription: protectedProcedure.query(async ({ ctx }) => {
       return getSubscriptionInfo(ctx.user.id);
@@ -280,8 +280,8 @@ export const appRouter = router({
           completedAt: new Date(),
         });
 
-        await addCredits(input.referrerId, 5, "light", "Referral bonus");
-        await addCredits(ctx.user.id, 5, "light", "Referral bonus");
+        await addCredits(input.referrerId, 5, "credits_50", "Referral bonus");
+        await addCredits(ctx.user.id, 5, "credits_50", "Referral bonus");
 
         return { success: true };
       }),

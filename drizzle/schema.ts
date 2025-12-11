@@ -19,8 +19,8 @@ export const users = mysqlTable("users", {
   role: mysqlEnum("role", ["user", "admin"]).default("user").notNull(),
   /** Credits system */
   credits: int("credits").default(5).notNull(), // New users get 5 free credits
-  subscriptionType: mysqlEnum("subscriptionType", ["free", "light", "premium", "monthly_unlimited", "annual_unlimited", "credits_50", "credits_200", "credits_500", "credits_1000"]).default("free").notNull(),
-  subscriptionExpiresAt: timestamp("subscriptionExpiresAt"), // For unlimited plans
+  subscriptionType: mysqlEnum("subscriptionType", ["free", "credits_50", "credits_200", "credits_500", "credits_1000"]).default("free").notNull(),
+  subscriptionExpiresAt: timestamp("subscriptionExpiresAt"), // DEPRECATED: Unlimited plans removed
   /** Profile fields - optional except email */
   username: varchar("username", { length: 64 }), // Optional username
   phone: varchar("phone", { length: 20 }), // Optional phone number
@@ -63,7 +63,7 @@ export const creditTransactions = mysqlTable("credit_transactions", {
   amount: int("amount").notNull(), // Positive for additions, negative for consumption
   balanceAfter: int("balanceAfter").notNull(), // Balance after this transaction
   description: text("description"), // e.g., "Generated Bichinho transformation", "Purchased Light package"
-  relatedPackage: mysqlEnum("relatedPackage", ["light", "premium", "monthly_unlimited", "annual_unlimited", "credits_50", "credits_200", "credits_500", "credits_1000"]),
+  relatedPackage: mysqlEnum("relatedPackage", ["credits_50", "credits_200", "credits_500", "credits_1000"]),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
