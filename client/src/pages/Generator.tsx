@@ -78,10 +78,7 @@ export default function Generator() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
   
-  const searchParams = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
-  const themeFromUrl = searchParams.get('theme') as Theme | null;
-  
-  const [selectedTheme, setSelectedTheme] = useState<Theme | null>(themeFromUrl);
+  const [selectedTheme, setSelectedTheme] = useState<Theme | null>(null);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [generatedImage, setGeneratedImage] = useState<string | null>(null);
@@ -92,12 +89,22 @@ export default function Generator() {
   const [showGenderRefine, setShowGenderRefine] = useState(false);
   const [isRefining, setIsRefining] = useState(false);
   
-  const initialStep = themeFromUrl ? "upload" : "theme";
-  const [step, setStep] = useState<"theme" | "upload" | "processing" | "result">(initialStep as any);
+  const [step, setStep] = useState<"theme" | "upload" | "processing" | "result">("theme");
 
   const generateMutation = trpc.generation.generate.useMutation();
   const uploadMutation = trpc.generation.uploadImage.useMutation();
   const ratingMutation = trpc.rating.submit.useMutation();
+
+  useEffect(() => {
+    // Extrair tema da URL
+    const searchParams = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
+    const themeFromUrl = searchParams.get('theme') as Theme | null;
+    
+    if (themeFromUrl) {
+      setSelectedTheme(themeFromUrl);
+      setStep("upload");
+    }
+  }, []);
 
   useEffect(() => {
     if (!loading && !isAuthenticated && !user) {
@@ -106,6 +113,10 @@ export default function Generator() {
   }, [loading, isAuthenticated, user, setLocation]);
 
   if (loading) {
+    return <div className="min-h-screen flex items-center justify-center"><Loader2 className="w-8 h-8 animate-spin" /></div>;
+  }
+
+  if (!isAuthenticated) {
     return null;
   }
 
@@ -113,6 +124,8 @@ export default function Generator() {
     setSelectedTheme(theme);
     setStep("upload");
     setLocation(`/generator?theme=${theme}`);
+    // Atualizar URL sem recarregar
+    window.history.pushState({}, '', `/generator?theme=${theme}`);
   };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -181,7 +194,7 @@ export default function Generator() {
       }, 2000);
       return () => clearTimeout(timer);
     }
-  }, [step, generatedImage, hasShownInstallPrompt]);
+  }, [step, generatedImage, hasShownInstallPrompt, setShowInstallPrompt, setHasShownInstallPrompt]);
 
   const handleReset = () => {
     setStep("theme");
@@ -193,6 +206,8 @@ export default function Generator() {
     setHasRated(false);
     setShowInstallPrompt(false);
     setHasShownInstallPrompt(false);
+    setShowGenderRefine(false);
+    setIsRefining(false);
   };
 
   const handleRate = async (rating: number) => {
