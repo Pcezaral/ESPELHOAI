@@ -33,20 +33,44 @@ interface DashboardStats {
 }
 
 export default function OwnerDashboard() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const [location, setLocation] = useLocation();
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [autoRefresh, setAutoRefresh] = useState(true);
 
   // Verificar se é o proprietário
-  const isOwner = user?.role === "admin" && user?.email?.includes("@");
+  const isOwner = user?.role === "admin";
+
+  // Mostrar loading enquanto autentica
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 border-4 border-orange-500/30 border-t-orange-500 rounded-full animate-spin" />
+          <p className="text-slate-300">Carregando...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Redirecionar se não é owner
+  if (!isOwner) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center">
+        <Card className="bg-slate-900/50 border-red-500/30 p-8 text-center max-w-md">
+          <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
+          <h1 className="text-2xl font-bold text-white mb-2">Acesso Negado</h1>
+          <p className="text-slate-300 mb-6">Você não tem permissão para acessar este painel.</p>
+          <Button onClick={() => setLocation("/")} className="w-full">
+            Voltar ao Início
+          </Button>
+        </Card>
+      </div>
+    );
+  }
 
   useEffect(() => {
-    if (!isOwner) {
-      setLocation("/");
-      return;
-    }
 
     // Simular carregamento de dados
     const loadStats = async () => {
@@ -83,22 +107,7 @@ export default function OwnerDashboard() {
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [isOwner, autoRefresh, setLocation]);
-
-  if (!isOwner) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center">
-        <Card className="bg-slate-900/50 border-red-500/30 p-8 text-center max-w-md">
-          <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-white mb-2">Acesso Negado</h1>
-          <p className="text-slate-300 mb-6">Você não tem permissão para acessar este painel.</p>
-          <Button onClick={() => setLocation("/")} className="w-full">
-            Voltar ao Início
-          </Button>
-        </Card>
-      </div>
-    );
-  }
+  }, [autoRefresh]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
@@ -136,6 +145,36 @@ export default function OwnerDashboard() {
       </header>
 
       <main className="container py-8 relative z-10">
+        {loading ? (
+          // Loading skeleton
+          <>
+            <section className="mb-12">
+              <h2 className="text-2xl font-bold text-white mb-6">Métricas Principais</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {[...Array(4)].map((_, i) => (
+                  <Card key={i} className="bg-slate-900/50 border-slate-700 p-6 space-y-2 animate-pulse">
+                    <div className="h-4 bg-slate-700 rounded w-3/4" />
+                    <div className="h-8 bg-slate-700 rounded w-1/2" />
+                    <div className="h-3 bg-slate-700 rounded w-2/3" />
+                  </Card>
+                ))}
+              </div>
+            </section>
+            <section className="mb-12">
+              <h2 className="text-2xl font-bold text-white mb-6">Performance</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {[...Array(3)].map((_, i) => (
+                  <Card key={i} className="bg-slate-900/50 border-slate-700 p-6 space-y-3 animate-pulse">
+                    <div className="h-4 bg-slate-700 rounded w-3/4" />
+                    <div className="h-8 bg-slate-700 rounded w-1/2" />
+                    <div className="h-2 bg-slate-700 rounded" />
+                  </Card>
+                ))}
+              </div>
+            </section>
+          </>
+        ) : (
+          <>
         {/* Key Metrics */}
         <section className="mb-12">
           <h2 className="text-2xl font-bold text-white mb-6">Métricas Principais</h2>
@@ -347,6 +386,8 @@ export default function OwnerDashboard() {
         <div className="mt-12 p-6 bg-slate-900/30 border border-slate-700 rounded-lg text-center text-slate-400 text-sm">
           <p>Dashboard atualizado em tempo real • Próxima atualização: {autoRefresh ? "em 5 minutos" : "manual"}</p>
         </div>
+          </>
+        )}
       </main>
     </div>
   );
