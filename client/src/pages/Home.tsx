@@ -79,10 +79,6 @@ export default function Home() {
           <div className="flex flex-col items-center justify-center gap-8 md:gap-12">
             {/* Centro: Logo e Textos - Sempre no topo */}
             <div className="flex flex-col items-center space-y-6 text-center w-full md:w-auto">
-              <div className="flex justify-center">
-                <img src="/espelho-ai-logo-transp.png" alt="ESPELHO AI" className="h-40 w-40 md:h-60 md:w-60 transition-transform duration-500 hover:scale-110 hover:rotate-6 cursor-pointer" />
-              </div>
-              
               <div className="space-y-4 max-w-2xl">
                 <h2 className="text-3xl md:text-5xl font-bold leading-tight">
                   <span className="text-white">Você</span>
