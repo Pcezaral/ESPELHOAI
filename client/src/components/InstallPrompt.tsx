@@ -49,9 +49,6 @@ export function InstallPrompt() {
       console.log("[PWA] beforeinstallprompt event fired");
       // Mostrar IMEDIATAMENTE (0 segundos)
       setShowBanner(true);
-      setTimeout(() => {
-        setIsOpen(true);
-      }, 500); // Pequeno delay para UX
     };
 
     window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
@@ -94,19 +91,20 @@ export function InstallPrompt() {
     window.addEventListener("appinstalled", handleAppInstalled);
 
     // Mostrar banner em TODOS os sistemas (Android, iOS, Desktop)
-    // Após 1.5 segundos para deixar a página carregar
+    // IMEDIATAMENTE para Android, após 500ms para outros
+    const delay = detectedPlatform === "android" ? 0 : 500;
     setTimeout(() => {
       if (!isInstalled) {
         console.log(`[PWA] Showing banner for ${detectedPlatform}`);
         setShowBanner(true);
       }
-    }, 1500);
+    }, delay);
 
     return () => {
       window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
       window.removeEventListener("appinstalled", handleAppInstalled);
     };
-  }, [isInstalled, recordPwaInstallMutation]);
+  }, []);
 
   const handleInstallClick = async () => {
     if (!deferredPrompt) {
