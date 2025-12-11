@@ -147,11 +147,13 @@ STYLE: Theatrical realistic photo with authentic circus atmosphere. Vibrant circ
       // Natal: ROSTO 100% VISÍVEL, 10+ cenários com ALTA VARIEDADE GARANTIDA
       prompt: `CHRISTMAS TRANSFORMATION - CRITICAL RULES:
 1. PRESERVE FACE: Keep face PIXEL-PERFECT IDENTICAL to original. Face MUST BE FULLY VISIBLE - no heavy beards, no masks.
-2. VARY SCENARIO: MUST randomly select a DIFFERENT Christmas scenario EACH TIME. NEVER repeat same scenario twice.
-3. VARY POSE: MUST use different action poses: mid-action, triumphant, playful, concentrated, excited, surprised.
-4. VARY BACKGROUND: MUST alternate between: city streets, shopping malls, homes, parks, neighborhoods, plazas, forests, snowy landscapes, decorated buildings, markets, cafes.
-5. VARY LIGHTING: MUST alternate between: warm festive lights, golden hour, cool blue snow, colorful decorations, street lights, fireplace glow.
-6. VARY EXPRESSIONS: MUST use different emotions: joyful, amazed, playful, concentrated, excited, surprised, cheerful.
+2. REALISTIC APPEARANCE: Generate REALISTIC, NATURAL-LOOKING people - NOT plastic, NOT perfect, NOT AI-generated looking. Include natural skin texture, pores, freckles, minor imperfections, realistic lighting with shadows.
+3. NATURAL EXPRESSIONS: Use genuine, natural expressions - not forced smiles or exaggerated emotions. Real people with authentic reactions.
+4. VARY SCENARIO: MUST randomly select a DIFFERENT Christmas scenario EACH TIME. NEVER repeat same scenario twice.
+5. VARY POSE: MUST use different action poses: mid-action, triumphant, playful, concentrated, excited, surprised.
+6. VARY BACKGROUND: MUST alternate between: city streets, shopping malls, homes, parks, neighborhoods, plazas, forests, snowy landscapes, decorated buildings, markets, cafes.
+7. VARY LIGHTING: MUST alternate between: warm festive lights, golden hour, cool blue snow, colorful decorations, street lights, fireplace glow - realistic natural lighting, NOT studio perfect.
+8. VARY EXPRESSIONS: MUST use different emotions: joyful, amazed, playful, concentrated, excited, surprised, cheerful - but NATURAL and AUTHENTIC.
 
 CHRISTMAS SCENARIOS (randomly choose ONE, ensure variety):
 - Reindeer Sleigh Rider: simple antler headband, festive sweater, riding sleigh through snowy city
@@ -170,13 +172,38 @@ CHRISTMAS SCENARIOS (randomly choose ONE, ensure variety):
 - Sleigh Racing: competitive sleigh racing through snowy forest
 - Fireplace Warmth: cozy by fireplace with hot chocolate and Christmas decorations
 
-STYLE: Photorealistic with Christmas joy and humor. Warm festive lighting. Face always fully visible and recognizable. Random seed: ${randomSeed}, variation: ${randomVariation}`,
+STYLE: Photorealistic with Christmas joy and humor. REALISTIC natural lighting with shadows and depth. Face always fully visible and recognizable. REAL PEOPLE appearance - natural skin texture, genuine expressions, authentic emotions. Random seed: ${randomSeed}, variation: ${randomVariation}`,
       text: "🎄 Você é o espírito do Natal! Espalhe alegria, magia e diversidade natalina por onde passar! 🎅✨"
     },
     
     reveillon: {
-      prompt: "",
-      text: ""
+      prompt: `REVEILLON/NEW YEAR TRANSFORMATION - CRITICAL RULES:
+1. PRESERVE FACE: Keep face PIXEL-PERFECT IDENTICAL to original. Face MUST BE FULLY VISIBLE.
+2. REALISTIC APPEARANCE: Generate REALISTIC, NATURAL-LOOKING people - NOT plastic, NOT perfect, NOT AI-generated looking. Include natural skin texture, pores, freckles, minor imperfections, realistic lighting with shadows.
+3. NATURAL EXPRESSIONS: Use genuine, natural expressions - not forced smiles. Real people with authentic reactions to celebration.
+4. VARY SCENARIO: MUST randomly select a DIFFERENT New Year scenario EACH TIME.
+5. VARY BACKGROUND: MUST alternate between: nightclub, beach party, rooftop, mansion, yacht, garden party, street celebration, hotel ballroom, mountain, ski resort, city plaza, bar, restaurant, home party, garden.
+6. VARY LIGHTING: MUST alternate between: party lights, champagne glow, fireworks, disco lights, candlelight, neon signs, moonlight, city lights - realistic natural lighting, NOT studio perfect.
+7. VARY EXPRESSIONS: MUST use different emotions: celebratory, joyful, excited, amazed, playful, confident, surprised - but NATURAL and AUTHENTIC.
+
+REVEILLON SCENARIOS (randomly choose ONE):
+- Beach Party: summer outfit, holding champagne, tropical beach with fireworks
+- Nightclub Celebration: elegant party outfit, dancing with confetti, disco lights
+- Rooftop Party: fancy outfit, watching fireworks, city skyline background
+- Yacht Celebration: elegant attire, holding champagne, ocean sunset
+- Mansion Ball: formal gown/tuxedo, grand ballroom, chandeliers
+- Street Celebration: casual festive outfit, confetti, crowded plaza
+- Mountain Celebration: winter outfit, champagne, snowy mountain peaks
+- Home Party: casual elegant, surrounded by friends, living room decorations
+- Garden Party: summer dress/suit, outdoor garden, string lights
+- Casino Night: formal outfit, holding champagne, casino background
+- Ski Resort: winter outfit, apres-ski celebration, snowy mountains
+- Hotel Ballroom: formal attire, elegant ballroom, orchestra
+- Bar Celebration: casual outfit, holding drink, bar counter
+- Restaurant Dinner: formal outfit, champagne toast, elegant restaurant
+
+STYLE: Photorealistic with New Year celebration energy. REALISTIC natural lighting with shadows and depth. Face always fully visible and recognizable. REAL PEOPLE appearance - natural skin texture, genuine expressions, authentic emotions. Random seed: ${randomSeed}, variation: ${randomVariation}`,
+      text: "🎉 Você é a estrela da festa! Celebre o novo ano com estilo, elegância e muita diversão! 🥂✨"
     }
   };
 

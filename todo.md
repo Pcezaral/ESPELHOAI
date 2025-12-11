@@ -1287,3 +1287,17 @@ Destacar a vantagem comercial de cancelamento a qualquer momento em toda a plata
 - [x] Adicionar Referral em /planos
 - [x] Melhorar Gangster: preservar faces, variar cenários (anos 20, Tarantino, rua, carro)
 - [x] Estabilizar faces em Épico/Gregos/Romanos/Vikings com prompts consistentes
+
+
+## Melhorias Solicitadas - Antes e Depois + Pessoas Menos Artificiais (11/12/2025)
+
+### Problemas Identificados:
+- [ ] Fotos dos estilos (Natal, Réveillon, Circo) saindo ruins
+- [ ] Pessoas muito artificiais/AI-looking
+- [ ] Falta layout "antes e depois" lado a lado
+
+### Tarefas:
+- [x] Melhorar prompts dos temas para gerar pessoas menos artificiais
+- [x] Implementar layout antes/depois lado a lado na página de resultado
+- [x] Mostrar foto original + transformação lado a lado
+- [x] Usar fotos fornecidas pelo usuário como referência de qualidade
