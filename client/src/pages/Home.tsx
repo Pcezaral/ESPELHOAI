@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import CountdownTimer from "@/components/CountdownTimer";
 import DownloadButtons from "@/components/DownloadButtons";
+import TransformationShowcase from "@/components/TransformationShowcase";
 import React from "react";
 import { Card } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -388,8 +389,11 @@ export default function Home() {
         </div>
       </section>
 
+        {/* Transformation Showcase */}
+      <TransformationShowcase />
+
       {/* FAQ Section */}
-      <section className="bg-gray-50 py-12 md:py-20">
+      <section className="bg-white py-12 md:py-16">
         <div className="container max-w-4xl mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-12">Perguntas Frequentes</h2>
           
