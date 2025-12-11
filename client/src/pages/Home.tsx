@@ -1,8 +1,7 @@
 import { Button } from "@/components/ui/button";
 import CountdownTimer from "@/components/CountdownTimer";
 import DownloadButtons from "@/components/DownloadButtons";
-import TransformationShowcase from "@/components/TransformationShowcase";
-import { DownloadAppBanner } from "@/components/DownloadAppBanner";
+
 import React from "react";
 import { Card } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -252,12 +251,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Download App Banner */}
-      <section className="bg-slate-900 py-8 px-4">
-        <div className="max-w-4xl mx-auto">
-          <DownloadAppBanner />
-        </div>
-      </section>
+
 
 {/* Planos Section */}
       <section className="bg-gradient-to-b from-gray-50 to-white py-12 md:py-20">
@@ -344,8 +338,7 @@ export default function Home() {
         </div>
       </section>
 
-        {/* Transformation Showcase */}
-      <TransformationShowcase />
+
 
       {/* FAQ Section */}
       <section className="bg-white py-12 md:py-16">
