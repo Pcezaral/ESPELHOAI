@@ -1,17 +1,37 @@
-import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import CountdownTimer from "@/components/CountdownTimer";
 import DownloadButtons from "@/components/DownloadButtons";
 import React from "react";
 import { Card } from "@/components/ui/card";
-import { Loader2, Wand2, Zap, Sparkles, Crown, Infinity as InfinityIcon, Check, MessageSquare, Share2 } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Loader2, Wand2, Zap, Sparkles, Crown, Infinity as InfinityIcon, Check, MessageSquare, Share2, Gift } from "lucide-react";
 import { APP_LOGO, APP_TITLE, getLoginUrl } from "@/const";
 import { useLocation } from "wouter";
 import { useEffect, useState } from "react";
+import { useAuth } from "@/_core/hooks/useAuth";
 
 export default function Home() {
   const { user, loading, error, isAuthenticated, logout } = useAuth();
   const [, setLocation] = useLocation();
+  const [showWelcomeModal, setShowWelcomeModal] = useState(false);
+  const [hasSeenWelcome, setHasSeenWelcome] = useState(false);
+
+  // Mostrar modal de boas-vindas quando usuário faz login e tem créditos
+  useEffect(() => {
+    if (isAuthenticated && user && user.credits && user.credits >= 5 && !hasSeenWelcome) {
+      const hasSeenInSession = sessionStorage.getItem('welcomeModalSeen');
+      if (!hasSeenInSession) {
+        setShowWelcomeModal(true);
+        setHasSeenWelcome(true);
+        sessionStorage.setItem('welcomeModalSeen', 'true');
+      }
+    }
+  }, [isAuthenticated, user, hasSeenWelcome]);
+
+  const handleStartFromModal = () => {
+    setShowWelcomeModal(false);
+    setLocation("/generator");
+  };
 
   const handleStartApp = (theme?: string | React.MouseEvent) => {
     if (!isAuthenticated) {
@@ -573,6 +593,71 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Modal de Boas-vindas com 5 Créditos */}
+      <Dialog open={showWelcomeModal} onOpenChange={setShowWelcomeModal}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <div className="flex justify-center mb-4">
+              <Gift className="w-16 h-16 text-orange-500 animate-bounce" />
+            </div>
+            <DialogTitle className="text-center text-2xl font-bold">🎉 Parabéns!</DialogTitle>
+            <DialogDescription className="text-center text-base mt-2">
+              Você ganhou <span className="font-bold text-orange-500">5 créditos grátis</span> por instalar o app!
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4 py-4">
+            {/* Créditos Disponíveis */}
+            <div className="bg-orange-50 border-2 border-orange-200 rounded-lg p-4 text-center">
+              <div className="text-4xl font-bold text-orange-500 mb-1">{user?.credits || 0}</div>
+              <div className="text-sm text-orange-700">Créditos disponíveis</div>
+            </div>
+
+            {/* Benefícios */}
+            <div className="space-y-3">
+              <div className="flex items-start gap-3">
+                <Sparkles className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
+                <div>
+                  <div className="font-semibold text-gray-900">Rápido</div>
+                  <div className="text-sm text-gray-600">Transforme suas fotos em segundos</div>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Wand2 className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
+                <div>
+                  <div className="font-semibold text-gray-900">Fácil</div>
+                  <div className="text-sm text-gray-600">Escolha um estilo e pronto!</div>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Zap className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
+                <div>
+                  <div className="font-semibold text-gray-900">Divertido</div>
+                  <div className="text-sm text-gray-600">Compartilhe com seus amigos!</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex gap-3 pt-4">
+            <Button
+              onClick={() => setShowWelcomeModal(false)}
+              variant="outline"
+              className="flex-1"
+            >
+              Depois
+            </Button>
+            <Button
+              onClick={handleStartFromModal}
+              className="flex-1 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold"
+            >
+              <Wand2 className="w-4 h-4 mr-2" />
+              Começar Agora
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
