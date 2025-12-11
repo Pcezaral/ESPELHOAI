@@ -1,2 +1,0 @@
-ALTER TABLE `credit_transactions` MODIFY COLUMN `relatedPackage` enum('light','premium','monthly_unlimited','annual_unlimited','credits_50','credits_200','credits_500','credits_1000');--> statement-breakpoint
-ALTER TABLE `users` MODIFY COLUMN `subscriptionType` enum('free','light','premium','monthly_unlimited','annual_unlimited','credits_50','credits_200','credits_500','credits_1000') NOT NULL DEFAULT 'free';

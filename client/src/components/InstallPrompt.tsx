@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Download, X, Smartphone, Apple, Monitor, Zap, Gift } from "lucide-react";
 import { toast } from "sonner";
+import { trpc } from "@/lib/trpc";
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -15,6 +16,7 @@ export function InstallPrompt() {
   const [showBanner, setShowBanner] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
   const [platform, setPlatform] = useState<"android" | "ios" | "desktop">("desktop");
+  const recordPwaInstallMutation = trpc.credits.recordPwaInstall.useMutation();
 
   useEffect(() => {
     // Detectar plataforma
@@ -55,13 +57,38 @@ export function InstallPrompt() {
     window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
 
     // Listener para app installed
-    const handleAppInstalled = () => {
+    const handleAppInstalled = async () => {
       console.log("[PWA] App installed successfully");
       setIsInstalled(true);
       setIsOpen(false);
       setShowBanner(false);
       setDeferredPrompt(null);
-      toast.success("✅ App instalado! Você ganhou 5 créditos grátis! 🎉");
+      
+      // Record installation and award credits
+      recordPwaInstallMutation.mutate(
+        {
+          platform: detectedPlatform,
+          userAgent: navigator.userAgent,
+        },
+        {
+          onSuccess: (result) => {
+            if (result?.success) {
+              toast.success(`✅ App instalado! Você ganhou ${result.creditsAwarded} créditos! 🎉`);
+            } else {
+              toast.success("✅ App instalado com sucesso! 🎉");
+            }
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
+          },
+          onError: () => {
+            toast.success("✅ App instalado com sucesso! 🎉");
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
+          },
+        }
+      );
     };
 
     window.addEventListener("appinstalled", handleAppInstalled);
@@ -79,7 +106,7 @@ export function InstallPrompt() {
       window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
       window.removeEventListener("appinstalled", handleAppInstalled);
     };
-  }, [isInstalled]);
+  }, [isInstalled, recordPwaInstallMutation]);
 
   const handleInstallClick = async () => {
     if (!deferredPrompt) {

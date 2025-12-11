@@ -1,6 +1,6 @@
 import { eq, desc, and, gte, lte } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, transformations, creditTransactions, adminAlerts, supportTickets, oauthProviders, userBadges, analyticsData, promoCodes, promoCodeUsage, affiliates, affiliateClicks, socialShares, affiliatePayouts, downloadHistory, InsertDownloadHistory } from "../drizzle/schema";
+import { InsertUser, users, transformations, creditTransactions, adminAlerts, supportTickets, oauthProviders, userBadges, analyticsData, promoCodes, promoCodeUsage, affiliates, affiliateClicks, socialShares, affiliatePayouts, downloadHistory, InsertDownloadHistory, pwaInstalls } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -324,6 +324,61 @@ export async function getAnalyticsByDate(startDate: string, endDate: string) {
  * This should be called periodically by a scheduled job
  * Note: This is a placeholder - implement with your actual S3 cleanup logic
  */
+// PWA Install Bonus
+export async function recordPwaInstall(userId: number, platform: "android" | "ios" | "desktop", userAgent?: string) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot record PWA install: database not available");
+    return null;
+  }
+
+  try {
+    // Check if user already received install bonus
+    const user = await db.select().from(users).where(eq(users.id, userId)).limit(1);
+    if (!user || user.length === 0) {
+      console.warn("[Database] User not found for PWA install");
+      return null;
+    }
+
+    if (user[0].hasReceivedInstallBonus) {
+      console.log("[Database] User already received install bonus");
+      return null;
+    }
+
+    // Record the install
+    await db.insert(pwaInstalls).values({
+      userId,
+      platform,
+      userAgent,
+      bonusCreditsAwarded: 5,
+    });
+
+    // Update user credits and mark bonus as received
+    const newCredits = (user[0].credits || 0) + 5;
+    await db.update(users)
+      .set({
+        credits: newCredits,
+        hasReceivedInstallBonus: true,
+      })
+      .where(eq(users.id, userId));
+
+    // Record credit transaction
+    await db.insert(creditTransactions).values({
+      userId,
+      type: "bonus",
+      amount: 5,
+      balanceAfter: newCredits,
+      description: `Bônus de instalação do app (${platform})`,
+    });
+
+    console.log(`[Database] PWA install recorded for user ${userId} - 5 credits awarded`);
+    return { success: true, creditsAwarded: 5, newBalance: newCredits };
+  } catch (error) {
+    console.error("[Database] Failed to record PWA install:", error);
+    return null;
+  }
+}
+
 export async function cleanupOldTransformations() {
   const db = await getDb();
   if (!db) {

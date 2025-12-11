@@ -1,1 +1,0 @@
-ALTER TABLE `user_push_subscriptions` DROP INDEX `user_push_subscriptions_endpoint_unique`;

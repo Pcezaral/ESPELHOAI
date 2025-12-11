@@ -1,1 +1,0 @@
-ALTER TABLE `user_push_subscriptions` MODIFY COLUMN `endpoint` varchar(1024) NOT NULL;

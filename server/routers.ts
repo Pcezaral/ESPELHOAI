@@ -176,6 +176,15 @@ export const appRouter = router({
       const { getTransactionHistory } = await import("./db");
       return getTransactionHistory(50);
     }) as any,
+    recordPwaInstall: protectedProcedure
+      .input(z.object({
+        platform: z.enum(["android", "ios", "desktop"]),
+        userAgent: z.string().optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        const { recordPwaInstall } = await import("./db");
+        return recordPwaInstall(ctx.user.id, input.platform, input.userAgent);
+      }),
   }),
 
   stripe: router({

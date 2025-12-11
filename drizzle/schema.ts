@@ -31,6 +31,7 @@ export const users = mysqlTable("users", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
+  hasReceivedInstallBonus: boolean("hasReceivedInstallBonus").default(false).notNull(),
 });
 
 export type User = typeof users.$inferSelect;
@@ -448,3 +449,15 @@ export const userPushSubscriptions = mysqlTable("user_push_subscriptions", {
 
 export type UserPushSubscription = typeof userPushSubscriptions.$inferSelect;
 export type InsertUserPushSubscription = typeof userPushSubscriptions.$inferInsert;
+
+export const pwaInstalls = mysqlTable("pwa_installs", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  platform: mysqlEnum("platform", ["android", "ios", "desktop"]).notNull(),
+  userAgent: text("userAgent"),
+  bonusCreditsAwarded: int("bonusCreditsAwarded").default(5).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type PwaInstall = typeof pwaInstalls.$inferSelect;
+export type InsertPwaInstall = typeof pwaInstalls.$inferInsert;
