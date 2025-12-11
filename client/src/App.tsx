@@ -18,6 +18,8 @@ import Referral from "./pages/Referral";
 import TestDashboard from "./pages/TestDashboard";
 import TermsOfUse from "./pages/TermsOfUse";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import SecurityFAQ from "./pages/SecurityFAQ";
+import { CookieBanner } from "./components/CookieBanner";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -37,6 +39,7 @@ function Router() {
        <Route path={"test"} component={TestDashboard} />
       <Route path={"/termos"} component={TermsOfUse} />
       <Route path={"/privacidade"} component={PrivacyPolicy} />
+      <Route path={"/seguranca"} component={SecurityFAQ} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
@@ -58,6 +61,7 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <Router />
+          <CookieBanner />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

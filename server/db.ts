@@ -317,3 +317,28 @@ export async function getAnalyticsByDate(startDate: string, endDate: string) {
     return [];
   }
 }
+
+
+/**
+ * Cleanup function to delete old transformation images (older than 24 hours)
+ * This should be called periodically by a scheduled job
+ * Note: This is a placeholder - implement with your actual S3 cleanup logic
+ */
+export async function cleanupOldTransformations() {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot cleanup: database not available");
+    return;
+  }
+
+  try {
+    // Placeholder for cleanup logic
+    // In production, you would:
+    // 1. Query transformations older than 24 hours
+    // 2. Delete associated S3 files
+    // 3. Delete database records
+    console.log("[Cleanup] Cleanup job scheduled - implement S3 deletion logic");
+  } catch (error) {
+    console.error("[Cleanup] Failed to cleanup old transformations:", error);
+  }
+}
