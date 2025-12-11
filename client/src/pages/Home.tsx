@@ -212,6 +212,22 @@ export default function Home() {
 {/* Planos Section */}
       <section className="bg-gradient-to-b from-gray-50 to-white py-12 md:py-20">
         <div className="container max-w-7xl mx-auto px-4">
+          {/* Botão Download App */}
+          <div className="text-center mb-12">
+            <Button
+              onClick={() => {
+                const link = document.createElement('a');
+                link.href = 'https://play.google.com/store/apps/details?id=com.espelhoai';
+                link.target = '_blank';
+                link.click();
+              }}
+              className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-8 py-3 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all"
+            >
+              <Download className="w-5 h-5 mr-2" />
+              Baixe o app Aqui
+            </Button>
+          </div>
+
           <h2 className="text-4xl font-bold text-center mb-4">Escolha Seu Pacote</h2>
           <p className="text-center text-gray-600 mb-12 text-lg">Transformações ilimitadas ou pacotes de créditos</p>
           
