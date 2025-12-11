@@ -405,6 +405,17 @@ export default function Generator() {
               </div>
             </div>
 
+            {/* Aviso de Copyright e Segurança */}
+            <div className="bg-blue-900/30 border-l-4 border-blue-500 rounded-lg p-4 space-y-2">
+              <p className="text-blue-200 text-sm font-semibold">🔒 Aviso de Segurança e Copyright</p>
+              <ul className="text-blue-100 text-xs space-y-1">
+                <li>✓ Sua foto original <strong>NÃO é armazenada</strong> em nossos servidores</li>
+                <li>✓ A imagem gerada é <strong>sua propriedade</strong> - use como quiser</li>
+                <li>✓ Seus dados estão <strong>protegidos com criptografia SSL</strong></li>
+                <li>✓ Leia nossa <a href="#" onClick={() => setLocation("/privacidade")} className="underline hover:text-blue-300">Política de Privacidade</a> e <a href="#" onClick={() => setLocation("/termos")} className="underline hover:text-blue-300">Termos de Uso</a></li>
+              </ul>
+            </div>
+
             {!hasRated && (
               <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-6 space-y-4">
                 <p className="text-white font-semibold">Como foi a transformação?</p>
