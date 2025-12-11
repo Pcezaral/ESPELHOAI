@@ -340,7 +340,9 @@ export async function recordPwaInstall(userId: number, platform: "android" | "io
       return null;
     }
 
-    if (user[0].hasReceivedInstallBonus) {
+    // Check if user already received install bonus by checking pwaInstalls table
+    const existingInstall = await db.select().from(pwaInstalls).where(eq(pwaInstalls.userId, userId)).limit(1);
+    if (existingInstall.length > 0) {
       console.log("[Database] User already received install bonus");
       return null;
     }
@@ -353,12 +355,11 @@ export async function recordPwaInstall(userId: number, platform: "android" | "io
       bonusCreditsAwarded: 5,
     });
 
-    // Update user credits and mark bonus as received
+    // Update user credits
     const newCredits = (user[0].credits || 0) + 5;
     await db.update(users)
       .set({
         credits: newCredits,
-        hasReceivedInstallBonus: true,
       })
       .where(eq(users.id, userId));
 
