@@ -19,24 +19,32 @@ export function InstallPrompt() {
   useEffect(() => {
     // Detectar plataforma
     const ua = navigator.userAgent.toLowerCase();
+    let detectedPlatform: "android" | "ios" | "desktop" = "desktop";
+    
     if (/android/.test(ua)) {
-      setPlatform("android");
+      detectedPlatform = "android";
+      console.log("[PWA] Android detected");
     } else if (/iphone|ipad|ipot/.test(ua)) {
-      setPlatform("ios");
+      detectedPlatform = "ios";
+      console.log("[PWA] iOS detected");
     } else {
-      setPlatform("desktop");
+      console.log("[PWA] Desktop detected");
     }
+    
+    setPlatform(detectedPlatform);
 
     // Verificar se app já está instalado
     if (window.matchMedia("(display-mode: standalone)").matches) {
+      console.log("[PWA] App already installed");
       setIsInstalled(true);
+      return;
     }
 
     // Listener para beforeinstallprompt (Android, Desktop)
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
-      console.log("[PWA] Install prompt available");
+      console.log("[PWA] beforeinstallprompt event fired");
       // Mostrar IMEDIATAMENTE (0 segundos)
       setShowBanner(true);
       setTimeout(() => {
@@ -58,18 +66,25 @@ export function InstallPrompt() {
 
     window.addEventListener("appinstalled", handleAppInstalled);
 
-    // Se não houver prompt nativo mas for iOS, mostrar banner
+    // Mostrar banner para Android mesmo sem beforeinstallprompt
+    // ou para iOS/Desktop após 2 segundos
     setTimeout(() => {
-      if (!deferredPrompt && platform === "ios" && !isInstalled) {
-        setShowBanner(true);
+      if (!isInstalled) {
+        if (detectedPlatform === "android") {
+          console.log("[PWA] Showing Android banner");
+          setShowBanner(true);
+        } else if (detectedPlatform === "ios") {
+          console.log("[PWA] Showing iOS banner");
+          setShowBanner(true);
+        }
       }
-    }, 1000);
+    }, 1500);
 
     return () => {
       window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
       window.removeEventListener("appinstalled", handleAppInstalled);
     };
-  }, [deferredPrompt, platform, isInstalled]);
+  }, [isInstalled]);
 
   const handleInstallClick = async () => {
     if (!deferredPrompt) {
@@ -125,7 +140,7 @@ export function InstallPrompt() {
   }
 
   // Banner fixo no topo (SUPER VISÍVEL)
-  if (showBanner && (deferredPrompt || platform === "ios")) {
+  if (showBanner && !isInstalled) {
     return (
       <>
         {/* Banner fixo no topo */}
