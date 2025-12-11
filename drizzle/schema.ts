@@ -220,3 +220,115 @@ export const analyticsData = mysqlTable("analytics_data", {
 
 export type AnalyticsData = typeof analyticsData.$inferSelect;
 export type InsertAnalyticsData = typeof analyticsData.$inferInsert;
+
+/**
+ * Promo codes / Coupons for discounts
+ */
+export const promoCodes = mysqlTable("promo_codes", {
+  id: int("id").autoincrement().primaryKey(),
+  code: varchar("code", { length: 50 }).notNull().unique(),
+  discountType: mysqlEnum("discountType", ["percentage", "fixed_credits"]).notNull(),
+  discountValue: int("discountValue").notNull(), // Percentage (1-100) or fixed credits
+  maxUses: int("maxUses"), // NULL = unlimited
+  currentUses: int("currentUses").default(0).notNull(),
+  minPurchaseAmount: int("minPurchaseAmount").default(0).notNull(), // In cents
+  validFrom: timestamp("validFrom").notNull(),
+  validUntil: timestamp("validUntil").notNull(),
+  isActive: int("isActive").default(1).notNull(),
+  description: text("description"), // e.g., "Black Friday 30% OFF"
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type PromoCode = typeof promoCodes.$inferSelect;
+export type InsertPromoCode = typeof promoCodes.$inferInsert;
+
+/**
+ * Promo code usage tracking
+ */
+export const promoCodeUsage = mysqlTable("promo_code_usage", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  promoCodeId: int("promoCodeId").notNull(),
+  discountAmount: int("discountAmount").notNull(), // In cents
+  purchaseAmount: int("purchaseAmount").notNull(), // In cents
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type PromoCodeUsage = typeof promoCodeUsage.$inferSelect;
+export type InsertPromoCodeUsage = typeof promoCodeUsage.$inferInsert;
+
+/**
+ * Affiliate program tracking
+ */
+export const affiliates = mysqlTable("affiliates", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  affiliateCode: varchar("affiliateCode", { length: 50 }).notNull().unique(),
+  commissionPercentage: int("commissionPercentage").default(10).notNull(), // 10% default
+  totalEarnings: int("totalEarnings").default(0).notNull(), // In cents
+  totalReferrals: int("totalReferrals").default(0).notNull(),
+  isActive: int("isActive").default(1).notNull(),
+  bankAccount: varchar("bankAccount", { length: 255 }), // For payouts
+  bankCode: varchar("bankCode", { length: 10 }),
+  cpf: varchar("cpf", { length: 20 }), // For Brazilian bank transfers
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Affiliate = typeof affiliates.$inferSelect;
+export type InsertAffiliate = typeof affiliates.$inferInsert;
+
+/**
+ * Affiliate clicks and conversions
+ */
+export const affiliateClicks = mysqlTable("affiliate_clicks", {
+  id: int("id").autoincrement().primaryKey(),
+  affiliateId: int("affiliateId").notNull(),
+  clickedUserId: int("clickedUserId"), // NULL if not yet registered
+  referralUrl: text("referralUrl"),
+  ipAddress: varchar("ipAddress", { length: 45 }),
+  userAgent: text("userAgent"),
+  converted: int("converted").default(0).notNull(), // 1 if user made a purchase
+  conversionAmount: int("conversionAmount"), // In cents, NULL if not converted
+  commissionEarned: int("commissionEarned"), // In cents, calculated on conversion
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  convertedAt: timestamp("convertedAt"),
+});
+
+export type AffiliateClick = typeof affiliateClicks.$inferSelect;
+export type InsertAffiliateClick = typeof affiliateClicks.$inferInsert;
+
+/**
+ * Social media shares tracking
+ */
+export const socialShares = mysqlTable("social_shares", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  transformationId: int("transformationId").notNull(),
+  platform: mysqlEnum("platform", ["instagram", "tiktok", "twitter", "facebook", "whatsapp", "telegram"]).notNull(),
+  shareUrl: text("shareUrl"),
+  clickCount: int("clickCount").default(0).notNull(),
+  conversionCount: int("conversionCount").default(0).notNull(), // How many clicked and registered
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type SocialShare = typeof socialShares.$inferSelect;
+export type InsertSocialShare = typeof socialShares.$inferInsert;
+
+/**
+ * Affiliate payouts
+ */
+export const affiliatePayouts = mysqlTable("affiliate_payouts", {
+  id: int("id").autoincrement().primaryKey(),
+  affiliateId: int("affiliateId").notNull(),
+  amount: int("amount").notNull(), // In cents
+  status: mysqlEnum("status", ["pending", "processing", "completed", "failed"]).default("pending").notNull(),
+  payoutMethod: mysqlEnum("payoutMethod", ["pix", "bank_transfer", "paypal"]).notNull(),
+  transactionId: varchar("transactionId", { length: 255 }), // For tracking
+  notes: text("notes"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  processedAt: timestamp("processedAt"),
+});
+
+export type AffiliatePayout = typeof affiliatePayouts.$inferSelect;
+export type InsertAffiliatePayout = typeof affiliatePayouts.$inferInsert;

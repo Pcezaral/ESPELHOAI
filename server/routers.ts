@@ -322,6 +322,66 @@ export const appRouter = router({
       return db.select().from(supportTickets).where(eq(supportTickets.userId, ctx.user.id));
     }),
   }),
+
+  // Promo codes / Cupons
+  promo: router({
+    validate: publicProcedure
+      .input(z.object({ code: z.string() }))
+      .query(async ({ input }) => {
+        const { validatePromoCode } = await import("./db");
+        const promo = await validatePromoCode(input.code);
+        return promo ? { valid: true, discount: promo } : { valid: false };
+      }),
+    useCode: protectedProcedure
+      .input(z.object({ code: z.string(), purchaseAmount: z.number() }))
+      .mutation(async ({ input, ctx }) => {
+        const { validatePromoCode, usePromoCode } = await import("./db");
+        const promo = await validatePromoCode(input.code);
+        if (!promo) throw new TRPCError({ code: 'NOT_FOUND', message: 'Código inválido' });
+        
+        const discount = await usePromoCode(ctx.user.id, promo.id, input.purchaseAmount);
+        return { success: true, discountAmount: discount };
+      }),
+  }),
+
+  // Affiliate Program
+  affiliate: router({
+    create: protectedProcedure.mutation(async ({ ctx }) => {
+      const { createAffiliate } = await import("./db");
+      const affiliateCode = await createAffiliate(ctx.user.id);
+      return { success: true, affiliateCode };
+    }),
+    getStats: protectedProcedure.query(async ({ ctx }) => {
+      const db = await getDb();
+      if (!db) return null;
+      
+      const { affiliates } = await import("../drizzle/schema");
+      const { eq } = await import("drizzle-orm");
+      
+      const affiliate = await db.select().from(affiliates).where(eq(affiliates.userId, ctx.user.id)).limit(1);
+      if (affiliate.length === 0) return null;
+      
+      const { getAffiliateStats } = await import("./db");
+      return getAffiliateStats(affiliate[0].id);
+    }),
+  }),
+
+  // Social Shares
+  social: router({
+    recordShare: protectedProcedure
+      .input(z.object({ transformationId: z.number(), platform: z.string() }))
+      .mutation(async ({ input, ctx }) => {
+        const { recordSocialShare } = await import("./db");
+        await recordSocialShare(ctx.user.id, input.transformationId, input.platform);
+        return { success: true };
+      }),
+    getStats: publicProcedure
+      .input(z.object({ transformationId: z.number() }))
+      .query(async ({ input }) => {
+        const { getSocialShareStats } = await import("./db");
+        return getSocialShareStats(input.transformationId);
+      }),
+  }),
 });
 
 export type AppRouter = typeof appRouter;
