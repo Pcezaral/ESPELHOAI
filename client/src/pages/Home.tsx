@@ -147,51 +147,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SEÇÃO DE INSTALAÇÃO PWA - SUPER ATRAENTE */}
-      <section className="bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 py-16 md:py-24 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 pointer-events-none">
-          <div className="absolute top-10 left-10 text-6xl animate-float-slow">📱</div>
-          <div className="absolute top-20 right-20 text-5xl animate-float-medium">⚡</div>
-          <div className="absolute bottom-20 left-20 text-7xl animate-float-fast">🎁</div>
-          <div className="absolute bottom-10 right-10 text-6xl animate-float-slow">✨</div>
-        </div>
-        
-        <div className="container max-w-4xl mx-auto px-4 relative z-10">
-          <div className="text-center space-y-6">
-            <div className="inline-block bg-white/20 backdrop-blur-sm px-6 py-2 rounded-full text-white font-bold text-sm mb-4">
-              🚀 INSTALE AGORA E GANHE BÔNUS
-            </div>
-            
-            <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight">
-              Baixe o App!
-            </h2>
-            
-            <p className="text-xl text-white/90 max-w-2xl mx-auto">
-              Acesso rápido, sem barras de navegador, funciona offline e você ganha <span className="font-bold text-yellow-200">5 créditos grátis</span> ao instalar!
-            </p>
-            
 
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
-              <Button
-                onClick={() => setShowWelcomeModal(true)}
-                className="bg-white text-orange-600 hover:bg-orange-50 text-lg h-14 px-8 rounded-full shadow-xl hover:shadow-2xl transition-all font-bold"
-              >
-                <Download className="w-5 h-5 mr-2" />
-                Instalar Agora
-              </Button>
-              <Button
-                onClick={handleStartApp}
-                variant="outline"
-                className="border-2 border-white text-white hover:bg-white/10 text-lg h-14 px-8 rounded-full font-bold"
-              >
-                <Wand2 className="w-5 h-5 mr-2" />
-                Usar Versão Web
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Seção FINAL DE ANO ESPECIAL */}
       <section className="bg-gradient-to-br from-red-50 via-white to-blue-50 py-12 md:py-20 relative overflow-hidden">
