@@ -143,10 +143,35 @@ STYLE: Theatrical realistic photo with authentic circus atmosphere. Vibrant circ
       text: "Você é um artista de circo! Talentoso, criativo e pronto para surpreender a plateia com uma performance única! 🌪✨"
     },
     
-    natal: {
-      // Natal: ROSTO 100% VISÍVEL, cenários cotidianos realistas e bem-humorados
-      prompt: `Christmas transformation. CRITICAL RULE: Keep EXACT same number of people - if 1 person in input, output MUST have 1 person; if 2 people, output MUST have 2 people with BOTH faces pixel-perfect identical. PRESERVE EACH INDIVIDUAL FACE: Face must be PIXEL-PERFECT IDENTICAL - same eyes, nose, mouth, expression, age, skin tone, facial structure. FACE MUST BE FULLY VISIBLE - NO heavy beards covering face, NO masks. DO NOT modify face. ONLY change: light accessories, clothing, pose, background. Randomly choose ONE realistic Christmas scenario: Reindeer Sleigh Rider (simple reindeer antler headband ONLY - keeps face 100% visible, festive sweater or light scarf, riding sleigh with animated reindeer galloping through snowy city street with traffic lights and buildings, joyful amazed expression, realistic winter urban scene), Christmas Shopping (Santa hat or simple headband - face fully visible, winter coat with shopping bags, walking through busy decorated shopping street or mall, excited happy expression, realistic holiday shopping chaos), Delivering Gifts (simple helper outfit, no face-covering, carrying stack of gift boxes, walking through snowy neighborhood or apartment building, friendly smile, realistic delivery scenario), Christmas Tree Decorator (casual Christmas sweater, simple Santa hat - face visible, standing on ladder decorating huge Christmas tree, concentrated joyful expression, realistic living room or city plaza), Festive Cooking (Christmas apron over casual clothes, simple reindeer ears headband - face fully visible, in warm kitchen preparing Christmas feast with pots and pans, happy expression, realistic kitchen with food), Sleigh Ride Adventure (sitting in magical sleigh being pulled by galloping reindeer through snowy city streets, simple Christmas outfit, face fully visible and excited, realistic winter urban landscape with snow and lights), Christmas Caroling (winter clothes with light scarf, holding candles or songbooks, singing in front of decorated house, cheerful expression, realistic neighborhood setting), Snowball Fight (winter clothes with Christmas colors, mid-action throwing snowball, playful laughing expression, snowy park with people, realistic winter fun), Gift Opening Excitement (cozy Christmas sweater, simple Santa hat - face visible, surrounded by gift boxes and wrapping paper, excited joyful expression, realistic living room with tree), Reindeer Encounter (standing next to real-looking reindeer in snowy plaza, simple antler headband - face fully visible, amazed delighted expression, realistic winter setting with snow). CRITICAL: FACE ALWAYS FULLY VISIBLE AND RECOGNIZABLE. Use only light accessories (hats, headbands, scarves) that do not cover face. VARY BACKGROUNDS DRAMATICALLY (city streets, shopping malls, homes, parks, neighborhoods, plazas, forests, snowy landscapes, decorated buildings, markets, cafes, offices, schools, churches). Realistic everyday settings mixed with Christmas magic. Joyful, happy, cheerful, well-humored expressions. Warm festive lighting. Photorealistic style with Christmas joy and humor. Random seed: ${randomSeed}, variation: ${randomVariation}`,
-      text: "🎄 Você é o espírito do Natal! Espalhe alegria e magia natalina por onde passar! 🎅✨"
+    natal: { // CENÁRIOS: Trenó, Compras, Entrega, Árvore, Cozinha, Passeio, Caroling, Bola de Neve, Presentes, Renas
+      // Natal: ROSTO 100% VISÍVEL, 10+ cenários com ALTA VARIEDADE GARANTIDA
+      prompt: `CHRISTMAS TRANSFORMATION - CRITICAL RULES:
+1. PRESERVE FACE: Keep face PIXEL-PERFECT IDENTICAL to original. Face MUST BE FULLY VISIBLE - no heavy beards, no masks.
+2. VARY SCENARIO: MUST randomly select a DIFFERENT Christmas scenario EACH TIME. NEVER repeat same scenario twice.
+3. VARY POSE: MUST use different action poses: mid-action, triumphant, playful, concentrated, excited, surprised.
+4. VARY BACKGROUND: MUST alternate between: city streets, shopping malls, homes, parks, neighborhoods, plazas, forests, snowy landscapes, decorated buildings, markets, cafes.
+5. VARY LIGHTING: MUST alternate between: warm festive lights, golden hour, cool blue snow, colorful decorations, street lights, fireplace glow.
+6. VARY EXPRESSIONS: MUST use different emotions: joyful, amazed, playful, concentrated, excited, surprised, cheerful.
+
+CHRISTMAS SCENARIOS (randomly choose ONE, ensure variety):
+- Reindeer Sleigh Rider: simple antler headband, festive sweater, riding sleigh through snowy city
+- Christmas Shopping: Santa hat, winter coat, shopping bags, busy decorated street
+- Delivering Gifts: helper outfit, carrying gift boxes, snowy neighborhood
+- Christmas Tree Decorator: Christmas sweater, standing on ladder decorating huge tree
+- Festive Cooking: Christmas apron, in warm kitchen preparing feast
+- Sleigh Ride Adventure: sitting in magical sleigh, snowy city streets
+- Christmas Caroling: winter clothes, holding candles, singing in front of decorated house
+- Snowball Fight: winter clothes, mid-action throwing snowball, snowy park
+- Gift Opening Excitement: Christmas sweater, surrounded by gift boxes and wrapping paper
+- Reindeer Encounter: standing next to reindeer in snowy plaza
+- Ice Skating: winter outfit, skating on frozen lake or ice rink with Christmas decorations
+- Decorating Outdoors: hanging lights and decorations on house exterior
+- Christmas Market: browsing festive market stalls with holiday crafts and food
+- Sleigh Racing: competitive sleigh racing through snowy forest
+- Fireplace Warmth: cozy by fireplace with hot chocolate and Christmas decorations
+
+STYLE: Photorealistic with Christmas joy and humor. Warm festive lighting. Face always fully visible and recognizable. Random seed: ${randomSeed}, variation: ${randomVariation}`,
+      text: "🎄 Você é o espírito do Natal! Espalhe alegria, magia e diversidade natalina por onde passar! 🎅✨"
     },
     
     reveillon: {

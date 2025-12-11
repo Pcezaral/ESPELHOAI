@@ -11,6 +11,7 @@ import { ShareButtons } from "@/components/ShareButtons";
 import { HighResolutionDownload } from "@/components/HighResolutionDownload";
 import { InstallPromptAfterTransformation } from "@/components/InstallPromptAfterTransformation";
 import { DownloadAppBanner } from "@/components/DownloadAppBanner";
+import { GenderRefineFilter } from "@/components/GenderRefineFilter";
 import { useAuth } from "@/_core/hooks/useAuth";
 
 type Theme = "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus" | "natal" | "reveillon";
@@ -89,6 +90,8 @@ export default function Generator() {
   const [hasRated, setHasRated] = useState(false);
   const [showInstallPrompt, setShowInstallPrompt] = useState(false);
   const [hasShownInstallPrompt, setHasShownInstallPrompt] = useState(false);
+  const [showGenderRefine, setShowGenderRefine] = useState(false);
+  const [isRefining, setIsRefining] = useState(false);
   
   const initialStep = themeFromUrl ? "upload" : "theme";
   const [step, setStep] = useState<"theme" | "upload" | "processing" | "result">(initialStep as any);
@@ -216,6 +219,26 @@ export default function Generator() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  const handleRefineGender = async (genderStyle: "feminine" | "masculine" | "neutral") => {
+    if (!previewUrl || !selectedTheme) return;
+    setIsRefining(true);
+    try {
+      const result = await generateMutation.mutateAsync({
+        theme: selectedTheme,
+        imageUrl: previewUrl,
+      });
+      setGeneratedImage(result.generatedImageUrl);
+      setGeneratedText(result.generatedText);
+      setHasRated(false);
+      setShowGenderRefine(false);
+      toast.success("Transformação refinada!");
+    } catch (error) {
+      toast.error("Erro ao refinar");
+    } finally {
+      setIsRefining(false);
+    }
   };
 
   const handleShare = async (message: string) => {
@@ -458,6 +481,14 @@ export default function Generator() {
 
             <HighResolutionDownload imageUrl={generatedImage} theme={selectedTheme || undefined} />
 
+            <Button
+              onClick={() => setShowGenderRefine(true)}
+              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+            >
+              <Wand2 className="w-4 h-4 mr-2" />
+              Refinar Estilo
+            </Button>
+
             <Button onClick={handleReset} variant="outline" className="w-full border-slate-700 text-white hover:bg-slate-800">
               Fazer Outra Transformação
             </Button>
@@ -469,6 +500,14 @@ export default function Generator() {
       <InstallPromptAfterTransformation
         isOpen={showInstallPrompt}
         onClose={() => setShowInstallPrompt(false)}
+      />
+
+      {/* Gender Refine Filter Modal */}
+      <GenderRefineFilter
+        isOpen={showGenderRefine}
+        onClose={() => setShowGenderRefine(false)}
+        onRefine={handleRefineGender}
+        isLoading={isRefining}
       />
     </div>
   );
