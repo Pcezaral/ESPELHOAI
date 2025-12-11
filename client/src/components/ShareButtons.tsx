@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { MessageCircle, Send, Share2, Facebook, Heart, Linkedin, BookOpen, Users } from "lucide-react";
+import { MessageCircle, Send, Share2, Facebook, Heart, Linkedin, Users } from "lucide-react";
+import { toast } from "sonner";
 
 interface ShareButtonsProps {
   message: string;
@@ -9,113 +10,92 @@ interface ShareButtonsProps {
 
 export function ShareButtons({ message, imageUrl, theme }: ShareButtonsProps) {
   const appUrl = "https://descubraeu-ipcsmflf.manus.space?ref=share";
-  const fullText = `${message}\n\nDescubra seu verdadeiro eu!\n${appUrl}`;
-  const encodedText = encodeURIComponent(fullText);
-  const encodedUrl = encodeURIComponent(appUrl);
-
-  // Função genérica para compartilhar com imagem usando Web Share API
-  const handleShareWithImage = async (title: string, text: string) => {
-    if (!imageUrl) {
-      return false;
+  
+  // Criar mensagem com link da imagem
+  const createShareMessage = (includeImage: boolean = false) => {
+    if (includeImage && imageUrl) {
+      // Mensagem com link direto da imagem
+      return `${message}\n\n🖼️ Veja minha transformação:\n${imageUrl}\n\n✨ Crie a sua também:\n${appUrl}`;
+    } else {
+      // Mensagem apenas com link do app
+      return `${message}\n\nDescubra seu verdadeiro eu!\n${appUrl}`;
     }
-
-    if (navigator.share && navigator.canShare) {
-      try {
-        const response = await fetch(imageUrl);
-        const blob = await response.blob();
-        const file = new File([blob], "transformacao.jpg", { type: "image/jpeg" });
-
-        if (navigator.canShare({ files: [file] })) {
-          await navigator.share({
-            title,
-            text,
-            files: [file],
-          });
-          return true;
-        }
-      } catch (error) {
-        console.log("Web Share API não disponível para esta rede");
-      }
-    }
-    return false;
   };
 
-  // WhatsApp com suporte a imagem
-  const handleWhatsAppShare = async () => {
-    if (await handleShareWithImage("Minha transformação no ESPELHO AI", message)) {
-      return;
-    }
-
-    // Fallback: link com instruções
-    const fallbackText = `${message}\n\n📸 Clique no link abaixo para ver minha transformação:\n${appUrl}\n\nDescubra seu verdadeiro eu!`;
-    const encodedFallback = encodeURIComponent(fallbackText);
-    window.open(`https://wa.me/?text=${encodedFallback}`, "_blank");
+  // WhatsApp - enviar com link da imagem
+  const handleWhatsAppShare = () => {
+    const shareMessage = createShareMessage(true);
+    const encodedMessage = encodeURIComponent(shareMessage);
+    window.open(`https://wa.me/?text=${encodedMessage}`, "_blank");
+    toast.success("Abrindo WhatsApp...");
   };
 
-  // Telegram com suporte a imagem
-  const handleTelegramShare = async () => {
-    if (await handleShareWithImage("Minha transformação no ESPELHO AI", message)) {
-      return;
-    }
-
-    // Fallback: link padrão
-    window.open(`https://t.me/share/url?url=${encodedUrl}&text=${encodedText}`, "_blank");
+  // Telegram - enviar com link da imagem
+  const handleTelegramShare = () => {
+    const shareMessage = createShareMessage(true);
+    const encodedMessage = encodeURIComponent(shareMessage);
+    window.open(`https://t.me/share/url?url=${encodeURIComponent(appUrl)}&text=${encodedMessage}`, "_blank");
+    toast.success("Abrindo Telegram...");
   };
 
-  // Twitter com suporte a imagem
-  const handleTwitterShare = async () => {
-    if (await handleShareWithImage("Veja minha transformação no ESPELHO AI", message)) {
-      return;
-    }
-
-    // Fallback: link padrão
-    window.open(`https://twitter.com/intent/tweet?text=${encodedText}`, "_blank");
+  // Twitter - enviar com link da imagem
+  const handleTwitterShare = () => {
+    const shareMessage = createShareMessage(true);
+    const encodedMessage = encodeURIComponent(shareMessage);
+    window.open(`https://twitter.com/intent/tweet?text=${encodedMessage}`, "_blank");
+    toast.success("Abrindo Twitter...");
   };
 
-  // Facebook com suporte a imagem
-  const handleFacebookShare = async () => {
-    if (await handleShareWithImage("Minha transformação no ESPELHO AI", message)) {
-      return;
-    }
-
-    // Fallback: link padrão
-    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`, "_blank");
+  // Facebook - enviar com link da imagem
+  const handleFacebookShare = () => {
+    const shareMessage = createShareMessage(true);
+    const encodedMessage = encodeURIComponent(shareMessage);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(appUrl)}&quote=${encodedMessage}`, "_blank");
+    toast.success("Abrindo Facebook...");
   };
 
-  // LinkedIn com suporte a imagem
-  const handleLinkedInShare = async () => {
-    if (await handleShareWithImage("Minha transformação no ESPELHO AI", message)) {
-      return;
-    }
-
-    // Fallback: link padrão
-    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`, "_blank");
+  // LinkedIn - enviar com link da imagem
+  const handleLinkedInShare = () => {
+    const shareMessage = createShareMessage(true);
+    const encodedMessage = encodeURIComponent(shareMessage);
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(appUrl)}&summary=${encodedMessage}`, "_blank");
+    toast.success("Abrindo LinkedIn...");
   };
 
-  // Pinterest com suporte a imagem
-  const handlePinterestShare = async () => {
-    if (await handleShareWithImage("Minha transformação no ESPELHO AI", message)) {
-      return;
-    }
-
-    // Fallback: link padrão
-    window.open(`https://pinterest.com/pin/create/button/?url=${encodedUrl}&description=${encodedText}`, "_blank");
+  // Pinterest - enviar com link da imagem
+  const handlePinterestShare = () => {
+    const shareMessage = createShareMessage(true);
+    const encodedMessage = encodeURIComponent(shareMessage);
+    window.open(`https://pinterest.com/pin/create/button/?url=${encodeURIComponent(appUrl)}&description=${encodedMessage}&media=${encodeURIComponent(imageUrl || '')}`, "_blank");
+    toast.success("Abrindo Pinterest...");
   };
 
-  // Email com suporte a imagem
-  const handleEmailShare = async () => {
-    if (await handleShareWithImage("Minha transformação no ESPELHO AI", message)) {
-      return;
-    }
-
-    // Fallback: link padrão
-    window.open(`mailto:?subject=Veja minha transformação no ESPELHO AI!&body=${encodedText}`, "_blank");
+  // Email - enviar com link da imagem
+  const handleEmailShare = () => {
+    const shareMessage = createShareMessage(true);
+    const encodedMessage = encodeURIComponent(shareMessage);
+    window.open(`mailto:?subject=Veja minha transformação no ESPELHO AI!&body=${encodedMessage}`, "_blank");
+    toast.success("Abrindo Email...");
   };
 
-  const shareLinks = {
-    tiktok: `https://www.tiktok.com/share?url=${encodedUrl}`,
-    instagram: `https://www.instagram.com/`,
-    reddit: `https://reddit.com/submit?url=${encodedUrl}&title=${encodedText}`,
+  // TikTok - apenas link
+  const handleTikTokShare = () => {
+    window.open(`https://www.tiktok.com/share?url=${encodeURIComponent(appUrl)}`, "_blank");
+    toast.success("Abrindo TikTok...");
+  };
+
+  // Instagram - apenas link (não suporta compartilhamento direto)
+  const handleInstagramShare = () => {
+    toast.info("Copie o link e compartilhe no Instagram Stories ou Direct");
+    navigator.clipboard.writeText(appUrl);
+  };
+
+  // Reddit - enviar com link da imagem
+  const handleRedditShare = () => {
+    const shareMessage = createShareMessage(true);
+    const encodedMessage = encodeURIComponent(shareMessage);
+    window.open(`https://reddit.com/submit?url=${encodeURIComponent(appUrl)}&title=${encodedMessage}`, "_blank");
+    toast.success("Abrindo Reddit...");
   };
 
   return (
@@ -124,7 +104,7 @@ export function ShareButtons({ message, imageUrl, theme }: ShareButtonsProps) {
         onClick={handleWhatsAppShare}
         className="bg-green-500 hover:bg-green-600 text-white gap-2 text-xs"
         size="sm"
-        title={imageUrl ? "Compartilhar com imagem" : "Compartilhar com link"}
+        title="Enviar com imagem"
       >
         <MessageCircle className="w-4 h-4" />
         WhatsApp
@@ -134,7 +114,7 @@ export function ShareButtons({ message, imageUrl, theme }: ShareButtonsProps) {
         onClick={handleTelegramShare}
         className="bg-blue-500 hover:bg-blue-600 text-white gap-2 text-xs"
         size="sm"
-        title={imageUrl ? "Compartilhar com imagem" : "Compartilhar com link"}
+        title="Enviar com imagem"
       >
         <Send className="w-4 h-4" />
         Telegram
@@ -144,7 +124,7 @@ export function ShareButtons({ message, imageUrl, theme }: ShareButtonsProps) {
         onClick={handleTwitterShare}
         className="bg-sky-500 hover:bg-sky-600 text-white gap-2 text-xs"
         size="sm"
-        title={imageUrl ? "Compartilhar com imagem" : "Compartilhar com link"}
+        title="Enviar com imagem"
       >
         <Share2 className="w-4 h-4" />
         Twitter
@@ -154,14 +134,14 @@ export function ShareButtons({ message, imageUrl, theme }: ShareButtonsProps) {
         onClick={handleFacebookShare}
         className="bg-blue-700 hover:bg-blue-800 text-white gap-2 text-xs"
         size="sm"
-        title={imageUrl ? "Compartilhar com imagem" : "Compartilhar com link"}
+        title="Enviar com imagem"
       >
         <Facebook className="w-4 h-4" />
         Facebook
       </Button>
 
       <Button
-        onClick={() => window.open(shareLinks.tiktok, "_blank")}
+        onClick={handleTikTokShare}
         className="bg-black hover:bg-gray-800 text-white gap-2 text-xs"
         size="sm"
         title="Compartilhar no TikTok"
@@ -171,10 +151,10 @@ export function ShareButtons({ message, imageUrl, theme }: ShareButtonsProps) {
       </Button>
 
       <Button
-        onClick={() => window.open(shareLinks.instagram, "_blank")}
+        onClick={handleInstagramShare}
         className="bg-pink-500 hover:bg-pink-600 text-white gap-2 text-xs"
         size="sm"
-        title="Compartilhar no Instagram"
+        title="Copiar link para Instagram"
       >
         <span className="text-lg">📷</span>
         Instagram
@@ -184,7 +164,7 @@ export function ShareButtons({ message, imageUrl, theme }: ShareButtonsProps) {
         onClick={handleLinkedInShare}
         className="bg-blue-600 hover:bg-blue-700 text-white gap-2 text-xs"
         size="sm"
-        title={imageUrl ? "Compartilhar com imagem" : "Compartilhar com link"}
+        title="Enviar com imagem"
       >
         <Linkedin className="w-4 h-4" />
         LinkedIn
@@ -194,17 +174,17 @@ export function ShareButtons({ message, imageUrl, theme }: ShareButtonsProps) {
         onClick={handlePinterestShare}
         className="bg-red-600 hover:bg-red-700 text-white gap-2 text-xs"
         size="sm"
-        title={imageUrl ? "Compartilhar com imagem" : "Compartilhar com link"}
+        title="Enviar com imagem"
       >
         <Heart className="w-4 h-4" />
         Pinterest
       </Button>
 
       <Button
-        onClick={() => window.open(shareLinks.reddit, "_blank")}
+        onClick={handleRedditShare}
         className="bg-orange-600 hover:bg-orange-700 text-white gap-2 text-xs"
         size="sm"
-        title="Compartilhar no Reddit"
+        title="Enviar com imagem"
       >
         <Users className="w-4 h-4" />
         Reddit
@@ -214,7 +194,7 @@ export function ShareButtons({ message, imageUrl, theme }: ShareButtonsProps) {
         onClick={handleEmailShare}
         className="bg-gray-600 hover:bg-gray-700 text-white gap-2 text-xs"
         size="sm"
-        title={imageUrl ? "Enviar com imagem" : "Enviar com link"}
+        title="Enviar com imagem"
       >
         <span className="text-lg">✉️</span>
         Email
