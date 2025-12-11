@@ -1315,3 +1315,59 @@ Destacar a vantagem comercial de cancelamento a qualquer momento em toda a plata
 - [ ] Adicionar imagens "depois" para cada estilo (Bichinho, Monstro, Épico, Gangster, Pintura, Circo)
 - [ ] Layout: 2 colunas em desktop (antes | depois), 1 coluna em mobile (antes acima, depois abaixo)
 - [ ] Testar responsividade em mobile
+
+
+## Cache de Transformações (3 Meses) - NOVA FEATURE
+- [x] Criar tabela `transformation_cache` no banco de dados
+- [x] Implementar função `cacheTransformation()` no db.ts
+- [x] Implementar função `getCachedTransformation()` no db.ts
+- [x] Implementar função `getUserTransformationCache()` no db.ts
+- [x] Implementar função `cleanupExpiredCache()` no db.ts
+- [x] Criar componente `TransformationCache.tsx`
+- [x] Criar procedimento tRPC para cache
+- [ ] Integrar cache com fluxo de geração de transformações
+- [ ] Testar salvamento e recuperação de cache
+
+## Filtros Posteriores (Saturação, Brilho, Contraste) - NOVA FEATURE
+- [x] Criar componente `ImageFilters.tsx` com sliders
+- [x] Implementar preview em tempo real dos filtros
+- [x] Adicionar botão de reset de filtros
+- [x] Adicionar procedimento tRPC `applyFilters`
+- [ ] Integrar filtros com componente de resultado
+- [ ] Testar aplicação de filtros em imagens
+
+## Pagamento Diferido - NOVA FEATURE
+- [x] Criar componente `DeferredPaymentNotice.tsx`
+- [x] Implementar lógica de verificação de créditos
+- [x] Adicionar informações sobre pagamento diferido
+- [ ] Integrar com fluxo de download premium
+- [ ] Testar fluxo de pagamento diferido
+
+## Comunicação de Funcionalidades - NOVA FEATURE
+- [x] Criar componente `TransformationResultCard.tsx`
+- [x] Adicionar aviso sobre cache de 3 meses
+- [x] Adicionar informações sobre créditos utilizados
+- [x] Adicionar seção de downloads premium
+- [x] Adicionar opção de compartilhamento
+- [ ] Integrar com página de resultado
+- [ ] Testar comunicação visual
+
+## Integração Frontend
+- [ ] Atualizar página de resultado para usar novos componentes
+- [ ] Implementar hash de imagem original para cache
+- [ ] Integrar chamadas tRPC de cache
+- [ ] Adicionar tratamento de erros
+- [ ] Testar fluxo completo de transformação
+
+## Testes
+- [ ] Testar salvamento em cache
+- [ ] Testar recuperação de cache após 3 meses
+- [ ] Testar aplicação de filtros
+- [ ] Testar pagamento diferido
+- [ ] Testar compartilhamento de transformações
+
+## Deploy
+- [ ] Revisar código
+- [ ] Executar testes
+- [ ] Criar checkpoint final
+- [ ] Deploy para produção

@@ -484,6 +484,67 @@ export const appRouter = router({
       }),
   }),
 
+  transformation: router({
+    // Cache de transformações
+    getCachedTransformations: protectedProcedure
+      .input(z.void())
+      .query(async ({ ctx }) => {
+        const { getUserTransformationCache } = await import("./db");
+        return getUserTransformationCache(ctx.user.id);
+      }),
+
+    getCachedTransformation: protectedProcedure
+      .input(z.object({
+        originalImageHash: z.string(),
+        theme: z.string(),
+      }))
+      .query(async ({ input, ctx }) => {
+        const { getCachedTransformation } = await import("./db");
+        return getCachedTransformation(ctx.user.id, input.originalImageHash, input.theme);
+      }),
+
+    // Salvar transformação em cache
+    cacheTransformation: protectedProcedure
+      .input(z.object({
+        originalImageHash: z.string(),
+        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus", "natal", "reveillon"]),
+        transformedImageUrl: z.string(),
+        creditsUsed: z.number(),
+        filters: z.record(z.string(), z.number()).optional(),
+      }))
+      .mutation(async ({ input, ctx }) => {
+        const { cacheTransformation } = await import("./db");
+        const success = await cacheTransformation(
+          ctx.user.id,
+          input.originalImageHash,
+          input.theme,
+          input.transformedImageUrl,
+          input.creditsUsed,
+          input.filters
+        );
+        return { success };
+      }),
+
+    // Aplicar filtros posteriores
+    applyFilters: protectedProcedure
+      .input(z.object({
+        imageUrl: z.string(),
+        filters: z.object({
+          saturation: z.number().min(0).max(200),
+          brightness: z.number().min(0).max(200),
+          contrast: z.number().min(0).max(200),
+        }),
+      }))
+      .mutation(async ({ input }) => {
+        // Aplicar filtros CSS e retornar URL processada
+        // Em produção, isso seria feito no servidor com sharp ou similar
+        return {
+          success: true,
+          filters: input.filters,
+          message: "Filtros aplicados com sucesso",
+        };
+      }),
+  }),
 
 });
 

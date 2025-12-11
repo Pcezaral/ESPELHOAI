@@ -460,3 +460,22 @@ export const pwaInstalls = mysqlTable("pwa_installs", {
 
 export type PwaInstall = typeof pwaInstalls.$inferSelect;
 export type InsertPwaInstall = typeof pwaInstalls.$inferInsert;
+
+/**
+ * Transformation Cache - Armazena transformações geradas por 3 meses
+ * Permite reutilizar transformações anteriores sem gastar créditos
+ */
+export const transformationCache = mysqlTable("transformation_cache", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  originalImageHash: varchar("originalImageHash", { length: 255 }).notNull(), // Hash da imagem original
+  theme: mysqlEnum("theme", ["animals", "monster", "art", "gender", "epic", "gangster", "circus", "natal", "reveillon"]).notNull(),
+  transformedImageUrl: text("transformedImageUrl").notNull(),
+  filters: text("filters"), // JSON string com filtros aplicados (saturação, brilho, contraste)
+  creditsUsed: int("creditsUsed").notNull(),
+  expiresAt: timestamp("expiresAt").notNull(), // Data de expiração (3 meses)
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type TransformationCache = typeof transformationCache.$inferSelect;
+export type InsertTransformationCache = typeof transformationCache.$inferInsert;

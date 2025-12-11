@@ -1,7 +1,8 @@
-import { eq, desc, and, gte, lte } from "drizzle-orm";
+import { eq, desc, and, gt, lt, gte, lte } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, transformations, creditTransactions, adminAlerts, supportTickets, oauthProviders, userBadges, analyticsData, promoCodes, promoCodeUsage, affiliates, affiliateClicks, socialShares, affiliatePayouts, downloadHistory, InsertDownloadHistory, pwaInstalls } from "../drizzle/schema";
+import { InsertUser, users, transformations, creditTransactions, adminAlerts, supportTickets, oauthProviders, userBadges, analyticsData, promoCodes, promoCodeUsage, affiliates, affiliateClicks, socialShares, affiliatePayouts, downloadHistory, InsertDownloadHistory, pwaInstalls, transformationCache, InsertTransformationCache } from "../drizzle/schema";
 import { ENV } from './_core/env';
+import crypto from "crypto";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
@@ -907,3 +908,148 @@ export async function getUserDownloadStats(userId: number) {
     return { totalDownloads: 0, hdDownloads: 0, k4Downloads: 0, totalCreditsCost: 0 };
   }
 }
+
+
+// ===== TRANSFORMATION CACHE FUNCTIONS =====
+
+/**
+ * Gera hash MD5 da imagem original para identificar duplicatas
+ */
+export function generateImageHash(imageBuffer: Buffer | string): string {
+  return crypto.createHash("md5").update(imageBuffer).digest("hex");
+}
+
+/**
+ * Salva transformação em cache por 3 meses
+ */
+export async function cacheTransformation(
+  userId: number,
+  originalImageHash: string,
+  theme: string,
+  transformedImageUrl: string,
+  creditsUsed: number,
+  filters?: Record<string, number>
+): Promise<boolean> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot cache transformation: database not available");
+    return false;
+  }
+
+  try {
+    const expiresAt = new Date();
+    expiresAt.setMonth(expiresAt.getMonth() + 3); // 3 meses
+
+    await db.insert(transformationCache).values({
+      userId,
+      originalImageHash,
+      theme: theme as any,
+      transformedImageUrl,
+      filters: filters ? JSON.stringify(filters) : null,
+      creditsUsed,
+      expiresAt,
+    });
+
+    return true;
+  } catch (error) {
+    console.error("[Database] Failed to cache transformation:", error);
+    return false;
+  }
+}
+
+/**
+ * Busca transformação em cache
+ */
+export async function getCachedTransformation(
+  userId: number,
+  originalImageHash: string,
+  theme: string
+) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get cached transformation: database not available");
+    return null;
+  }
+
+  try {
+    const result = await db
+      .select()
+      .from(transformationCache)
+      .where(
+        and(
+          eq(transformationCache.userId, userId),
+          eq(transformationCache.originalImageHash, originalImageHash),
+          eq(transformationCache.theme, theme as any),
+          gt(transformationCache.expiresAt, new Date()) // Não expirado
+        )
+      )
+      .limit(1);
+
+    if (result.length === 0) return null;
+
+    const cache = result[0];
+    return {
+      ...cache,
+      filters: cache.filters ? JSON.parse(cache.filters) : null,
+    };
+  } catch (error) {
+    console.error("[Database] Failed to get cached transformation:", error);
+    return null;
+  }
+}
+
+/**
+ * Lista todas as transformações em cache do usuário
+ */
+export async function getUserTransformationCache(userId: number) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get user cache: database not available");
+    return [];
+  }
+
+  try {
+    const result = await db
+      .select()
+      .from(transformationCache)
+      .where(
+        and(
+          eq(transformationCache.userId, userId),
+          gt(transformationCache.expiresAt, new Date()) // Não expirado
+        )
+      )
+      .orderBy(desc(transformationCache.createdAt));
+
+    return result.map(cache => ({
+      ...cache,
+      filters: cache.filters ? JSON.parse(cache.filters) : null,
+    }));
+  } catch (error) {
+    console.error("[Database] Failed to get user cache:", error);
+    return [];
+  }
+}
+
+/**
+ * Limpa transformações expiradas (3 meses)
+ */
+export async function cleanupExpiredCache(): Promise<number> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot cleanup cache: database not available");
+    return 0;
+  }
+
+  try {
+    await db
+      .delete(transformationCache)
+      .where(lt(transformationCache.expiresAt, new Date()));
+
+    return 1; // Retorna 1 para indicar sucesso
+  } catch (error) {
+    console.error("[Database] Failed to cleanup cache:", error);
+    return 0;
+  }
+}
+
+
