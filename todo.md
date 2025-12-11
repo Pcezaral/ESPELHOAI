@@ -1301,3 +1301,17 @@ Destacar a vantagem comercial de cancelamento a qualquer momento em toda a plata
 - [x] Implementar layout antes/depois lado a lado na página de resultado
 - [x] Mostrar foto original + transformação lado a lado
 - [x] Usar fotos fornecidas pelo usuário como referência de qualidade
+
+
+## Correção Urgente - Seção "Veja a Magia Acontecer" (11/12/2025)
+
+### Problema:
+- [ ] Seção de exemplos mostra APENAS foto "antes" (não faz sentido)
+- [ ] Deveria mostrar ANTES E DEPOIS lado a lado (como no gerador)
+- [ ] Usuários veem pessoas de elástico mas não veem transformação
+
+### Tarefas:
+- [ ] Criar componente de grid ANTES/DEPOIS para cada exemplo
+- [ ] Adicionar imagens "depois" para cada estilo (Bichinho, Monstro, Épico, Gangster, Pintura, Circo)
+- [ ] Layout: 2 colunas em desktop (antes | depois), 1 coluna em mobile (antes acima, depois abaixo)
+- [ ] Testar responsividade em mobile

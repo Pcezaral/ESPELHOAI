@@ -298,61 +298,115 @@ export default function Home() {
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-transparent to-red-500/5 pointer-events-none"></div>
         <div className="w-full">
-          <h2 className="text-4xl font-bold text-center mb-4">Mais Estilos Disponíveis</h2>
+          <h2 className="text-4xl font-bold text-center mb-4">Veja a Magia Acontecer</h2>
           <p className="text-center text-gray-600 mb-2 text-lg">Transformações incríveis em segundos</p>
           <p className="text-center text-orange-500 mb-12 text-lg font-semibold">Scroll para ver ➜</p>
           
           {/* Container com scroll horizontal em mobile */}
           <div className="overflow-x-auto md:overflow-visible -mx-4 md:mx-0">
-            <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 px-4 md:px-8 lg:px-16 min-w-max md:min-w-full">
-              {/* Exemplo 1: Bichinho */}
+            <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 px-4 md:px-8 lg:px-16 min-w-max md:min-w-full">
+              {/* Exemplo 1: Bichinho - ANTES/DEPOIS */}
               <div className="flex flex-col items-center space-y-4 flex-shrink-0">
-                <img src="/example-bichinho.png" alt="Transformação Bichinho" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
+                <div className="grid grid-cols-2 gap-3 md:gap-4">
+                  <div className="flex flex-col items-center">
+                    <img src="/example-bichinho.png" alt="Antes - Bichinho" className="w-28 h-28 md:w-32 md:h-32 object-cover rounded-lg shadow-lg border-2 border-gray-300" />
+                    <p className="text-xs md:text-sm text-gray-500 mt-2 font-medium">Antes</p>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <img src="/example-bichinho.png" alt="Depois - Bichinho" className="w-28 h-28 md:w-32 md:h-32 object-cover rounded-lg shadow-lg border-2 border-pink-500" />
+                    <p className="text-xs md:text-sm text-pink-600 mt-2 font-medium">Depois ✨</p>
+                  </div>
+                </div>
                 <div className="flex items-center gap-2">
                   <p className="font-semibold text-base md:text-lg text-pink-600">🐶 Bichinho</p>
                   <Button onClick={() => handleStartApp('animals')} size="sm" className="bg-pink-500 hover:bg-pink-600 text-white rounded-full px-3 py-1 text-xs font-semibold">✨ Transforme</Button>
                 </div>
               </div>
               
-              {/* Exemplo 2: Monstro */}
+              {/* Exemplo 2: Monstro - ANTES/DEPOIS */}
               <div className="flex flex-col items-center space-y-4 flex-shrink-0">
-                <img src="/example-monstro.png" alt="Transformação Monstro" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
+                <div className="grid grid-cols-2 gap-3 md:gap-4">
+                  <div className="flex flex-col items-center">
+                    <img src="/example-monstro.png" alt="Antes - Monstro" className="w-28 h-28 md:w-32 md:h-32 object-cover rounded-lg shadow-lg border-2 border-gray-300" />
+                    <p className="text-xs md:text-sm text-gray-500 mt-2 font-medium">Antes</p>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <img src="/example-monstro.png" alt="Depois - Monstro" className="w-28 h-28 md:w-32 md:h-32 object-cover rounded-lg shadow-lg border-2 border-green-500" />
+                    <p className="text-xs md:text-sm text-green-600 mt-2 font-medium">Depois ✨</p>
+                  </div>
+                </div>
                 <div className="flex items-center gap-2">
                   <p className="font-semibold text-base md:text-lg text-green-600">👾 Monstro</p>
                   <Button onClick={() => handleStartApp('monster')} size="sm" className="bg-green-500 hover:bg-green-600 text-white rounded-full px-3 py-1 text-xs font-semibold">✨ Transforme</Button>
                 </div>
               </div>
               
-              {/* Exemplo 3: Épico (Romanos/Gregos/Vikings) */}
+              {/* Exemplo 3: Épico - ANTES/DEPOIS */}
               <div className="flex flex-col items-center space-y-4 flex-shrink-0">
-                <img src="/example-romana.png" alt="Transformação Épica - Romana" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
+                <div className="grid grid-cols-2 gap-3 md:gap-4">
+                  <div className="flex flex-col items-center">
+                    <img src="/example-romana.png" alt="Antes - Épico" className="w-28 h-28 md:w-32 md:h-32 object-cover rounded-lg shadow-lg border-2 border-gray-300" />
+                    <p className="text-xs md:text-sm text-gray-500 mt-2 font-medium">Antes</p>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <img src="/example-romana.png" alt="Depois - Épico" className="w-28 h-28 md:w-32 md:h-32 object-cover rounded-lg shadow-lg border-2 border-orange-500" />
+                    <p className="text-xs md:text-sm text-orange-600 mt-2 font-medium">Depois ✨</p>
+                  </div>
+                </div>
                 <div className="flex items-center gap-2">
                   <p className="font-semibold text-base md:text-lg text-orange-600">🏛️ Épico</p>
                   <Button onClick={() => handleStartApp('epic')} size="sm" className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-3 py-1 text-xs font-semibold">✨ Transforme</Button>
                 </div>
               </div>
               
-              {/* Exemplo 4: Gangster */}
+              {/* Exemplo 4: Gangster - ANTES/DEPOIS */}
               <div className="flex flex-col items-center space-y-4 flex-shrink-0">
-                <img src="/example-gangster-new.png" alt="Transformação Gangster" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
+                <div className="grid grid-cols-2 gap-3 md:gap-4">
+                  <div className="flex flex-col items-center">
+                    <img src="/example-gangster-new.png" alt="Antes - Gangster" className="w-28 h-28 md:w-32 md:h-32 object-cover rounded-lg shadow-lg border-2 border-gray-300" />
+                    <p className="text-xs md:text-sm text-gray-500 mt-2 font-medium">Antes</p>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <img src="/example-gangster-new.png" alt="Depois - Gangster" className="w-28 h-28 md:w-32 md:h-32 object-cover rounded-lg shadow-lg border-2 border-gray-700" />
+                    <p className="text-xs md:text-sm text-gray-700 mt-2 font-medium">Depois ✨</p>
+                  </div>
+                </div>
                 <div className="flex items-center gap-2">
                   <p className="font-semibold text-base md:text-lg text-gray-700">🔫 Gangster</p>
                   <Button onClick={() => handleStartApp('gangster')} size="sm" className="bg-gray-700 hover:bg-gray-800 text-white rounded-full px-3 py-1 text-xs font-semibold">✨ Transforme</Button>
                 </div>
               </div>
               
-              {/* Exemplo 5: Pintura */}
+              {/* Exemplo 5: Pintura - ANTES/DEPOIS */}
               <div className="flex flex-col items-center space-y-4 flex-shrink-0">
-                <img src="/example-pintura-new.png" alt="Transformação Pintura" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
+                <div className="grid grid-cols-2 gap-3 md:gap-4">
+                  <div className="flex flex-col items-center">
+                    <img src="/example-pintura-new.png" alt="Antes - Pintura" className="w-28 h-28 md:w-32 md:h-32 object-cover rounded-lg shadow-lg border-2 border-gray-300" />
+                    <p className="text-xs md:text-sm text-gray-500 mt-2 font-medium">Antes</p>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <img src="/example-pintura-new.png" alt="Depois - Pintura" className="w-28 h-28 md:w-32 md:h-32 object-cover rounded-lg shadow-lg border-2 border-purple-500" />
+                    <p className="text-xs md:text-sm text-purple-600 mt-2 font-medium">Depois ✨</p>
+                  </div>
+                </div>
                 <div className="flex items-center gap-2">
                   <p className="font-semibold text-base md:text-lg text-purple-600">🎨 Pintura</p>
                   <Button onClick={() => handleStartApp('art')} size="sm" className="bg-purple-500 hover:bg-purple-600 text-white rounded-full px-3 py-1 text-xs font-semibold">✨ Transforme</Button>
                 </div>
               </div>
               
-              {/* Exemplo 6: Circo */}
+              {/* Exemplo 6: Circo - ANTES/DEPOIS */}
               <div className="flex flex-col items-center space-y-4 flex-shrink-0">
-                <img src="/example-circo.png" alt="Transformação Circo" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
+                <div className="grid grid-cols-2 gap-3 md:gap-4">
+                  <div className="flex flex-col items-center">
+                    <img src="/example-circo.png" alt="Antes - Circo" className="w-28 h-28 md:w-32 md:h-32 object-cover rounded-lg shadow-lg border-2 border-gray-300" />
+                    <p className="text-xs md:text-sm text-gray-500 mt-2 font-medium">Antes</p>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <img src="/example-circo.png" alt="Depois - Circo" className="w-28 h-28 md:w-32 md:h-32 object-cover rounded-lg shadow-lg border-2 border-red-500" />
+                    <p className="text-xs md:text-sm text-red-600 mt-2 font-medium">Depois ✨</p>
+                  </div>
+                </div>
                 <div className="flex items-center gap-2">
                   <p className="font-semibold text-base md:text-lg text-red-600">🎪 Circo</p>
                   <Button onClick={() => handleStartApp('circus')} size="sm" className="bg-red-500 hover:bg-red-600 text-white rounded-full px-3 py-1 text-xs font-semibold">✨ Transforme</Button>
