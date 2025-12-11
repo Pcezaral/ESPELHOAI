@@ -10,6 +10,7 @@ import { CreditBadge } from "@/components/CreditBadge";
 import { ShareButtons } from "@/components/ShareButtons";
 import { HighResolutionDownload } from "@/components/HighResolutionDownload";
 import { InstallPromptAfterTransformation } from "@/components/InstallPromptAfterTransformation";
+import { DownloadAppBanner } from "@/components/DownloadAppBanner";
 import { useAuth } from "@/_core/hooks/useAuth";
 
 type Theme = "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus" | "natal" | "reveillon";
@@ -445,6 +446,10 @@ export default function Generator() {
                 <Download className="w-4 h-4" />
                 Baixar Imagem
               </Button>
+
+              {/* Download App Banner */}
+              <DownloadAppBanner showAfterShare={true} />
+
               <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-4">
                 <p className="text-white font-semibold mb-3 text-center">Compartilhe com seus amigos!</p>
                 <ShareButtons message="Veja minha transformação no ESPELHO AI!" imageUrl={generatedImage} theme={selectedTheme || undefined} />

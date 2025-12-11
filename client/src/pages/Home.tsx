@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import CountdownTimer from "@/components/CountdownTimer";
 import DownloadButtons from "@/components/DownloadButtons";
 import TransformationShowcase from "@/components/TransformationShowcase";
+import { DownloadAppBanner } from "@/components/DownloadAppBanner";
 import React from "react";
 import { Card } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -271,6 +272,13 @@ export default function Home() {
               🎆 Réveillon
             </Button>
           </div>
+        </div>
+      </section>
+
+      {/* Download App Banner */}
+      <section className="bg-slate-900 py-8 px-4">
+        <div className="max-w-4xl mx-auto">
+          <DownloadAppBanner />
         </div>
       </section>
 
