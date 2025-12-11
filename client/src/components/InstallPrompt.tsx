@@ -66,17 +66,12 @@ export function InstallPrompt() {
 
     window.addEventListener("appinstalled", handleAppInstalled);
 
-    // Mostrar banner para Android mesmo sem beforeinstallprompt
-    // ou para iOS/Desktop após 2 segundos
+    // Mostrar banner em TODOS os sistemas (Android, iOS, Desktop)
+    // Após 1.5 segundos para deixar a página carregar
     setTimeout(() => {
       if (!isInstalled) {
-        if (detectedPlatform === "android") {
-          console.log("[PWA] Showing Android banner");
-          setShowBanner(true);
-        } else if (detectedPlatform === "ios") {
-          console.log("[PWA] Showing iOS banner");
-          setShowBanner(true);
-        }
+        console.log(`[PWA] Showing banner for ${detectedPlatform}`);
+        setShowBanner(true);
       }
     }, 1500);
 
