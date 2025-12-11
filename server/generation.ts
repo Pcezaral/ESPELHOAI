@@ -107,10 +107,40 @@ gangster: {
       text: "Você é um crime boss! Sofisticado, perigoso e comandando o submundo com estilo! 🎩🔫"
     },
     
-    circus: {
-      // Circo: ROSTO 100% IDÉNTICO, 12+ PROFISSÕES circenses com ALTA VARIEDADE
-      prompt: `Circus performer transformation. CRITICAL RULE: Keep EXACT same number of people - if 2 people in input, output MUST have 2 people with BOTH faces pixel-perfect identical; if 3 people, output MUST have 3 people with ALL 3 faces pixel-perfect identical. PRESERVE EACH INDIVIDUAL FACE: Each person's face must be PIXEL-PERFECT IDENTICAL - same eyes, nose, mouth, expression, age, skin tone, facial structure. DO NOT modify face. ONLY change: circus costume, pose, props, background. Randomly choose ONE circus profession with vibrant details: Acrobat (colorful sequined leotard, mid-air flip or handstand pose, juggling colorful balls/clubs/rings, circus tent background with spotlights, dynamic action), Trapeze Artist (sparkly aerial costume with flowing fabric, hanging from trapeze bar, dramatic mid-swing pose, high above circus ring, safety net visible, graceful movement), Clown (colorful oversized costume with polka dots/stripes, red nose, oversized shoes, playful pose with balloons/flowers/props, circus ring with audience, joyful expression), Magician (elegant tuxedo with flowing cape and top hat, pulling rabbit from hat or performing card tricks, mysterious pose, stage with magic props/curtains/illusions), Ringmaster (red tailcoat with gold buttons, top hat, holding whip and megaphone, commanding authoritative pose, center of circus ring with audience silhouettes), Tightrope Walker (elegant costume with balance pole, walking on rope high above ground, focused concentrated expression, circus tent interior with dramatic lighting), Fire Breather (exotic costume with tribal patterns, breathing fire dramatically, intense action pose, dark background with flames illuminating face, dangerous performance), Strongman (striped tank top, handlebar mustache, lifting heavy barbell/dumbbells/weights, flexing muscles powerful pose, vintage circus poster style background), Contortionist (flexible impossible pose in colorful bodysuit, bending in extreme contortion, circus stage with dramatic lighting, amazement expression), Juggler (bright colorful costume, juggling multiple objects (pins/rings/balls/torches), dynamic action pose, circus tent with audience, focused concentration), Lion Tamer (safari-style costume with boots and whip, confident commanding pose, circus ring with vintage circus cage silhouette, no real animals, authoritative stance), Equilibrist (balancing on large ball or unicycle, colorful costume, arms spread for balance, circus ring with spotlights, focused expression), Sword Swallower (exotic costume, performing sword swallowing act, dramatic intense pose, circus stage with dramatic lighting, fearless expression), Cannon Performer (colorful costume, being shot from cannon mid-air, dynamic action pose, circus tent background, thrilling moment), Stilt Walker (tall colorful costume on wooden stilts, walking above crowd, waving to audience, circus parade background, towering presence), Aerial Silk Performer (flowing silk ribbons, suspended mid-air in graceful pose, wrapped in colorful silks, circus tent with dramatic lighting, ethereal movement). CRITICAL: Vibrant circus colors (red, yellow, blue, gold, purple, green), striped circus tent background or circus ring, dramatic theatrical lighting with spotlights and colored lights. Vary pose dramatically (action mid-performance / triumphant bow / dramatic entrance / focused concentration / playful expression). Vary camera angle (low angle heroic / side action shot / front spotlight portrait / wide establishing shot). Theatrical realistic photo style with authentic circus atmosphere. Random seed: ${randomSeed}, variation: ${randomVariation}`,
-      text: "Você é um artista de circo! Talentoso, colorido e pronto para encantar a plateia sob a lona do picadeiro! 🎪✨"
+    circus: { // PROFISSÕES: Acrobata, Trapezista, Palhaço, Mágico, Mestre, Equilibrista, Fogo, Força, Contorcionista, Malabarista, Domador, Equilibrista, Espada, Canhão, Pernaltas, Seda Aérea, Ventrílocuo, Facas, Taróloga, Rola Bola
+      // Circo: ROSTO 100% IDÉNTICO, MÓLTIPLAS PROFISSÕES com ALTA VARIEDADE GARANTIDA
+      prompt: `CIRCUS PERFORMER TRANSFORMATION - CRITICAL RULES:
+1. PRESERVE FACE: Keep face PIXEL-PERFECT IDENTICAL to original. DO NOT modify facial features, expression, age, skin tone.
+2. VARY PROFESSION: MUST randomly select a DIFFERENT circus profession EACH TIME. NEVER repeat same profession twice.
+3. VARY COSTUME: MUST use different colors, styles, and designs for each profession.
+4. VARY BACKGROUND: MUST alternate between: circus tent interior, circus ring with audience, outdoor circus parade, backstage, vintage circus poster style.
+5. VARY POSE: MUST use different action poses: mid-performance action, triumphant bow, dramatic entrance, focused concentration, playful interaction, powerful stance.
+6. VARY LIGHTING: MUST alternate between: dramatic spotlights, colorful stage lights, natural outdoor lighting, theatrical shadows.
+
+CIRCUS PROFESSIONS (randomly choose ONE, ensure variety):
+- Acrobat: colorful sequined leotard, mid-air flip/handstand, juggling balls/clubs/rings
+- Trapeze Artist: sparkly aerial costume, hanging from trapeze bar, graceful mid-swing
+- Clown: oversized colorful costume with polka dots/stripes, red nose, juggling/balloon props
+- Magician: elegant tuxedo with cape and top hat, pulling rabbit or performing card tricks
+- Ringmaster: red tailcoat with gold buttons, top hat, holding whip/megaphone, commanding pose
+- Tightrope Walker: elegant costume with balance pole, walking on rope high above ground
+- Fire Breather: exotic costume with tribal patterns, breathing fire dramatically
+- Strongman: striped tank top with handlebar mustache, lifting heavy weights/barrels
+- Contortionist: flexible pose in colorful bodysuit, bending in extreme contortion
+- Juggler: bright colorful costume, juggling pins/rings/balls/torches dynamically
+- Lion Tamer: safari-style costume with boots/whip, confident commanding pose
+- Equilibrist: balancing on large ball or unicycle, arms spread for balance
+- Sword Swallower: exotic costume, performing sword swallowing act dramatically
+- Cannon Performer: colorful costume, being shot from cannon mid-air
+- Stilt Walker: tall colorful costume on wooden stilts, walking above crowd
+- Aerial Silk Performer: flowing silk ribbons, suspended mid-air in graceful pose
+- Ventriloquist: elegant costume with dummy/puppet, performing act with props
+- Knife Thrower: daring costume, throwing knives at target board
+- Fortune Teller: mystical costume with crystal ball, mysterious atmosphere
+- Rola Bola Performer: balancing on stacked cylinders, colorful costume
+
+STYLE: Theatrical realistic photo with authentic circus atmosphere. Vibrant circus colors (red, yellow, blue, gold, purple, green). Professional photography quality. Random seed: ${randomSeed}, variation: ${randomVariation}`,
+      text: "Você é um artista de circo! Talentoso, criativo e pronto para surpreender a plateia com uma performance única! 🌪✨"
     },
     
     natal: {
