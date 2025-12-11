@@ -159,43 +159,10 @@ export function InstallPrompt() {
     return null;
   }
 
-  // Banner fixo no topo (SUPER VISÍVEL)
+  // Banner fixo no topo removido - apenas mostrar modal
   if (showBanner && !isInstalled) {
     return (
       <>
-        {/* Banner fixo no topo */}
-        <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-500 text-white shadow-lg animate-pulse">
-          <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Zap className="w-5 h-5 animate-bounce" />
-              <div>
-                <div className="font-bold text-sm">🎁 Instale Agora e Ganhe 5 Créditos Grátis!</div>
-                <div className="text-xs opacity-90">Transforme fotos em estilos incríveis</div>
-              </div>
-            </div>
-            <div className="flex gap-2">
-              <Button
-                onClick={() => {
-                  setIsOpen(true);
-                }}
-                size="sm"
-                className="bg-white text-orange-600 hover:bg-orange-50 font-bold"
-              >
-                <Download className="w-4 h-4 mr-1" />
-                Instalar
-              </Button>
-              <Button
-                onClick={() => setShowBanner(false)}
-                size="sm"
-                variant="ghost"
-                className="text-white hover:bg-white/20"
-              >
-                <X className="w-4 h-4" />
-              </Button>
-            </div>
-          </div>
-        </div>
-
         {/* Modal detalhado */}
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogContent className="max-w-md bg-gradient-to-br from-slate-900 to-slate-800 border-slate-700">
