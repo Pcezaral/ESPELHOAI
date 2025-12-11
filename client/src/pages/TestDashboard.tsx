@@ -118,7 +118,7 @@ export default function TestDashboard() {
               {addCreditsMutation.isPending ? "Adicionando..." : "Adicionar 100 Créditos de Teste"}
             </Button>
             <p className="text-slate-400 text-sm">
-              💡 Clique acima para adicionar créditos ilimitados e testar transformações, downloads e compras
+              💡 Clique acima para adicionar créditos de teste e testar transformações, downloads e compras
             </p>
           </div>
         </Card>
@@ -184,7 +184,7 @@ export default function TestDashboard() {
             💡 Dicas de Teste
           </h3>
           <ul className="text-blue-100 space-y-2 text-sm">
-            <li>• Use créditos de teste para fazer transformações ilimitadas</li>
+            <li>• Use créditos de teste para fazer várias transformações</li>
             <li>• Cartão Stripe de teste: <code className="bg-slate-800 px-2 py-1 rounded">4242 4242 4242 4242</code></li>
             <li>• Qualquer data futura e CVC funcionam no Stripe teste</li>
             <li>• Teste em mobile abrindo em navegador do celular</li>

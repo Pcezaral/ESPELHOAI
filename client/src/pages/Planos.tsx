@@ -211,7 +211,7 @@ export default function Planos() {
                   </div>
                   <div className="flex items-center gap-2 text-slate-300">
                     <Check className="w-4 h-4 text-green-400" />
-                    <span className="text-sm">Compartilhamento ilimitado</span>
+                    <span className="text-sm">Compartilhe suas criações</span>
                   </div>
                 </div>
 

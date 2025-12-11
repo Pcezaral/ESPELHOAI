@@ -49,7 +49,7 @@ const SUPPORT_CATEGORIES: SupportCategory[] = [
     title: "Problemas com Créditos",
     icon: <Zap className="w-6 h-6" />,
     description: "Questões sobre saldo, consumo ou compra de créditos",
-    autoResponse: "Sobre seus créditos:\n\n• Cada transformação consome 1 crédito\n• Você recebe 5 créditos grátis ao se registrar\n• Planos disponíveis: Light (50), Premium (150), Mensal (ilimitado), Anual (ilimitado)\n• Créditos não expiram\n• Você pode consultar seu saldo no topo da página\n\nSe há uma discrepância, vamos verificar sua conta!",
+    autoResponse: "Sobre seus créditos:\n\n• Cada transformação consome 1 crédito\n• Você recebe 5 créditos grátis ao se registrar\n• Planos disponíveis: Light (50 créditos), Premium (150 créditos)\n• Créditos não expiram\n• Você pode consultar seu saldo no topo da página\n\nSe há uma discrepância, vamos verificar sua conta!",
     questions: [
       "Créditos desapareceram",
       "Cobrança incorreta",

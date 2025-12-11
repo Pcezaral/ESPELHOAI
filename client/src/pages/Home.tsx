@@ -229,7 +229,7 @@ export default function Home() {
           </div>
 
           <h2 className="text-4xl font-bold text-center mb-4">Escolha Seu Pacote</h2>
-          <p className="text-center text-gray-600 mb-12 text-lg">Transformações ilimitadas ou pacotes de créditos</p>
+          <p className="text-center text-gray-600 mb-12 text-lg">Escolha o pacote de créditos ideal para você</p>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {/* Pacote Light */}
@@ -257,7 +257,7 @@ export default function Home() {
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm">Compartilhamento ilimitado</span>
+                  <span className="text-sm">Compartilhe suas criações</span>
                 </li>
               </ul>
               <Button onClick={() => setLocation("/planos")} className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600">

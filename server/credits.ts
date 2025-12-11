@@ -5,7 +5,7 @@ import { TRPCError } from "@trpc/server";
 
 /**
  * Check if user has unlimited credits (active subscription)
- * DEPRECATED: Planos ilimitados foram removidos. Usar apenas sistema de créditos.
+ * DEPRECATED: Sistema de créditos é o único método de pagamento.
  */
 export async function hasUnlimitedCredits(userId: number): Promise<boolean> {
   return false;
@@ -34,7 +34,7 @@ export async function consumeCredit(userId: number, themeName: string, amount: n
   const db = await getDb();
   if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database not available" });
 
-  // Planos ilimitados foram removidos - sempre consumir créditos
+  // Sempre consumir créditos
 
   // Get current balance
   const user = await db.select().from(users).where(eq(users.id, userId)).limit(1);

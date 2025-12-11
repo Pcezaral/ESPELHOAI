@@ -183,7 +183,7 @@ export default function Referral() {
               {
                 step: 4,
                 title: "Use seus créditos",
-                description: "Use seus créditos para fazer transformações ilimitadas ou comprar imagens em alta resolução.",
+                description: "Use seus créditos para fazer transformações ou comprar imagens em alta resolução.",
               },
             ].map((item) => (
               <div key={item.step} className="flex gap-4">
