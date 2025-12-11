@@ -24,7 +24,6 @@ import Profile from "./pages/Profile";
 import OwnerDashboard from "./pages/OwnerDashboard";
 import { CookieBanner } from "./components/CookieBanner";
 import { PushNotifications } from "./components/PushNotifications";
-import { InstallPrompt } from "./components/InstallPrompt";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -71,7 +70,6 @@ function App() {
           <Router />
           <CookieBanner />
           <PushNotifications />
-          <InstallPrompt />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

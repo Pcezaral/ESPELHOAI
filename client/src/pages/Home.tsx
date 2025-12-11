@@ -18,15 +18,12 @@ export default function Home() {
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);
   const [hasSeenWelcome, setHasSeenWelcome] = useState(false);
 
-  // Mostrar modal de boas-vindas quando usuário faz login e tem créditos
+  // Modal de boas-vindas desabilitado - não mostrar automaticamente
   useEffect(() => {
+    // Apenas marcar como visto para evitar mostrar no futuro
     if (isAuthenticated && user && user.credits && user.credits >= 5 && !hasSeenWelcome) {
-      const hasSeenInSession = sessionStorage.getItem('welcomeModalSeen');
-      if (!hasSeenInSession) {
-        setShowWelcomeModal(true);
-        setHasSeenWelcome(true);
-        sessionStorage.setItem('welcomeModalSeen', 'true');
-      }
+      setHasSeenWelcome(true);
+      sessionStorage.setItem('welcomeModalSeen', 'true');
     }
   }, [isAuthenticated, user, hasSeenWelcome]);
 
