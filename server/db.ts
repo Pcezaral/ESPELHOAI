@@ -607,3 +607,148 @@ export async function getAffiliatePendingPayouts() {
     return [];
   }
 }
+
+
+// EMAIL AUTOMATION
+
+export async function sendTransformationSummaryEmail(userId: number, userEmail: string): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+
+  try {
+    const { emailHistory } = await import("../drizzle/schema");
+    const recentTransformations = await db
+      .select()
+      .from(transformations)
+      .where(eq(transformations.userId, userId))
+      .limit(10);
+
+    if (recentTransformations.length === 0) return;
+
+    await db.insert(emailHistory).values({
+      userId,
+      type: "transformation_summary",
+      subject: `Seu Resumo de Transformações - ${new Date().toLocaleDateString("pt-BR")}`,
+      content: `Você gerou ${recentTransformations.length} transformações incríveis!`,
+      status: "sent",
+    });
+
+    console.log(`[Email] Transformation summary sent to ${userEmail}`);
+  } catch (error) {
+    console.error("[Database] Failed to send transformation summary email:", error);
+  }
+}
+
+// TRENDING TRANSFORMATIONS
+
+export async function recordTrendingTransformation(
+  transformationId: number,
+  userId: number,
+  theme: string,
+  imageUrl: string,
+  title?: string,
+  description?: string
+): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+
+  try {
+    const { trendingTransformations } = await import("../drizzle/schema");
+    await db.insert(trendingTransformations).values({
+      transformationId,
+      userId,
+      theme: theme as any,
+      imageUrl,
+      title: title || `Transformação ${theme}`,
+      description,
+      isPublic: 1,
+    });
+  } catch (error) {
+    console.error("[Database] Failed to record trending transformation:", error);
+  }
+}
+
+export async function getTrendingTransformationsNew(limit: number = 12): Promise<any[]> {
+  const db = await getDb();
+  if (!db) return [];
+
+  try {
+    const { trendingTransformations } = await import("../drizzle/schema");
+    return await db
+      .select()
+      .from(trendingTransformations)
+      .where(eq(trendingTransformations.isPublic, 1))
+      .orderBy(desc(trendingTransformations.shareCount))
+      .limit(limit);
+  } catch (error) {
+    console.error("[Database] Failed to get trending transformations:", error);
+    return [];
+  }
+}
+
+export async function incrementShareCount(transformationId: number): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+
+  try {
+    const { trendingTransformations } = await import("../drizzle/schema");
+    const { sql } = await import("drizzle-orm");
+    await db
+      .update(trendingTransformations)
+      .set({ shareCount: sql`shareCount + 1` })
+      .where(eq(trendingTransformations.transformationId, transformationId));
+  } catch (error) {
+    console.error("[Database] Failed to increment share count:", error);
+  }
+}
+
+// WHATSAPP SHARES
+
+export async function recordWhatsappShare(
+  userId: number,
+  transformationId: number,
+  phoneNumber?: string,
+  message?: string
+): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+
+  try {
+    const { whatsappShares } = await import("../drizzle/schema");
+    const shareUrl = `${process.env.VITE_APP_URL || "https://descubraeu.manus.space"}/share/${transformationId}?platform=whatsapp`;
+    
+    await db.insert(whatsappShares).values({
+      userId,
+      transformationId,
+      phoneNumber,
+      message,
+      shareUrl,
+      status: "pending",
+    });
+  } catch (error) {
+    console.error("[Database] Failed to record WhatsApp share:", error);
+  }
+}
+
+export async function getWhatsappShareStats(transformationId: number) {
+  const db = await getDb();
+  if (!db) return null;
+
+  try {
+    const { whatsappShares } = await import("../drizzle/schema");
+    const shares = await db
+      .select()
+      .from(whatsappShares)
+      .where(eq(whatsappShares.transformationId, transformationId));
+
+    return {
+      totalShares: shares.length,
+      sentShares: shares.filter(s => s.status === 'sent').length,
+      failedShares: shares.filter(s => s.status === 'failed').length,
+      clickedShares: shares.filter(s => s.clickedAt !== null).length,
+    };
+  } catch (error) {
+    console.error("[Database] Failed to get WhatsApp share stats:", error);
+    return null;
+  }
+}

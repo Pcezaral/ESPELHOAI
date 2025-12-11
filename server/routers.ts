@@ -379,9 +379,29 @@ export const appRouter = router({
     recordShare: protectedProcedure
       .input(z.object({ transformationId: z.number(), platform: z.string() }))
       .mutation(async ({ input, ctx }) => {
-        const { recordSocialShare } = await import("./db");
+        const { recordSocialShare, incrementShareCount } = await import("./db");
         await recordSocialShare(ctx.user.id, input.transformationId, input.platform);
+        await incrementShareCount(input.transformationId);
         return { success: true };
+      }),
+    shareWhatsapp: protectedProcedure
+      .input(z.object({
+        transformationId: z.number(),
+        phoneNumber: z.string().optional(),
+        message: z.string().optional(),
+      }))
+      .mutation(async ({ input, ctx }) => {
+        const { recordWhatsappShare } = await import("./db");
+        await recordWhatsappShare(
+          ctx.user.id,
+          input.transformationId,
+          input.phoneNumber,
+          input.message
+        );
+        return { 
+          success: true,
+          whatsappUrl: `https://wa.me/?text=${encodeURIComponent(input.message || "Confira esta transformação incrível!")}`,
+        };
       }),
     getStats: publicProcedure
       .input(z.object({ transformationId: z.number() }))
@@ -390,6 +410,45 @@ export const appRouter = router({
         return getSocialShareStats(input.transformationId);
       }),
   }),
+
+  trending: router({
+    getTrending: publicProcedure
+      .input(z.object({
+        limit: z.number().default(12),
+        theme: z.string().optional(),
+      }))
+      .query(async ({ input }) => {
+        const { getTrendingTransformationsNew } = await import("./db");
+        const items = await getTrendingTransformationsNew(input.limit);
+        
+        if (input.theme) {
+          return items.filter(item => item.theme === input.theme);
+        }
+        return items;
+      }),
+    recordTrending: protectedProcedure
+      .input(z.object({
+        transformationId: z.number(),
+        theme: z.string(),
+        imageUrl: z.string(),
+        title: z.string().optional(),
+        description: z.string().optional(),
+      }))
+      .mutation(async ({ input, ctx }) => {
+        const { recordTrendingTransformation } = await import("./db");
+        await recordTrendingTransformation(
+          input.transformationId,
+          ctx.user.id,
+          input.theme,
+          input.imageUrl,
+          input.title,
+          input.description
+        );
+        return { success: true };
+      }),
+  }),
+
+
 });
 
 export type AppRouter = typeof appRouter;

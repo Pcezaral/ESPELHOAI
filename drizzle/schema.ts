@@ -332,3 +332,63 @@ export const affiliatePayouts = mysqlTable("affiliate_payouts", {
 
 export type AffiliatePayout = typeof affiliatePayouts.$inferSelect;
 export type InsertAffiliatePayout = typeof affiliatePayouts.$inferInsert;
+
+
+/**
+ * Email history - track sent emails to users
+ */
+export const emailHistory = mysqlTable("email_history", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  type: mysqlEnum("type", ["transformation_summary", "trending_alert", "promotional", "account_activity"]).notNull(),
+  subject: varchar("subject", { length: 255 }).notNull(),
+  content: text("content").notNull(),
+  status: mysqlEnum("status", ["sent", "failed", "bounced"]).default("sent").notNull(),
+  sentAt: timestamp("sentAt").defaultNow().notNull(),
+  openedAt: timestamp("openedAt"),
+  clickedAt: timestamp("clickedAt"),
+});
+
+export type EmailHistory = typeof emailHistory.$inferSelect;
+export type InsertEmailHistory = typeof emailHistory.$inferInsert;
+
+/**
+ * Trending transformations - track popular transformations
+ */
+export const trendingTransformations = mysqlTable("trending_transformations", {
+  id: int("id").autoincrement().primaryKey(),
+  transformationId: int("transformationId").notNull(),
+  userId: int("userId").notNull(),
+  theme: mysqlEnum("theme", ["animals", "monster", "art", "gender", "epic", "gangster", "circus", "natal", "reveillon"]).notNull(),
+  imageUrl: text("imageUrl").notNull(),
+  title: varchar("title", { length: 255 }),
+  description: text("description"),
+  shareCount: int("shareCount").default(0).notNull(),
+  downloadCount: int("downloadCount").default(0).notNull(),
+  ratingScore: int("ratingScore").default(0).notNull(), // Average rating
+  isPublic: int("isPublic").default(1).notNull(), // 1 = public, 0 = private
+  featuredAt: timestamp("featuredAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type TrendingTransformation = typeof trendingTransformations.$inferSelect;
+export type InsertTrendingTransformation = typeof trendingTransformations.$inferInsert;
+
+/**
+ * WhatsApp shares - track WhatsApp sharing
+ */
+export const whatsappShares = mysqlTable("whatsapp_shares", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  transformationId: int("transformationId").notNull(),
+  phoneNumber: varchar("phoneNumber", { length: 20 }),
+  message: text("message"),
+  shareUrl: text("shareUrl"),
+  status: mysqlEnum("status", ["pending", "sent", "failed"]).default("pending").notNull(),
+  clickedAt: timestamp("clickedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type WhatsappShare = typeof whatsappShares.$inferSelect;
+export type InsertWhatsappShare = typeof whatsappShares.$inferInsert;

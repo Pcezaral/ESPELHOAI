@@ -19,6 +19,7 @@ import TestDashboard from "./pages/TestDashboard";
 import TermsOfUse from "./pages/TermsOfUse";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import SecurityFAQ from "./pages/SecurityFAQ";
+import Trending from "./pages/Trending";
 import { CookieBanner } from "./components/CookieBanner";
 
 function Router() {
@@ -40,6 +41,7 @@ function Router() {
       <Route path={"/termos"} component={TermsOfUse} />
       <Route path={"/privacidade"} component={PrivacyPolicy} />
       <Route path={"/seguranca"} component={SecurityFAQ} />
+      <Route path={"/trending"} component={Trending} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
