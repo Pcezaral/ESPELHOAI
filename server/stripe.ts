@@ -134,3 +134,67 @@ export function constructWebhookEvent(payload: string | Buffer, signature: strin
 
   return stripe.webhooks.constructEvent(payload, signature, webhookSecret);
 }
+
+
+/**
+ * Preços para downloads premium
+ */
+export const DOWNLOAD_PRICES = {
+  hd: 1500, // R$ 15.00 para HD
+  "4k": 2500, // R$ 25.00 para 4K
+} as const;
+
+export const DOWNLOAD_NAMES = {
+  hd: "Download HD (300 DPI)",
+  "4k": "Download 4K (600 DPI)",
+} as const;
+
+/**
+ * Cria uma sessão de checkout para download premium
+ */
+export async function createDownloadCheckoutSession(
+  resolution: "hd" | "4k",
+  userId: number,
+  userEmail: string | null,
+  successUrl: string,
+  cancelUrl: string
+): Promise<{ sessionId: string; url: string }> {
+  const price = DOWNLOAD_PRICES[resolution];
+  const name = DOWNLOAD_NAMES[resolution];
+
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ["card"],
+    line_items: [
+      {
+        price_data: {
+          currency: "brl",
+          product_data: {
+            name: name,
+            description: `Download de imagem em alta resolução ${resolution === "hd" ? "300 DPI" : "600 DPI"}`,
+          },
+          unit_amount: price,
+        },
+        quantity: 1,
+      },
+    ],
+    mode: "payment",
+    success_url: successUrl,
+    cancel_url: cancelUrl,
+    client_reference_id: userId.toString(),
+    customer_email: userEmail || undefined,
+    metadata: {
+      userId: userId.toString(),
+      downloadType: "premium",
+      resolution,
+    },
+  });
+
+  if (!session.url) {
+    throw new Error("Failed to create download checkout session URL");
+  }
+
+  return {
+    sessionId: session.id,
+    url: session.url,
+  };
+}

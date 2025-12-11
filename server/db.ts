@@ -1,6 +1,6 @@
-import { eq, desc, gte, lte, and } from "drizzle-orm";
+import { eq, desc, and, gte, lte } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, transformations, creditTransactions, adminAlerts, supportTickets, oauthProviders, userBadges, analyticsData, promoCodes, promoCodeUsage, affiliates, affiliateClicks, socialShares, affiliatePayouts } from "../drizzle/schema";
+import { InsertUser, users, transformations, creditTransactions, adminAlerts, supportTickets, oauthProviders, userBadges, analyticsData, promoCodes, promoCodeUsage, affiliates, affiliateClicks, socialShares, affiliatePayouts, downloadHistory, InsertDownloadHistory } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -750,5 +750,104 @@ export async function getWhatsappShareStats(transformationId: number) {
   } catch (error) {
     console.error("[Database] Failed to get WhatsApp share stats:", error);
     return null;
+  }
+}
+
+
+/**
+ * Registrar um download de alta resolução
+ */
+export async function recordDownload(download: InsertDownloadHistory): Promise<void> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot record download: database not available");
+    return;
+  }
+
+  try {
+    await db.insert(downloadHistory).values(download);
+  } catch (error) {
+    console.error("[Database] Failed to record download:", error);
+    throw error;
+  }
+}
+
+/**
+ * Obter histórico de downloads de um usuário
+ */
+export async function getUserDownloadHistory(userId: number, limit: number = 10) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get download history: database not available");
+    return [];
+  }
+
+  try {
+    const downloads = await db
+      .select()
+      .from(downloadHistory)
+      .where(eq(downloadHistory.userId, userId))
+      .orderBy(desc(downloadHistory.downloadedAt))
+      .limit(limit);
+    
+    return downloads;
+  } catch (error) {
+    console.error("[Database] Failed to get download history:", error);
+    return [];
+  }
+}
+
+/**
+ * Contar total de downloads de um usuário
+ */
+export async function getUserDownloadCount(userId: number): Promise<number> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get download count: database not available");
+    return 0;
+  }
+
+  try {
+    const result = await db
+      .select({ count: downloadHistory.id })
+      .from(downloadHistory)
+      .where(eq(downloadHistory.userId, userId));
+    
+    return result.length > 0 ? result.length : 0;
+  } catch (error) {
+    console.error("[Database] Failed to get download count:", error);
+    return 0;
+  }
+}
+
+/**
+ * Obter estatísticas de downloads por resolução
+ */
+export async function getUserDownloadStats(userId: number) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get download stats: database not available");
+    return { totalDownloads: 0, hdDownloads: 0, k4Downloads: 0, totalCreditsCost: 0 };
+  }
+
+  try {
+    const downloads = await db
+      .select()
+      .from(downloadHistory)
+      .where(eq(downloadHistory.userId, userId));
+    
+    const hdDownloads = downloads.filter(d => d.resolution === 'hd').length;
+    const k4Downloads = downloads.filter(d => d.resolution === '4k').length;
+    const totalCreditsCost = downloads.reduce((sum, d) => sum + d.creditsCost, 0);
+    
+    return {
+      totalDownloads: downloads.length,
+      hdDownloads,
+      k4Downloads,
+      totalCreditsCost,
+    };
+  } catch (error) {
+    console.error("[Database] Failed to get download stats:", error);
+    return { totalDownloads: 0, hdDownloads: 0, k4Downloads: 0, totalCreditsCost: 0 };
   }
 }

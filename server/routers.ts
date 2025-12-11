@@ -4,7 +4,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
 import { TRPCError } from "@trpc/server";
-import { getDb } from "./db";
+import { getDb, getUserDownloadHistory, getUserDownloadStats } from "./db";
 import { ratings } from "../drizzle/schema";
 import { consumeCredit, getCreditBalance, addCredits, getSubscriptionInfo } from "./credits";
 import { createCheckoutSession, verifyPayment, type PackageType } from "./stripe";
@@ -140,6 +140,20 @@ export const appRouter = router({
           creditsCost: creditCost,
           message: "[MODO TESTE] Download simulado com sucesso!",
         };
+      }),
+
+    getDownloadHistory: protectedProcedure
+      .input(z.object({
+        limit: z.number().default(10),
+      }))
+      .query(async ({ input, ctx }) => {
+        return getUserDownloadHistory(ctx.user.id, input.limit);
+      }),
+
+    getDownloadStats: protectedProcedure
+      .input(z.void())
+      .query(async ({ ctx }) => {
+        return getUserDownloadStats(ctx.user.id);
       }),
 
   }),
