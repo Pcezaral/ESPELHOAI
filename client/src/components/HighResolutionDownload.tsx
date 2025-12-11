@@ -2,9 +2,11 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Card } from "@/components/ui/card";
-import { Sparkles, ChevronLeft, ChevronRight, Download, CheckCircle } from "lucide-react";
+import { Sparkles, ChevronLeft, ChevronRight, Download, CheckCircle, Lock } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
+import { useAuth } from "@/_core/hooks/useAuth";
+import { useLocation } from "wouter";
 
 interface HighResolutionDownloadProps {
   imageUrl: string;
@@ -15,6 +17,8 @@ type ResolutionType = "hd" | "4k";
 type ProductType = "camiseta" | "caneca" | "poster";
 
 export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownloadProps) {
+  const { user } = useAuth();
+  const [, setLocation] = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedResolution, setSelectedResolution] = useState<ResolutionType>("hd");
   const [selectedProduct, setSelectedProduct] = useState<ProductType>("camiseta");
@@ -23,6 +27,9 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
   const [downloadSuccess, setDownloadSuccess] = useState(false);
 
   const downloadMutation = trpc.generation.downloadHighResolution.useMutation();
+  
+  // Verificar se usuario tem assinatura ativa
+  const hasActiveSubscription = user?.subscriptionType && user.subscriptionType !== "free";
 
   const resolutions = [
     {
@@ -105,6 +112,14 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
   };
 
   const handleDownload = async () => {
+    // Verificar se tem assinatura antes de fazer download
+    if (!hasActiveSubscription) {
+      toast.error("Downloads em alta resolucao requerem assinatura ativa");
+      setIsOpen(false);
+      setLocation("/pricing");
+      return;
+    }
+
     try {
       setIsDownloading(true);
       setDownloadSuccess(false);
@@ -170,12 +185,32 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
   return (
     <>
       <Button
-        onClick={() => setIsOpen(true)}
-        className="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white font-bold gap-2"
+        onClick={() => {
+          if (!hasActiveSubscription) {
+            toast.error("Downloads em alta resolucao requerem assinatura ativa");
+            setLocation("/pricing");
+            return;
+          }
+          setIsOpen(true);
+        }}
+        className={`text-white font-bold gap-2 ${
+          hasActiveSubscription
+            ? "bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600"
+            : "bg-gray-500 hover:bg-gray-600 cursor-not-allowed"
+        }`}
         size="lg"
       >
-        <Sparkles className="w-5 h-5" />
-        Baixar em Maior Resolução
+        {hasActiveSubscription ? (
+          <>
+            <Sparkles className="w-5 h-5" />
+            Baixar em Maior Resolucao
+          </>
+        ) : (
+          <>
+            <Lock className="w-5 h-5" />
+            Requer Assinatura
+          </>
+        )}
       </Button>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
