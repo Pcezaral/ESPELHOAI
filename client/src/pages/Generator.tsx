@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { CreditBadge } from "@/components/CreditBadge";
 import { ShareButtons } from "@/components/ShareButtons";
 import { HighResolutionDownload } from "@/components/HighResolutionDownload";
+import { InstallPromptAfterTransformation } from "@/components/InstallPromptAfterTransformation";
 import { useAuth } from "@/_core/hooks/useAuth";
 
 type Theme = "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus" | "natal" | "reveillon";
@@ -85,6 +86,8 @@ export default function Generator() {
   const [generatedImage, setGeneratedImage] = useState<string | null>(null);
   const [generatedText, setGeneratedText] = useState<string | null>(null);
   const [hasRated, setHasRated] = useState(false);
+  const [showInstallPrompt, setShowInstallPrompt] = useState(false);
+  const [hasShownInstallPrompt, setHasShownInstallPrompt] = useState(false);
   
   const initialStep = themeFromUrl ? "upload" : "theme";
   const [step, setStep] = useState<"theme" | "upload" | "processing" | "result">(initialStep as any);
@@ -165,6 +168,18 @@ export default function Generator() {
     }
   };
 
+  // Mostrar install prompt após transformação bem-sucedida
+  useEffect(() => {
+    if (step === "result" && generatedImage && !hasShownInstallPrompt) {
+      // Mostrar após 2 segundos para deixar usuário apreciar o resultado
+      const timer = setTimeout(() => {
+        setShowInstallPrompt(true);
+        setHasShownInstallPrompt(true);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [step, generatedImage, hasShownInstallPrompt]);
+
   const handleReset = () => {
     setStep("theme");
     setSelectedTheme(null);
@@ -173,6 +188,8 @@ export default function Generator() {
     setGeneratedImage(null);
     setGeneratedText(null);
     setHasRated(false);
+    setShowInstallPrompt(false);
+    setHasShownInstallPrompt(false);
   };
 
   const handleRate = async (rating: number) => {
@@ -442,6 +459,12 @@ export default function Generator() {
           </div>
         )}
       </main>
+
+      {/* Install Prompt Modal */}
+      <InstallPromptAfterTransformation
+        isOpen={showInstallPrompt}
+        onClose={() => setShowInstallPrompt(false)}
+      />
     </div>
   );
 }
