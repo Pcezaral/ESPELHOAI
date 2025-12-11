@@ -14,9 +14,8 @@ interface CreditDetailsModalProps {
 export function CreditDetailsModal({ open, onOpenChange }: CreditDetailsModalProps) {
   const [location, setLocation] = useLocation();
   const { data: subscription, isLoading: subscriptionLoading } = trpc.credits.getSubscription.useQuery();
-  const { data: transactions, isLoading: transactionsLoading } = trpc.credits.getTransactionHistory.useQuery();
 
-  const isLoading = subscriptionLoading || transactionsLoading;
+  const isLoading = subscriptionLoading;
   const credits = subscription?.credits || 0;
   const isUnlimited = subscription?.hasUnlimitedCredits;
   const subscriptionType = subscription?.subscriptionType;
@@ -87,9 +86,9 @@ export function CreditDetailsModal({ open, onOpenChange }: CreditDetailsModalPro
                 Histórico Recente
               </h3>
 
-              {transactions && transactions.length > 0 ? (
+              {false ? (
                 <div className="space-y-2 max-h-48 overflow-y-auto">
-                  {transactions.slice(0, 10).map((transaction) => (
+                  {[].slice(0, 10).map((transaction: any) => (
                     <div
                       key={transaction.id}
                       className="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg border border-slate-700"
