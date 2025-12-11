@@ -21,6 +21,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import SecurityFAQ from "./pages/SecurityFAQ";
 import Trending from "./pages/Trending";
 import Profile from "./pages/Profile";
+import OwnerDashboard from "./pages/OwnerDashboard";
 import { CookieBanner } from "./components/CookieBanner";
 import { PushNotifications } from "./components/PushNotifications";
 
@@ -40,6 +41,7 @@ function Router() {
       <Route path={"/leaderboard"} component={Leaderboard} />
       <Route path={"/referral"} component={Referral} />
        <Route path={"test"} component={TestDashboard} />
+      <Route path={"/dashboard"} component={OwnerDashboard} />
       <Route path={"/termos"} component={TermsOfUse} />
       <Route path={"/privacidade"} component={PrivacyPolicy} />
       <Route path={"/seguranca"} component={SecurityFAQ} />
