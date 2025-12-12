@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { stripe, constructWebhookEvent, type PackageType, PACKAGE_CREDITS } from "../stripe";
+import { stripe, constructWebhookEvent, type PackageType } from "../stripe";
 import { addCredits } from "../credits";
 
 /**
@@ -38,13 +38,18 @@ export async function handleStripeWebhook(req: Request, res: Response) {
         if (session.payment_status === "paid") {
           console.log(`[Stripe Webhook] Payment confirmed for user ${userId}, package ${packageType}`);
 
-          // Get credits from package type
-          const credits = PACKAGE_CREDITS[packageType] || 0;
+          // Add credits based on package type
+          const creditsMap = {
+            light: 50,
+            premium: 200,
+            monthly_unlimited: 0,
+            annual_unlimited: 0,
+          };
 
           try {
             const newBalance = await addCredits(
               parseInt(userId),
-              credits,
+              creditsMap[packageType],
               packageType
             );
 

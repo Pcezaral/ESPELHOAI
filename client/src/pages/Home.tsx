@@ -1,35 +1,16 @@
+import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import CountdownTimer from "@/components/CountdownTimer";
-import DownloadButtons from "@/components/DownloadButtons";
-
 import React from "react";
 import { Card } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { Loader2, Wand2, Zap, Sparkles, Crown, Infinity as InfinityIcon, Check, MessageSquare, Share2, Gift, Download } from "lucide-react";
+import { Loader2, Wand2, Zap, Sparkles, Crown, Infinity as InfinityIcon, Check, MessageSquare, Share2 } from "lucide-react";
 import { APP_LOGO, APP_TITLE, getLoginUrl } from "@/const";
 import { useLocation } from "wouter";
 import { useEffect, useState } from "react";
-import { useAuth } from "@/_core/hooks/useAuth";
 
 export default function Home() {
   const { user, loading, error, isAuthenticated, logout } = useAuth();
   const [, setLocation] = useLocation();
-  const [showWelcomeModal, setShowWelcomeModal] = useState(false);
-  const [hasSeenWelcome, setHasSeenWelcome] = useState(false);
-
-  // Modal de boas-vindas desabilitado - não mostrar automaticamente
-  useEffect(() => {
-    // Apenas marcar como visto para evitar mostrar no futuro
-    if (isAuthenticated && user && user.credits && user.credits >= 5 && !hasSeenWelcome) {
-      setHasSeenWelcome(true);
-      sessionStorage.setItem('welcomeModalSeen', 'true');
-    }
-  }, [isAuthenticated, user, hasSeenWelcome]);
-
-  const handleStartFromModal = () => {
-    setShowWelcomeModal(false);
-    setLocation("/generator");
-  };
 
   const handleStartApp = (theme?: string | React.MouseEvent) => {
     if (!isAuthenticated) {
@@ -49,7 +30,8 @@ export default function Home() {
       <header className="bg-black text-white py-4 px-4 md:px-8">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="text-2xl md:text-3xl font-black bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 bg-clip-text text-transparent tracking-tight">Surpreenda sua Família e Amigos!</span>
+            <img src={APP_LOGO} alt={APP_TITLE} className="h-10 w-10" />
+            <span className="text-xl font-bold">{APP_TITLE}</span>
           </div>
           {isAuthenticated && (
             <div className="flex items-center gap-2 bg-orange-500/20 px-4 py-2 rounded-full">
@@ -79,6 +61,10 @@ export default function Home() {
           <div className="flex flex-col items-center justify-center gap-8 md:gap-12">
             {/* Centro: Logo e Textos - Sempre no topo */}
             <div className="flex flex-col items-center space-y-6 text-center w-full md:w-auto">
+              <div className="flex justify-center">
+                <img src="/espelho-ai-logo-transp.png" alt="ESPELHO AI" className="h-32 w-32 md:h-40 md:w-40" />
+              </div>
+              
               <div className="space-y-4 max-w-2xl">
                 <h2 className="text-3xl md:text-5xl font-bold leading-tight">
                   <span className="text-white">Você</span>
@@ -143,8 +129,6 @@ export default function Home() {
         </div>
       </section>
 
-
-
       {/* Seção FINAL DE ANO ESPECIAL */}
       <section className="bg-gradient-to-br from-red-50 via-white to-blue-50 py-12 md:py-20 relative overflow-hidden">
         {/* Animated Background */}
@@ -164,7 +148,11 @@ export default function Home() {
             <p className="text-gray-600 text-lg">Transforme-se para o Natal e Réveillon</p>
           </div>
           
-
+          {/* Contador Regressivo */}
+          <div className="max-w-4xl mx-auto mb-12 px-4">
+            <CountdownTimer />
+          </div>
+          
           {/* Container com scroll horizontal em mobile */}
           <div className="overflow-x-auto md:overflow-visible -mx-4 md:mx-0">
             <div className="flex md:grid md:grid-cols-2 gap-6 md:gap-8 px-4 md:px-8 lg:px-16 min-w-max md:min-w-full justify-center">
@@ -182,50 +170,115 @@ export default function Home() {
             </div>
           </div>
           
-          <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="mt-12 text-center">
             <Button
-              onClick={() => setLocation('/generator?theme=natal')}
+              onClick={handleStartApp}
               disabled={loading}
-              className="bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white text-lg h-12 px-8 rounded-full shadow-lg hover:shadow-xl transition-all font-semibold"
+              className="bg-gradient-to-r from-red-500 via-orange-500 to-blue-500 hover:from-red-600 hover:via-orange-600 hover:to-blue-600 text-white text-lg h-12 px-8 rounded-full shadow-lg hover:shadow-xl transition-all font-semibold"
             >
               <Sparkles className="w-5 h-5 mr-2" />
-              🎄 Natal
-            </Button>
-            <Button
-              onClick={() => setLocation('/generator?theme=reveillon')}
-              disabled={loading}
-              className="bg-gradient-to-r from-blue-600 to-purple-500 hover:from-blue-700 hover:to-purple-600 text-white text-lg h-12 px-8 rounded-full shadow-lg hover:shadow-xl transition-all font-semibold"
-            >
-              <Sparkles className="w-5 h-5 mr-2" />
-              🎆 Réveillon
+              Criar Transformação de Final de Ano
             </Button>
           </div>
         </div>
       </section>
 
-
-
-{/* Planos Section */}
-      <section className="bg-gradient-to-b from-gray-50 to-white py-12 md:py-20">
-        <div className="container max-w-7xl mx-auto px-4">
-          {/* Botão Download App */}
-          <div className="text-center mb-12">
+      {/* Seção Exemplos de Transformações - Antes/Depois */}
+      <section className="bg-white py-12 md:py-20 relative overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0 opacity-30 pointer-events-none">
+          <div className="absolute top-10 left-10 text-6xl animate-float-slow">🏛️</div>
+          <div className="absolute top-20 right-20 text-5xl animate-float-medium">🗽</div>
+          <div className="absolute bottom-20 left-20 text-7xl animate-float-fast">🏯</div>
+          <div className="absolute bottom-10 right-10 text-6xl animate-float-slow">🗾</div>
+          <div className="absolute top-1/3 left-1/4 text-5xl animate-float-medium">🗼</div>
+          <div className="absolute top-2/3 right-1/3 text-6xl animate-float-fast">🏛️</div>
+          <div className="absolute top-1/2 left-1/2 text-7xl animate-float-slow">🏯</div>
+        </div>
+        
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-transparent to-red-500/5 pointer-events-none"></div>
+        <div className="w-full">
+          <h2 className="text-4xl font-bold text-center mb-4">Mais Estilos Disponíveis</h2>
+          <p className="text-center text-gray-600 mb-12 text-lg">Transformações incríveis em segundos</p>
+          
+          {/* Container com scroll horizontal em mobile */}
+          <div className="overflow-x-auto md:overflow-visible -mx-4 md:mx-0">
+            <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 px-4 md:px-8 lg:px-16 min-w-max md:min-w-full">
+              {/* Exemplo 1: Bichinho */}
+              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
+                <img src="/example-bichinho.png" alt="Transformação Bichinho" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
+                <div className="flex items-center gap-2">
+                  <p className="font-semibold text-base md:text-lg text-pink-600">🐶 Bichinho</p>
+                  <Button onClick={() => handleStartApp('animals')} size="sm" className="bg-pink-500 hover:bg-pink-600 text-white rounded-full px-3 py-1 text-xs font-semibold">✨ Transforme</Button>
+                </div>
+              </div>
+              
+              {/* Exemplo 2: Monstro */}
+              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
+                <img src="/example-monstro.png" alt="Transformação Monstro" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
+                <div className="flex items-center gap-2">
+                  <p className="font-semibold text-base md:text-lg text-green-600">👾 Monstro</p>
+                  <Button onClick={() => handleStartApp('monster')} size="sm" className="bg-green-500 hover:bg-green-600 text-white rounded-full px-3 py-1 text-xs font-semibold">✨ Transforme</Button>
+                </div>
+              </div>
+              
+              {/* Exemplo 3: Épico (Romanos/Gregos/Vikings) */}
+              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
+                <img src="/example-romana.png" alt="Transformação Épica - Romana" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
+                <div className="flex items-center gap-2">
+                  <p className="font-semibold text-base md:text-lg text-orange-600">🏛️ Épico</p>
+                  <Button onClick={() => handleStartApp('epic')} size="sm" className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-3 py-1 text-xs font-semibold">✨ Transforme</Button>
+                </div>
+              </div>
+              
+              {/* Exemplo 4: Gangster */}
+              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
+                <img src="/example-gangster-new.png" alt="Transformação Gangster" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
+                <div className="flex items-center gap-2">
+                  <p className="font-semibold text-base md:text-lg text-gray-700">🔫 Gangster</p>
+                  <Button onClick={() => handleStartApp('gangster')} size="sm" className="bg-gray-700 hover:bg-gray-800 text-white rounded-full px-3 py-1 text-xs font-semibold">✨ Transforme</Button>
+                </div>
+              </div>
+              
+              {/* Exemplo 5: Pintura */}
+              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
+                <img src="/example-pintura-new.png" alt="Transformação Pintura" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
+                <div className="flex items-center gap-2">
+                  <p className="font-semibold text-base md:text-lg text-purple-600">🎨 Pintura</p>
+                  <Button onClick={() => handleStartApp('art')} size="sm" className="bg-purple-500 hover:bg-purple-600 text-white rounded-full px-3 py-1 text-xs font-semibold">✨ Transforme</Button>
+                </div>
+              </div>
+              
+              {/* Exemplo 6: Circo */}
+              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
+                <img src="/example-circo.png" alt="Transformação Circo" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
+                <div className="flex items-center gap-2">
+                  <p className="font-semibold text-base md:text-lg text-red-600">🎪 Circo</p>
+                  <Button onClick={() => handleStartApp('circus')} size="sm" className="bg-red-500 hover:bg-red-600 text-white rounded-full px-3 py-1 text-xs font-semibold">✨ Transforme</Button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-12 text-center">
             <Button
-              onClick={() => {
-                const link = document.createElement('a');
-                link.href = 'https://play.google.com/store/apps/details?id=com.espelhoai';
-                link.target = '_blank';
-                link.click();
-              }}
-              className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-8 py-3 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all"
+              onClick={handleStartApp}
+              disabled={loading}
+              className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-lg h-12 px-8 rounded-full shadow-lg hover:shadow-xl transition-all font-semibold"
             >
-              <Download className="w-5 h-5 mr-2" />
-              Baixe o app Aqui
+              <Wand2 className="w-5 h-5 mr-2" />
+              Crie Sua Transformação
             </Button>
           </div>
+        </div>
+      </section>
 
+      {/* Planos Section */}
+      <section className="bg-gradient-to-b from-gray-50 to-white py-12 md:py-20">
+        <div className="container max-w-7xl mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-4">Escolha Seu Pacote</h2>
-          <p className="text-center text-gray-600 mb-12 text-lg">Escolha o pacote de créditos ideal para você</p>
+          <p className="text-center text-gray-600 mb-12 text-lg">Transformações ilimitadas ou pacotes de créditos</p>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {/* Pacote Light */}
@@ -253,7 +306,7 @@ export default function Home() {
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm">Compartilhe suas criações</span>
+                  <span className="text-sm">Compartilhamento ilimitado</span>
                 </li>
               </ul>
               <Button onClick={() => setLocation("/planos")} className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600">
@@ -301,27 +354,90 @@ export default function Home() {
               </Button>
             </Card>
 
+            {/* Ilimitado Mensal */}
+            <Card className="p-6 border-2 border-purple-500/30 hover:border-purple-500/60 transition-all hover:shadow-xl">
+              <div className="text-center mb-4">
+                <div className="inline-flex p-3 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white mb-3">
+                  <Zap className="w-6 h-6" />
+                </div>
+                <h3 className="text-2xl font-bold mb-2">Ilimitado Mensal</h3>
+                <div className="text-3xl font-bold text-purple-600 mb-2">R$ 29,90</div>
+                <p className="text-gray-600">por mês</p>
+              </div>
+              <ul className="space-y-3 mb-6">
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Transformações ilimitadas</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Todos os 6 estilos</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Download em alta qualidade</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Renovação automática</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Cancele quando quiser</span>
+                </li>
+              </ul>
+              <Button onClick={() => setLocation("/planos")} className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
+                Escolher Mensal
+              </Button>
+            </Card>
 
+            {/* Ilimitado Anual */}
+            <Card className="p-6 border-2 border-yellow-500/30 hover:border-yellow-500/60 transition-all hover:shadow-xl relative">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-yellow-500 to-orange-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                MELHOR CUSTO
+              </div>
+              <div className="text-center mb-4">
+                <div className="inline-flex p-3 rounded-full bg-gradient-to-r from-yellow-500 to-orange-600 text-white mb-3">
+                  <InfinityIcon className="w-6 h-6" />
+                </div>
+                <h3 className="text-2xl font-bold mb-2">Ilimitado Anual</h3>
+                <div className="text-3xl font-bold text-yellow-600 mb-2">R$ 119,90</div>
+                <p className="text-gray-600">por ano</p>
+              </div>
+              <ul className="space-y-3 mb-6">
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Transformações ilimitadas</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Todos os 6 estilos</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Download em alta qualidade</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm font-semibold">Economize R$ 238,90/ano</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm">Cancele quando quiser</span>
+                </li>
+              </ul>
+              <Button onClick={() => setLocation("/planos")} className="w-full bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700">
+                Escolher Anual
+              </Button>
+            </Card>
           </div>
         </div>
       </section>
 
-
-
       {/* FAQ Section */}
-      <section className="bg-white py-12 md:py-16">
+      <section className="bg-gray-50 py-12 md:py-20">
         <div className="container max-w-4xl mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-12">Perguntas Frequentes</h2>
-          
-          {/* Disclaimer Destaque */}
-          <div className="mb-8 p-6 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-300 rounded-xl text-center">
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <span className="text-2xl">✨</span>
-              <h3 className="text-xl font-bold text-green-700">Cancele a Qualquer Momento!</h3>
-              <span className="text-2xl">✨</span>
-            </div>
-            <p className="text-green-600 text-sm">Sem compromisso. Sem surpresas. Sem taxas ocultas. Porque confiamos que você vai amar o ESPELHO AI! 💚</p>
-          </div>
           
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-white p-6 rounded-lg shadow-sm">
@@ -347,16 +463,6 @@ export default function Home() {
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Minhas fotos ficam salvas?</h3>
               <p className="text-gray-600">Não, respeitamos sua privacidade e não armazenamos suas fotos.</p>
-            </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-sm border-2 border-green-200 bg-green-50">
-              <h3 className="text-lg font-semibold text-green-900 mb-2">✨ Posso cancelar a qualquer momento?</h3>
-              <p className="text-green-700">Sim! Sem compromisso, sem taxas de cancelamento. Você é livre para cancelar sua assinatura quando quiser, diretamente na sua conta.</p>
-            </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-sm border-2 border-green-200 bg-green-50">
-              <h3 className="text-lg font-semibold text-green-900 mb-2">💚 Como faço para cancelar?</h3>
-              <p className="text-green-700">Muito fácil! Acesse sua conta, vá em 'Minha Assinatura' e clique em 'Cancelar'. Seu acesso continua até o final do período pago.</p>
             </div>
           </div>
         </div>
@@ -461,123 +567,9 @@ export default function Home() {
               <MessageSquare className="w-5 h-5 mr-2" />
               Contato
             </Button>
-            <Button
-              onClick={() => setLocation("/suporte")}
-              variant="outline"
-              className="border-2 border-white text-white hover:bg-white/10 text-lg h-14 px-12 rounded-full font-semibold"
-            >
-              <MessageSquare className="w-5 h-5 mr-2" />
-              Suporte
-            </Button>
           </div>
         </div>
       </section>
-
-      {/* Footer com Links */}
-      <footer className="bg-black text-slate-400 py-12 border-t border-slate-800">
-        <div className="container max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <h3 className="text-white font-semibold mb-4">App</h3>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" onClick={() => setLocation("/")} className="hover:text-white transition">Home</a></li>
-                <li><a href="#" onClick={() => setLocation("/planos")} className="hover:text-white transition">Planos</a></li>
-                <li><a href="#" onClick={() => setLocation("/gallery")} className="hover:text-white transition">Galeria</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-white font-semibold mb-4">Comunidade</h3>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" onClick={() => setLocation("/leaderboard")} className="hover:text-white transition">Leaderboard</a></li>
-                <li><a href="#" onClick={() => setLocation("/analytics")} className="hover:text-white transition">Analytics</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-white font-semibold mb-4">Suporte</h3>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" onClick={() => setLocation("/suporte")} className="hover:text-white transition">Suporte</a></li>
-                <li><a href="#" onClick={() => setLocation("/contato")} className="hover:text-white transition">Contato</a></li>
-                <li><a href="#" onClick={() => setLocation("/about")} className="hover:text-white transition">Sobre</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-white font-semibold mb-4">Legal</h3>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" onClick={() => setLocation("/privacidade")} className="hover:text-white transition">Privacidade</a></li>
-                <li><a href="#" onClick={() => setLocation("/termos")} className="hover:text-white transition">Termos</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-slate-800 pt-8 text-center text-sm">
-            <p>&copy; 2025 {APP_TITLE}. Todos os direitos reservados.</p>
-          </div>
-        </div>
-      </footer>
-
-      {/* Modal de Boas-vindas com 5 Créditos */}
-      <Dialog open={showWelcomeModal} onOpenChange={setShowWelcomeModal}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <div className="flex justify-center mb-4">
-              <Gift className="w-16 h-16 text-orange-500 animate-bounce" />
-            </div>
-            <DialogTitle className="text-center text-2xl font-bold">🎉 Parabéns!</DialogTitle>
-            <DialogDescription className="text-center text-base mt-2">
-              Você ganhou <span className="font-bold text-orange-500">5 créditos grátis</span> por instalar o app!
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="space-y-4 py-4">
-            {/* Créditos Disponíveis */}
-            <div className="bg-orange-50 border-2 border-orange-200 rounded-lg p-4 text-center">
-              <div className="text-4xl font-bold text-orange-500 mb-1">{user?.credits || 0}</div>
-              <div className="text-sm text-orange-700">Créditos disponíveis</div>
-            </div>
-
-            {/* Benefícios */}
-            <div className="space-y-3">
-              <div className="flex items-start gap-3">
-                <Sparkles className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
-                <div>
-                  <div className="font-semibold text-gray-900">Rápido</div>
-                  <div className="text-sm text-gray-600">Transforme suas fotos em segundos</div>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <Wand2 className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
-                <div>
-                  <div className="font-semibold text-gray-900">Fácil</div>
-                  <div className="text-sm text-gray-600">Escolha um estilo e pronto!</div>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <Zap className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
-                <div>
-                  <div className="font-semibold text-gray-900">Divertido</div>
-                  <div className="text-sm text-gray-600">Compartilhe com seus amigos!</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex gap-3 pt-4">
-            <Button
-              onClick={() => setShowWelcomeModal(false)}
-              variant="outline"
-              className="flex-1"
-            >
-              Depois
-            </Button>
-            <Button
-              onClick={handleStartFromModal}
-              className="flex-1 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold"
-            >
-              <Wand2 className="w-4 h-4 mr-2" />
-              Começar Agora
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }

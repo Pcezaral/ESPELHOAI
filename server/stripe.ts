@@ -8,48 +8,29 @@ export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2025-11-17.clover",
 });
 
-/**
- * Sistema de Desconto Progressivo
- * Quanto mais créditos, maior o desconto
- */
-export const CREDIT_PACKAGES = [
-  { credits: 50, priceInCents: 5000, discount: 0 }, // R$ 50.00 (0%)
-  { credits: 200, priceInCents: 18000, discount: 10 }, // R$ 180.00 (10%)
-  { credits: 500, priceInCents: 40000, discount: 20 }, // R$ 400.00 (20%)
-  { credits: 1000, priceInCents: 70000, discount: 30 }, // R$ 700.00 (30%)
-] as const;
-
+// Preços dos pacotes em centavos (BRL)
 export const PACKAGE_PRICES = {
-  credits_50: 5000,
-  credits_200: 18000,
-  credits_500: 40000,
-  credits_1000: 70000,
+  light: 990, // R$ 9,90
+  premium: 1990, // R$ 19,90
+  monthly_unlimited: 2990, // R$ 29,90
+  annual_unlimited: 11990, // R$ 119,90
 } as const;
 
 export const PACKAGE_CREDITS = {
-  credits_50: 50,
-  credits_200: 200,
-  credits_500: 500,
-  credits_1000: 1000,
+  light: 50,
+  premium: 200,
+  monthly_unlimited: 0, // Ilimitado
+  annual_unlimited: 0, // Ilimitado
 } as const;
 
 export const PACKAGE_NAMES = {
-  credits_50: "50 Créditos",
-  credits_200: "200 Créditos (10% OFF)",
-  credits_500: "500 Créditos (20% OFF)",
-  credits_1000: "1000 Créditos (30% OFF)",
+  light: "Pacote Light - 50 Créditos",
+  premium: "Pacote Premium - 200 Créditos",
+  monthly_unlimited: "Ilimitado Mensal",
+  annual_unlimited: "Ilimitado Anual",
 } as const;
 
 export type PackageType = keyof typeof PACKAGE_PRICES;
-
-/**
- * Calcula o preço por crédito
- */
-export function getPricePerCredit(packageType: PackageType): number {
-  const price = PACKAGE_PRICES[packageType];
-  const credits = PACKAGE_CREDITS[packageType];
-  return price / credits; // em centavos
-}
 
 /**
  * Cria uma sessão de checkout do Stripe
@@ -69,14 +50,16 @@ export async function createCheckoutSession(
           currency: "brl",
           product_data: {
             name: PACKAGE_NAMES[packageType],
-            description: `${PACKAGE_CREDITS[packageType]} créditos para transformações`,
+            description: packageType.includes("unlimited")
+              ? "Créditos ilimitados para transformações"
+              : `${PACKAGE_CREDITS[packageType]} créditos para transformações`,
           },
           unit_amount: PACKAGE_PRICES[packageType],
         },
         quantity: 1,
       },
     ],
-    mode: "payment",
+    mode: packageType.includes("unlimited") ? "subscription" : "payment",
     success_url: successUrl,
     cancel_url: cancelUrl,
     client_reference_id: userId.toString(),
@@ -133,68 +116,4 @@ export function constructWebhookEvent(payload: string | Buffer, signature: strin
   }
 
   return stripe.webhooks.constructEvent(payload, signature, webhookSecret);
-}
-
-
-/**
- * Preços para downloads premium
- */
-export const DOWNLOAD_PRICES = {
-  hd: 1500, // R$ 15.00 para HD
-  "4k": 2500, // R$ 25.00 para 4K
-} as const;
-
-export const DOWNLOAD_NAMES = {
-  hd: "Download HD (300 DPI)",
-  "4k": "Download 4K (600 DPI)",
-} as const;
-
-/**
- * Cria uma sessão de checkout para download premium
- */
-export async function createDownloadCheckoutSession(
-  resolution: "hd" | "4k",
-  userId: number,
-  userEmail: string | null,
-  successUrl: string,
-  cancelUrl: string
-): Promise<{ sessionId: string; url: string }> {
-  const price = DOWNLOAD_PRICES[resolution];
-  const name = DOWNLOAD_NAMES[resolution];
-
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ["card"],
-    line_items: [
-      {
-        price_data: {
-          currency: "brl",
-          product_data: {
-            name: name,
-            description: `Download de imagem em alta resolução ${resolution === "hd" ? "300 DPI" : "600 DPI"}`,
-          },
-          unit_amount: price,
-        },
-        quantity: 1,
-      },
-    ],
-    mode: "payment",
-    success_url: successUrl,
-    cancel_url: cancelUrl,
-    client_reference_id: userId.toString(),
-    customer_email: userEmail || undefined,
-    metadata: {
-      userId: userId.toString(),
-      downloadType: "premium",
-      resolution,
-    },
-  });
-
-  if (!session.url) {
-    throw new Error("Failed to create download checkout session URL");
-  }
-
-  return {
-    sessionId: session.id,
-    url: session.url,
-  };
 }

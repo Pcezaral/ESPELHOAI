@@ -6,14 +6,8 @@
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <!-- Favicons em múltiplas resoluções -->
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64x64.png" />
-    <link rel="icon" type="image/png" sizes="128x128" href="/favicon-128x128.png" />
-    <link rel="icon" type="image/png" sizes="256x256" href="/favicon-256x256.png" />
-    <link rel="shortcut icon" href="/favicon-32x32.png" />
-    <link rel="apple-touch-icon" href="/favicon-128x128.png" />
+    <link rel="icon" type="image/png" href="/espelho-ai-logo-transp.png" />
+    <link rel="apple-touch-icon" href="/espelho-ai-logo-transp.png" />
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json" />
@@ -27,51 +21,15 @@
     <meta property="og:title" content="ESPELHO AI - Transforme suas fotos com IA" />
     <meta property="og:description" content="Romanos, Vikings, Gangsters 1920s, Van Gogh, Picasso e mais! Transforme suas fotos com IA." />
     <meta property="og:image" content="/espelho-ai-logo.png" />
-    <!-- Google Fonts: Poppins (moderno e amigável) + Space Grotesk (futurista e tech) -->
+    <!-- Add Google Fonts here, example:
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    -->
   </head>
 
   <body>
     <div id="root"></div>
-    <script>
-      // Remove loader quando React monta
-      document.addEventListener('DOMContentLoaded', () => {
-        const loader = document.getElementById('app-loader');
-        if (loader) {
-          loader.style.opacity = '0';
-          loader.style.transition = 'opacity 0.3s ease';
-          setTimeout(() => loader.remove(), 300);
-        }
-      });
-    </script>
-    <style>
-      #app-loader {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-      }
-      #app-loader img {
-        width: 120px;
-        height: 120px;
-        animation: pulse 1.5s ease-in-out infinite;
-      }
-      @keyframes pulse {
-        0%, 100% { opacity: 0.6; }
-        50% { opacity: 1; }
-      }
-    </style>
-    <div id="app-loader">
-      <img src="/espelho-ai-logo-transp.png" alt="Carregando..." />
-    </div>
     <script type="module" src="/src/main.tsx"></script>
     <script
       defer

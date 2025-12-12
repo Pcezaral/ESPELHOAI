@@ -4,7 +4,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
 import { TRPCError } from "@trpc/server";
-import { getDb, getUserDownloadHistory, getUserDownloadStats } from "./db";
+import { getDb } from "./db";
 import { ratings } from "../drizzle/schema";
 import { consumeCredit, getCreditBalance, addCredits, getSubscriptionInfo } from "./credits";
 import { createCheckoutSession, verifyPayment, type PackageType } from "./stripe";
@@ -56,105 +56,6 @@ export const appRouter = router({
         const { generateTransformation } = await import("./generation");
         return generateTransformation(input.theme, input.imageUrl, ctx.user.id);
       }),
-    
-    downloadHighResolution: protectedProcedure
-      .input(z.object({
-        imageUrl: z.string(),
-        resolution: z.enum(["hd", "4k"]),
-        product: z.enum(["camiseta", "caneca", "poster"]),
-        theme: z.string(),
-      }))
-      .mutation(async ({ input, ctx }) => {
-        const creditCost = input.resolution === "hd" ? 5 : 10;
-        const resolutionName = input.resolution === "hd" ? "HD (300 DPI)" : "Premium 4K (600 DPI)";
-        
-        // Consume credits
-        await consumeCredit(ctx.user.id, `Download ${resolutionName} - ${input.product}`, creditCost);
-        
-        // Generate high-resolution image
-        const { generateHighResolutionImage } = await import("./generation");
-        let downloadUrl: string;
-        try {
-          const result = await generateHighResolutionImage(
-            input.imageUrl,
-            input.resolution,
-            ctx.user.id
-          );
-          downloadUrl = result.url;
-          console.log("[Download] Generated URL:", downloadUrl);
-        } catch (error) {
-          console.error("[Download] Generation failed:", error);
-          throw new Error("Falha ao gerar imagem em alta resolucao");
-        }
-        
-        // Record download in database
-        const db = await getDb();
-        if (db) {
-          const { premiumDownloads } = await import("../drizzle/schema");
-          await db.insert(premiumDownloads).values({
-            userId: ctx.user.id,
-            imageUrl: downloadUrl,
-            resolution: input.resolution,
-            product: input.product,
-            theme: input.theme,
-            creditsCost: creditCost,
-          });
-        }
-        
-        return { 
-          success: true, 
-          creditsCost: creditCost, 
-          downloadUrl: downloadUrl,
-          message: `Imagem ${resolutionName} pronta para download!`
-        };
-      }),
-
-    testDownload: protectedProcedure
-      .input(z.object({
-        imageUrl: z.string(),
-        resolution: z.enum(["hd", "4k"]),
-        product: z.enum(["camiseta", "caneca", "poster"]),
-        theme: z.string(),
-      }))
-      .mutation(async ({ input, ctx }) => {
-        const creditCost = input.resolution === "hd" ? 5 : 10;
-        const resolutionName = input.resolution === "hd" ? "HD (300 DPI)" : "Premium 4K (600 DPI)";
-        
-        await consumeCredit(ctx.user.id, `[TESTE] Download ${resolutionName} - ${input.product}`, creditCost);
-        
-        const db = await getDb();
-        if (db) {
-          const { premiumDownloads } = await import("../drizzle/schema");
-          await db.insert(premiumDownloads).values({
-            userId: ctx.user.id,
-            imageUrl: input.imageUrl,
-            resolution: input.resolution,
-            product: input.product,
-            theme: input.theme,
-            creditsCost: creditCost,
-          });
-        }
-        
-        return { 
-          success: true, 
-          creditsCost: creditCost,
-          message: "[MODO TESTE] Download simulado com sucesso!",
-        };
-      }),
-
-    getDownloadHistory: protectedProcedure
-      .input(z.object({
-        limit: z.number().default(10),
-      }))
-      .query(async ({ input, ctx }) => {
-        return getUserDownloadHistory(ctx.user.id, input.limit);
-      }),
-
-    getDownloadStats: protectedProcedure
-      .input(z.void())
-      .query(async ({ ctx }) => {
-        return getUserDownloadStats(ctx.user.id);
-      }),
 
   }),
 
@@ -162,35 +63,15 @@ export const appRouter = router({
     getBalance: protectedProcedure.query(async ({ ctx }) => {
       return getCreditBalance(ctx.user.id);
     }),
-    testAddCredits: protectedProcedure
-      .input(z.object({
-        amount: z.number().min(1).max(10000),
-      }))
-      .mutation(async ({ ctx, input }) => {
-        return addCredits(ctx.user.id, input.amount, "credits_50", "Test credits");
-      }),
     getSubscription: protectedProcedure.query(async ({ ctx }) => {
       return getSubscriptionInfo(ctx.user.id);
     }),
-    getTransactionHistory: protectedProcedure.query(async ({ ctx }) => {
-      const { getTransactionHistory } = await import("./db");
-      return getTransactionHistory(50);
-    }) as any,
-    recordPwaInstall: protectedProcedure
-      .input(z.object({
-        platform: z.enum(["android", "ios", "desktop"]),
-        userAgent: z.string().optional(),
-      }))
-      .mutation(async ({ ctx, input }) => {
-        const { recordPwaInstall } = await import("./db");
-        return recordPwaInstall(ctx.user.id, input.platform, input.userAgent);
-      }),
   }),
 
   stripe: router({
     createCheckout: protectedProcedure
       .input(z.object({
-        packageType: z.enum(["credits_50", "credits_200", "credits_500", "credits_1000"]),
+        packageType: z.enum(["light", "premium", "monthly_unlimited", "annual_unlimited"]),
       }))
       .mutation(async ({ input, ctx }) => {
         const baseUrl = process.env.VITE_FRONTEND_FORGE_API_URL || "http://localhost:3000";
@@ -215,12 +96,16 @@ export const appRouter = router({
         const result = await verifyPayment(input.sessionId);
         
         if (result.success && result.packageType && result.userId === ctx.user.id) {
-          const { PACKAGE_CREDITS } = await import("./stripe");
-          const credits = PACKAGE_CREDITS[result.packageType] || 0;
+          const creditsMap = {
+            light: 50,
+            premium: 200,
+            monthly_unlimited: 0,
+            annual_unlimited: 0,
+          };
           
           const newBalance = await addCredits(
             ctx.user.id,
-            credits,
+            creditsMap[result.packageType],
             result.packageType
           );
           
@@ -254,298 +139,6 @@ export const appRouter = router({
         return { success: true };
       }),
   }),
-
-  gallery: router({
-    trending: publicProcedure
-      .query(async () => {
-        const { getTrendingTransformations } = await import("./db");
-        return getTrendingTransformations(6);
-      }),
-  }),
-
-  referral: router({
-    getReferralStats: protectedProcedure.query(async ({ ctx }) => {
-      const db = await getDb();
-      if (!db) {
-        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database not available" });
-      }
-
-      const { referrals } = await import("../drizzle/schema");
-      const { eq } = await import("drizzle-orm");
-
-      const myReferrals = await db
-        .select()
-        .from(referrals)
-        .where(eq(referrals.referrerId, ctx.user.id));
-
-      const completedReferrals = myReferrals.filter((r) => r.status === "completed");
-      const totalCreditsEarned = completedReferrals.reduce((sum, r) => sum + r.creditsAwarded, 0);
-
-      return {
-        totalReferrals: myReferrals.length,
-        completedReferrals: completedReferrals.length,
-        totalCreditsEarned,
-        referrals: myReferrals,
-      };
-    }),
-
-    processReferral: publicProcedure
-      .input(z.object({
-        referrerId: z.number(),
-      }))
-      .mutation(async ({ input, ctx }) => {
-        if (!ctx.user) {
-          throw new TRPCError({ code: "UNAUTHORIZED", message: "User not authenticated" });
-        }
-
-        const db = await getDb();
-        if (!db) {
-          throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database not available" });
-        }
-
-        const { referrals } = await import("../drizzle/schema");
-        const { eq } = await import("drizzle-orm");
-
-        const existingReferral = await db
-          .select()
-          .from(referrals)
-          .where(eq(referrals.referredId, ctx.user.id))
-          .limit(1);
-
-        if (existingReferral.length > 0) {
-          throw new TRPCError({ code: "CONFLICT", message: "You already have a referrer" });
-        }
-
-        await db.insert(referrals).values({
-          referrerId: input.referrerId,
-          referredId: ctx.user.id,
-          creditsAwarded: 5,
-          status: "completed",
-          completedAt: new Date(),
-        });
-
-        await addCredits(input.referrerId, 5, "credits_50", "Referral bonus");
-        await addCredits(ctx.user.id, 5, "credits_50", "Referral bonus");
-
-        return { success: true };
-      }),
-  }),
-
-  support: router({
-    createTicket: protectedProcedure
-      .input(z.object({
-        subject: z.string(),
-        message: z.string(),
-        category: z.enum(["generation", "connection", "credits", "payment", "other"]),
-      }))
-      .mutation(async ({ input, ctx }) => {
-        const db = await getDb();
-        if (!db) {
-          throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database not available" });
-        }
-        
-        const { supportTickets } = await import("../drizzle/schema");
-        
-        await db.insert(supportTickets).values({
-          userId: ctx.user.id,
-          subject: input.subject,
-          message: input.message,
-          status: "open",
-          priority: input.category === "generation" ? "high" : "medium",
-        });
-        
-        return { success: true };
-      }),
-    getTickets: protectedProcedure.query(async ({ ctx }) => {
-      const db = await getDb();
-      if (!db) return [];
-      
-      const { supportTickets } = await import("../drizzle/schema");
-      const { eq } = await import("drizzle-orm");
-      
-      return db.select().from(supportTickets).where(eq(supportTickets.userId, ctx.user.id));
-    }),
-  }),
-
-  // Promo codes / Cupons
-  promo: router({
-    validate: publicProcedure
-      .input(z.object({ code: z.string() }))
-      .query(async ({ input }) => {
-        const { validatePromoCode } = await import("./db");
-        const promo = await validatePromoCode(input.code);
-        return promo ? { valid: true, discount: promo } : { valid: false };
-      }),
-    useCode: protectedProcedure
-      .input(z.object({ code: z.string(), purchaseAmount: z.number() }))
-      .mutation(async ({ input, ctx }) => {
-        const { validatePromoCode, usePromoCode } = await import("./db");
-        const promo = await validatePromoCode(input.code);
-        if (!promo) throw new TRPCError({ code: 'NOT_FOUND', message: 'Código inválido' });
-        
-        const discount = await usePromoCode(ctx.user.id, promo.id, input.purchaseAmount);
-        return { success: true, discountAmount: discount };
-      }),
-  }),
-
-  // Affiliate Program
-  affiliate: router({
-    create: protectedProcedure.mutation(async ({ ctx }) => {
-      const { createAffiliate } = await import("./db");
-      const affiliateCode = await createAffiliate(ctx.user.id);
-      return { success: true, affiliateCode };
-    }),
-    getStats: protectedProcedure.query(async ({ ctx }) => {
-      const db = await getDb();
-      if (!db) return null;
-      
-      const { affiliates } = await import("../drizzle/schema");
-      const { eq } = await import("drizzle-orm");
-      
-      const affiliate = await db.select().from(affiliates).where(eq(affiliates.userId, ctx.user.id)).limit(1);
-      if (affiliate.length === 0) return null;
-      
-      const { getAffiliateStats } = await import("./db");
-      return getAffiliateStats(affiliate[0].id);
-    }),
-  }),
-
-  // Social Shares
-  social: router({
-    recordShare: protectedProcedure
-      .input(z.object({ transformationId: z.number(), platform: z.string() }))
-      .mutation(async ({ input, ctx }) => {
-        const { recordSocialShare, incrementShareCount } = await import("./db");
-        await recordSocialShare(ctx.user.id, input.transformationId, input.platform);
-        await incrementShareCount(input.transformationId);
-        return { success: true };
-      }),
-    shareWhatsapp: protectedProcedure
-      .input(z.object({
-        transformationId: z.number(),
-        phoneNumber: z.string().optional(),
-        message: z.string().optional(),
-      }))
-      .mutation(async ({ input, ctx }) => {
-        const { recordWhatsappShare } = await import("./db");
-        await recordWhatsappShare(
-          ctx.user.id,
-          input.transformationId,
-          input.phoneNumber,
-          input.message
-        );
-        return { 
-          success: true,
-          whatsappUrl: `https://wa.me/?text=${encodeURIComponent(input.message || "Confira esta transformação incrível!")}`,
-        };
-      }),
-    getStats: publicProcedure
-      .input(z.object({ transformationId: z.number() }))
-      .query(async ({ input }) => {
-        const { getSocialShareStats } = await import("./db");
-        return getSocialShareStats(input.transformationId);
-      }),
-  }),
-
-  trending: router({
-    getTrending: publicProcedure
-      .input(z.object({
-        limit: z.number().default(12),
-        theme: z.string().optional(),
-      }))
-      .query(async ({ input }) => {
-        const { getTrendingTransformationsNew } = await import("./db");
-        const items = await getTrendingTransformationsNew(input.limit);
-        
-        if (input.theme) {
-          return items.filter(item => item.theme === input.theme);
-        }
-        return items;
-      }),
-    recordTrending: protectedProcedure
-      .input(z.object({
-        transformationId: z.number(),
-        theme: z.string(),
-        imageUrl: z.string(),
-        title: z.string().optional(),
-        description: z.string().optional(),
-      }))
-      .mutation(async ({ input, ctx }) => {
-        const { recordTrendingTransformation } = await import("./db");
-        await recordTrendingTransformation(
-          input.transformationId,
-          ctx.user.id,
-          input.theme,
-          input.imageUrl,
-          input.title,
-          input.description
-        );
-        return { success: true };
-      }),
-  }),
-
-  transformation: router({
-    // Cache de transformações
-    getCachedTransformations: protectedProcedure
-      .input(z.void())
-      .query(async ({ ctx }) => {
-        const { getUserTransformationCache } = await import("./db");
-        return getUserTransformationCache(ctx.user.id);
-      }),
-
-    getCachedTransformation: protectedProcedure
-      .input(z.object({
-        originalImageHash: z.string(),
-        theme: z.string(),
-      }))
-      .query(async ({ input, ctx }) => {
-        const { getCachedTransformation } = await import("./db");
-        return getCachedTransformation(ctx.user.id, input.originalImageHash, input.theme);
-      }),
-
-    // Salvar transformação em cache
-    cacheTransformation: protectedProcedure
-      .input(z.object({
-        originalImageHash: z.string(),
-        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus", "natal", "reveillon"]),
-        transformedImageUrl: z.string(),
-        creditsUsed: z.number(),
-        filters: z.record(z.string(), z.number()).optional(),
-      }))
-      .mutation(async ({ input, ctx }) => {
-        const { cacheTransformation } = await import("./db");
-        const success = await cacheTransformation(
-          ctx.user.id,
-          input.originalImageHash,
-          input.theme,
-          input.transformedImageUrl,
-          input.creditsUsed,
-          input.filters
-        );
-        return { success };
-      }),
-
-    // Aplicar filtros posteriores
-    applyFilters: protectedProcedure
-      .input(z.object({
-        imageUrl: z.string(),
-        filters: z.object({
-          saturation: z.number().min(0).max(200),
-          brightness: z.number().min(0).max(200),
-          contrast: z.number().min(0).max(200),
-        }),
-      }))
-      .mutation(async ({ input }) => {
-        // Aplicar filtros CSS e retornar URL processada
-        // Em produção, isso seria feito no servidor com sharp ou similar
-        return {
-          success: true,
-          filters: input.filters,
-          message: "Filtros aplicados com sucesso",
-        };
-      }),
-  }),
-
 });
 
 export type AppRouter = typeof appRouter;

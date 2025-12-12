@@ -1,78 +1,32 @@
 {
-  "name": "Descubra seu Verdadeiro Eu - ESPELHO AI",
+  "name": "ESPELHO AI - Transforme suas Fotos",
   "short_name": "ESPELHO AI",
-  "description": "Transforme suas fotos em personagens épicos, gangsters, pinturas e muito mais com IA. Descubra seu verdadeiro eu!",
+  "description": "Transforme suas fotos em personagens épicos, pinturas artísticas, gangsters dos anos 1920 e muito mais com inteligência artificial!",
   "start_url": "/",
-  "scope": "/",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#f97316",
-  "orientation": "portrait-primary",
+  "orientation": "portrait",
   "icons": [
     {
-      "src": "/pwa-icon-192.png",
+      "src": "/espelho-ai-logo-transp.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     },
     {
-      "src": "/pwa-icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
-      "src": "/pwa-icon-512.png",
+      "src": "/espelho-ai-logo-transp.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/pwa-icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     }
   ],
   "categories": ["photo", "entertainment", "lifestyle"],
   "screenshots": [
     {
-      "src": "/pwa-icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "form_factor": "narrow"
-    },
-    {
-      "src": "/pwa-icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "form_factor": "wide"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "Transformar Foto",
-      "short_name": "Transformar",
-      "description": "Comece uma nova transformação",
-      "url": "/generator",
-      "icons": [
-        {
-          "src": "/pwa-icon-192.png",
-          "sizes": "192x192"
-        }
-      ]
-    },
-    {
-      "name": "Ver Planos",
-      "short_name": "Planos",
-      "description": "Comprar créditos",
-      "url": "/planos",
-      "icons": [
-        {
-          "src": "/pwa-icon-192.png",
-          "sizes": "192x192"
-        }
-      ]
+      "src": "/espelho-ai-logo-transp.png",
+      "sizes": "540x720",
+      "type": "image/png"
     }
   ]
 }

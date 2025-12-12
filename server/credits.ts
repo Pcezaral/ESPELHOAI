@@ -5,9 +5,29 @@ import { TRPCError } from "@trpc/server";
 
 /**
  * Check if user has unlimited credits (active subscription)
- * DEPRECATED: Sistema de créditos é o único método de pagamento.
  */
 export async function hasUnlimitedCredits(userId: number): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+
+  const user = await db.select().from(users).where(eq(users.id, userId)).limit(1);
+  if (!user || user.length === 0) return false;
+
+  const userData = user[0];
+  
+  // Check if user has unlimited subscription
+  if (userData.subscriptionType === "monthly_unlimited" || userData.subscriptionType === "annual_unlimited") {
+    // Check if subscription is still valid
+    if (userData.subscriptionExpiresAt && userData.subscriptionExpiresAt > new Date()) {
+      return true;
+    }
+    // Subscription expired, reset to free
+    await db.update(users)
+      .set({ subscriptionType: "free", subscriptionExpiresAt: null })
+      .where(eq(users.id, userId));
+    return false;
+  }
+
   return false;
 }
 
@@ -27,14 +47,25 @@ export async function getCreditBalance(userId: number): Promise<number> {
 }
 
 /**
- * Consume credits for a transformation or purchase
+ * Consume one credit for a transformation
  * Returns true if successful, throws error if insufficient credits
  */
-export async function consumeCredit(userId: number, themeName: string, amount: number = 1): Promise<boolean> {
+export async function consumeCredit(userId: number, themeName: string): Promise<boolean> {
   const db = await getDb();
   if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database not available" });
 
-  // Sempre consumir créditos
+  // Check if user has unlimited credits
+  if (await hasUnlimitedCredits(userId)) {
+    // Log the consumption but don't deduct credits
+    await db.insert(creditTransactions).values({
+      userId,
+      type: "consumption",
+      amount: 0, // No credits consumed for unlimited users
+      balanceAfter: -1, // -1 indicates unlimited
+      description: `Generated ${themeName} transformation (unlimited plan)`,
+    });
+    return true;
+  }
 
   // Get current balance
   const user = await db.select().from(users).where(eq(users.id, userId)).limit(1);
@@ -45,15 +76,15 @@ export async function consumeCredit(userId: number, themeName: string, amount: n
   const currentCredits = user[0].credits;
 
   // Check if user has enough credits
-  if (currentCredits < amount) {
+  if (currentCredits < 1) {
     throw new TRPCError({ 
       code: "FORBIDDEN", 
       message: "Insufficient credits. Please purchase more credits to continue." 
     });
   }
 
-  // Deduct credits
-  const newBalance = currentCredits - amount;
+  // Deduct credit
+  const newBalance = currentCredits - 1;
   await db.update(users)
     .set({ credits: newBalance })
     .where(eq(users.id, userId));
@@ -62,9 +93,9 @@ export async function consumeCredit(userId: number, themeName: string, amount: n
   await db.insert(creditTransactions).values({
     userId,
     type: "consumption",
-    amount: -amount,
+    amount: -1,
     balanceAfter: newBalance,
-    description: themeName,
+    description: `Generated ${themeName} transformation`,
   });
 
   return true;
@@ -76,7 +107,7 @@ export async function consumeCredit(userId: number, themeName: string, amount: n
 export async function addCredits(
   userId: number, 
   amount: number, 
-  packageType: "credits_50" | "credits_200" | "credits_500" | "credits_1000",
+  packageType: "light" | "premium" | "monthly_unlimited" | "annual_unlimited",
   description?: string
 ): Promise<number> {
   const db = await getDb();
@@ -89,31 +120,56 @@ export async function addCredits(
 
   const currentCredits = user[0].credits;
 
-  // Handle credit packages (unlimited plans removed)
+  // Handle unlimited subscriptions
+  if (packageType === "monthly_unlimited" || packageType === "annual_unlimited") {
+    const expirationDate = new Date();
+    if (packageType === "monthly_unlimited") {
+      expirationDate.setMonth(expirationDate.getMonth() + 1);
+    } else {
+      expirationDate.setFullYear(expirationDate.getFullYear() + 1);
+    }
+
+    await db.update(users)
+      .set({ 
+        subscriptionType: packageType,
+        subscriptionExpiresAt: expirationDate
+      })
+      .where(eq(users.id, userId));
+
+    // Log transaction
+    await db.insert(creditTransactions).values({
+      userId,
+      type: "purchase",
+      amount: 0, // Unlimited doesn't add specific credits
+      balanceAfter: -1, // -1 indicates unlimited
+      description: description || `Purchased ${packageType} subscription`,
+      relatedPackage: packageType,
+    });
+
+    return -1; // Return -1 to indicate unlimited
+  }
+
+  // Handle credit packages (light, premium)
   const newBalance = currentCredits + amount;
   await db.update(users)
     .set({ 
       credits: newBalance,
+      subscriptionType: packageType
     })
     .where(eq(users.id, userId));
 
   // Log transaction
-    await db.insert(creditTransactions).values({
-      userId,
-      type: "purchase",
-      amount,
-      balanceAfter: newBalance,
-      description: description || `Purchased ${packageType} package (${amount} credits)`,
-      relatedPackage: packageType as any,
-    });
+  await db.insert(creditTransactions).values({
+    userId,
+    type: "purchase",
+    amount,
+    balanceAfter: newBalance,
+    description: description || `Purchased ${packageType} package (${amount} credits)`,
+    relatedPackage: packageType,
+  });
 
   return newBalance;
 }
-
-/**
- * DEPRECATED: Support for unlimited plans has been removed.
- * All users now use credit-based system only.
- */
 
 /**
  * Get user's subscription info

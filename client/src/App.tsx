@@ -10,20 +10,6 @@ import Gallery from "./pages/Gallery";
 import About from "./pages/About";
 import Planos from "./pages/Planos";
 import Contato from "./pages/Contato";
-import Support from "./pages/Support";
-import Admin from "./pages/Admin";
-import Analytics from "./pages/Analytics";
-import Leaderboard from "./pages/Leaderboard";
-import Referral from "./pages/Referral";
-import TestDashboard from "./pages/TestDashboard";
-import TermsOfUse from "./pages/TermsOfUse";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import SecurityFAQ from "./pages/SecurityFAQ";
-import Trending from "./pages/Trending";
-import Profile from "./pages/Profile";
-import OwnerDashboard from "./pages/OwnerDashboard";
-import { CookieBanner } from "./components/CookieBanner";
-import { PushNotifications } from "./components/PushNotifications";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -35,18 +21,6 @@ function Router() {
       <Route path={"/about"} component={About} />
       <Route path={"/planos"} component={Planos} />
       <Route path={"/contato"} component={Contato} />
-      <Route path={"/suporte"} component={Support} />
-      <Route path={"/admin"} component={Admin} />
-      <Route path={"/analytics"} component={Analytics} />
-      <Route path={"/leaderboard"} component={Leaderboard} />
-      <Route path={"/referral"} component={Referral} />
-       <Route path={"test"} component={TestDashboard} />
-      <Route path={"/dashboard"} component={OwnerDashboard} />
-      <Route path={"/termos"} component={TermsOfUse} />
-      <Route path={"/privacidade"} component={PrivacyPolicy} />
-      <Route path={"/seguranca"} component={SecurityFAQ} />
-      <Route path={"/trending"} component={Trending} />
-      <Route path={"/perfil"} component={Profile} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
@@ -68,8 +42,6 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <Router />
-          <CookieBanner />
-          <PushNotifications />
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>
