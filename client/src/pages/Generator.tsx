@@ -91,10 +91,6 @@ export default function Generator() {
   
   const [step, setStep] = useState<"theme" | "upload" | "processing" | "result">("theme");
 
-  useEffect(() => {
-    console.log('Generator mounted, step:', step, 'THEMES length:', THEMES.length);
-  }, [step]);
-
   const generateMutation = trpc.generation.generate.useMutation();
   const uploadMutation = trpc.generation.uploadImage.useMutation();
   const ratingMutation = trpc.rating.submit.useMutation();
@@ -323,7 +319,7 @@ export default function Generator() {
               <p className="text-slate-300 text-lg">Selecione como você quer se transformar</p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full block">
               {THEMES.map((theme) => (
                 <Card
                   key={theme.id}
