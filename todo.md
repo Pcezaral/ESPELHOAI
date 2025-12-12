@@ -1371,7 +1371,3 @@ Destacar a vantagem comercial de cancelamento a qualquer momento em toda a plata
 - [ ] Executar testes
 - [ ] Criar checkpoint final
 - [ ] Deploy para produção
-
-
-## Problemas Reportados
-- [ ] Temas não aparecem no mobile (possível cache do navegador) - Servidor reiniciado, aguardando feedback do usuário para confirmar se resolveu
