@@ -301,7 +301,6 @@ export default function Generator() {
             Voltar
           </Button>
           <div className="flex items-center gap-2">
-            <img src="/espelho-ai-logo-transp.png" alt="ESPELHO AI" className="h-8 w-8" />
             <h1 className="text-xl font-bold text-white">
               ESPELHO <span className="text-orange-500">AI</span>
             </h1>
