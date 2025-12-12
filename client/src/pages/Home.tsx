@@ -195,8 +195,14 @@ export default function Home() {
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 via-transparent to-red-500/5 pointer-events-none"></div>
         <div className="w-full">
-          <h2 className="text-4xl font-bold text-center mb-4">Mais Estilos Disponíveis</h2>
-          <p className="text-center text-gray-600 mb-12 text-lg">Transformações incríveis em segundos</p>
+          <h2 className="text-4xl font-bold text-center mb-4">Estilos Geniais!</h2>
+          <div className="flex flex-col items-center gap-3 mb-12">
+            <p className="text-center text-gray-600 text-lg">Transformações incríveis em segundos</p>
+            <div className="flex items-center gap-2 text-orange-500 font-semibold">
+              <span>Scroll para Ver</span>
+              <span className="text-2xl animate-bounce">→</span>
+            </div>
+          </div>
           
           {/* Container com scroll horizontal em mobile */}
           <div className="overflow-x-auto md:overflow-visible -mx-4 md:mx-0">
