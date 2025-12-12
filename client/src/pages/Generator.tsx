@@ -1,4 +1,3 @@
-import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Upload, Camera, Loader2, ArrowLeft, Wand2, Download, Share2 } from "lucide-react";
@@ -12,6 +11,7 @@ import { HighResolutionDownload } from "@/components/HighResolutionDownload";
 import { InstallPromptAfterTransformation } from "@/components/InstallPromptAfterTransformation";
 import { GenderRefineFilter } from "@/components/GenderRefineFilter";
 import { useAuth } from "@/_core/hooks/useAuth";
+import { useRef, useState, useEffect } from "react";
 
 type Theme = "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus" | "natal" | "reveillon";
 
@@ -96,7 +96,6 @@ export default function Generator() {
   const ratingMutation = trpc.rating.submit.useMutation();
 
   useEffect(() => {
-    // Extrair tema da URL
     const searchParams = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
     const themeFromUrl = searchParams.get('theme') as Theme | null;
     
@@ -124,12 +123,11 @@ export default function Generator() {
     setSelectedTheme(theme);
     setStep("upload");
     setLocation(`/generator?theme=${theme}`);
-    // Atualizar URL sem recarregar
     window.history.pushState({}, '', `/generator?theme=${theme}`);
   };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+    const file = e.currentTarget.files?.[0];
     if (file) {
       setSelectedImage(file);
       const reader = new FileReader();
@@ -149,55 +147,31 @@ export default function Generator() {
   };
 
   const handleGenerate = async () => {
-    if (!selectedImage || !selectedTheme || !previewUrl) return;
-
-    setStep("processing");
+    if (!selectedTheme || !previewUrl) return;
 
     try {
-      const base64Image = previewUrl.split(",")[1];
-      const uploadResult = await uploadMutation.mutateAsync({
-        imageBase64: base64Image,
-        filename: selectedImage.name,
-      });
-
+      setStep("processing");
       const result = await generateMutation.mutateAsync({
         theme: selectedTheme,
-        imageUrl: uploadResult.url,
+        imageUrl: previewUrl,
       });
-
+      
       setGeneratedImage(result.generatedImageUrl);
       setGeneratedText(result.generatedText);
       setStep("result");
-    } catch (error: any) {
-      console.error("Generation error:", error);
-      if (error.message && error.message.includes("Insufficient credits")) {
-        toast.error("Créditos insuficientes! Compre mais créditos para continuar.", {
-          action: {
-            label: "Ver Planos",
-            onClick: () => setLocation("/planos"),
-          },
-        });
-      } else {
-        toast.error("Erro ao gerar transformação. Tente novamente.");
+
+      if (!hasShownInstallPrompt && typeof window !== 'undefined' && 'BeforeInstallPromptEvent' in window) {
+        setShowInstallPrompt(true);
+        setHasShownInstallPrompt(true);
       }
+    } catch (error) {
+      console.error('Erro ao gerar:', error);
+      toast.error("Erro ao gerar transformação");
       setStep("upload");
     }
   };
 
-  // Mostrar install prompt após transformação bem-sucedida
-  useEffect(() => {
-    if (step === "result" && generatedImage && !hasShownInstallPrompt) {
-      // Mostrar após 2 segundos para deixar usuário apreciar o resultado
-      const timer = setTimeout(() => {
-        setShowInstallPrompt(true);
-        setHasShownInstallPrompt(true);
-      }, 2000);
-      return () => clearTimeout(timer);
-    }
-  }, [step, generatedImage, hasShownInstallPrompt, setShowInstallPrompt, setHasShownInstallPrompt]);
-
   const handleReset = () => {
-    setStep("theme");
     setSelectedTheme(null);
     setSelectedImage(null);
     setPreviewUrl(null);
@@ -278,8 +252,13 @@ export default function Generator() {
       }
     }
     
-    const url = encodeURIComponent(text);
-    window.open(`https://wa.me/?text=${url}`, "_blank");
+    const url = `https://descubraeu-ipcsmflf.manus.space?ref=share`;
+    if (navigator.share) {
+      navigator.share({ title: "ESPELHO AI", text, url });
+    } else {
+      const encodedText = encodeURIComponent(text);
+      window.open(`https://wa.me/?text=${url}`, "_blank");
+    }
   };
 
   return (
@@ -311,39 +290,63 @@ export default function Generator() {
 
       <main className="container py-12 relative z-10">
 
-        {/* Step 1: Theme Selection */}
         {step === "theme" && (
-          <div className="w-full space-y-8">
-            <div className="text-center space-y-2">
-              <h2 className="text-4xl font-bold text-white">Escolha um estilo</h2>
-              <p className="text-slate-300 text-lg">Selecione como você quer se transformar</p>
+            <div style={{width: '100%', display: 'flex', flexDirection: 'column', gap: '2rem'} as React.CSSProperties}>
+            <div style={{textAlign: 'center', display: 'flex', flexDirection: 'column', gap: '0.5rem'} as React.CSSProperties}>
+              <h2 style={{fontSize: '2.25rem', fontWeight: 'bold', color: 'white'} as React.CSSProperties}>Escolha um estilo</h2>
+              <p style={{color: '#cbd5e1', fontSize: '1.125rem'} as React.CSSProperties}>Selecione como você quer se transformar</p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full block">
+            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem', width: '100%'}}>
               {THEMES.map((theme) => (
-                <Card
+                <div
                   key={theme.id}
                   onClick={() => handleThemeSelect(theme.id)}
-                  className="cursor-pointer border-2 border-slate-700 hover:border-orange-500 transition-all hover:shadow-lg hover:shadow-orange-500/20 bg-slate-900/50 overflow-hidden group"
+                  style={{
+                    cursor: 'pointer',
+                    border: '2px solid #334155',
+                    borderRadius: '0.5rem',
+                    backgroundColor: 'rgba(15, 23, 42, 0.5)',
+                    padding: '1.5rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '1rem',
+                    minHeight: '280px',
+                    transition: 'all 0.3s ease'
+                  } as React.CSSProperties}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.borderColor = '#ea580c';
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.borderColor = '#334155';
+                  }}
                 >
-                  <div className="p-6 space-y-4">
-                    <div className="text-5xl text-center">{theme.emoji}</div>
-                    <div className="space-y-2">
-                      <h3 className="text-xl font-bold text-white text-center">{theme.name}</h3>
-                      <p className="text-sm text-slate-300 text-center">{theme.description}</p>
-                    </div>
-                    <Button className="w-full gap-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold">
-                      <Wand2 className="w-4 h-4" />
-                      Transforme
-                    </Button>
+                  <div style={{fontSize: '3rem', textAlign: 'center'} as React.CSSProperties}>{theme.emoji}</div>
+                  <div style={{flex: 1} as React.CSSProperties}>
+                    <h3 style={{fontSize: '1.125rem', fontWeight: 'bold', color: 'white', textAlign: 'center'} as React.CSSProperties}>{theme.name}</h3>
+                    <p style={{fontSize: '0.875rem', color: '#cbd5e1', textAlign: 'center', marginTop: '0.5rem'} as React.CSSProperties}>{theme.description}</p>
                   </div>
-                </Card>
+                  <button
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem',
+                      backgroundColor: '#ea580c',
+                      color: 'white',
+                      fontWeight: 'bold',
+                      border: 'none',
+                      borderRadius: '0.375rem',
+                      cursor: 'pointer',
+                      fontSize: '0.875rem'
+                    } as React.CSSProperties}
+                  >
+                    Transforme
+                  </button>
+                </div>
               ))}
             </div>
           </div>
         )}
 
-        {/* Step 2: Upload Image */}
         {step === "upload" && selectedTheme && (
           <div className="max-w-2xl mx-auto space-y-8">
             <div className="text-center space-y-2">
@@ -380,27 +383,17 @@ export default function Generator() {
                 </Button>
               </div>
             ) : (
-              <div className="space-y-6">
-                <div className="rounded-lg overflow-hidden border-2 border-orange-500/30">
-                  <img src={previewUrl} alt="Preview" className="w-full h-auto" />
+              <div className="space-y-4">
+                <div className="rounded-lg overflow-hidden border border-slate-700">
+                  <img src={previewUrl} alt="Preview" className="w-full h-auto max-h-96 object-cover" />
                 </div>
-
-                <div className="flex gap-4">
-                  <Button onClick={handleUploadClick} variant="outline" className="flex-1 border-slate-700 text-white hover:bg-slate-800">
+                <div className="flex gap-2">
+                  <Button onClick={() => setPreviewUrl(null)} variant="outline" className="flex-1 border-slate-700 text-white hover:bg-slate-800">
                     Mudar Foto
                   </Button>
                   <Button onClick={handleGenerate} disabled={generateMutation.isPending} className="flex-1 gap-2 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600">
-                    {generateMutation.isPending ? (
-                      <>
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        Gerando...
-                      </>
-                    ) : (
-                      <>
-                        <Wand2 className="w-4 h-4" />
-                        Transformar
-                      </>
-                    )}
+                    {generateMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Wand2 className="w-4 h-4" />}
+                    {generateMutation.isPending ? "Gerando..." : "Gerar Transformação"}
                   </Button>
                 </div>
               </div>
@@ -424,55 +417,24 @@ export default function Generator() {
           </div>
         )}
 
-        {/* Step 3: Processing */}
         {step === "processing" && (
-          <div className="max-w-2xl mx-auto text-center space-y-8">
-            <div className="space-y-4">
-              <Loader2 className="w-16 h-16 text-orange-500 mx-auto animate-spin" />
-              <h2 className="text-4xl font-bold text-white">Transformando sua foto...</h2>
-              <p className="text-slate-300">Isso pode levar alguns segundos</p>
-            </div>
+          <div className="flex flex-col items-center justify-center min-h-96 gap-4">
+            <Loader2 className="w-12 h-12 animate-spin text-orange-500" />
+            <p className="text-white text-lg">Gerando sua transformação...</p>
           </div>
         )}
 
-        {/* Step 4: Result */}
         {step === "result" && generatedImage && (
           <div className="max-w-2xl mx-auto space-y-8">
-            <div className="text-center space-y-2">
-              <h2 className="text-4xl font-bold text-white">Sua transformação!</h2>
-              <p className="text-slate-300">Confira o resultado</p>
+            <div className="rounded-lg overflow-hidden border border-slate-700">
+              <img src={generatedImage} alt="Resultado" className="w-full h-auto" />
             </div>
 
-            {/* Antes e Depois */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <p className="text-center text-slate-400 font-semibold text-sm">Antes</p>
-                <div className="rounded-lg overflow-hidden border-2 border-slate-700 bg-slate-900">
-                  <img src={previewUrl || ""} alt="Antes" className="w-full h-auto object-cover aspect-square" />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <p className="text-center text-slate-400 font-semibold text-sm">Depois</p>
-                <div className="rounded-lg overflow-hidden border-2 border-orange-500/30 bg-slate-900">
-                  <img src={generatedImage} alt="Depois" className="w-full h-auto object-cover aspect-square" />
-                </div>
-              </div>
-            </div>
-
-            {/* Aviso de Copyright e Segurança */}
-            <div className="bg-blue-900/30 border-l-4 border-blue-500 rounded-lg p-4 space-y-2">
-              <p className="text-blue-200 text-sm font-semibold">🔒 Aviso de Segurança e Copyright</p>
-              <ul className="text-blue-100 text-xs space-y-1">
-                <li>✓ Sua foto original <strong>NÃO é armazenada</strong> em nossos servidores</li>
-                <li>✓ A imagem gerada é <strong>sua propriedade</strong> - use como quiser</li>
-                <li>✓ Seus dados estão <strong>protegidos com criptografia SSL</strong></li>
-                <li>✓ Leia nossa <a href="#" onClick={() => setLocation("/privacidade")} className="underline hover:text-blue-300">Política de Privacidade</a> e <a href="#" onClick={() => setLocation("/termos")} className="underline hover:text-blue-300">Termos de Uso</a></li>
-              </ul>
-            </div>
+            {/* Gender refine filter removed */}
 
             {!hasRated && (
               <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-6 space-y-4">
-                <p className="text-white font-semibold">Como foi a transformação?</p>
+                <h3 className="text-white font-semibold">Como você avalia essa transformação?</h3>
                 <StarRating onRate={handleRate} />
               </div>
             )}
@@ -482,22 +444,7 @@ export default function Generator() {
                 <Download className="w-4 h-4" />
                 Baixar Imagem
               </Button>
-
-              <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-4">
-                <p className="text-white font-semibold mb-3 text-center">Compartilhe com seus amigos!</p>
-                <ShareButtons message="Veja minha transformação no ESPELHO AI!" imageUrl={generatedImage} theme={selectedTheme || undefined} />
-              </div>
             </div>
-
-            <HighResolutionDownload imageUrl={generatedImage} theme={selectedTheme || undefined} />
-
-            <Button
-              onClick={() => setShowGenderRefine(true)}
-              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
-            >
-              <Wand2 className="w-4 h-4 mr-2" />
-              Refinar Estilo
-            </Button>
 
             <Button onClick={handleReset} variant="outline" className="w-full border-slate-700 text-white hover:bg-slate-800">
               Fazer Outra Transformação
@@ -506,19 +453,7 @@ export default function Generator() {
         )}
       </main>
 
-      {/* Install Prompt Modal */}
-      <InstallPromptAfterTransformation
-        isOpen={showInstallPrompt}
-        onClose={() => setShowInstallPrompt(false)}
-      />
-
-      {/* Gender Refine Filter Modal */}
-      <GenderRefineFilter
-        isOpen={showGenderRefine}
-        onClose={() => setShowGenderRefine(false)}
-        onRefine={handleRefineGender}
-        isLoading={isRefining}
-      />
+      {showInstallPrompt && <InstallPromptAfterTransformation isOpen={showInstallPrompt} onClose={() => setShowInstallPrompt(false)} />}
     </div>
   );
 }
