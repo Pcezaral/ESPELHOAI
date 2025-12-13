@@ -87,7 +87,7 @@ const THEMES = [
 ];
 
 export default function Generator() {
-  const { user, isAuthenticated, loading } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const [, setLocation] = useLocation();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
@@ -113,23 +113,8 @@ export default function Generator() {
     }
   }, [themeFromUrl]);
 
-  // Redirecionar se nao autenticado (apos loading terminar)
-  useEffect(() => {
-    if (!loading && !isAuthenticated) {
-      setLocation("/");
-    }
-  }, [loading, isAuthenticated, setLocation]);
-
-  // Mostrar loading enquanto verifica autenticacao
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-black">
-        <Loader2 className="w-8 h-8 animate-spin text-orange-500" />
-      </div>
-    );
-  }
-
-  if (!isAuthenticated) {
+  if (!isAuthenticated && !user) {
+    setLocation("/");
     return null;
   }
 

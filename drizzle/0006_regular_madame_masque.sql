@@ -1,1 +1,1 @@
--- Migration 0006 (empty)
+ALTER TABLE `ratings` MODIFY COLUMN `theme` enum('animals','monster','art','gender','epic','gangster') NOT NULL;
