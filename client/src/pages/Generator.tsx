@@ -1,6 +1,5 @@
-import { useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/_core/hooks/useAuth";
-import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Upload, Camera, Loader2, ArrowLeft } from "lucide-react";
@@ -87,7 +86,7 @@ const THEMES = [
 ];
 
 export default function Generator() {
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, loading: authLoading } = useAuth();
   const [, setLocation] = useLocation();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
@@ -105,6 +104,13 @@ export default function Generator() {
   const initialStep = themeFromUrl ? "upload" : "theme";
   const [step, setStep] = useState<"theme" | "upload" | "processing" | "result">(initialStep as any);
   
+  // Verificar autenticacao em useEffect (nao durante render)
+  useEffect(() => {
+    if (!authLoading && !isAuthenticated && !user) {
+      setLocation("/");
+    }
+  }, [authLoading, isAuthenticated, user, setLocation]);
+  
   // Atualizar tema se vem da URL
   useEffect(() => {
     if (themeFromUrl) {
@@ -113,9 +119,16 @@ export default function Generator() {
     }
   }, [themeFromUrl]);
 
-  if (!isAuthenticated && !user) {
-    setLocation("/");
-    return null;
+  // Mostrar loading enquanto autentica
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <Loader2 className="w-12 h-12 animate-spin text-orange-500 mx-auto" />
+          <p className="text-white text-lg">Carregando...</p>
+        </div>
+      </div>
+    );
   }
 
   const handleThemeSelect = (theme: Theme) => {
