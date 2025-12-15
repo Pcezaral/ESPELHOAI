@@ -96,13 +96,13 @@ export default function Home() {
                   {loading ? "Carregando..." : "Use seus 5 créditos agora!"}
                 </Button>
                 <Button
-                  onClick={() => setLocation("/planos")}
+                  onClick={() => window.open('https://play.google.com/store/apps/details?id=com.descubraeu', '_blank')}
                   variant="outline"
                   size="lg"
                   className="border-orange-500 text-orange-400 hover:bg-orange-500/10 text-lg h-14 px-8 rounded-full font-semibold"
                 >
                   <Zap className="w-5 h-5 mr-2" />
-                  Comprar Créditos
+                  Baixe o App
                 </Button>
               </div>
             </div>
