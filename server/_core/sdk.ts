@@ -134,6 +134,11 @@ class SDKServer {
     const data = await this.oauthService.getUserInfoByToken({
       accessToken,
     } as ExchangeTokenResponse);
+    console.log("[OAuth] getUserInfo response:", data);
+    if (!data.openId) {
+      console.error("[OAuth] ERROR: openId missing", data);
+      throw new Error("openId required");
+    }
     const loginMethod = this.deriveLoginMethod(
       (data as any)?.platforms,
       (data as any)?.platform ?? data.platform ?? null

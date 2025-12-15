@@ -13,9 +13,9 @@ export const users = mysqlTable("users", {
   id: int("id").autoincrement().primaryKey(),
   /** Manus OAuth identifier (openId) returned from the OAuth callback. Unique per user. */
   openId: varchar("openId", { length: 64 }).notNull().unique(),
-  name: text("name"),
-  email: varchar("email", { length: 320 }),
-  loginMethod: varchar("loginMethod", { length: 64 }),
+  name: text("name").default(""),
+  email: varchar("email", { length: 320 }).default(""),
+  loginMethod: varchar("loginMethod", { length: 64 }).default(""),
   role: mysqlEnum("role", ["user", "admin"]).default("user").notNull(),
   /** Credits system */
   credits: int("credits").default(5).notNull(), // New users get 5 free credits
