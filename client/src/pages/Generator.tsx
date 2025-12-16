@@ -2,12 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Upload, Camera, Loader2, ArrowLeft } from "lucide-react";
+import { Upload, Camera, Loader2, ArrowLeft, Wand2 } from "lucide-react";
 import { useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { StarRating } from "@/components/StarRating";
 import { toast } from "sonner";
 import { CreditBadge } from "@/components/CreditBadge";
+import { getLoginUrl } from "@/const";
 type Theme = "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus" | "natal" | "reveillon";
 
 const THEMES = [
@@ -104,12 +105,7 @@ export default function Generator() {
   const initialStep = themeFromUrl ? "upload" : "theme";
   const [step, setStep] = useState<"theme" | "upload" | "processing" | "result">(initialStep as any);
   
-  // Verificar autenticacao em useEffect (nao durante render)
-  useEffect(() => {
-    if (!authLoading && !isAuthenticated && !user) {
-      setLocation("/");
-    }
-  }, [authLoading, isAuthenticated, user, setLocation]);
+  // Não redirecionar automaticamente - deixar o usuário ver a página
   
   // Atualizar tema se vem da URL
   useEffect(() => {

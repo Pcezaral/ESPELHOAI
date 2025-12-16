@@ -62,13 +62,15 @@ createRoot(document.getElementById("root")!).render(
 
 // Register Service Worker for PWA
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then((registration) => {
-        console.log('[PWA] Service Worker registered:', registration);
-      })
-      .catch((error) => {
-        console.log('[PWA] Service Worker registration failed:', error);
-      });
+  window.addEventListener('load', async () => {
+    try {
+      const registrations = await navigator.serviceWorker.getRegistrations();
+      for (let registration of registrations) {
+        await registration.unregister();
+        console.log('[PWA] Service Worker unregistered');
+      }
+    } catch (error) {
+      console.log('[PWA] Error unregistering Service Worker:', error);
+    }
   });
 }
