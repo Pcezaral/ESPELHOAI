@@ -64,7 +64,9 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
   ];
 
   /**
-   * Detecta se é Android ou iOS e salva na galeria/fotos apropriada
+   * Permite ao usuário escolher onde salvar a imagem
+   * Usa File System Access API quando disponível (Chrome/Edge desktop)
+   * Fallback para download tradicional em outros navegadores
    */
   const downloadToDevice = async (url: string, filename: string) => {
     try {
@@ -72,42 +74,50 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
       const response = await fetch(url);
       const blob = await response.blob();
 
-      // Detectar dispositivo
+      // Tentar usar File System Access API (permite escolher local)
+      if ('showSaveFilePicker' in window) {
+        try {
+          const handle = await (window as any).showSaveFilePicker({
+            suggestedName: filename,
+            types: [{
+              description: 'Imagem JPEG',
+              accept: { 'image/jpeg': ['.jpg', '.jpeg'] },
+            }],
+          });
+          const writable = await handle.createWritable();
+          await writable.write(blob);
+          await writable.close();
+          toast.success("✅ Imagem salva com sucesso!");
+          return;
+        } catch (err: any) {
+          // Usuário cancelou ou API não disponível
+          if (err.name === 'AbortError') {
+            return; // Usuário cancelou, não mostrar erro
+          }
+          // Continua para fallback
+        }
+      }
+
+      // Fallback: Download tradicional (abre diálogo do navegador)
+      const blobUrl = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(blobUrl);
+      
+      // Detectar dispositivo para mensagem apropriada
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
       const isAndroid = /Android/.test(navigator.userAgent);
-
+      
       if (isIOS) {
-        // iOS: Salvar em Fotos
-        const reader = new FileReader();
-        reader.readAsDataURL(blob);
-        reader.onload = () => {
-          const link = document.createElement('a');
-          link.href = reader.result as string;
-          link.download = filename;
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          toast.success("✅ Imagem salva! Verifique o app Fotos");
-        };
+        toast.success("✅ Imagem salva! Verifique o app Fotos ou Downloads");
       } else if (isAndroid) {
-        // Android: Usar download manager se disponível
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = filename;
-        link.setAttribute('target', '_blank');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        toast.success("✅ Imagem baixada! Verifique a Galeria");
+        toast.success("✅ Imagem baixada! Verifique a Galeria ou Downloads");
       } else {
-        // Desktop: Download normal
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = filename;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        toast.success("✅ Download iniciado!");
+        toast.success("✅ Download iniciado! Verifique sua pasta de downloads");
       }
     } catch (error) {
       console.error("Download error:", error);
@@ -199,7 +209,7 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
       </Button>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="max-w-2xl bg-slate-900 border-slate-700">
+        <DialogContent className="max-w-2xl bg-slate-900 border-slate-700 max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-2xl text-white flex items-center gap-2">
               <Download className="w-6 h-6 text-orange-500" />

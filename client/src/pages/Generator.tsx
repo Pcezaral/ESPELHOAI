@@ -236,14 +236,49 @@ export default function Generator() {
     }
   };
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     if (!generatedImage) return;
-    const link = document.createElement("a");
-    link.href = generatedImage;
-    link.download = `descubra-seu-verdadeiro-eu-${selectedTheme}.jpg`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    
+    const filename = `espelho-ai-${selectedTheme}-${Date.now()}.jpg`;
+    
+    try {
+      const response = await fetch(generatedImage);
+      const blob = await response.blob();
+
+      // Tentar usar File System Access API (permite escolher local)
+      if ('showSaveFilePicker' in window) {
+        try {
+          const handle = await (window as any).showSaveFilePicker({
+            suggestedName: filename,
+            types: [{
+              description: 'Imagem JPEG',
+              accept: { 'image/jpeg': ['.jpg', '.jpeg'] },
+            }],
+          });
+          const writable = await handle.createWritable();
+          await writable.write(blob);
+          await writable.close();
+          toast.success("✅ Imagem salva com sucesso!");
+          return;
+        } catch (err: any) {
+          if (err.name === 'AbortError') return;
+        }
+      }
+
+      // Fallback: Download tradicional
+      const blobUrl = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(blobUrl);
+      toast.success("✅ Download iniciado!");
+    } catch (error) {
+      console.error("Download error:", error);
+      toast.error("Erro ao baixar imagem");
+    }
   };
 
   const handleShare = (message: string) => {

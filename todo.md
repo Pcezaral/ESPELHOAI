@@ -852,3 +852,9 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Atualizar domínio para www.espelhoai.com.br em Generator.tsx (compartilhamento WhatsApp)
 - [x] Atualizar domínio para www.espelhoai.com.br em Home.tsx (Facebook, WhatsApp, Twitter)
 - [ ] Configurar domínio customizado no painel Manus (Settings → Domains)
+
+
+## Bugs de Download (16/12/2025)
+
+- [x] BUG: Download em maior resolução corta a parte de dicas (adicionado scroll no dialog)
+- [x] FEATURE: Permitir usuário escolher local de salvamento da foto (File System Access API)

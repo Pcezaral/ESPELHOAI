@@ -31,19 +31,56 @@ export function BeforeAfterDownload({
   const [isGenerating, setIsGenerating] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
+  /**
+   * Permite ao usuário escolher onde salvar a imagem
+   */
+  const downloadToDevice = async (url: string, filename: string) => {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+
+      // Tentar usar File System Access API (permite escolher local)
+      if ('showSaveFilePicker' in window) {
+        try {
+          const handle = await (window as any).showSaveFilePicker({
+            suggestedName: filename,
+            types: [{
+              description: 'Imagem JPEG',
+              accept: { 'image/jpeg': ['.jpg', '.jpeg'] },
+            }],
+          });
+          const writable = await handle.createWritable();
+          await writable.write(blob);
+          await writable.close();
+          toast.success("✅ Imagem salva com sucesso!");
+          return;
+        } catch (err: any) {
+          if (err.name === 'AbortError') return;
+        }
+      }
+
+      // Fallback: Download tradicional
+      const blobUrl = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(blobUrl);
+      toast.success("✅ Download iniciado!");
+    } catch (error) {
+      console.error("Download error:", error);
+      toast.error("Erro ao baixar imagem");
+    }
+  };
+
   const generateBeforeAfterMutation = trpc.generation.generateBeforeAfter.useMutation({
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       if (data.downloadUrl) {
         setPreviewUrl(data.downloadUrl);
-        // Trigger download
-        const link = document.createElement("a");
-        link.href = data.downloadUrl;
-        link.download = `antes-depois-${theme}-${Date.now()}.jpg`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        
-        toast.success("Download iniciado! Imagem salva com sucesso.");
+        const filename = `antes-depois-${theme}-${Date.now()}.jpg`;
+        await downloadToDevice(data.downloadUrl, filename);
         onCreditsUpdated?.();
       }
       setIsGenerating(false);
