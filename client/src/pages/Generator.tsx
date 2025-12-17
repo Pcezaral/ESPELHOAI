@@ -242,10 +242,27 @@ export default function Generator() {
     const filename = `espelho-ai-${selectedTheme}-${Date.now()}.jpg`;
     
     try {
-      const response = await fetch(generatedImage);
-      const blob = await response.blob();
+      // Primeiro tenta fetch com modo no-cors para imagens externas
+      let blob: Blob;
+      try {
+        const response = await fetch(generatedImage, { mode: 'cors' });
+        if (!response.ok) throw new Error('Fetch failed');
+        blob = await response.blob();
+      } catch {
+        // Fallback: criar link direto se fetch falhar (CORS)
+        const link = document.createElement('a');
+        link.href = generatedImage;
+        link.download = filename;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        toast.success("✅ Download iniciado! Verifique sua pasta de downloads.");
+        return;
+      }
 
-      // Tentar usar File System Access API (permite escolher local)
+      // Se conseguiu o blob, tenta File System Access API (desktop Chrome/Edge)
       if ('showSaveFilePicker' in window) {
         try {
           const handle = await (window as any).showSaveFilePicker({
@@ -262,10 +279,11 @@ export default function Generator() {
           return;
         } catch (err: any) {
           if (err.name === 'AbortError') return;
+          // Continua para fallback se API falhar
         }
       }
 
-      // Fallback: Download tradicional
+      // Fallback: Download tradicional com blob
       const blobUrl = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = blobUrl;
@@ -277,7 +295,9 @@ export default function Generator() {
       toast.success("✅ Download iniciado!");
     } catch (error) {
       console.error("Download error:", error);
-      toast.error("Erro ao baixar imagem");
+      // Último fallback: abrir imagem em nova aba
+      window.open(generatedImage, '_blank');
+      toast.info("Imagem aberta em nova aba. Clique com botão direito para salvar.");
     }
   };
 

@@ -869,3 +869,8 @@ App totalmente alinhado com identidade visual do site Hostinger
 ## Bug Stripe 404 (17/12/2025)
 
 - [x] BUG: Erro 404 ao tentar fazer checkout do Stripe (URL de retorno corrigida para www.espelhoai.com.br)
+
+
+## Bug Download Imagem (17/12/2025)
+
+- [x] BUG: "Erro ao baixar imagem" ao tentar fazer download (corrigido com fallbacks para CORS)
