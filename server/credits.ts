@@ -50,7 +50,7 @@ export async function getCreditBalance(userId: number): Promise<number> {
  * Consume one credit for a transformation
  * Returns true if successful, throws error if insufficient credits
  */
-export async function consumeCredit(userId: number, themeName: string): Promise<boolean> {
+export async function consumeCredit(userId: number, description: string, amount: number = 1): Promise<boolean> {
   const db = await getDb();
   if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database not available" });
 
@@ -62,7 +62,7 @@ export async function consumeCredit(userId: number, themeName: string): Promise<
       type: "consumption",
       amount: 0, // No credits consumed for unlimited users
       balanceAfter: -1, // -1 indicates unlimited
-      description: `Generated ${themeName} transformation (unlimited plan)`,
+      description: `${description} (unlimited plan)`,
     });
     return true;
   }
@@ -76,15 +76,15 @@ export async function consumeCredit(userId: number, themeName: string): Promise<
   const currentCredits = user[0].credits;
 
   // Check if user has enough credits
-  if (currentCredits < 1) {
+  if (currentCredits < amount) {
     throw new TRPCError({ 
       code: "FORBIDDEN", 
-      message: "Insufficient credits. Please purchase more credits to continue." 
+      message: `Créditos insuficientes. Você precisa de ${amount} créditos, mas tem apenas ${currentCredits}.` 
     });
   }
 
-  // Deduct credit
-  const newBalance = currentCredits - 1;
+  // Deduct credits
+  const newBalance = currentCredits - amount;
   await db.update(users)
     .set({ credits: newBalance })
     .where(eq(users.id, userId));
@@ -93,9 +93,9 @@ export async function consumeCredit(userId: number, themeName: string): Promise<
   await db.insert(creditTransactions).values({
     userId,
     type: "consumption",
-    amount: -1,
+    amount: -amount,
     balanceAfter: newBalance,
-    description: `Generated ${themeName} transformation`,
+    description: description,
   });
 
   return true;

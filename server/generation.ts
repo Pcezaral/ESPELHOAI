@@ -47,8 +47,18 @@ export async function generateTransformation(
   
   const themePrompts: Record<typeof theme, { prompt: string; text: string }> = {
     animals: {
-      // Bichinho: ROSTO RECONHECÍVEL mesmo como animal
-      prompt: `Cute animal portrait transformation. CRITICAL RULE: Keep EXACT same number of people - if 2 people in input, output MUST have 2 people with BOTH faces identical; if 3 people, output MUST have 3 people with ALL 3 faces identical. PRESERVE EACH INDIVIDUAL FACE: Maintain RECOGNIZABLE facial features for EVERY person - same eye shape, eye color, nose proportions, mouth expression, facial structure must be identifiable. DO NOT create generic animal, DO NOT lose person's identity. ONLY change: add fur/feathers, animal ears, whiskers, tail. Randomly choose ONE animal: fluffy cat (soft fur, cat ears, whiskers), playful dog (floppy ears, friendly expression), wise owl (feathered face, big eyes but same eye color), gentle deer (soft features, small antlers), curious fox (orange fur, pointed ears), cuddly bear (round ears, soft fur), happy bunny (long ears, fluffy), colorful parrot (feathers, beak but recognizable face), sleepy koala (gray fur, round ears), energetic squirrel (bushy tail, alert expression). CRITICAL: Face must look like the person AS an animal, not a random animal. Keep facial proportions, eye spacing, expression identical. Vary pose naturally (sitting / standing / playful / resting). Soft lighting, vibrant but natural colors. Cute cartoon style with facial recognition. Random seed: ${randomSeed}`,
+      // Bichinho: ROSTO E EXPRESSÃO 100% PRESERVADOS - apenas adicionar elementos de animal
+      prompt: `Cute animal portrait transformation. ABSOLUTE CRITICAL RULE: The person's FACE, EXPRESSION, and PHYSIOGNOMY must be 100% PRESERVED and RECOGNIZABLE. Keep EXACT same number of people - if 2 people in input, output MUST have 2 people with BOTH faces IDENTICAL to original; if 3 people, output MUST have 3 people with ALL 3 faces IDENTICAL to original.
+      
+      FACE PRESERVATION IS PARAMOUNT: The person's face must be COMPLETELY RECOGNIZABLE - same exact eyes (shape, color, size, spacing), same exact nose (shape, size, position), same exact mouth (shape, lips, smile/expression), same exact facial bone structure, same exact skin tone, same exact expression and emotion. The face should look like a PHOTO of the person with animal features ADDED AROUND IT, not a transformation OF the face.
+      
+      WHAT TO ADD (around the face, NOT replacing it): Fluffy fur around the face edges, cute animal ears on top of head, whiskers on cheeks (thin, not covering face), small animal nose tip overlay (transparent, showing original nose), tail behind body, paws instead of hands.
+      
+      Randomly choose ONE animal style: fluffy cat (soft fur frame, cat ears, thin whiskers), playful dog (floppy ears, friendly fur frame), wise owl (feathered frame, big expressive eyes keeping original eye color), gentle deer (soft fur, small antlers headband style), curious fox (orange fur frame, pointed ears), cuddly bear (round ears, soft brown fur frame), happy bunny (long floppy ears, fluffy white fur frame), colorful parrot (feather frame around face, keeping face visible), sleepy koala (gray fur frame, round ears), energetic squirrel (bushy tail, alert ears).
+      
+      CRITICAL: The ORIGINAL EXPRESSION must be visible - if person is smiling, animal version smiles the same way. If person has a specific look in their eyes, that look must be preserved. Face is the STAR, animal features are ACCESSORIES.
+      
+      Vary pose naturally (sitting / standing / playful / resting). Soft lighting, vibrant but natural colors. Cute style that highlights the person's real face with animal accessories. Random seed: ${randomSeed}`,
       text: "Você é um bichinho encantador! Suas características se transformaram em um animal adorável que mantém sua essência única! 🐾"
     },
     
@@ -59,15 +69,67 @@ export async function generateTransformation(
     },
     
     art: {
-      // Pintura: ROSTO IDÊNTICO, ALTA VARIEDADE de estilos artísticos famosos
-      prompt: `Artistic portrait transformation. CRITICAL RULE: Keep EXACT same number of people - if 2 people in input, output MUST have 2 people with BOTH faces pixel-perfect identical; if 3 people, output MUST have 3 people with ALL 3 faces pixel-perfect identical. PRESERVE EACH INDIVIDUAL FACE: Each person's face must be PIXEL-PERFECT IDENTICAL - same features, expression, age, skin tone. ONLY change: artistic style, costume and background. Randomly choose ONE famous painting style: Van Gogh Impressionism (swirling brushstrokes, vibrant blues and yellows, Starry Night style / Sunflower field / Café terrace at night / Wheat field with cypresses), Picasso Cubism (geometric fragmented faces, multiple perspectives, bold primary colors, Blue Period melancholy / Rose Period warm tones / African art influence), Rembrandt Baroque (dramatic chiaroscuro lighting, rich browns and golds, Dutch Golden Age costume, dark background with spotlight face), Caravaggio Baroque (intense tenebrism, dramatic shadows and highlights, religious Renaissance clothing, dark dramatic background), Monet Impressionism (soft dappled brushstrokes, pastel colors, garden setting with water lilies, Japanese bridge, impressionist light), Leonardo da Vinci Renaissance (sfumato soft edges, Mona Lisa mysterious smile style, Italian Renaissance clothing, landscape background with mountains), Frida Kahlo Surrealism (bold vibrant colors, Mexican folk art, elaborate floral headpiece, tropical jungle background with monkeys and parrots), Gustav Klimt Art Nouveau (gold leaf patterns, ornate geometric decorations, The Kiss style, Byzantine mosaics influence, golden spirals), Edvard Munch Expressionism (wavy bold colors, emotional intensity, The Scream style, swirling sky, bridge or landscape), Salvador Dalí Surrealism (melting clocks style, dreamlike bizarre elements, desert landscape, hyper-realistic details with surreal twist), Henri Matisse Fauvism (bold flat colors, simplified forms, Dance style, vibrant reds blues greens, decorative patterns), Botticelli Renaissance (flowing hair, Birth of Venus style, soft pastel colors, shell and flowers, Italian Renaissance beauty), Toulouse-Lautrec Post-Impressionism (Moulin Rouge cabaret style, bold outlines, flat colors, Art Nouveau posters, Parisian nightlife), Vermeer Baroque (Girl with Pearl Earring style, soft natural light from window, Dutch interior, turban or headscarf, intimate domestic scene), Andy Warhol Pop Art (bright neon colors, repeated grid pattern, screen print effect, celebrity portrait style, bold contrasts). CRITICAL: ONLY famous painting styles, NO historical periods, NO 1920s/1940s/1950s themes. Vary background to match artist style (gardens, interiors, abstract, landscapes). Artistic painting texture visible. Random seed: ${randomSeed}`,
+      // Pintura: ROSTO IDÊNTICO, estilos de ARTISTAS FAMOSOS com INTEGRAÇÃO PERFEITA de fundo
+      prompt: `Famous artist painting style portrait. CRITICAL RULE: Keep EXACT same number of people - if 2 people in input, output MUST have 2 people with BOTH faces pixel-perfect identical. PRESERVE FACE: Each person's face must be PIXEL-PERFECT IDENTICAL - same features, expression, age, skin tone.
+      
+      CRITICAL FOR QUALITY: The person must be SEAMLESSLY INTEGRATED into the painting style - same brushstroke technique on face AND background, same color palette throughout, same artistic texture everywhere. NO photorealistic face on painted background - the ENTIRE image must look like ONE cohesive painting by the artist.
+      
+      Randomly choose ONE famous artist style with FULL INTEGRATION:
+      
+      VAN GOGH (person painted with Van Gogh's signature swirling brushstrokes, thick impasto texture on face and clothes, vibrant blues and yellows, background options: Starry Night swirling sky / Sunflower field / Café terrace at night / Wheat field with cypresses / Bedroom in Arles - person is PART of the painting, same brushwork everywhere),
+      
+      PICASSO (person in Picasso's distinctive style, choose period: Blue Period with melancholic blues and greens / Rose Period with warm pinks and earth tones / Cubist with geometric fragmented perspective showing multiple angles / African Period with mask-like features - face stylized but RECOGNIZABLE, background matches period),
+      
+      MONET (person painted with soft Impressionist dappled brushstrokes, pastel colors, light filtering through, backgrounds: Water Lilies garden / Japanese bridge / Poppy field / Cathedral facade / Haystacks at sunset - dreamy atmospheric quality throughout),
+      
+      REMBRANDT (dramatic chiaroscuro lighting, rich browns and golds, Dutch Golden Age style, face emerging from dark background with spotlight effect, period costume, intimate portrait feeling),
+      
+      FRIDA KAHLO (bold vibrant Mexican colors, folk art elements, elaborate floral headpiece, tropical jungle background with monkeys and parrots, symbolic surreal elements, unibrow optional, intense gaze),
+      
+      GUSTAV KLIMT (gold leaf patterns, ornate geometric decorations, The Kiss style embrace, Byzantine mosaic influence, golden spirals and shapes, Art Nouveau elegance, decorative flat background),
+      
+      SALVADOR DALÍ (surrealist dreamscape, melting clocks, impossible architecture, desert landscape, hyper-realistic face with surreal elements around, elephants on stilts, floating objects),
+      
+      ANDY WARHOL (Pop Art style, bright neon colors - pink/yellow/blue/green, screen print effect, bold outlines, repeated portrait grid optional, celebrity glamour aesthetic, flat color blocks),
+      
+      BOTTICELLI (Renaissance beauty, flowing golden hair, Birth of Venus style, soft pastel colors, shell and flowers, ethereal feminine beauty, Italian Renaissance landscape background),
+      
+      VERMEER (Girl with Pearl Earring style, soft natural light from side window, Dutch interior, turban or headscarf, intimate domestic scene, photorealistic but painterly).
+      
+      CRITICAL: The painting must look like it was ENTIRELY created by the artist - unified style from edge to edge. Artistic texture visible throughout. Random seed: ${randomSeed}`,
       text: "Você é uma obra de arte! Seus traços se transformaram em um estilo artístico único! 🎨"
     },
     
     gender: {
-      // Gênero: ROSTO 100% IDÊNTICO, looks divertidos mas preservação facial ABSOLUTA
-      prompt: `Gender swap portrait transformation. CRITICAL RULE: Keep EXACT same number of people - if 2 people in input, output MUST have 2 people with BOTH faces pixel-perfect identical; if 3 people, output MUST have 3 people with ALL 3 faces pixel-perfect identical. PRESERVE EACH INDIVIDUAL FACE: Each person's face must be PIXEL-PERFECT IDENTICAL - same eyes, nose, mouth, expression, age, skin tone, facial structure. DO NOT modify face, DO NOT exaggerate features, DO NOT create caricature. ONLY change: hairstyle, clothing, accessories, pose, background. Randomly choose ONE look with playful style: Male to Female options (Carnival Baiana with colorful Bahia costume + fruit headpiece + vibrant skirts + beach background, Hawaiian Hula Dancer with grass skirt + flower lei + tropical paradise, Glamorous Drag Queen with sequined gown + dramatic makeup + feather boa + stage lights, Flamenco Dancer with red ruffled dress + rose in hair + Spanish background, 1950s Housewife with apron + curlers + kitchen background, Bollywood Diva with sari + jewelry + colorful Indian background, Cabaret Performer with feathers + sparkles + theater stage). Female to Male options (Firefighter with uniform + mustache + fire truck background, Police Officer with uniform + aviator sunglasses + mustache + squad car, Doctor with white coat + stethoscope + beard + hospital, Rockstar Guitarist with leather jacket + electric guitar + stage with smoke, Construction Worker with hard hat + tool belt + building site, Cowboy with hat + boots + lasso + Wild West saloon, Biker with leather vest + bandana + motorcycle background, Chef with white uniform + hat + restaurant kitchen). CRITICAL: NO face distortion, NO cartoon features, keep facial proportions natural. Vary pose naturally (confident stance / relaxed pose / professional posture / casual lean). Vary background to match character (workplace / stage / outdoor scene / indoor setting). Vibrant colors, playful styling, clear lighting. Realistic photo style. Random seed: ${randomSeed}`,
-      text: "Se tivesse nascido... Descubra sua versão hilariante do outro gênero! 😂⚧️"
+      // Gênero: ROSTO 100% IDÊNTICO, cenários do DIA-A-DIA com HUMOR
+      prompt: `Gender swap portrait transformation - EVERYDAY LIFE SCENARIOS WITH HUMOR. CRITICAL RULE: Keep EXACT same number of people - if 2 people in input, output MUST have 2 people with BOTH faces pixel-perfect identical. PRESERVE EACH INDIVIDUAL FACE: Each person's face must be PIXEL-PERFECT IDENTICAL - same eyes, nose, mouth, expression, age, skin tone, facial structure. DO NOT modify face, DO NOT exaggerate features, DO NOT create caricature, NOT a drag queen or exaggerated character.
+      
+      ONLY change: hairstyle appropriate for opposite gender, everyday clothing, natural pose, realistic background.
+      
+      Randomly choose ONE EVERYDAY SCENARIO with HUMOR:
+      
+      OFFICE WORKER (business casual outfit, sitting at desk with computer, coffee mug, office background with coworkers, funny expression like "Monday morning" face, messy desk, post-it notes everywhere),
+      
+      SUPERMARKET SHOPPER (casual clothes, pushing shopping cart, comparing products with confused expression, supermarket aisle background, holding two similar products looking puzzled, overflowing cart),
+      
+      STUCK IN TRAFFIC (driving car, frustrated expression, honking, traffic jam visible through windshield, coffee in hand, late for work expression, messy hair),
+      
+      COOKING DISASTER (kitchen background, apron, smoke coming from pan, surprised/worried expression, fire extinguisher nearby, burnt food, recipe book open),
+      
+      GYM STRUGGLE (workout clothes, gym background, exhausted expression on treadmill, sweaty, looking at fit people exercising easily nearby, holding tiny weights),
+      
+      PARENT CHAOS (casual home clothes, living room with toys everywhere, baby/toddler chaos, tired but loving expression, juice spilled, cartoon on TV),
+      
+      COFFEE ADDICT (holding giant coffee cup, sleepy morning expression, pajamas or robe, messy hair, kitchen background, multiple empty coffee cups),
+      
+      ZOOM CALL (professional top but pajama bottom visible, laptop screen, home office background, trying to look professional while chaos happens behind),
+      
+      WAITING ROOM (sitting in doctor/dentist waiting room, nervous expression, reading old magazine, clock on wall, other patients),
+      
+      PUBLIC TRANSPORT (crowded bus/metro, standing holding rail, tired expression, headphones, surrounded by other commuters, rush hour).
+      
+      CRITICAL: Natural everyday appearance - NOT glamorous, NOT drag, NOT exaggerated. Regular person in regular situations with HUMOR. Realistic photo style with comedic timing. Random seed: ${randomSeed}`,
+      text: "Se tivesse nascido... Descubra sua versão hilariante do outro gênero no dia-a-dia! 😂⚧️"
     },
     
     epic: {
@@ -168,28 +230,32 @@ export async function generateTransformation(
     },
     
     reveillon: {
-      // Réveillon: ROSTO 100% IDÊNTICO, celebração elegante de ano novo
-      // VARIEDADE de cenários: praia, festa, rooftop, iate, etc.
-      prompt: `New Year's Eve 2026 transformation. CRITICAL RULE: Keep EXACT same number of people - if 1 person in input, output MUST have 1 person; if 2 people, output MUST have 2 people with BOTH faces pixel-perfect identical. PRESERVE EACH INDIVIDUAL FACE: Face must be PIXEL-PERFECT IDENTICAL - same eyes, nose, mouth, expression, age, skin tone, facial structure. DO NOT modify face. ONLY change: costume, pose, props, background. 
+      // Réveillon: ROSTO 100% IDÊNTICO, celebração de ano novo - ACESSÍVEL E FAMILIAR
+      // VARIEDADE de cenários: churrasco, família, ceia, praia, iate - SEMPRE com 2026 e fogos
+      prompt: `New Year's Eve 2026 transformation - ACCESSIBLE AND FAMILY CELEBRATIONS. CRITICAL RULE: Keep EXACT same number of people - if 1 person in input, output MUST have 1 person; if 2 people, output MUST have 2 people with BOTH faces pixel-perfect identical. PRESERVE EACH INDIVIDUAL FACE: Face must be PIXEL-PERFECT IDENTICAL - same eyes, nose, mouth, expression, age, skin tone, facial structure. DO NOT modify face. ONLY change: costume, pose, props, background.
+      
+      MANDATORY ELEMENTS IN ALL SCENARIOS: "2026" visible prominently (in fireworks, decorations, balloons, or signs), spectacular colorful fireworks in background, white or light-colored clothing (Brazilian tradition).
       
       Randomly choose ONE New Year scenario with HIGH VARIETY:
       
-      COPACABANA BEACH CELEBRATION (elegant white flowing dress or white linen suit, barefoot on sand, holding champagne glass, Rio de Janeiro beach at night with SPECTACULAR colorful fireworks exploding over ocean, famous Copacabana promenade, crowd celebrating, "2026" visible in fireworks, tropical festive atmosphere),
+      BACKYARD BBQ PARTY (white casual clothes, Brazilian churrasco/barbecue setting, friends and family around, meat on grill, cold beer and drinks, string lights, backyard decorations, "2026" balloons, fireworks visible in night sky, relaxed happy atmosphere, plastic chairs and tables),
       
-      ELEGANT ROOFTOP PARTY (stylish all-white outfit, champagne flute, luxury rooftop with city skyline, fireworks spelling "2026" in background, string lights, DJ booth, dancing crowd silhouettes, glamorous night party),
+      FAMILY DINNER TABLE (white elegant but casual outfit, large family dinner table with traditional Brazilian ceia, lentils for luck, grapes, champagne glasses raised for toast, dining room decorated with "2026" banner, fireworks visible through window, multi-generational family),
       
-      LUXURY YACHT CELEBRATION (white nautical elegant outfit, captain's hat optional, champagne, luxury yacht deck, fireworks over water with "2026" visible, ocean reflecting colorful lights, glamorous maritime setting),
+      COPACABANA BEACH (white flowing clothes, barefoot on sand, Rio de Janeiro beach at night, SPECTACULAR fireworks over ocean with "2026", Copacabana promenade, crowd celebrating, tropical festive atmosphere),
       
-      TIMES SQUARE STYLE (white winter coat with fur trim, holding champagne, massive crowd, giant "2026" ball drop, confetti explosion, neon lights, iconic celebration moment),
+      ROOFTOP WITH FRIENDS (white party outfit, apartment rooftop, city skyline, fireworks spelling "2026" in background, string lights, friends toasting, DJ playing, dancing, urban celebration),
       
-      TROPICAL RESORT PARTY (white resort wear, pool party setting, palm trees with lights, fireworks in tropical sky, tiki torches, exotic cocktails, "2026" ice sculpture),
+      YACHT PARTY (white nautical outfit, yacht deck, fireworks over water with "2026" visible, champagne, ocean reflecting colorful lights, glamorous but fun atmosphere),
       
-      ELEGANT BALLROOM (formal white gown or white tuxedo, grand ballroom with chandeliers, orchestra, waltzing couples, golden "2026" decorations, champagne tower, black tie elegance),
+      COUNTRYSIDE CELEBRATION (white linen clothes, farm or sítio setting, bonfire, friends and family, rustic tables with food, fireworks over hills with "2026", stars visible, peaceful celebration),
       
-      VINEYARD CELEBRATION (white linen outfit, wine country setting, vineyard rows with lights, rustic elegant party, fireworks over hills, wine glasses, "2026" in sparklers).
+      POOL PARTY (white swimwear cover-up, pool with floating lights, tropical setting, palm trees, fireworks in sky with "2026", cocktails, friends in pool, summer night party),
       
-      CRITICAL: White clothing is MANDATORY (Brazilian New Year tradition for good luck). Add spectacular fireworks with "2026", champagne, golden decorations, confetti. Vary pose (toasting / celebrating / dancing / elegant stance / joyful expression / arms raised). Night lighting with fireworks glow and golden party lights. Photorealistic celebratory style. Random seed: ${randomSeed}`,
-      text: "🎆 Você está pronto para o Réveillon! Celebre com estilo e brinde ao novo ano com champagne! 🍾✨"
+      STREET PARTY (white casual outfit, neighborhood street party, tables on street, neighbors celebrating together, homemade decorations, "2026" banner across street, fireworks overhead, community celebration).
+      
+      CRITICAL: White/light clothing is MANDATORY (Brazilian tradition). MUST include "2026" prominently and fireworks. Mix of accessible everyday celebrations AND glamorous options. Vary pose (toasting / hugging / dancing / laughing / arms raised). Night lighting with fireworks glow. Photorealistic celebratory style with JOY and WARMTH. Random seed: ${randomSeed}`,
+      text: "🎆 Você está pronto para o Réveillon 2026! Celebre com quem você ama! 🍾✨"
     },
     
     beach: {
@@ -254,4 +320,62 @@ export async function generateTransformation(
     generatedImageUrl: result.url,
     generatedText: text
   };
+}
+
+
+/**
+ * Gerar imagem em alta resolução para download premium
+ * HD (300 DPI): 2400x2400px - ideal para camisetas e canecas
+ * 4K (600 DPI): 4800x6000px - qualidade máxima para posters e fotos
+ */
+export async function generateHighResolutionImage(
+  imageUrl: string,
+  resolution: "hd" | "4k",
+  userId: number
+): Promise<{ url: string; key: string }> {
+  try {
+    // Determinar tamanho e DPI baseado na resolução
+    const isHD = resolution === "hd";
+    const dpi = isHD ? 300 : 600;
+    const size = isHD ? "2400x2400" : "4800x6000";
+    
+    // Prompt para upscaling com IA
+    const upscalePrompt = `
+      Enhance and upscale this image to ${size}px at ${dpi} DPI quality.
+      Preserve all facial features and details exactly as they are.
+      Improve clarity, sharpness, and color vibrancy.
+      Remove any compression artifacts.
+      Maintain the original composition and framing.
+      Output should be suitable for high-quality print on t-shirts, mugs, and posters.
+    `;
+    
+    // Gerar imagem upscalada
+    const result = await generateImage({
+      prompt: upscalePrompt,
+      originalImages: [{
+        url: imageUrl,
+        mimeType: "image/jpeg"
+      }]
+    });
+    
+    if (!result.url) {
+      throw new Error("Failed to generate high-resolution image");
+    }
+    
+    // Fazer download da imagem upscalada
+    const response = await fetch(result.url);
+    const buffer = await response.arrayBuffer();
+    
+    // Upload para S3 com nome descritivo
+    const timestamp = Date.now();
+    const randomSuffix = Math.random().toString(36).substring(7);
+    const fileKey = `user-${userId}/downloads/${resolution}-${timestamp}-${randomSuffix}.jpg`;
+    
+    const { url: s3Url } = await storagePut(fileKey, Buffer.from(buffer), "image/jpeg");
+    
+    return { url: s3Url, key: fileKey };
+  } catch (error) {
+    console.error("[Generation] Failed to generate high-resolution image:", error);
+    throw new Error("Falha ao gerar imagem em alta resolução");
+  }
 }

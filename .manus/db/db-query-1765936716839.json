@@ -1,0 +1,9 @@
+{
+  "query": "CREATE TABLE IF NOT EXISTS `premium_downloads` (\n  `id` int AUTO_INCREMENT PRIMARY KEY,\n  `userId` int NOT NULL,\n  `imageUrl` text NOT NULL,\n  `resolution` enum('hd', '4k') NOT NULL,\n  `product` enum('camiseta', 'caneca', 'poster') NOT NULL,\n  `theme` varchar(64),\n  `creditsCost` int NOT NULL,\n  `createdAt` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL\n);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4TyPH5sRp98Bbib.22eb3b977414 --database iPCSMFLfBQ2PWRu3Un3kaW --execute CREATE TABLE IF NOT EXISTS `premium_downloads` (\n  `id` int AUTO_INCREMENT PRIMARY KEY,\n  `userId` int NOT NULL,\n  `imageUrl` text NOT NULL,\n  `resolution` enum('hd', '4k') NOT NULL,\n  `product` enum('camiseta', 'caneca', 'poster') NOT NULL,\n  `theme` varchar(64),\n  `creditsCost` int NOT NULL,\n  `createdAt` timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL\n);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 239
+}

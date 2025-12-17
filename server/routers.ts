@@ -57,6 +57,57 @@ export const appRouter = router({
         const { generateTransformation } = await import("./generation");
         return generateTransformation(input.theme, input.imageUrl, ctx.user.id);
       }),
+    downloadHighResolution: protectedProcedure
+      .input(z.object({
+        imageUrl: z.string(),
+        resolution: z.enum(["hd", "4k"]),
+        product: z.enum(["camiseta", "caneca", "poster"]),
+        theme: z.string(),
+      }))
+      .mutation(async ({ input, ctx }) => {
+        const creditCost = input.resolution === "hd" ? 5 : 10;
+        const resolutionName = input.resolution === "hd" ? "HD (300 DPI)" : "Premium 4K (600 DPI)";
+        
+        // Consume credits
+        await consumeCredit(ctx.user.id, `Download ${resolutionName} - ${input.product}`, creditCost);
+        
+        // Generate high-resolution image
+        const { generateHighResolutionImage } = await import("./generation");
+        let downloadUrl: string;
+        try {
+          const result = await generateHighResolutionImage(
+            input.imageUrl,
+            input.resolution,
+            ctx.user.id
+          );
+          downloadUrl = result.url;
+          console.log("[Download] Generated URL:", downloadUrl);
+        } catch (error) {
+          console.error("[Download] Generation failed:", error);
+          throw new Error("Falha ao gerar imagem em alta resolucao");
+        }
+        
+        // Record download in database
+        const db = await getDb();
+        if (db) {
+          const { premiumDownloads } = await import("../drizzle/schema");
+          await db.insert(premiumDownloads).values({
+            userId: ctx.user.id,
+            imageUrl: downloadUrl,
+            resolution: input.resolution,
+            product: input.product,
+            theme: input.theme,
+            creditsCost: creditCost,
+          });
+        }
+        
+        return { 
+          success: true, 
+          creditsCost: creditCost, 
+          downloadUrl: downloadUrl,
+          message: `Imagem ${resolutionName} pronta para download!`
+        };
+      }),
 
   }),
 

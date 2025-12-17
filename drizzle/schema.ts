@@ -62,3 +62,21 @@ export const creditTransactions = mysqlTable("credit_transactions", {
 
 export type CreditTransaction = typeof creditTransactions.$inferSelect;
 export type InsertCreditTransaction = typeof creditTransactions.$inferInsert;
+
+/**
+ * Premium downloads table for tracking high-resolution image downloads.
+ * Records downloads for products like t-shirts, mugs, and posters.
+ */
+export const premiumDownloads = mysqlTable("premium_downloads", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  imageUrl: text("imageUrl").notNull(),
+  resolution: mysqlEnum("resolution", ["hd", "4k"]).notNull(),
+  product: mysqlEnum("product", ["camiseta", "caneca", "poster"]).notNull(),
+  theme: varchar("theme", { length: 64 }),
+  creditsCost: int("creditsCost").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type PremiumDownload = typeof premiumDownloads.$inferSelect;
+export type InsertPremiumDownload = typeof premiumDownloads.$inferInsert;

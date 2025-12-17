@@ -2,12 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Upload, Camera, Loader2, ArrowLeft, Wand2 } from "lucide-react";
+import { Upload, Camera, Loader2, ArrowLeft, Wand2, Download, Share2 } from "lucide-react";
 import { useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { StarRating } from "@/components/StarRating";
 import { toast } from "sonner";
 import { CreditBadge } from "@/components/CreditBadge";
+import { HighResolutionDownload } from "@/components/HighResolutionDownload";
 import { getLoginUrl } from "@/const";
 type Theme = "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus" | "natal" | "reveillon" | "beach";
 
@@ -495,27 +496,44 @@ export default function Generator() {
               </div>
             </Card>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button
-                onClick={handleDownload}
-                size="lg"
-                className="flex-1 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold"
-              >
-                Baixar imagem
-              </Button>
-              <Button
-                onClick={() => handleShare(generatedText || "Veja minha transformação!")}
-                size="lg"
-                variant="outline"
-                className="flex-1 border-orange-500/50 text-orange-400 hover:bg-orange-500/10"
-              >
-                Compartilhar
-              </Button>
+            <div className="flex flex-col gap-4">
+              {/* Botões principais */}
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button
+                  onClick={handleDownload}
+                  size="lg"
+                  className="flex-1 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold"
+                >
+                  <Download className="w-5 h-5 mr-2" />
+                  Baixar imagem
+                </Button>
+                <Button
+                  onClick={() => handleShare(generatedText || "Veja minha transformação!")}
+                  size="lg"
+                  variant="outline"
+                  className="flex-1 border-orange-500/50 text-orange-400 hover:bg-orange-500/10"
+                >
+                  <Share2 className="w-5 h-5 mr-2" />
+                  Compartilhar
+                </Button>
+              </div>
+              
+              {/* Download em alta resolução para produtos */}
+              {generatedImage && (
+                <div className="flex justify-center">
+                  <HighResolutionDownload 
+                    imageUrl={generatedImage} 
+                    theme={selectedTheme || undefined}
+                  />
+                </div>
+              )}
+              
+              {/* Botão nova transformação */}
               <Button
                 onClick={handleReset}
                 size="lg"
                 variant="outline"
-                className="flex-1 border-slate-600 text-slate-300 hover:bg-slate-800"
+                className="w-full border-slate-600 text-slate-300 hover:bg-slate-800"
               >
                 Nova transformação
               </Button>
