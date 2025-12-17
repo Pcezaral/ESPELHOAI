@@ -168,22 +168,34 @@ export default function Home() {
 {/* Container com scroll horizontal em mobile */}
             <div className="overflow-x-auto md:overflow-visible -mx-4 md:mx-0">
             <div className="flex md:grid md:grid-cols-3 gap-6 md:gap-8 px-4 md:px-8 lg:px-16 min-w-max md:min-w-full justify-center">
-              {/* Exemplo 1: Natal */}
-              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
-                <img src="/example-natal-mamae-noel.png" alt="Transformação Natal" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer border-2 border-red-200" />
-                <p className="font-semibold text-base md:text-lg text-red-600">🎄 Natal</p>
+              {/* Exemplo 1: Natal - Clique vai direto para upload */}
+              <div 
+                className="flex flex-col items-center space-y-4 flex-shrink-0 cursor-pointer group"
+                onClick={() => handleStartApp('natal')}
+              >
+                <img src="/example-natal-mamae-noel.png" alt="Transformação Natal" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-105 border-2 border-red-200 group-hover:border-red-500" />
+                <p className="font-semibold text-base md:text-lg text-red-600 group-hover:text-red-700">🎄 Natal</p>
+                <span className="text-xs text-gray-500 group-hover:text-red-500">Clique para transformar!</span>
               </div>
               
-              {/* Exemplo 2: Réveillon */}
-              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
-                <img src="/example-reveillon-praia.png" alt="Transformação Réveillon" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer border-2 border-blue-200" />
-                <p className="font-semibold text-base md:text-lg text-blue-600">🎆 Réveillon</p>
+              {/* Exemplo 2: Réveillon - Clique vai direto para upload */}
+              <div 
+                className="flex flex-col items-center space-y-4 flex-shrink-0 cursor-pointer group"
+                onClick={() => handleStartApp('reveillon')}
+              >
+                <img src="/example-reveillon-praia.png" alt="Transformação Réveillon" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-105 border-2 border-blue-200 group-hover:border-blue-500" />
+                <p className="font-semibold text-base md:text-lg text-blue-600 group-hover:text-blue-700">🎆 Réveillon</p>
+                <span className="text-xs text-gray-500 group-hover:text-blue-500">Clique para transformar!</span>
               </div>
               
-              {/* Exemplo 3: Praia 2026 */}
-              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
-                <img src="/example-praia-2026.png" alt="Transformação Praia 2026" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer border-2 border-cyan-200" />
-                <p className="font-semibold text-base md:text-lg text-cyan-600">🏖️ Praia 2026</p>
+              {/* Exemplo 3: Praia 2026 - Clique vai direto para upload */}
+              <div 
+                className="flex flex-col items-center space-y-4 flex-shrink-0 cursor-pointer group"
+                onClick={() => handleStartApp('beach')}
+              >
+                <img src="/example-praia-2026.png" alt="Transformação Praia 2026" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-105 border-2 border-cyan-200 group-hover:border-cyan-500" />
+                <p className="font-semibold text-base md:text-lg text-cyan-600 group-hover:text-cyan-700">🏖️ Praia 2026</p>
+                <span className="text-xs text-gray-500 group-hover:text-cyan-500">Clique para transformar!</span>
               </div>
             </div>
           </div>

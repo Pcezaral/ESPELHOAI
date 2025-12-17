@@ -827,3 +827,9 @@ App totalmente alinhado com identidade visual do site Hostinger
 ### 3. Pinturas Mais Fiéis aos Estilos
 - [x] Melhorar prompts de pintura para estilos artísticos específicos
 - [x] Caprichar nas épocas e estilos (Renascença, Barroco, etc.)
+
+## Acesso Direto aos Temas de Final de Ano (16/12/2025)
+
+- [x] Natal: Clicar vai direto para upload com tema pré-selecionado
+- [x] Réveillon: Clicar vai direto para upload com tema pré-selecionado
+- [x] Praia 2026: Clicar vai direto para upload com tema pré-selecionado
