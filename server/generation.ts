@@ -174,41 +174,58 @@ export async function generateTransformation(
     },
     
     circus: {
-      // Circo: ROSTO 100% IDÊNTICO, MÁXIMA DIVERSÃO e VARIEDADE de profissões circenses
-      // Expressões ALEGRES e DIVERTIDAS, cenários COLORIDOS e VIBRANTES
-      prompt: `Circus performer transformation - FUN AND JOYFUL! CRITICAL RULE: Keep EXACT same number of people - if 2 people in input, output MUST have 2 people with BOTH faces pixel-perfect identical; if 3 people, output MUST have 3 people with ALL 3 faces pixel-perfect identical. PRESERVE EACH INDIVIDUAL FACE: Each person's face must be PIXEL-PERFECT IDENTICAL - same eyes, nose, mouth, expression, age, skin tone, facial structure. DO NOT modify face. ONLY change: circus costume, pose, props, background. 
+      // Circo: ROSTO 100% IDÊNTICO, MÁXIMA VARIEDADE, INTEGRAÇÃO VISUAL PERFEITA
+      prompt: `Circus performer transformation - MAXIMUM FUN AND VARIETY! CRITICAL FACE RULE: Person's face must be PIXEL-PERFECT IDENTICAL - same eyes, nose, mouth, expression, age, skin tone, facial structure. DO NOT modify face. Keep EXACT same number of people.
       
-      CRITICAL: Make it FUN, COLORFUL, HAPPY! Person should look JOYFUL and ENTERTAINED!
+      CRITICAL VISUAL INTEGRATION: Person must be SEAMLESSLY INTEGRATED into circus scene - NOT a collage. Match theatrical lighting (spotlights create specific shadows and highlights on face and costume), match color temperature (warm circus lights on skin), match perspective (person's size fits the circus environment naturally). Image must look like a REAL PHOTOGRAPH taken at a circus, not a composite.
       
-      Randomly choose ONE circus profession with MAXIMUM FUN and VARIETY:
+      LIGHTING INTEGRATION: Circus uses dramatic theatrical lighting - spotlights from above create rim lighting on hair and shoulders, colored gels create tinted shadows (red, blue, gold), face lit dramatically with circus ambiance. Sequins and sparkles on costume should catch light realistically.
       
-      ACROBAT (sparkly sequined leotard in bright colors + mid-air flip or handstand pose + juggling colorful balls/clubs/rings + BIG HAPPY SMILE + circus tent with spotlights + confetti falling + dynamic joyful action),
+      EXPRESSIONS: ALWAYS joyful, happy, excited, proud, playful - NEVER serious! Circus is about ENTERTAINMENT and JOY!
       
-      TRAPEZE ARTIST (glittery aerial costume with flowing ribbons + hanging gracefully from trapeze + dramatic mid-swing pose + EXCITED EXPRESSION + high above circus ring + colorful spotlights + wind in hair),
+      Randomly choose ONE circus profession - MUST BE DIFFERENT EACH TIME:
       
-      HAPPY CLOWN (colorful oversized polka dot costume + rainbow wig + red nose + HUGE JOYFUL SMILE + oversized shoes + holding balloons and flowers + circus ring with laughing audience + confetti and streamers + silly playful pose),
+      ACROBAT FLYING (mid-air somersault or flip, sparkly sequined leotard, arms extended gracefully, circus tent ceiling visible above, spotlights creating dramatic rays, confetti falling around, triumphant expression, crowd blur below),
       
-      MAGICIAN (elegant purple/gold tuxedo with flowing cape + sparkly top hat + pulling rabbit from hat or doves flying + MYSTERIOUS SMILE + stage with magic props + sparkles and stars + dramatic reveal pose),
+      TRAPEZE ARTIST SWING (hanging from trapeze bar mid-swing, glittery aerial costume, hair flowing with motion, high above circus ring, dramatic height perspective, excited expression, safety net visible far below),
       
-      RINGMASTER (bright red tailcoat with gold buttons + tall top hat + holding whip and megaphone + PROUD CONFIDENT SMILE + center of circus ring + colorful lights + commanding welcoming pose + audience cheering),
+      HAPPY CLOWN BALLOON (colorful polka dot costume, rainbow wig, red nose, holding bunch of colorful balloons, circus ring background, children in audience laughing, silly playful pose, oversized shoes, confetti),
       
-      TIGHTROPE WALKER (elegant sparkling costume + balance pole + walking on rope high above + FOCUSED BUT HAPPY expression + circus tent interior + dramatic spotlight + graceful balanced pose),
+      CLOWN PIE MOMENT (about to throw or just got hit by cream pie, surprised funny expression, messy cream on face/costume, slapstick comedy moment, audience laughing, circus ring),
       
-      FIRE PERFORMER (exotic costume with flame patterns + fire poi or fire fans + INTENSE EXCITED expression + flames illuminating face + dark background with fire glow + dramatic action pose),
+      MAGICIAN REVEAL (elegant purple/gold tuxedo with cape, pulling rabbit from top hat, doves flying around, sparkles and stars, mysterious smile, magic props on table, dramatic stage lighting),
       
-      STRONGMAN/STRONGWOMAN (striped vintage tank top + lifting comically oversized barbell + PROUD FLEXING pose + vintage circus poster style + crowd cheering + muscular heroic stance),
+      MAGICIAN CARD TRICK (fanning deck of cards dramatically, cards floating in air, intense focused expression, close-up magic style, spotlight on hands, audience gasping),
       
-      CONTORTIONIST (colorful flexible bodysuit + impossible bendy pose + PLAYFUL EXPRESSION + circus stage with dramatic lighting + amazed audience reaction),
+      RINGMASTER WELCOME (bright red tailcoat with gold buttons, tall top hat, arms spread wide in welcome gesture, center of circus ring, megaphone in hand, proud confident smile, audience in background),
       
-      JUGGLER (bright multicolored costume + juggling flaming torches or colorful pins + CONCENTRATED BUT HAPPY + dynamic action mid-juggle + circus tent with spotlights),
+      TIGHTROPE WALKER BALANCE (walking on high wire with balance pole, elegant sparkling costume, focused but confident expression, dramatic height, spotlight from below, tent ceiling above),
       
-      AERIAL SILK PERFORMER (flowing silk ribbons in rainbow colors + suspended mid-air in graceful pose + SERENE HAPPY expression + wrapped beautifully in silks + ethereal lighting),
+      FIRE BREATHER (breathing dramatic flame, exotic costume, fire illuminating face dramatically, dark background with fire glow, intense expression, crowd silhouettes watching),
       
-      STILT WALKER (tall colorful costume on wooden stilts + towering above crowd + WAVING HAPPILY + circus parade background + festive atmosphere),
+      FIRE DANCER (spinning fire poi or fire fans, trails of flame around body, exotic costume with flame patterns, dynamic action pose, fire reflecting on skin),
       
-      CANNON PERFORMER (sparkly costume + being shot from cannon mid-air + THRILLED EXCITED expression + circus tent background + dramatic action moment).
+      STRONGMAN LIFT (striped vintage tank top, handlebar mustache optional, lifting comically oversized barbell overhead, proud flexing pose, vintage circus poster style, crowd cheering),
       
-      CRITICAL: VIBRANT CIRCUS COLORS (red, yellow, blue, gold, purple, green, orange), striped circus tent background, dramatic theatrical lighting with colorful spotlights, HAPPY JOYFUL EXPRESSIONS, festive atmosphere with confetti/streamers/balloons. Vary pose dramatically (action mid-performance / triumphant bow / dramatic entrance / playful interaction). Theatrical realistic photo style with authentic FUN circus atmosphere. Random seed: ${randomSeed}, variation: ${randomVariation}`,
+      CONTORTIONIST BEND (colorful flexible bodysuit, impossible bendy pose in box or pretzel shape, playful expression, circus stage, amazed audience reaction, dramatic lighting),
+      
+      JUGGLER ACTION (bright multicolored costume, juggling 5+ colorful balls or flaming torches mid-air, concentrated happy expression, dynamic action moment, circus tent background),
+      
+      AERIAL SILK GRACEFUL (wrapped in flowing rainbow silk ribbons, suspended mid-air in graceful pose, serene happy expression, ethereal lighting from above, tent ceiling visible),
+      
+      STILT WALKER PARADE (tall colorful costume on wooden stilts, towering above crowd, waving happily, circus parade on street, festive atmosphere, children looking up in wonder),
+      
+      HUMAN CANNONBALL (sparkly costume, being shot from cannon mid-air, thrilled excited expression, circus tent background, dramatic action moment, trajectory arc visible),
+      
+      LION TAMER (dramatic ringmaster-style costume, confident pose with whip and chair, circus ring with decorative lion props/statues, dramatic spotlight, commanding presence),
+      
+      UNICYCLIST (balancing on tall unicycle, colorful costume, juggling while cycling, impressive balance pose, circus ring, audience amazement),
+      
+      HULA HOOP ARTIST (multiple colorful hula hoops spinning on body, dynamic motion, sparkly costume, playful expression, circus stage, hoops creating colorful blur),
+      
+      CIRCUS BAND MEMBER (colorful marching band uniform, playing trumpet or drum, circus parade, festive atmosphere, musical energy).
+      
+      CRITICAL VARIETY: NEVER repeat same profession or pose. Each generation MUST be completely different - different act, different costume colors, different background angle, different lighting mood. VIBRANT CIRCUS COLORS throughout (red, yellow, blue, gold, purple, green, orange). Striped circus tent elements. Dramatic theatrical spotlights. Confetti/streamers/balloons when appropriate. PHOTOREALISTIC quality with perfect circus atmosphere integration. Random seed: ${randomSeed}, variation: ${randomVariation}`,
       text: "Você é um artista de circo! Talentoso, colorido e pronto para encantar a plateia sob a lona do picadeiro! 🎪✨"
     },
     
@@ -265,46 +282,58 @@ export async function generateTransformation(
     },
     
     beach: {
-      // Praia 2026: ROSTO DO USUÁRIO 100% IDÊNTICO, amigos são pessoas DIFERENTES e NATURAIS
-      prompt: `Brazilian beach fun transformation 2026. CRITICAL FACE RULE: The MAIN PERSON (from input photo) must have their face PIXEL-PERFECT IDENTICAL - same eyes, nose, mouth, expression, age, skin tone, facial structure. DO NOT modify the main person's face.
+      // Praia 2026: ROSTO 100% IDÊNTICO, MÁXIMA VARIEDADE de cenários, INTEGRAÇÃO PERFEITA de luz e ambiente
+      prompt: `Brazilian beach summer 2026 transformation. CRITICAL FACE RULE: Person's face must be PIXEL-PERFECT IDENTICAL - same eyes, nose, mouth, expression, age, skin tone, facial structure. DO NOT modify face.
       
-      CRITICAL FRIENDS RULE: If the scene includes friends/companions, they must be DIFFERENT PEOPLE - generate RANDOM, DIVERSE, NATURAL-LOOKING people as friends. DO NOT duplicate or replicate the main person's face. Friends should have VARIED appearances: different ages, ethnicities, body types, hair colors. Make them look like REAL Brazilian beachgoers - natural, imperfect, authentic.
+      CRITICAL VISUAL INTEGRATION: The person must be SEAMLESSLY INTEGRATED into the beach scene - NOT a collage or cutout. Match lighting direction (sun position creates consistent shadows on person AND environment), match color temperature (warm golden beach light on skin), match perspective (person's size and angle fits the scene naturally), match focus/blur (if background is slightly blurred, person edges blend naturally). The image must look like a REAL PHOTOGRAPH taken at the beach, not a composite.
       
-      REALISTIC APPEARANCE FOR ALL: Generate REALISTIC, NATURAL-LOOKING people - NOT plastic, NOT perfect, NOT AI-generated looking. Include natural skin texture, pores, freckles, minor imperfections, realistic beach lighting with sun shadows. NATURAL EXPRESSIONS: Use genuine, natural expressions - joyful, playful, relaxed, funny. Avoid overly symmetrical or "model-perfect" faces.
+      LIGHTING INTEGRATION RULES: If sun is behind, person has rim lighting and face in soft shadow. If sun is to the side, one side of face is lit, other in shadow. Skin should have natural beach glow - warm tones, slight sweat/sunscreen shine, realistic tan lines. Shadows on sand must match person's position. Reflections in water must include person if near water.
       
-      Randomly choose ONE hilarious beach scenario with BRAZILIAN VIBES:
+      EXPRESSIONS: ALWAYS joyful, happy, fun, playful, laughing, excited - NEVER serious or neutral. Beach is about FUN!
       
-      SURFING FUN (main person in colorful board shorts or bikini, riding a wave with funny expression, Copacabana or Ipanema beach background, Christ the Redeemer visible in distance, dramatic surf moment, water splashing, sunset golden light),
+      Randomly choose ONE beach scenario with MAXIMUM VARIETY:
       
-      BURIED IN SAND (main person buried in sand with only head visible, funny expression, random diverse friends building sand castle around them, Brazilian beach umbrellas, vendors passing by, hilarious helpless pose),
+      SURFING ACTION (riding wave with excited expression, water splashing around naturally, board shorts or bikini, athletic pose, Copacabana or Ipanema background, golden hour light reflecting on water, Christ the Redeemer in distance, dynamic action moment),
       
-      EATING BEACH CHICKEN (main person holding roasted chicken leg with both hands, messy eating, beach chair, cooler with drinks, typical Brazilian beach setup, Biscoito Globo bag visible, satisfied expression, random beachgoers in background),
+      BEACH VOLLEYBALL (jumping to spike or diving for ball, athletic action pose, sand flying naturally, net visible, team of diverse players, competitive fun expression, Leblon beach, afternoon sun),
       
-      DRINKING MATE TEA (main person holding traditional mate tea cup with bombilla straw, beach towel, Santos or Porto Alegre beach style, relaxed pose, sun hat, reading magazine, chill vibes),
+      STAND-UP PADDLE (standing on SUP board, paddle in hand, calm turquoise water, tropical bay background, balanced pose, peaceful happy expression, morning light, Arraial do Cabo crystal water),
       
-      FRESCOBOL PLAYERS (main person playing beach paddle ball with a DIFFERENT random friend, athletic pose mid-swing, colorful swimwear, Ipanema beach, action shot with ball in air),
+      CONTEMPLATING HORIZON (sitting on sand looking at ocean, peaceful smile, sunset colors reflecting on water and skin, silhouette partially lit, romantic beach moment, Jericoacoara dunes in background, golden hour),
       
-      BEACH VENDOR STYLE (main person dressed as typical Brazilian beach vendor, carrying cooler or tray, "Mate! Água de coco!" pose, walking on sand, funny sales expression, diverse beach crowd background),
+      WALKING ON SHORELINE (barefoot walking where waves meet sand, water around ankles, footprints behind, casual beach clothes, wind in hair, happy carefree expression, long beach stretch, morning or sunset light),
       
-      COCONUT WATER MOMENT (main person drinking from fresh coconut with straw, beach kiosk background, Porto de Galinhas or Jericoacoara style, tropical paradise, palm trees, crystal clear water),
+      RUNNING ON BEACH (jogging along waterline, athletic wear or swimsuit, splashing water with feet, energetic happy expression, fitness beach lifestyle, early morning sun, long shadows on sand),
       
-      AÇAÍ BOWL FEAST (main person holding giant açaí bowl with toppings, beach bar setting, Bahia or Florianópolis beach, healthy beach lifestyle, colorful fruit toppings, satisfied expression),
+      FRESCOBOL MATCH (playing beach paddle ball, mid-swing action, athletic pose, colorful swimwear, Ipanema style, ball frozen in air, concentrated fun expression, partner visible),
       
-      BEACH SOCCER (main person playing futévol or beach soccer with random diverse players, action kick pose, Maracanã style goal posts on sand, Rio beach, athletic pose, sand flying, competitive fun),
+      BEACH SOCCER GOAL (celebrating goal or kicking ball, sand flying, makeshift goal posts, group of diverse players, competitive joy, Rio beach, afternoon sun creating long shadows),
       
-      SUNBATHING FAIL (main person with funny sunburn lines from weird tan, holding sunscreen too late, beach chair, umbrella shadow creating patterns, embarrassed funny expression),
+      BUILDING SANDCASTLE (kneeling in sand, creative focused expression, elaborate sandcastle in progress, bucket and shovel, childlike joy, family beach day vibes, soft afternoon light),
       
-      CAIPIRINHA TIME (main person holding caipirinha glass, beach bar counter, lime slices, ice, tropical cocktail vibes, Bahia beach bar, relaxed happy expression, sunset background, random bartender),
+      COCONUT WATER PARADISE (drinking from fresh green coconut, beach kiosk background, tropical palm trees, Porto de Galinhas natural pools, refreshed happy expression, midday tropical light),
       
-      BEACH SELFIE (main person taking selfie with random diverse friends - each friend has DIFFERENT face, duck face or peace sign, colorful swimwear, crowded Brazilian beach background, summer 2026 vibes),
+      AÇAÍ BOWL MOMENT (holding colorful açaí bowl, beach bar setting, healthy lifestyle, Florianópolis beach, satisfied expression, tropical fruits, morning light),
       
-      WAVE CRASH (main person being hit by unexpected wave, surprised funny expression, water splashing everywhere, beach background, dramatic comedic moment, wet hair flying),
+      HAMMOCK RELAXATION (lying in colorful hammock between palm trees, reading book or napping, ultimate relaxation expression, Nordeste beach style, dappled sunlight through palms, paradise vibes),
       
-      HAMMOCK RELAX (main person lying in colorful hammock between palm trees, Nordeste beach style, Ceará or Alagoas, holding drink, ultimate relaxation pose, paradise setting),
+      CAIPIRINHA SUNSET (holding caipirinha glass, beach bar counter, lime garnish, sunset colors painting sky and reflecting on drink, relaxed happy expression, Bahia beach bar, golden hour glow on face),
       
-      BEACH WORKOUT (main person doing funny beach exercise with random diverse fitness class participants, running on sand, Leblon beach, athletic pose, morning sun).
+      SNORKELING ADVENTURE (emerging from water with snorkel mask on forehead, excited expression, crystal clear water, tropical fish visible, Fernando de Noronha style, underwater paradise, water droplets on skin catching light),
       
-      CRITICAL: Brazilian beach culture authenticity - include typical elements (Biscoito Globo, mate, canga towels, beach chairs, kiosks, vendors). Vary beaches (Rio: Copacabana, Ipanema, Leblon / Santos / Florianópolis / Porto de Galinhas / Jericoacoara / Morro de São Paulo / Arraial do Cabo). Summer 2026 atmosphere, vibrant colors, fun energy, Brazilian joy. Photorealistic style with humor. Random seed: ${randomSeed}`,
+      BEACH YOGA (yoga pose on sand, sunrise or sunset, peaceful focused expression, mat on beach, ocean in background, spiritual beach moment, soft warm lighting),
+      
+      KITE FLYING (holding colorful kite string, looking up with joy, kite visible in blue sky, windy beach day, casual beach clothes, playful expression, afternoon light),
+      
+      READING ON BEACH (lying on canga towel, book in hand, sunglasses, relaxed intellectual beach day, umbrella shade, peaceful expression, soft diffused light),
+      
+      BEACH PICNIC (sitting on blanket with food spread, fruits and snacks, friends or family setting, happy eating expression, natural beach setting, warm afternoon light),
+      
+      JUMPING WAVES (mid-jump over incoming wave, arms raised in joy, splashing water, excited expression, playful beach moment, dynamic action, backlit by sun),
+      
+      SUNSET SILHOUETTE (standing with arms open or raised, dramatic sunset colors, silhouette with rim lighting, inspirational pose, beach at dusk, warm orange and pink sky).
+      
+      CRITICAL VARIETY: NEVER repeat the same scenario. Each generation must be COMPLETELY DIFFERENT - different activity, different beach, different time of day, different pose. Brazilian beach authenticity with typical elements when appropriate (Biscoito Globo, mate, canga, beach chairs, kiosks). Vary beaches: Rio (Copacabana, Ipanema, Leblon), Santos, Florianópolis, Porto de Galinhas, Jericoacoara, Fernando de Noronha, Arraial do Cabo, Morro de São Paulo. Summer 2026 vibrant energy. PHOTOREALISTIC quality with perfect environmental integration. Random seed: ${randomSeed}, variation: ${randomVariation}`,
       text: "🏖️ Você na praia em 2026! Diversão, sol e muitas risadas no verão brasileiro! 🌴☀️"
     }
   };

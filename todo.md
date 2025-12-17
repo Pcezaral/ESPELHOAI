@@ -884,3 +884,12 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Corrigir navegação para ir DIRETO para upload com tema selecionado (já estava funcionando)
 - [x] Alterar "Já veja o verão!" para "Você no verão!"
 - [x] Alterar frase "milhares já se transformaram" para "A transformação que você sempre quis, agora em suas mãos!"
+
+
+## Melhorias Prompts Praia e Circo (17/12/2025)
+
+- [x] Praia: Adicionar muito mais variedade de cenários (esportes, contemplação, caminhada, diferentes vistas)
+- [x] Praia: Melhorar integração visual (luz, sombras, perspectiva) - não parecer colagem
+- [x] Praia: Garantir expressões alegres e divertidas
+- [x] Circo: Aumentar variedade de cenários e profissões
+- [x] Circo: Melhorar integração visual
