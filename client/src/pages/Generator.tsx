@@ -311,13 +311,16 @@ export default function Generator() {
       const blob = await response.blob();
       const file = new File([blob], filename, { type: 'image/jpeg' });
       
+      // Mensagem completa com links
+      const shareText = `${message}${hashtag}\n\n🌟 Crie a sua também! Acesse: https://www.espelhoai.com.br\n\n📲 Baixe o app: https://espelhoai.com.br/app`;
+      
       // Tentar Web Share API com arquivo (compartilha imagem diretamente)
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
         try {
           await navigator.share({
             files: [file],
             title: 'Minha transformação ESPELHO AI',
-            text: `${message}${hashtag}\n\nDescubra seu verdadeiro eu! Acesse: https://www.espelhoai.com.br`,
+            text: shareText,
           });
           return;
         } catch (err: any) {
@@ -327,14 +330,14 @@ export default function Generator() {
       }
       
       // Fallback: WhatsApp com link da imagem
-      const text = `${message}${hashtag}\n\n🖼️ Veja minha transformação: ${generatedImage}\n\nDescubra seu verdadeiro eu! Acesse: https://www.espelhoai.com.br`;
-      const url = encodeURIComponent(text);
+      const textWithImage = `${message}${hashtag}\n\n🖼️ Veja minha transformação: ${generatedImage}\n\n🌟 Crie a sua também! Acesse: https://www.espelhoai.com.br\n\n📲 Baixe o app: https://espelhoai.com.br/app`;
+      const url = encodeURIComponent(textWithImage);
       window.open(`https://wa.me/?text=${url}`, "_blank");
     } catch (error) {
       console.error("Share error:", error);
       // Fallback simples com link da imagem
-      const text = `${message}${hashtag}\n\n🖼️ Veja minha transformação: ${generatedImage}\n\nDescubra seu verdadeiro eu! Acesse: https://www.espelhoai.com.br`;
-      const url = encodeURIComponent(text);
+      const textWithImage = `${message}${hashtag}\n\n🖼️ Veja minha transformação: ${generatedImage}\n\n🌟 Crie a sua também! Acesse: https://www.espelhoai.com.br\n\n📲 Baixe o app: https://espelhoai.com.br/app`;
+      const url = encodeURIComponent(textWithImage);
       window.open(`https://wa.me/?text=${url}`, "_blank");
     }
   };
