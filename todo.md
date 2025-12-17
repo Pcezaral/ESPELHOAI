@@ -864,3 +864,8 @@ App totalmente alinhado com identidade visual do site Hostinger
 
 - [x] Remover planos ilimitados (mensal e anual) da página de planos
 - [x] Manter apenas planos de créditos avulsos (Light 50 créditos e Premium 150 créditos)
+
+
+## Bug Stripe 404 (17/12/2025)
+
+- [x] BUG: Erro 404 ao tentar fazer checkout do Stripe (URL de retorno corrigida para www.espelhoai.com.br)

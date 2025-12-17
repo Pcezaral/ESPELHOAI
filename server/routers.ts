@@ -143,7 +143,10 @@ export const appRouter = router({
         packageType: z.enum(["light", "premium", "monthly_unlimited", "annual_unlimited"]),
       }))
       .mutation(async ({ input, ctx }) => {
-        const baseUrl = process.env.VITE_FRONTEND_FORGE_API_URL || "http://localhost:3000";
+        // Usar o domínio correto para redirecionamento após pagamento
+        const baseUrl = process.env.NODE_ENV === 'production' 
+          ? 'https://www.espelhoai.com.br' 
+          : 'http://localhost:3000';
         const successUrl = `${baseUrl}/planos?success=true&session_id={CHECKOUT_SESSION_ID}`;
         const cancelUrl = `${baseUrl}/planos?canceled=true`;
 
