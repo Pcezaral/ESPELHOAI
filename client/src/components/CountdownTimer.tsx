@@ -50,8 +50,8 @@ export default function CountdownTimer() {
 
   return (
     <div className="relative overflow-hidden">
-      {/* Background with animated gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-pink-500 to-orange-500 animate-gradient-shift rounded-3xl"></div>
+      {/* Background black */}
+      <div className="absolute inset-0 bg-black rounded-3xl"></div>
       
       {/* Floating decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">

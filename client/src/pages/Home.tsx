@@ -171,6 +171,7 @@ export default function Home() {
           </div>
           
           <div className="mt-12 text-center">
+            <p className="text-gray-700 text-lg mb-4 font-medium italic">Surpreenda sua família com uma foto inesquecível!</p>
             <Button
               onClick={() => {
                 if (!isAuthenticated) {
@@ -182,8 +183,7 @@ export default function Home() {
               disabled={loading}
               className="bg-gradient-to-r from-red-500 via-orange-500 to-blue-500 hover:from-red-600 hover:via-orange-600 hover:to-blue-600 text-white text-lg h-12 px-8 rounded-full shadow-lg hover:shadow-xl transition-all font-semibold"
             >
-              <Sparkles className="w-5 h-5 mr-2" />
-              Faça Agora!
+              🎁 Faça Agora e Compartilhe!
             </Button>
           </div>
         </div>
@@ -274,6 +274,7 @@ export default function Home() {
           </div>
           
           <div className="mt-12 text-center">
+            <p className="text-gray-700 text-lg mb-4 font-medium italic">Perfeito para brincar com amigos no WhatsApp!</p>
             <Button
               onClick={() => {
                 if (!isAuthenticated) {
@@ -285,8 +286,7 @@ export default function Home() {
               disabled={loading}
               className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-lg h-12 px-8 rounded-full shadow-lg hover:shadow-xl transition-all font-semibold"
             >
-              <Wand2 className="w-5 h-5 mr-2" />
-              Crie sua Transformação em Estilos Geniais
+              ✨ Crie e Surpreenda seus Amigos!
             </Button>
           </div>
         </div>
