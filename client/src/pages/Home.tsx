@@ -545,7 +545,7 @@ export default function Home() {
             
             {/* Facebook */}
             <a
-              href="https://www.facebook.com/sharer/sharer.php?u=https://descubraeu.manus.space"
+              href="https://www.facebook.com/sharer/sharer.php?u=https://www.espelhoai.com.br"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-3 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 shadow-lg"
@@ -558,7 +558,7 @@ export default function Home() {
             
             {/* WhatsApp */}
             <a
-              href="https://wa.me/?text=Descubra%20seu%20verdadeiro%20eu!%20https://descubraeu.manus.space"
+              href="https://wa.me/?text=Descubra%20seu%20verdadeiro%20eu!%20https://www.espelhoai.com.br"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 shadow-lg"
@@ -571,7 +571,7 @@ export default function Home() {
             
             {/* Twitter/X */}
             <a
-              href="https://twitter.com/intent/tweet?text=Descubra%20seu%20verdadeiro%20eu!&url=https://descubraeu.manus.space"
+              href="https://twitter.com/intent/tweet?text=Descubra%20seu%20verdadeiro%20eu!&url=https://www.espelhoai.com.br"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-3 bg-gray-900 hover:bg-black text-white px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 shadow-lg"

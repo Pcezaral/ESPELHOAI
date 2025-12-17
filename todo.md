@@ -839,3 +839,16 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Clique direto para upload em todos os cards de temas (não só Final de Ano)
 - [x] Adicionar ícone de câmera/upload nos cards
 - [x] Garantir responsividade mobile nos cards clicáveis
+
+
+## Bug Crítico: Navegação Direta para Upload (16/12/2025)
+
+- [ ] BUG: Clique em tema (Natal, Réveillon, Praia, etc) deve ir DIRETO para upload/câmera, não para menu de seleção
+- [ ] Generator.tsx deve detectar tema na URL e pular direto para step "upload" quando tema já está selecionado
+
+
+## Atualização de Domínio (16/12/2025)
+
+- [x] Atualizar domínio para www.espelhoai.com.br em Generator.tsx (compartilhamento WhatsApp)
+- [x] Atualizar domínio para www.espelhoai.com.br em Home.tsx (Facebook, WhatsApp, Twitter)
+- [ ] Configurar domínio customizado no painel Manus (Settings → Domains)

@@ -250,7 +250,7 @@ export default function Generator() {
     // Adicionar hashtag #EspelhoAI2026 para temas de Final de Ano
     const isHolidayTheme = selectedTheme === "natal" || selectedTheme === "reveillon";
     const hashtag = isHolidayTheme ? " #EspelhoAI2026 🎄🎆" : "";
-    const text = `${message}${hashtag}\n\nDescubra seu verdadeiro eu! Acesse: https://descubraeu-ipcsmflf.manus.space`;
+    const text = `${message}${hashtag}\n\nDescubra seu verdadeiro eu! Acesse: https://www.espelhoai.com.br`;
     const url = encodeURIComponent(text);
     window.open(`https://wa.me/?text=${url}`, "_blank");
   };
