@@ -893,3 +893,11 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Praia: Garantir expressões alegres e divertidas
 - [x] Circo: Aumentar variedade de cenários e profissões
 - [x] Circo: Melhorar integração visual
+
+
+## Bug Download (17/12/2025)
+
+- [x] Corrigir botão de download - atualmente só exibe imagem na tela em vez de baixar o arquivo
+
+- [x] Download: Deve salvar na Galeria/Fotos do dispositivo (usa Web Share API em mobile)
+- [x] Compartilhamento: Mensagem do WhatsApp inclui link da imagem (usa Web Share API com arquivo em mobile)

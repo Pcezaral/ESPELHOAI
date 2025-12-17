@@ -46,6 +46,40 @@ async function startServer() {
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   // OAuth callback under /api/oauth/callback
   registerOAuthRoutes(app);
+  // Proxy endpoint para download de imagens (evita problemas de CORS)
+  app.get("/api/download-image", async (req, res) => {
+    try {
+      const imageUrl = req.query.url as string;
+      const filename = req.query.filename as string || 'espelho-ai-image.jpg';
+      
+      if (!imageUrl) {
+        return res.status(400).json({ error: 'URL da imagem é obrigatória' });
+      }
+      
+      // Baixar a imagem do servidor externo
+      const response = await fetch(imageUrl);
+      
+      if (!response.ok) {
+        return res.status(response.status).json({ error: 'Falha ao baixar imagem' });
+      }
+      
+      const contentType = response.headers.get('content-type') || 'image/jpeg';
+      const buffer = await response.arrayBuffer();
+      
+      // Configurar headers para forçar download
+      res.setHeader('Content-Type', contentType);
+      res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+      res.setHeader('Content-Length', buffer.byteLength);
+      res.setHeader('Cache-Control', 'no-cache');
+      
+      // Enviar o arquivo
+      res.send(Buffer.from(buffer));
+    } catch (error) {
+      console.error('Download proxy error:', error);
+      res.status(500).json({ error: 'Erro interno ao processar download' });
+    }
+  });
+
   // tRPC API
   app.use(
     "/api/trpc",

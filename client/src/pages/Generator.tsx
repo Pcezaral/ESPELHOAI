@@ -242,72 +242,101 @@ export default function Generator() {
     const filename = `espelho-ai-${selectedTheme}-${Date.now()}.jpg`;
     
     try {
-      // Primeiro tenta fetch com modo no-cors para imagens externas
-      let blob: Blob;
-      try {
-        const response = await fetch(generatedImage, { mode: 'cors' });
-        if (!response.ok) throw new Error('Fetch failed');
-        blob = await response.blob();
-      } catch {
-        // Fallback: criar link direto se fetch falhar (CORS)
-        const link = document.createElement('a');
-        link.href = generatedImage;
-        link.download = filename;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        toast.success("✅ Download iniciado! Verifique sua pasta de downloads.");
-        return;
-      }
-
-      // Se conseguiu o blob, tenta File System Access API (desktop Chrome/Edge)
-      if ('showSaveFilePicker' in window) {
+      toast.info("📥 Preparando imagem...");
+      
+      // Baixar a imagem via proxy
+      const proxyUrl = `/api/download-image?url=${encodeURIComponent(generatedImage)}&filename=${encodeURIComponent(filename)}`;
+      const response = await fetch(proxyUrl);
+      
+      if (!response.ok) throw new Error('Download failed');
+      
+      const blob = await response.blob();
+      const file = new File([blob], filename, { type: 'image/jpeg' });
+      
+      // Tentar Web Share API com arquivo (funciona em mobile para salvar na galeria)
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
         try {
-          const handle = await (window as any).showSaveFilePicker({
-            suggestedName: filename,
-            types: [{
-              description: 'Imagem JPEG',
-              accept: { 'image/jpeg': ['.jpg', '.jpeg'] },
-            }],
+          await navigator.share({
+            files: [file],
+            title: 'Minha transformação ESPELHO AI',
           });
-          const writable = await handle.createWritable();
-          await writable.write(blob);
-          await writable.close();
-          toast.success("✅ Imagem salva com sucesso!");
+          toast.success("✅ Escolha onde salvar a imagem!");
           return;
         } catch (err: any) {
           if (err.name === 'AbortError') return;
-          // Continua para fallback se API falhar
+          // Continua para fallback
         }
       }
-
-      // Fallback: Download tradicional com blob
+      
+      // Fallback: Download tradicional (desktop ou mobile sem suporte)
       const blobUrl = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = blobUrl;
       link.download = filename;
+      link.style.display = 'none';
       document.body.appendChild(link);
       link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(blobUrl);
-      toast.success("✅ Download iniciado!");
+      
+      setTimeout(() => {
+        document.body.removeChild(link);
+        URL.revokeObjectURL(blobUrl);
+      }, 100);
+      
+      toast.success("✅ Imagem salva! Verifique Downloads ou Galeria.");
     } catch (error) {
       console.error("Download error:", error);
-      // Último fallback: abrir imagem em nova aba
+      // Último fallback: abrir imagem para salvar manualmente
       window.open(generatedImage, '_blank');
-      toast.info("Imagem aberta em nova aba. Clique com botão direito para salvar.");
+      toast.info("Segure na imagem para salvar na galeria.");
     }
   };
 
-  const handleShare = (message: string) => {
+  const handleShare = async (message: string) => {
+    if (!generatedImage) return;
+    
     // Adicionar hashtag #EspelhoAI2026 para temas de Final de Ano
     const isHolidayTheme = selectedTheme === "natal" || selectedTheme === "reveillon";
     const hashtag = isHolidayTheme ? " #EspelhoAI2026 🎄🎆" : "";
-    const text = `${message}${hashtag}\n\nDescubra seu verdadeiro eu! Acesse: https://www.espelhoai.com.br`;
-    const url = encodeURIComponent(text);
-    window.open(`https://wa.me/?text=${url}`, "_blank");
+    
+    try {
+      toast.info("📤 Preparando compartilhamento...");
+      
+      // Baixar a imagem via proxy
+      const filename = `espelho-ai-${selectedTheme}-${Date.now()}.jpg`;
+      const proxyUrl = `/api/download-image?url=${encodeURIComponent(generatedImage)}&filename=${encodeURIComponent(filename)}`;
+      const response = await fetch(proxyUrl);
+      
+      if (!response.ok) throw new Error('Download failed');
+      
+      const blob = await response.blob();
+      const file = new File([blob], filename, { type: 'image/jpeg' });
+      
+      // Tentar Web Share API com arquivo (compartilha imagem diretamente)
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        try {
+          await navigator.share({
+            files: [file],
+            title: 'Minha transformação ESPELHO AI',
+            text: `${message}${hashtag}\n\nDescubra seu verdadeiro eu! Acesse: https://www.espelhoai.com.br`,
+          });
+          return;
+        } catch (err: any) {
+          if (err.name === 'AbortError') return;
+          // Continua para fallback
+        }
+      }
+      
+      // Fallback: WhatsApp com link da imagem
+      const text = `${message}${hashtag}\n\n🖼️ Veja minha transformação: ${generatedImage}\n\nDescubra seu verdadeiro eu! Acesse: https://www.espelhoai.com.br`;
+      const url = encodeURIComponent(text);
+      window.open(`https://wa.me/?text=${url}`, "_blank");
+    } catch (error) {
+      console.error("Share error:", error);
+      // Fallback simples com link da imagem
+      const text = `${message}${hashtag}\n\n🖼️ Veja minha transformação: ${generatedImage}\n\nDescubra seu verdadeiro eu! Acesse: https://www.espelhoai.com.br`;
+      const url = encodeURIComponent(text);
+      window.open(`https://wa.me/?text=${url}`, "_blank");
+    }
   };
 
   return (
