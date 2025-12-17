@@ -66,11 +66,20 @@ export default function Home() {
               </div>
               
               <div className="space-y-4 max-w-2xl">
+                {/* Badge de Destaque */}
+                <div className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                  🔥 A Nova Febre da Internet!
+                </div>
+                
                 <h2 className="text-3xl md:text-5xl font-bold leading-tight">
                   <span className="text-white">Você</span>
                   <br />
                   <span className="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">em Outro Mundo!</span>
                 </h2>
+                
+                <p className="text-white/90 text-base md:text-lg">
+                  O melhor app de transformação por IA de 2025. Milhares já se transformaram!
+                </p>
                 
                 <div className="space-y-2 pt-4">
                   <p className="text-lg md:text-xl text-white font-medium">
