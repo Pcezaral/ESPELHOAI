@@ -874,3 +874,13 @@ App totalmente alinhado com identidade visual do site Hostinger
 ## Bug Download Imagem (17/12/2025)
 
 - [x] BUG: "Erro ao baixar imagem" ao tentar fazer download (corrigido com fallbacks para CORS)
+
+
+## Melhorias UX Home (17/12/2025)
+
+- [x] Remover ícones de câmera sob as imagens dos estilos
+- [x] Remover frases "Toque para transformar"
+- [x] Deixar apenas nome do estilo com ícone de seta ao lado
+- [x] Corrigir navegação para ir DIRETO para upload com tema selecionado (já estava funcionando)
+- [x] Alterar "Já veja o verão!" para "Você no verão!"
+- [x] Alterar frase "milhares já se transformaram" para "A transformação que você sempre quis, agora em suas mãos!"
