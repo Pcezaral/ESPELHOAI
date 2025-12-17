@@ -32,46 +32,54 @@ export function BeforeAfterDownload({
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   /**
-   * Permite ao usuário escolher onde salvar a imagem
+   * Permite ao usuário escolher onde salvar a imagem (Galeria/Fotos)
    */
-  const downloadToDevice = async (url: string, filename: string) => {
+  const downloadToDevice = async (imageUrl: string, filename: string) => {
     try {
-      const response = await fetch(url);
+      // Usar proxy do servidor para evitar CORS
+      const proxyUrl = `/api/download-image?url=${encodeURIComponent(imageUrl)}&filename=${encodeURIComponent(filename)}`;
+      const response = await fetch(proxyUrl);
+      
+      if (!response.ok) throw new Error('Download failed');
+      
       const blob = await response.blob();
-
-      // Tentar usar File System Access API (permite escolher local)
-      if ('showSaveFilePicker' in window) {
+      const file = new File([blob], filename, { type: 'image/jpeg' });
+      
+      // Tentar Web Share API com arquivo (funciona em mobile para salvar na galeria)
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
         try {
-          const handle = await (window as any).showSaveFilePicker({
-            suggestedName: filename,
-            types: [{
-              description: 'Imagem JPEG',
-              accept: { 'image/jpeg': ['.jpg', '.jpeg'] },
-            }],
+          await navigator.share({
+            files: [file],
+            title: 'Antes/Depois - ESPELHO AI',
           });
-          const writable = await handle.createWritable();
-          await writable.write(blob);
-          await writable.close();
-          toast.success("✅ Imagem salva com sucesso!");
+          toast.success("✅ Escolha onde salvar a imagem!");
           return;
         } catch (err: any) {
           if (err.name === 'AbortError') return;
+          // Continua para fallback
         }
       }
-
-      // Fallback: Download tradicional
+      
+      // Fallback: Download tradicional (desktop)
       const blobUrl = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = blobUrl;
       link.download = filename;
+      link.style.display = 'none';
       document.body.appendChild(link);
       link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(blobUrl);
-      toast.success("✅ Download iniciado!");
+      
+      setTimeout(() => {
+        document.body.removeChild(link);
+        URL.revokeObjectURL(blobUrl);
+      }, 100);
+      
+      toast.success("✅ Imagem salva! Verifique Downloads ou Galeria.");
     } catch (error) {
       console.error("Download error:", error);
-      toast.error("Erro ao baixar imagem");
+      // Último fallback: abrir imagem para salvar manualmente
+      window.open(imageUrl, '_blank');
+      toast.info("Segure na imagem para salvar na galeria.");
     }
   };
 

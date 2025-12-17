@@ -175,57 +175,56 @@ export async function generateTransformation(
     
     circus: {
       // Circo: ROSTO 100% IDÊNTICO, MÁXIMA VARIEDADE, INTEGRAÇÃO VISUAL PERFEITA
+      // IMPORTANTE: NUNCA repetir fraque/cartola - variar MUITO as profissões
       prompt: `Circus performer transformation - MAXIMUM FUN AND VARIETY! CRITICAL FACE RULE: Person's face must be PIXEL-PERFECT IDENTICAL - same eyes, nose, mouth, expression, age, skin tone, facial structure. DO NOT modify face. Keep EXACT same number of people.
       
-      CRITICAL VISUAL INTEGRATION: Person must be SEAMLESSLY INTEGRATED into circus scene - NOT a collage. Match theatrical lighting (spotlights create specific shadows and highlights on face and costume), match color temperature (warm circus lights on skin), match perspective (person's size fits the circus environment naturally). Image must look like a REAL PHOTOGRAPH taken at a circus, not a composite.
+      CRITICAL VISUAL INTEGRATION: Person must be SEAMLESSLY INTEGRATED into circus scene - NOT a collage. Match theatrical lighting, color temperature, and perspective naturally.
       
-      LIGHTING INTEGRATION: Circus uses dramatic theatrical lighting - spotlights from above create rim lighting on hair and shoulders, colored gels create tinted shadows (red, blue, gold), face lit dramatically with circus ambiance. Sequins and sparkles on costume should catch light realistically.
+      EXPRESSIONS: ALWAYS joyful, happy, excited, proud, playful - NEVER serious!
       
-      EXPRESSIONS: ALWAYS joyful, happy, excited, proud, playful - NEVER serious! Circus is about ENTERTAINMENT and JOY!
+      CRITICAL COSTUME RULE: DO NOT always use tailcoat/top hat (ringmaster). MUST vary costumes dramatically! Use random number ${Math.floor(Math.random() * 20) + 1} to select ONE profession:
       
-      Randomly choose ONE circus profession - MUST BE DIFFERENT EACH TIME:
+      1-ACROBAT (sparkly sequined LEOTARD in bright pink/blue/gold, mid-air flip, arms extended, circus tent ceiling above, confetti falling),
       
-      ACROBAT FLYING (mid-air somersault or flip, sparkly sequined leotard, arms extended gracefully, circus tent ceiling visible above, spotlights creating dramatic rays, confetti falling around, triumphant expression, crowd blur below),
+      2-TRAPEZE ARTIST (glittery BODYSUIT with flowing ribbons, hanging from trapeze mid-swing, hair flowing, high above circus ring),
       
-      TRAPEZE ARTIST SWING (hanging from trapeze bar mid-swing, glittery aerial costume, hair flowing with motion, high above circus ring, dramatic height perspective, excited expression, safety net visible far below),
+      3-HAPPY CLOWN (colorful POLKA DOT oversized costume, rainbow wig, red nose, holding balloons, silly pose, oversized shoes),
       
-      HAPPY CLOWN BALLOON (colorful polka dot costume, rainbow wig, red nose, holding bunch of colorful balloons, circus ring background, children in audience laughing, silly playful pose, oversized shoes, confetti),
+      4-CLOWN PIE (BAGGY colorful costume, cream pie in face or throwing pie, surprised funny expression, messy cream),
       
-      CLOWN PIE MOMENT (about to throw or just got hit by cream pie, surprised funny expression, messy cream on face/costume, slapstick comedy moment, audience laughing, circus ring),
+      5-MAGICIAN DOVES (elegant PURPLE VEST with silver stars, doves flying from hands, sparkles, mysterious smile, NO top hat),
       
-      MAGICIAN REVEAL (elegant purple/gold tuxedo with cape, pulling rabbit from top hat, doves flying around, sparkles and stars, mysterious smile, magic props on table, dramatic stage lighting),
+      6-MAGICIAN CARDS (SLEEK black shirt with silver details, cards floating in air, intense focused expression, close-up magic),
       
-      MAGICIAN CARD TRICK (fanning deck of cards dramatically, cards floating in air, intense focused expression, close-up magic style, spotlight on hands, audience gasping),
+      7-TIGHTROPE WALKER (elegant SPARKLING UNITARD, walking on high wire with balance pole, focused expression, dramatic height),
       
-      RINGMASTER WELCOME (bright red tailcoat with gold buttons, tall top hat, arms spread wide in welcome gesture, center of circus ring, megaphone in hand, proud confident smile, audience in background),
+      8-FIRE BREATHER (EXOTIC tribal-style costume with flame patterns, breathing dramatic flame, fire illuminating face),
       
-      TIGHTROPE WALKER BALANCE (walking on high wire with balance pole, elegant sparkling costume, focused but confident expression, dramatic height, spotlight from below, tent ceiling above),
+      9-FIRE DANCER (FLOWING costume with fire motifs, spinning fire poi, trails of flame around body, dynamic action),
       
-      FIRE BREATHER (breathing dramatic flame, exotic costume, fire illuminating face dramatically, dark background with fire glow, intense expression, crowd silhouettes watching),
+      10-STRONGMAN (STRIPED vintage tank top, lifting oversized barbell, proud flexing pose, vintage poster style),
       
-      FIRE DANCER (spinning fire poi or fire fans, trails of flame around body, exotic costume with flame patterns, dynamic action pose, fire reflecting on skin),
+      11-CONTORTIONIST (COLORFUL flexible bodysuit, impossible bendy pose, playful expression, amazed audience),
       
-      STRONGMAN LIFT (striped vintage tank top, handlebar mustache optional, lifting comically oversized barbell overhead, proud flexing pose, vintage circus poster style, crowd cheering),
+      12-JUGGLER (BRIGHT multicolored costume, juggling 5+ colorful balls mid-air, concentrated happy expression),
       
-      CONTORTIONIST BEND (colorful flexible bodysuit, impossible bendy pose in box or pretzel shape, playful expression, circus stage, amazed audience reaction, dramatic lighting),
+      13-AERIAL SILK (wrapped in RAINBOW silk ribbons, suspended mid-air in graceful pose, serene expression, ethereal lighting),
       
-      JUGGLER ACTION (bright multicolored costume, juggling 5+ colorful balls or flaming torches mid-air, concentrated happy expression, dynamic action moment, circus tent background),
+      14-STILT WALKER (TALL colorful costume on wooden stilts, towering above crowd, waving happily, parade background),
       
-      AERIAL SILK GRACEFUL (wrapped in flowing rainbow silk ribbons, suspended mid-air in graceful pose, serene happy expression, ethereal lighting from above, tent ceiling visible),
+      15-HUMAN CANNONBALL (SPARKLY bodysuit, being shot from cannon mid-air, thrilled expression, trajectory arc),
       
-      STILT WALKER PARADE (tall colorful costume on wooden stilts, towering above crowd, waving happily, circus parade on street, festive atmosphere, children looking up in wonder),
+      16-UNICYCLIST (COLORFUL costume, balancing on tall unicycle while juggling, impressive balance pose),
       
-      HUMAN CANNONBALL (sparkly costume, being shot from cannon mid-air, thrilled excited expression, circus tent background, dramatic action moment, trajectory arc visible),
+      17-HULA HOOP (SPARKLY leotard, multiple colorful hula hoops spinning on body, dynamic motion, playful expression),
       
-      LION TAMER (dramatic ringmaster-style costume, confident pose with whip and chair, circus ring with decorative lion props/statues, dramatic spotlight, commanding presence),
+      18-CIRCUS BAND (COLORFUL marching band uniform, playing trumpet or drum, festive parade atmosphere),
       
-      UNICYCLIST (balancing on tall unicycle, colorful costume, juggling while cycling, impressive balance pose, circus ring, audience amazement),
+      19-KNIFE THROWER (DRAMATIC black and red costume, throwing knives at target, intense focused expression, assistant nearby),
       
-      HULA HOOP ARTIST (multiple colorful hula hoops spinning on body, dynamic motion, sparkly costume, playful expression, circus stage, hoops creating colorful blur),
+      20-ANIMAL TRAINER (SAFARI-style costume with sequins, performing with trained dogs or horses, circus ring).
       
-      CIRCUS BAND MEMBER (colorful marching band uniform, playing trumpet or drum, circus parade, festive atmosphere, musical energy).
-      
-      CRITICAL VARIETY: NEVER repeat same profession or pose. Each generation MUST be completely different - different act, different costume colors, different background angle, different lighting mood. VIBRANT CIRCUS COLORS throughout (red, yellow, blue, gold, purple, green, orange). Striped circus tent elements. Dramatic theatrical spotlights. Confetti/streamers/balloons when appropriate. PHOTOREALISTIC quality with perfect circus atmosphere integration. Random seed: ${randomSeed}, variation: ${randomVariation}`,
+      ABSOLUTE RULE: DO NOT default to ringmaster with tailcoat and top hat! The random number ${Math.floor(Math.random() * 20) + 1} MUST determine the profession. VIBRANT CIRCUS COLORS. PHOTOREALISTIC quality. Random seed: ${randomSeed}, variation: ${randomVariation}`,
       text: "Você é um artista de circo! Talentoso, colorido e pronto para encantar a plateia sob a lona do picadeiro! 🎪✨"
     },
     

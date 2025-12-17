@@ -901,3 +901,10 @@ App totalmente alinhado com identidade visual do site Hostinger
 
 - [x] Download: Deve salvar na Galeria/Fotos do dispositivo (usa Web Share API em mobile)
 - [x] Compartilhamento: Mensagem do WhatsApp inclui link da imagem (usa Web Share API com arquivo em mobile)
+
+
+## Bugs Reportados (17/12/2025 - 16:35)
+
+- [x] Erro React #321 ao tentar salvar imagem no celular (corrigido com proxy e Web Share API)
+- [x] Download Antes/Depois não está gerando (corrigido com proxy e Web Share API)
+- [x] Circo sempre gera fraque e cartola - adicionado sistema de número aleatório para forçar variedade entre 20 profissões
