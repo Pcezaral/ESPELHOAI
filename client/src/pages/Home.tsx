@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import CountdownTimer from "@/components/CountdownTimer";
 import React from "react";
 import { Card } from "@/components/ui/card";
-import { Loader2, Wand2, Zap, Sparkles, Crown, Infinity as InfinityIcon, Check, MessageSquare, Share2 } from "lucide-react";
+import { Loader2, Wand2, Zap, Sparkles, Crown, Infinity as InfinityIcon, Check, MessageSquare, Share2, Camera } from "lucide-react";
 import { APP_LOGO, APP_TITLE, getLoginUrl } from "@/const";
 import { useLocation } from "wouter";
 import { useEffect, useState } from "react";
@@ -170,32 +170,53 @@ export default function Home() {
             <div className="flex md:grid md:grid-cols-3 gap-6 md:gap-8 px-4 md:px-8 lg:px-16 min-w-max md:min-w-full justify-center">
               {/* Exemplo 1: Natal - Clique vai direto para upload */}
               <div 
-                className="flex flex-col items-center space-y-4 flex-shrink-0 cursor-pointer group"
+                className="flex flex-col items-center space-y-3 flex-shrink-0 cursor-pointer group"
                 onClick={() => handleStartApp('natal')}
               >
-                <img src="/example-natal-mamae-noel.png" alt="Transformação Natal" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-105 border-2 border-red-200 group-hover:border-red-500" />
+                <div className="relative">
+                  <img src="/example-natal-mamae-noel.png" alt="Transformação Natal" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl border-2 border-red-200 group-hover:border-red-500" />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-lg flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 rounded-full p-3">
+                      <Camera className="w-6 h-6 text-red-600" />
+                    </div>
+                  </div>
+                </div>
                 <p className="font-semibold text-base md:text-lg text-red-600 group-hover:text-red-700">🎄 Natal</p>
-                <span className="text-xs text-gray-500 group-hover:text-red-500">Clique para transformar!</span>
+                <span className="text-xs text-gray-500 group-hover:text-red-500 transition-colors">📷 Toque para transformar</span>
               </div>
               
               {/* Exemplo 2: Réveillon - Clique vai direto para upload */}
               <div 
-                className="flex flex-col items-center space-y-4 flex-shrink-0 cursor-pointer group"
+                className="flex flex-col items-center space-y-3 flex-shrink-0 cursor-pointer group"
                 onClick={() => handleStartApp('reveillon')}
               >
-                <img src="/example-reveillon-praia.png" alt="Transformação Réveillon" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-105 border-2 border-blue-200 group-hover:border-blue-500" />
+                <div className="relative">
+                  <img src="/example-reveillon-praia.png" alt="Transformação Réveillon" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl border-2 border-blue-200 group-hover:border-blue-500" />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-lg flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 rounded-full p-3">
+                      <Camera className="w-6 h-6 text-blue-600" />
+                    </div>
+                  </div>
+                </div>
                 <p className="font-semibold text-base md:text-lg text-blue-600 group-hover:text-blue-700">🎆 Réveillon</p>
-                <span className="text-xs text-gray-500 group-hover:text-blue-500">Clique para transformar!</span>
+                <span className="text-xs text-gray-500 group-hover:text-blue-500 transition-colors">📷 Toque para transformar</span>
               </div>
               
               {/* Exemplo 3: Praia 2026 - Clique vai direto para upload */}
               <div 
-                className="flex flex-col items-center space-y-4 flex-shrink-0 cursor-pointer group"
+                className="flex flex-col items-center space-y-3 flex-shrink-0 cursor-pointer group"
                 onClick={() => handleStartApp('beach')}
               >
-                <img src="/example-praia-2026.png" alt="Transformação Praia 2026" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 group-hover:scale-105 border-2 border-cyan-200 group-hover:border-cyan-500" />
+                <div className="relative">
+                  <img src="/example-praia-2026.png" alt="Transformação Praia 2026" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl border-2 border-cyan-200 group-hover:border-cyan-500" />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-lg flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 rounded-full p-3">
+                      <Camera className="w-6 h-6 text-cyan-600" />
+                    </div>
+                  </div>
+                </div>
                 <p className="font-semibold text-base md:text-lg text-cyan-600 group-hover:text-cyan-700">🏖️ Praia 2026</p>
-                <span className="text-xs text-gray-500 group-hover:text-cyan-500">Clique para transformar!</span>
+                <span className="text-xs text-gray-500 group-hover:text-cyan-500 transition-colors">📷 Toque para transformar</span>
               </div>
             </div>
           </div>
@@ -247,58 +268,106 @@ export default function Home() {
           {/* Container com scroll horizontal em mobile */}
           <div className="overflow-x-auto md:overflow-visible -mx-4 md:mx-0">
             <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 px-4 md:px-8 lg:px-16 min-w-max md:min-w-full">
-              {/* Exemplo 1: Bichinho */}
-              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
-                <img src="/example-bichinho.png" alt="Transformação Bichinho" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
-                <div className="flex items-center gap-2">
-                  <p className="font-semibold text-base md:text-lg text-pink-600">🐶 Bichinho</p>
-                  <Button onClick={() => handleStartApp('animals')} size="sm" className="bg-pink-500 hover:bg-pink-600 text-white rounded-full px-3 py-1 text-xs font-semibold">✨ Transforme</Button>
+              {/* Exemplo 1: Bichinho - Clique direto */}
+              <div 
+                className="flex flex-col items-center space-y-3 flex-shrink-0 cursor-pointer group"
+                onClick={() => handleStartApp('animals')}
+              >
+                <div className="relative">
+                  <img src="/example-bichinho.png" alt="Transformação Bichinho" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl border-2 border-transparent group-hover:border-pink-500" />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-lg flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 rounded-full p-3">
+                      <Camera className="w-6 h-6 text-pink-600" />
+                    </div>
+                  </div>
                 </div>
+                <p className="font-semibold text-base md:text-lg text-pink-600 group-hover:text-pink-700">🐶 Bichinho</p>
+                <span className="text-xs text-gray-500 group-hover:text-pink-500 transition-colors">📷 Toque para transformar</span>
               </div>
               
-              {/* Exemplo 2: Monstro */}
-              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
-                <img src="/example-monstro.png" alt="Transformação Monstro" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
-                <div className="flex items-center gap-2">
-                  <p className="font-semibold text-base md:text-lg text-green-600">👾 Monstro</p>
-                  <Button onClick={() => handleStartApp('monster')} size="sm" className="bg-green-500 hover:bg-green-600 text-white rounded-full px-3 py-1 text-xs font-semibold">✨ Transforme</Button>
+              {/* Exemplo 2: Monstro - Clique direto */}
+              <div 
+                className="flex flex-col items-center space-y-3 flex-shrink-0 cursor-pointer group"
+                onClick={() => handleStartApp('monster')}
+              >
+                <div className="relative">
+                  <img src="/example-monstro.png" alt="Transformação Monstro" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl border-2 border-transparent group-hover:border-green-500" />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-lg flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 rounded-full p-3">
+                      <Camera className="w-6 h-6 text-green-600" />
+                    </div>
+                  </div>
                 </div>
+                <p className="font-semibold text-base md:text-lg text-green-600 group-hover:text-green-700">👾 Monstro</p>
+                <span className="text-xs text-gray-500 group-hover:text-green-500 transition-colors">📷 Toque para transformar</span>
               </div>
               
-              {/* Exemplo 3: Épico (Romanos/Gregos/Vikings) */}
-              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
-                <img src="/example-romana.png" alt="Transformação Épica - Romana" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
-                <div className="flex items-center gap-2">
-                  <p className="font-semibold text-base md:text-lg text-orange-600">🏛️ Épico</p>
-                  <Button onClick={() => handleStartApp('epic')} size="sm" className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-3 py-1 text-xs font-semibold">✨ Transforme</Button>
+              {/* Exemplo 3: Épico - Clique direto */}
+              <div 
+                className="flex flex-col items-center space-y-3 flex-shrink-0 cursor-pointer group"
+                onClick={() => handleStartApp('epic')}
+              >
+                <div className="relative">
+                  <img src="/example-romana.png" alt="Transformação Épica" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl border-2 border-transparent group-hover:border-orange-500" />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-lg flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 rounded-full p-3">
+                      <Camera className="w-6 h-6 text-orange-600" />
+                    </div>
+                  </div>
                 </div>
+                <p className="font-semibold text-base md:text-lg text-orange-600 group-hover:text-orange-700">🏛️ Épico</p>
+                <span className="text-xs text-gray-500 group-hover:text-orange-500 transition-colors">📷 Toque para transformar</span>
               </div>
               
-              {/* Exemplo 4: Gangster */}
-              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
-                <img src="/example-gangster-new.png" alt="Transformação Gangster" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
-                <div className="flex items-center gap-2">
-                  <p className="font-semibold text-base md:text-lg text-gray-700">🔫 Gangster</p>
-                  <Button onClick={() => handleStartApp('gangster')} size="sm" className="bg-gray-700 hover:bg-gray-800 text-white rounded-full px-3 py-1 text-xs font-semibold">✨ Transforme</Button>
+              {/* Exemplo 4: Gangster - Clique direto */}
+              <div 
+                className="flex flex-col items-center space-y-3 flex-shrink-0 cursor-pointer group"
+                onClick={() => handleStartApp('gangster')}
+              >
+                <div className="relative">
+                  <img src="/example-gangster-new.png" alt="Transformação Gangster" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl border-2 border-transparent group-hover:border-gray-700" />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-lg flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 rounded-full p-3">
+                      <Camera className="w-6 h-6 text-gray-700" />
+                    </div>
+                  </div>
                 </div>
+                <p className="font-semibold text-base md:text-lg text-gray-700 group-hover:text-gray-900">🔫 Gangster</p>
+                <span className="text-xs text-gray-500 group-hover:text-gray-700 transition-colors">📷 Toque para transformar</span>
               </div>
               
-              {/* Exemplo 5: Pintura */}
-              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
-                <img src="/example-pintura-new.png" alt="Transformação Pintura" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
-                <div className="flex items-center gap-2">
-                  <p className="font-semibold text-base md:text-lg text-purple-600">🎨 Pintura</p>
-                  <Button onClick={() => handleStartApp('art')} size="sm" className="bg-purple-500 hover:bg-purple-600 text-white rounded-full px-3 py-1 text-xs font-semibold">✨ Transforme</Button>
+              {/* Exemplo 5: Pintura - Clique direto */}
+              <div 
+                className="flex flex-col items-center space-y-3 flex-shrink-0 cursor-pointer group"
+                onClick={() => handleStartApp('art')}
+              >
+                <div className="relative">
+                  <img src="/example-pintura-new.png" alt="Transformação Pintura" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl border-2 border-transparent group-hover:border-purple-500" />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-lg flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 rounded-full p-3">
+                      <Camera className="w-6 h-6 text-purple-600" />
+                    </div>
+                  </div>
                 </div>
+                <p className="font-semibold text-base md:text-lg text-purple-600 group-hover:text-purple-700">🎨 Pintura</p>
+                <span className="text-xs text-gray-500 group-hover:text-purple-500 transition-colors">📷 Toque para transformar</span>
               </div>
               
-              {/* Exemplo 6: Circo */}
-              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
-                <img src="/example-circo.png" alt="Transformação Circo" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer" />
-                <div className="flex items-center gap-2">
-                  <p className="font-semibold text-base md:text-lg text-red-600">🎪 Circo</p>
-                  <Button onClick={() => handleStartApp('circus')} size="sm" className="bg-red-500 hover:bg-red-600 text-white rounded-full px-3 py-1 text-xs font-semibold">✨ Transforme</Button>
+              {/* Exemplo 6: Circo - Clique direto */}
+              <div 
+                className="flex flex-col items-center space-y-3 flex-shrink-0 cursor-pointer group"
+                onClick={() => handleStartApp('circus')}
+              >
+                <div className="relative">
+                  <img src="/example-circo.png" alt="Transformação Circo" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl border-2 border-transparent group-hover:border-red-500" />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-lg flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/90 rounded-full p-3">
+                      <Camera className="w-6 h-6 text-red-600" />
+                    </div>
+                  </div>
                 </div>
+                <p className="font-semibold text-base md:text-lg text-red-600 group-hover:text-red-700">🎪 Circo</p>
+                <span className="text-xs text-gray-500 group-hover:text-red-500 transition-colors">📷 Toque para transformar</span>
               </div>
             </div>
           </div>

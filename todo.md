@@ -833,3 +833,9 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Natal: Clicar vai direto para upload com tema pré-selecionado
 - [x] Réveillon: Clicar vai direto para upload com tema pré-selecionado
 - [x] Praia 2026: Clicar vai direto para upload com tema pré-selecionado
+
+## Melhorias UX - Todos os Temas (16/12/2025)
+
+- [x] Clique direto para upload em todos os cards de temas (não só Final de Ano)
+- [x] Adicionar ícone de câmera/upload nos cards
+- [x] Garantir responsividade mobile nos cards clicáveis
