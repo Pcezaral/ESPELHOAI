@@ -11,43 +11,62 @@ function getQueryParam(req: Request, key: string): string | undefined {
 
 export function registerOAuthRoutes(app: Express) {
   app.get("/api/oauth/callback", async (req: Request, res: Response) => {
+    console.log("[OAuth] Callback received");
+    console.log("[OAuth] Headers:", JSON.stringify(req.headers, null, 2));
+    console.log("[OAuth] Hostname:", req.hostname);
+    console.log("[OAuth] Protocol:", req.protocol);
+    
     const code = getQueryParam(req, "code");
     const state = getQueryParam(req, "state");
 
     if (!code || !state) {
+      console.error("[OAuth] Missing code or state");
       res.status(400).json({ error: "code and state are required" });
       return;
     }
 
     try {
+      console.log("[OAuth] Exchanging code for token...");
       const tokenResponse = await sdk.exchangeCodeForToken(code, state);
+      console.log("[OAuth] Token received");
+      
+      console.log("[OAuth] Fetching user info...");
       const userInfo = await sdk.getUserInfo(tokenResponse.accessToken);
+      console.log("[OAuth] User info:", { openId: userInfo.openId, name: userInfo.name, email: userInfo.email });
 
       if (!userInfo.openId) {
+        console.error("[OAuth] openId missing from user info");
         res.status(400).json({ error: "openId missing from user info" });
         return;
       }
 
+      console.log("[OAuth] Upserting user...");
       await db.upsertUser({
         openId: userInfo.openId,
-        name: userInfo.name || null,
-        email: userInfo.email ?? null,
-        loginMethod: userInfo.loginMethod ?? userInfo.platform ?? null,
+        name: userInfo.name || "",
+        email: userInfo.email ?? "",
+        loginMethod: userInfo.loginMethod ?? userInfo.platform ?? "",
         lastSignedIn: new Date(),
       });
+      console.log("[OAuth] User upserted successfully");
 
+      console.log("[OAuth] Creating session token...");
       const sessionToken = await sdk.createSessionToken(userInfo.openId, {
         name: userInfo.name || "",
         expiresInMs: ONE_YEAR_MS,
       });
+      console.log("[OAuth] Session token created");
 
       const cookieOptions = getSessionCookieOptions(req);
+      console.log("[OAuth] Cookie options:", JSON.stringify(cookieOptions, null, 2));
+      
       res.cookie(COOKIE_NAME, sessionToken, { ...cookieOptions, maxAge: ONE_YEAR_MS });
+      console.log("[OAuth] Cookie set, redirecting to /");
 
       res.redirect(302, "/");
     } catch (error) {
-      console.error("[OAuth] Callback failed", error);
-      res.status(500).json({ error: "OAuth callback failed" });
+      console.error("[OAuth] Callback failed:", error);
+      res.status(500).json({ error: "OAuth callback failed", details: String(error) });
     }
   });
 }

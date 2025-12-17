@@ -30,28 +30,22 @@ export async function upsertUser(user: InsertUser): Promise<void> {
   }
 
   try {
+    // SEMPRE definir valores padrão para evitar erro "Field doesn't have a default value"
     const values: InsertUser = {
       openId: user.openId,
+      name: user.name ?? "",
+      email: user.email ?? "",
+      loginMethod: user.loginMethod ?? "",
+      lastSignedIn: user.lastSignedIn ?? new Date(),
     };
-    const updateSet: Record<string, unknown> = {};
-
-    const textFields = ["name", "email", "loginMethod"] as const;
-    type TextField = (typeof textFields)[number];
-
-    const assignNullable = (field: TextField) => {
-      const value = user[field];
-      if (value === undefined) return;
-      const normalized = value ?? null;
-      values[field] = normalized;
-      updateSet[field] = normalized;
+    
+    const updateSet: Record<string, unknown> = {
+      name: values.name,
+      email: values.email,
+      loginMethod: values.loginMethod,
+      lastSignedIn: values.lastSignedIn,
     };
 
-    textFields.forEach(assignNullable);
-
-    if (user.lastSignedIn !== undefined) {
-      values.lastSignedIn = user.lastSignedIn;
-      updateSet.lastSignedIn = user.lastSignedIn;
-    }
     if (user.role !== undefined) {
       values.role = user.role;
       updateSet.role = user.role;
@@ -60,17 +54,13 @@ export async function upsertUser(user: InsertUser): Promise<void> {
       updateSet.role = 'admin';
     }
 
-    if (!values.lastSignedIn) {
-      values.lastSignedIn = new Date();
-    }
-
-    if (Object.keys(updateSet).length === 0) {
-      updateSet.lastSignedIn = new Date();
-    }
+    console.log("[Database] Upserting user:", { openId: user.openId, name: values.name, email: values.email });
 
     await db.insert(users).values(values).onDuplicateKeyUpdate({
       set: updateSet,
     });
+    
+    console.log("[Database] User upserted successfully");
   } catch (error) {
     console.error("[Database] Failed to upsert user:", error);
     throw error;
