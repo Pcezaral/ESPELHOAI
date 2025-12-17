@@ -35,7 +35,7 @@ export async function uploadImageToS3(
  * 6. FUNDOS VARIADOS - cada geração deve ter cenário diferente
  */
 export async function generateTransformation(
-  theme: "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus" | "natal" | "reveillon",
+  theme: "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus" | "natal" | "reveillon" | "beach",
   imageUrl: string,
   userId: number
 ): Promise<{ generatedImageUrl: string; generatedText: string }> {
@@ -190,6 +190,48 @@ export async function generateTransformation(
       
       CRITICAL: White clothing is MANDATORY (Brazilian New Year tradition for good luck). Add spectacular fireworks with "2026", champagne, golden decorations, confetti. Vary pose (toasting / celebrating / dancing / elegant stance / joyful expression / arms raised). Night lighting with fireworks glow and golden party lights. Photorealistic celebratory style. Random seed: ${randomSeed}`,
       text: "🎆 Você está pronto para o Réveillon! Celebre com estilo e brinde ao novo ano com champagne! 🍾✨"
+    },
+    
+    beach: {
+      // Praia 2026: ROSTO 100% IDÊNTICO, cenas divertidas e bem-humoradas em praias brasileiras
+      prompt: `Brazilian beach fun transformation 2026. CRITICAL RULE: Keep EXACT same number of people - if 1 person in input, output MUST have 1 person; if 2 people, output MUST have 2 people with BOTH faces pixel-perfect identical; if 3 people, output MUST have 3 people with ALL 3 faces pixel-perfect identical. PRESERVE EACH INDIVIDUAL FACE: Face must be PIXEL-PERFECT IDENTICAL - same eyes, nose, mouth, expression, age, skin tone, facial structure. DO NOT modify face. ONLY change: costume, pose, props, background.
+      
+      REALISTIC APPEARANCE: Generate REALISTIC, NATURAL-LOOKING people - NOT plastic, NOT perfect, NOT AI-generated looking. Include natural skin texture, pores, freckles, minor imperfections, realistic beach lighting with sun shadows. NATURAL EXPRESSIONS: Use genuine, natural expressions - joyful, playful, relaxed, funny.
+      
+      Randomly choose ONE hilarious beach scenario with BRAZILIAN VIBES:
+      
+      SURFING FUN (colorful board shorts or bikini, riding a wave with funny expression, Copacabana or Ipanema beach background, Christ the Redeemer visible in distance, dramatic surf moment, water splashing, sunset golden light),
+      
+      BURIED IN SAND (person buried in sand with only head visible, funny expression, friends building sand castle around them, Brazilian beach umbrellas, vendors passing by, hilarious helpless pose),
+      
+      EATING BEACH CHICKEN (holding roasted chicken leg with both hands, messy eating, beach chair, cooler with drinks, typical Brazilian beach setup, Biscoito Globo bag visible, satisfied expression),
+      
+      DRINKING MATE TEA (holding traditional mate tea cup with bombilla straw, beach towel, Santos or Porto Alegre beach style, relaxed pose, sun hat, reading magazine, chill vibes),
+      
+      FRESCOBOL PLAYERS (playing beach paddle ball, athletic pose mid-swing, colorful swimwear, Ipanema beach, fit beach body, action shot with ball in air),
+      
+      BEACH VENDOR STYLE (dressed as typical Brazilian beach vendor, carrying cooler or tray, "Mate! Água de coco!" pose, walking on sand, funny sales expression, beach crowd background),
+      
+      COCONUT WATER MOMENT (drinking from fresh coconut with straw, beach kiosk background, Porto de Galinhas or Jericoacoara style, tropical paradise, palm trees, crystal clear water),
+      
+      AÇAÍ BOWL FEAST (holding giant açaí bowl with toppings, beach bar setting, Bahia or Florianópolis beach, healthy beach lifestyle, colorful fruit toppings, satisfied expression),
+      
+      BEACH SOCCER (playing futévol or beach soccer, action kick pose, Maracanã style goal posts on sand, Rio beach, athletic pose, sand flying, competitive fun),
+      
+      SUNBATHING FAIL (funny sunburn lines from weird tan, holding sunscreen too late, beach chair, umbrella shadow creating patterns, embarrassed funny expression),
+      
+      CAIPIRINHA TIME (holding caipirinha glass, beach bar counter, lime slices, ice, tropical cocktail vibes, Bahia beach bar, relaxed happy expression, sunset background),
+      
+      BEACH SELFIE (classic beach selfie pose, duck face or peace sign, colorful swimwear, crowded Brazilian beach background, summer 2026 vibes, fun group energy),
+      
+      WAVE CRASH (being hit by unexpected wave, surprised funny expression, water splashing everywhere, beach background, dramatic comedic moment, wet hair flying),
+      
+      HAMMOCK RELAX (lying in colorful hammock between palm trees, Nordeste beach style, Ceará or Alagoas, holding drink, ultimate relaxation pose, paradise setting),
+      
+      BEACH WORKOUT (doing funny beach exercise, running on sand, beach fitness class, Leblon beach, athletic pose, morning sun, healthy lifestyle).
+      
+      CRITICAL: Brazilian beach culture authenticity - include typical elements (Biscoito Globo, mate, canga towels, beach chairs, kiosks, vendors). Vary beaches (Rio: Copacabana, Ipanema, Leblon / Santos / Florianópolis / Porto de Galinhas / Jericoacoara / Morro de São Paulo / Arraial do Cabo). Summer 2026 atmosphere, vibrant colors, fun energy, Brazilian joy. Photorealistic style with humor. Random seed: ${randomSeed}`,
+      text: "🏖️ Você e seus amigos na praia em 2026! Diversão, sol e muitas risadas no verão brasileiro! 🌴☀️"
     }
   };
 

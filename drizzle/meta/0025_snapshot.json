@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "48938d6d-937d-43b3-8b92-f46222070d5b",
-  "prevId": "ea60a85e-42c1-4464-ad4c-39d1abd1f083",
+  "id": "78bee095-6cf8-461b-9109-ebbabb0544c7",
+  "prevId": "81bc138a-6786-4f86-9f2f-29d7ff90d603",
   "tables": {
     "credit_transactions": {
       "name": "credit_transactions",
@@ -97,7 +97,7 @@
         },
         "theme": {
           "name": "theme",
-          "type": "enum('animals','monster','art','gender','epic','gangster','circus','natal','reveillon')",
+          "type": "enum('animals','monster','art','gender','epic','gangster','circus','natal','reveillon','beach')",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -160,21 +160,24 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false
+          "autoincrement": false,
+          "default": "('')"
         },
         "email": {
           "name": "email",
           "type": "varchar(320)",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false
+          "autoincrement": false,
+          "default": "''"
         },
         "loginMethod": {
           "name": "loginMethod",
           "type": "varchar(64)",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false
+          "autoincrement": false,
+          "default": "''"
         },
         "role": {
           "name": "role",

@@ -35,7 +35,7 @@ export const appRouter = router({
       }),
     generate: protectedProcedure
       .input(z.object({
-        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus", "natal", "reveillon"]),
+        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus", "natal", "reveillon", "beach"]),
         imageUrl: z.string(),
       }))
       .mutation(async ({ input, ctx }) => {
@@ -49,7 +49,8 @@ export const appRouter = router({
           gangster: "Gangster 1920s",
           circus: "Circo",
           natal: "Natal",
-          reveillon: "Réveillon"
+          reveillon: "Réveillon",
+          beach: "Praia 2026"
         };
         await consumeCredit(ctx.user.id, themeNames[input.theme]);
         
@@ -119,7 +120,7 @@ export const appRouter = router({
   rating: router({
     submit: protectedProcedure
       .input(z.object({
-        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus", "natal", "reveillon"]),
+        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus", "natal", "reveillon", "beach"]),
         rating: z.number().min(1).max(5),
         comment: z.string().optional(),
       }))

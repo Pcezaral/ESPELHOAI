@@ -176,6 +176,20 @@
       "when": 1765485633569,
       "tag": "0024_early_ender_wiggin",
       "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "5",
+      "when": 1765933892354,
+      "tag": "0025_quiet_mathemanic",
+      "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "5",
+      "when": 1765933897953,
+      "tag": "0026_striped_rafael_vega",
+      "breakpoints": true
     }
   ]
 }

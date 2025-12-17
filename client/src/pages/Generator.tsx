@@ -9,7 +9,7 @@ import { StarRating } from "@/components/StarRating";
 import { toast } from "sonner";
 import { CreditBadge } from "@/components/CreditBadge";
 import { getLoginUrl } from "@/const";
-type Theme = "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus" | "natal" | "reveillon";
+type Theme = "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus" | "natal" | "reveillon" | "beach";
 
 const THEMES = [
   {
@@ -84,6 +84,14 @@ const THEMES = [
     color: "from-blue-600 to-purple-600",
     borderColor: "border-blue-600/30 hover:border-blue-600/60",
   },
+  {
+    id: "beach" as Theme,
+    name: "Praia 2026",
+    emoji: "🏖️",
+    description: "Você e seus amigos na praia: surfando, enterrado na areia, comendo frango...",
+    color: "from-cyan-500 to-blue-500",
+    borderColor: "border-cyan-500/30 hover:border-cyan-500/60",
+  },
 ];
 
 export default function Generator() {
@@ -97,7 +105,7 @@ export default function Generator() {
   const filterFromUrl = urlParams?.get('filter') as 'holiday' | 'regular' | null;
   
   // Filtrar temas baseado no parâmetro filter
-  const HOLIDAY_THEMES = ['natal', 'reveillon'];
+  const HOLIDAY_THEMES = ['natal', 'reveillon', 'beach'];
   const filteredThemes = filterFromUrl === 'holiday' 
     ? THEMES.filter(t => HOLIDAY_THEMES.includes(t.id))
     : filterFromUrl === 'regular'

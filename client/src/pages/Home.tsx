@@ -91,6 +91,9 @@ export default function Home() {
                   <p className="text-lg md:text-xl font-bold bg-gradient-to-r from-red-500 to-blue-500 bg-clip-text text-transparent">
                     🎄 + ESPECIAL FINAL DE ANO: Natal e Réveillon! 🎆
                   </p>
+                  <p className="text-lg md:text-xl font-bold bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">
+                    🏖️ Já veja o verão! kkk! ☀️
+                  </p>
                 </div>
               </div>
               
@@ -154,7 +157,7 @@ export default function Home() {
           <div className="text-center mb-12">
             <span className="inline-block bg-gradient-to-r from-red-500 to-blue-500 text-white px-6 py-2 rounded-full text-sm font-bold mb-4">🎄 ESPECIAL FINAL DE ANO 🎆</span>
             <h2 className="text-4xl font-bold mb-4">Celebre com Estilo!</h2>
-            <p className="text-gray-600 text-lg">Transforme-se para o Natal e Réveillon</p>
+            <p className="text-gray-600 text-lg">Transforme-se para o Natal, Réveillon e Verão na Praia!</p>
           </div>
           
           {/* Contador Regressivo */}
@@ -162,19 +165,25 @@ export default function Home() {
             <CountdownTimer />
           </div>
           
-          {/* Container com scroll horizontal em mobile */}
-          <div className="overflow-x-auto md:overflow-visible -mx-4 md:mx-0">
-            <div className="flex md:grid md:grid-cols-2 gap-6 md:gap-8 px-4 md:px-8 lg:px-16 min-w-max md:min-w-full justify-center">
+{/* Container com scroll horizontal em mobile */}
+            <div className="overflow-x-auto md:overflow-visible -mx-4 md:mx-0">
+            <div className="flex md:grid md:grid-cols-3 gap-6 md:gap-8 px-4 md:px-8 lg:px-16 min-w-max md:min-w-full justify-center">
               {/* Exemplo 1: Natal */}
               <div className="flex flex-col items-center space-y-4 flex-shrink-0">
                 <img src="/example-natal-mamae-noel.png" alt="Transformação Natal" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer border-2 border-red-200" />
                 <p className="font-semibold text-base md:text-lg text-red-600">🎄 Natal</p>
               </div>
               
-              {/* Exemplo 2: Réveillon - Praia */}
+              {/* Exemplo 2: Réveillon */}
               <div className="flex flex-col items-center space-y-4 flex-shrink-0">
                 <img src="/example-reveillon-praia.png" alt="Transformação Réveillon" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer border-2 border-blue-200" />
                 <p className="font-semibold text-base md:text-lg text-blue-600">🎆 Réveillon</p>
+              </div>
+              
+              {/* Exemplo 3: Praia 2026 */}
+              <div className="flex flex-col items-center space-y-4 flex-shrink-0">
+                <img src="/example-praia-2026.png" alt="Transformação Praia 2026" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 cursor-pointer border-2 border-cyan-200" />
+                <p className="font-semibold text-base md:text-lg text-cyan-600">🏖️ Praia 2026</p>
               </div>
             </div>
           </div>
