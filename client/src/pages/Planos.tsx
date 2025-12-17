@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Check, Sparkles, Zap, Crown, Infinity as InfinityIcon } from "lucide-react";
+import { Check, Sparkles, Crown, ArrowLeft } from "lucide-react";
 import { useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
@@ -14,13 +14,13 @@ const PLANS = [
     name: "Pacote Light",
     price: "R$ 9,90",
     credits: 50,
-    description: "50 Créditos",
+    description: "Ideal para experimentar",
     icon: Sparkles,
     color: "from-blue-500 to-cyan-500",
     borderColor: "border-blue-500/30 hover:border-blue-500/60",
     features: [
       "50 transformações",
-      "Todos os 5 temas",
+      "Todos os temas disponíveis",
       "Download em alta qualidade",
       "Compartilhamento ilimitado",
     ],
@@ -30,55 +30,18 @@ const PLANS = [
     name: "Pacote Premium",
     price: "R$ 19,90",
     credits: 150,
-    description: "150 Créditos + Recursos/Cursos Extras",
+    description: "O mais escolhido!",
     icon: Crown,
     color: "from-orange-500 to-red-500",
     borderColor: "border-orange-500/30 hover:border-orange-500/60",
     popular: true,
     features: [
       "150 transformações",
-      "Todos os 5 temas",
+      "Todos os temas disponíveis",
       "Download em alta qualidade",
       "Compartilhamento ilimitado",
-      "Recursos e cursos extras",
+      "Melhor custo-benefício",
       "Suporte prioritário",
-    ],
-  },
-  {
-    id: "monthly_unlimited",
-    name: "Ilimitado Mensal",
-    price: "R$ 29,90/mês",
-    credits: -1,
-    description: "Créditos Ilimitados (Mensal - Econsa!)",
-    icon: Zap,
-    color: "from-purple-500 to-pink-500",
-    borderColor: "border-purple-500/30 hover:border-purple-500/60",
-    features: [
-      "Transformações ilimitadas",
-      "Todos os 5 temas",
-      "Download em alta qualidade",
-      "Compartilhamento ilimitado",
-      "Renovação automática mensal",
-      "Cancele quando quiser",
-    ],
-  },
-  {
-    id: "annual_unlimited",
-    name: "Ilimitado Anual",
-    price: "R$ 119,90/ano",
-    credits: -1,
-    description: "Créditos Ilimitados (Anual - Economize!)",
-    icon: InfinityIcon,
-    color: "from-yellow-500 to-orange-600",
-    borderColor: "border-yellow-500/30 hover:border-yellow-500/60",
-    badge: "Melhor Custo-Benefício",
-    features: [
-      "Transformações ilimitadas",
-      "Todos os 5 temas",
-      "Download em alta qualidade",
-      "Compartilhamento ilimitado",
-      "Economize R$ 238,90 por ano",
-      "Renovação automática anual",
     ],
   },
 ];
@@ -106,7 +69,7 @@ export default function Planos() {
         {
           onSuccess: (result) => {
             if (result.success) {
-              toast.success("Pagamento confirmado! Seus créditos foram adicionados.");
+              toast.success("🎉 Pagamento confirmado! Seus créditos foram adicionados.");
               // Clean URL
               window.history.replaceState({}, '', '/planos');
               setLocation("/generator");
@@ -163,46 +126,50 @@ export default function Planos() {
               ESPELHO <span className="text-orange-500">AI</span>
             </h1>
           </button>
-          {subscription && (
-            <div className="text-sm text-slate-300">
-              Saldo atual: <span className="font-bold text-orange-400">
-                {subscription.hasUnlimitedCredits ? "Ilimitado" : `${subscription.credits} créditos`}
-              </span>
-            </div>
-          )}
+          <div className="flex items-center gap-4">
+            {subscription && (
+              <div className="text-sm text-slate-300">
+                Saldo: <span className="font-bold text-orange-400">{subscription.credits} créditos</span>
+              </div>
+            )}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setLocation("/generator")}
+              className="text-slate-300 hover:text-white"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Voltar
+            </Button>
+          </div>
         </div>
       </header>
 
       <main className="container mx-auto px-4 py-12">
         {/* Hero Section */}
         <div className="text-center space-y-4 mb-12">
-          <h1 className="text-5xl font-bold text-white">
-            ESPELHO AI <span className="bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">Premium</span>
+          <h1 className="text-4xl md:text-5xl font-bold text-white">
+            Compre <span className="bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">Créditos</span>
           </h1>
-          <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-            Desbloqueie todo o potencial das transformações com IA. Escolha o plano ideal para você!
+          <p className="text-lg text-slate-300 max-w-xl mx-auto">
+            Cada crédito = 1 transformação. Escolha o pacote ideal para você!
           </p>
         </div>
 
-        {/* Plans Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto mb-12">
+        {/* Plans Grid - Centered */}
+        <div className="flex flex-col md:flex-row gap-8 justify-center items-stretch max-w-3xl mx-auto mb-12">
           {PLANS.map((plan) => {
             const Icon = plan.icon;
             return (
               <Card
                 key={plan.id}
-                className={`relative overflow-hidden border-2 ${plan.borderColor} bg-slate-900/50 p-6 transition-all hover:scale-105 ${
+                className={`relative overflow-hidden border-2 ${plan.borderColor} bg-slate-900/50 p-8 transition-all hover:scale-105 flex-1 max-w-sm ${
                   plan.popular ? "ring-2 ring-orange-500/50" : ""
                 }`}
               >
                 {plan.popular && (
-                  <div className="absolute top-0 right-0 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
-                    MAIS POPULAR
-                  </div>
-                )}
-                {plan.badge && (
-                  <div className="absolute top-0 right-0 bg-gradient-to-r from-yellow-500 to-orange-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
-                    {plan.badge}
+                  <div className="absolute top-0 right-0 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-bold px-4 py-1.5 rounded-bl-lg">
+                    ⭐ MAIS POPULAR
                   </div>
                 )}
 
@@ -215,10 +182,13 @@ export default function Planos() {
                   {/* Plan Info */}
                   <div className="space-y-2">
                     <h3 className="text-2xl font-bold text-white">{plan.name}</h3>
-                    <p className="text-3xl font-bold bg-gradient-to-r ${plan.color} bg-clip-text text-transparent">
+                    <p className="text-4xl font-bold text-white">
                       {plan.price}
                     </p>
                     <p className="text-sm text-slate-400">{plan.description}</p>
+                    <div className="bg-orange-500/20 text-orange-400 font-bold px-3 py-1 rounded-full inline-block text-sm">
+                      {plan.credits} créditos
+                    </div>
                   </div>
 
                   {/* Features */}
@@ -235,9 +205,9 @@ export default function Planos() {
                   <Button
                     onClick={() => handlePurchase(plan.id)}
                     disabled={selectedPlan === plan.id || createCheckoutMutation.isPending}
-                    className={`w-full bg-gradient-to-r ${plan.color} hover:opacity-90 text-white font-semibold`}
+                    className={`w-full bg-gradient-to-r ${plan.color} hover:opacity-90 text-white font-bold text-lg py-6`}
                   >
-                    {selectedPlan === plan.id ? "Processando..." : "Assinar"}
+                    {selectedPlan === plan.id ? "Processando..." : "Comprar Agora"}
                   </Button>
                 </div>
               </Card>
@@ -246,16 +216,18 @@ export default function Planos() {
         </div>
 
         {/* Bottom Info */}
-        <div className="text-center space-y-4 bg-slate-900/50 border border-slate-700/50 rounded-2xl p-8 max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold text-white">
-            Escolha o plano ideal e desbloqueie todo o potencial do ESPELHO AI
-          </h2>
-          <p className="text-slate-400">
-            Transforme quantas fotos quiser e compartilhe momentos divertidos com seus amigos!
+        <div className="text-center space-y-4 bg-slate-800/50 border border-slate-700/50 rounded-2xl p-8 max-w-2xl mx-auto">
+          <div className="flex items-center justify-center gap-2 text-green-400">
+            <Check className="w-5 h-5" />
+            <span className="font-semibold">Pagamento 100% Seguro via Stripe</span>
+          </div>
+          <p className="text-slate-400 text-sm">
+            Seus créditos nunca expiram e podem ser usados em qualquer tema de transformação.
           </p>
-          <p className="text-sm text-slate-500 pt-4 border-t border-slate-700">
-            🔒 Pagamento Seguro e Confiável
-          </p>
+          <div className="flex items-center justify-center gap-6 pt-4 border-t border-slate-700">
+            <img src="https://cdn.jsdelivr.net/gh/AliasIO/wappalyzer@master/src/drivers/webextension/images/icons/Stripe.svg" alt="Stripe" className="h-8 opacity-60" />
+            <span className="text-slate-500 text-xs">Cartão de crédito, débito e Pix</span>
+          </div>
         </div>
       </main>
     </div>

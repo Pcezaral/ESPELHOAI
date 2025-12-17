@@ -858,3 +858,9 @@ App totalmente alinhado com identidade visual do site Hostinger
 
 - [x] BUG: Download em maior resolução corta a parte de dicas (adicionado scroll no dialog)
 - [x] FEATURE: Permitir usuário escolher local de salvamento da foto (File System Access API)
+
+
+## Reformulação de Planos (17/12/2025)
+
+- [x] Remover planos ilimitados (mensal e anual) da página de planos
+- [x] Manter apenas planos de créditos avulsos (Light 50 créditos e Premium 150 créditos)
