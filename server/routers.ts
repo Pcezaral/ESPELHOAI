@@ -10,7 +10,6 @@ import { consumeCredit, getCreditBalance, addCredits, getSubscriptionInfo } from
 import { createCheckoutSession, verifyPayment, type PackageType } from "./stripe";
 
 export const appRouter = router({
-    // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
   system: systemRouter,
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
@@ -39,7 +38,6 @@ export const appRouter = router({
         imageUrl: z.string(),
       }))
       .mutation(async ({ input, ctx }) => {
-        // Consume credit before generating
         const themeNames = {
           animals: "Bichinho",
           monster: "Monstro",
@@ -68,10 +66,8 @@ export const appRouter = router({
         const creditCost = input.resolution === "hd" ? 5 : 10;
         const resolutionName = input.resolution === "hd" ? "HD (300 DPI)" : "Premium 4K (600 DPI)";
         
-        // Consume credits
         await consumeCredit(ctx.user.id, `Download ${resolutionName} - ${input.product}`, creditCost);
         
-        // Generate high-resolution image
         const { generateHighResolutionImage } = await import("./generation");
         let downloadUrl: string;
         try {
@@ -87,7 +83,6 @@ export const appRouter = router({
           throw new Error("Falha ao gerar imagem em alta resolucao");
         }
         
-        // Record download in database
         const db = await getDb();
         if (db) {
           const { premiumDownloads } = await import("../drizzle/schema");
@@ -108,7 +103,29 @@ export const appRouter = router({
           message: `Imagem ${resolutionName} pronta para download!`
         };
       }),
-
+    generateBeforeAfter: protectedProcedure
+      .input(z.object({
+        originalImageUrl: z.string(),
+        transformedImageUrl: z.string(),
+        theme: z.string(),
+      }))
+      .mutation(async ({ input, ctx }) => {
+        await consumeCredit(ctx.user.id, `Download Antes/Depois - ${input.theme}`, 1);
+        
+        const { generateBeforeAfterImage } = await import("./generation");
+        const result = await generateBeforeAfterImage(
+          input.originalImageUrl,
+          input.transformedImageUrl,
+          ctx.user.id
+        );
+        
+        return { 
+          success: true, 
+          creditsCost: 1, 
+          downloadUrl: result.url,
+          message: "Imagem Antes/Depois pronta para download!"
+        };
+      }),
   }),
 
   credits: router({

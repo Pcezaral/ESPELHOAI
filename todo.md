@@ -802,3 +802,28 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Criar cenários variados e imersivos
 - [x] Implementar aleatoriedade forte (random seeds)
 - [x] Validar qualidade e consistência das gerações
+
+## Download Antes/Depois Lado a Lado (16/12/2025)
+
+### Funcionalidade:
+- [x] Criar componente para gerar imagem combinada Antes/Depois
+- [x] Etiquetas pequenas "Antes" e "Depois" na imagem
+- [x] Cobrança de 1 crédito adicional para download
+- [x] Botão de download no Generator
+- [x] Backend para gerar imagem combinada
+
+## Correções Urgentes (16/12/2025)
+
+### 1. Download Alta Resolução Não Aparece
+- [x] Verificar componente HighResolutionDownload
+- [x] Verificar se está sendo importado no Generator
+- [x] Corrigir exibição do botão
+
+### 2. Praia Replica Usuário em Grupos
+- [x] Corrigir prompt para usar pessoas aleatórias da IA
+- [x] Manter apenas o rosto do usuário, amigos devem ser pessoas diferentes
+- [x] Evitar aparência plástica/artificial
+
+### 3. Pinturas Mais Fiéis aos Estilos
+- [x] Melhorar prompts de pintura para estilos artísticos específicos
+- [x] Caprichar nas épocas e estilos (Renascença, Barroco, etc.)

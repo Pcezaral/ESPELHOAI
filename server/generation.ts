@@ -69,35 +69,41 @@ export async function generateTransformation(
     },
     
     art: {
-      // Pintura: ROSTO IDÊNTICO, estilos de ARTISTAS FAMOSOS com INTEGRAÇÃO PERFEITA de fundo
-      prompt: `Famous artist painting style portrait. CRITICAL RULE: Keep EXACT same number of people - if 2 people in input, output MUST have 2 people with BOTH faces pixel-perfect identical. PRESERVE FACE: Each person's face must be PIXEL-PERFECT IDENTICAL - same features, expression, age, skin tone.
+      // Pintura: ROSTO IDÊNTICO, estilos de ARTISTAS FAMOSOS com INTEGRAÇÃO TOTAL
+      prompt: `MASTERPIECE PAINTING TRANSFORMATION. CRITICAL FACE RULE: Person's face must be PIXEL-PERFECT IDENTICAL to input - same eyes, nose, mouth, expression, age, skin tone, facial structure. Face is recognizable but rendered in the artist's painting technique.
       
-      CRITICAL FOR QUALITY: The person must be SEAMLESSLY INTEGRATED into the painting style - same brushstroke technique on face AND background, same color palette throughout, same artistic texture everywhere. NO photorealistic face on painted background - the ENTIRE image must look like ONE cohesive painting by the artist.
+      CRITICAL ARTISTIC INTEGRATION: The ENTIRE image must look like an AUTHENTIC painting by the chosen artist. Apply the artist's SIGNATURE TECHNIQUE to EVERYTHING: face, clothes, background, lighting. NO photorealistic elements - everything must be painted in the same unified style. Visible brushstrokes, color palette, and texture consistent throughout.
       
-      Randomly choose ONE famous artist style with FULL INTEGRATION:
+      Randomly choose ONE master artist with FULL AUTHENTIC STYLE:
       
-      VAN GOGH (person painted with Van Gogh's signature swirling brushstrokes, thick impasto texture on face and clothes, vibrant blues and yellows, background options: Starry Night swirling sky / Sunflower field / Café terrace at night / Wheat field with cypresses / Bedroom in Arles - person is PART of the painting, same brushwork everywhere),
+      VAN GOGH STARRY NIGHT (person painted with Van Gogh's ICONIC swirling brushstrokes, THICK impasto texture visible on face and clothes, vibrant cobalt blues and chrome yellows, DRAMATIC swirling sky background like Starry Night, cypress trees, village lights, person wearing 1880s French peasant clothing, entire image has that distinctive Van Gogh energy and movement),
       
-      PICASSO (person in Picasso's distinctive style, choose period: Blue Period with melancholic blues and greens / Rose Period with warm pinks and earth tones / Cubist with geometric fragmented perspective showing multiple angles / African Period with mask-like features - face stylized but RECOGNIZABLE, background matches period),
+      VAN GOGH SUNFLOWERS (person surrounded by giant sunflowers in Van Gogh's style, warm yellows and oranges, thick textured brushwork, rustic background, person holding sunflowers, same impasto technique on face),
       
-      MONET (person painted with soft Impressionist dappled brushstrokes, pastel colors, light filtering through, backgrounds: Water Lilies garden / Japanese bridge / Poppy field / Cathedral facade / Haystacks at sunset - dreamy atmospheric quality throughout),
+      PICASSO CUBIST (person's face shown from MULTIPLE ANGLES simultaneously like Guernica or Les Demoiselles d'Avignon, geometric fragmentation, bold black outlines, earth tones with blue/pink accents, angular shapes, face recognizable but cubist-deconstructed, abstract background),
       
-      REMBRANDT (dramatic chiaroscuro lighting, rich browns and golds, Dutch Golden Age style, face emerging from dark background with spotlight effect, period costume, intimate portrait feeling),
+      PICASSO BLUE PERIOD (melancholic blue and green tones throughout, sad/contemplative expression, thin elongated figure, poverty/solitude theme, dark blue background, person in simple worn clothing, emotional depth),
       
-      FRIDA KAHLO (bold vibrant Mexican colors, folk art elements, elaborate floral headpiece, tropical jungle background with monkeys and parrots, symbolic surreal elements, unibrow optional, intense gaze),
+      MONET WATER LILIES (person in Monet's garden at Giverny, soft dappled Impressionist brushstrokes, pastel pinks/purples/greens, water lilies floating, Japanese bridge visible, dreamy atmospheric light filtering through, person in elegant 1890s dress or suit),
       
-      GUSTAV KLIMT (gold leaf patterns, ornate geometric decorations, The Kiss style embrace, Byzantine mosaic influence, golden spirals and shapes, Art Nouveau elegance, decorative flat background),
+      MONET IMPRESSION SUNRISE (person by the harbor at dawn, orange sun reflecting on water, loose brushwork, misty atmospheric quality, boats in background, soft focus impressionist style throughout),
       
-      SALVADOR DALÍ (surrealist dreamscape, melting clocks, impossible architecture, desert landscape, hyper-realistic face with surreal elements around, elephants on stilts, floating objects),
+      REMBRANDT CHIAROSCURO (DRAMATIC spotlight lighting from one side, face emerging from DEEP dark background, rich golden browns, Dutch Golden Age costume (ruff collar, velvet, lace), intimate portrait feeling, visible brushwork, museum-quality oil painting look),
       
-      ANDY WARHOL (Pop Art style, bright neon colors - pink/yellow/blue/green, screen print effect, bold outlines, repeated portrait grid optional, celebrity glamour aesthetic, flat color blocks),
+      FRIDA KAHLO SELF-PORTRAIT (bold vibrant Mexican colors - hot pink, turquoise, yellow, elaborate floral crown/headpiece with tropical flowers, jungle background with monkeys and exotic birds, traditional Tehuana dress, intense direct gaze, folk art decorative elements, unibrow as artistic choice),
       
-      BOTTICELLI (Renaissance beauty, flowing golden hair, Birth of Venus style, soft pastel colors, shell and flowers, ethereal feminine beauty, Italian Renaissance landscape background),
+      GUSTAV KLIMT GOLDEN (LAVISH gold leaf patterns covering clothing and background, ornate geometric Art Nouveau decorations, Byzantine mosaic influence, The Kiss style romantic pose optional, golden spirals and shapes, decorative flat background, person in elaborate golden robes),
       
-      VERMEER (Girl with Pearl Earring style, soft natural light from side window, Dutch interior, turban or headscarf, intimate domestic scene, photorealistic but painterly).
+      SALVADOR DALÍ SURREALIST (hyper-detailed face in surreal dreamscape, MELTING CLOCKS draped around, impossible architecture, barren desert landscape, elephants on impossibly thin stilts in background, floating objects defying gravity, sharp realistic rendering with impossible elements),
       
-      CRITICAL: The painting must look like it was ENTIRELY created by the artist - unified style from edge to edge. Artistic texture visible throughout. Random seed: ${randomSeed}`,
-      text: "Você é uma obra de arte! Seus traços se transformaram em um estilo artístico único! 🎨"
+      ANDY WARHOL POP ART (BOLD screen print effect, BRIGHT neon colors - hot pink/electric yellow/cyan/lime green, high contrast, celebrity glamour aesthetic, flat color blocks, repeated portrait grid (2x2 or 3x3) with different color variations, Factory style),
+      
+      BOTTICELLI RENAISSANCE (ethereal Renaissance beauty, flowing golden wavy hair, Birth of Venus style pose, soft pastel colors, shell and roses, Italian Renaissance landscape with rolling hills, person in flowing classical robes, idealized feminine beauty style),
+      
+      VERMEER DUTCH INTERIOR (Girl with Pearl Earring style, SOFT natural light from side window, Dutch 17th century interior, blue and yellow color palette, turban or headscarf, intimate domestic scene, photorealistic but with visible painterly quality, pearl earring optional).
+      
+      CRITICAL: The painting must be INDISTINGUISHABLE from an authentic work by the artist. Unified style from edge to edge. Museum-quality artistic execution. Random seed: ${randomSeed}`,
+      text: "Você é uma obra-prima! Transformado no estilo de um grande mestre da pintura! 🎨🖼️"
     },
     
     gender: {
@@ -259,45 +265,47 @@ export async function generateTransformation(
     },
     
     beach: {
-      // Praia 2026: ROSTO 100% IDÊNTICO, cenas divertidas e bem-humoradas em praias brasileiras
-      prompt: `Brazilian beach fun transformation 2026. CRITICAL RULE: Keep EXACT same number of people - if 1 person in input, output MUST have 1 person; if 2 people, output MUST have 2 people with BOTH faces pixel-perfect identical; if 3 people, output MUST have 3 people with ALL 3 faces pixel-perfect identical. PRESERVE EACH INDIVIDUAL FACE: Face must be PIXEL-PERFECT IDENTICAL - same eyes, nose, mouth, expression, age, skin tone, facial structure. DO NOT modify face. ONLY change: costume, pose, props, background.
+      // Praia 2026: ROSTO DO USUÁRIO 100% IDÊNTICO, amigos são pessoas DIFERENTES e NATURAIS
+      prompt: `Brazilian beach fun transformation 2026. CRITICAL FACE RULE: The MAIN PERSON (from input photo) must have their face PIXEL-PERFECT IDENTICAL - same eyes, nose, mouth, expression, age, skin tone, facial structure. DO NOT modify the main person's face.
       
-      REALISTIC APPEARANCE: Generate REALISTIC, NATURAL-LOOKING people - NOT plastic, NOT perfect, NOT AI-generated looking. Include natural skin texture, pores, freckles, minor imperfections, realistic beach lighting with sun shadows. NATURAL EXPRESSIONS: Use genuine, natural expressions - joyful, playful, relaxed, funny.
+      CRITICAL FRIENDS RULE: If the scene includes friends/companions, they must be DIFFERENT PEOPLE - generate RANDOM, DIVERSE, NATURAL-LOOKING people as friends. DO NOT duplicate or replicate the main person's face. Friends should have VARIED appearances: different ages, ethnicities, body types, hair colors. Make them look like REAL Brazilian beachgoers - natural, imperfect, authentic.
+      
+      REALISTIC APPEARANCE FOR ALL: Generate REALISTIC, NATURAL-LOOKING people - NOT plastic, NOT perfect, NOT AI-generated looking. Include natural skin texture, pores, freckles, minor imperfections, realistic beach lighting with sun shadows. NATURAL EXPRESSIONS: Use genuine, natural expressions - joyful, playful, relaxed, funny. Avoid overly symmetrical or "model-perfect" faces.
       
       Randomly choose ONE hilarious beach scenario with BRAZILIAN VIBES:
       
-      SURFING FUN (colorful board shorts or bikini, riding a wave with funny expression, Copacabana or Ipanema beach background, Christ the Redeemer visible in distance, dramatic surf moment, water splashing, sunset golden light),
+      SURFING FUN (main person in colorful board shorts or bikini, riding a wave with funny expression, Copacabana or Ipanema beach background, Christ the Redeemer visible in distance, dramatic surf moment, water splashing, sunset golden light),
       
-      BURIED IN SAND (person buried in sand with only head visible, funny expression, friends building sand castle around them, Brazilian beach umbrellas, vendors passing by, hilarious helpless pose),
+      BURIED IN SAND (main person buried in sand with only head visible, funny expression, random diverse friends building sand castle around them, Brazilian beach umbrellas, vendors passing by, hilarious helpless pose),
       
-      EATING BEACH CHICKEN (holding roasted chicken leg with both hands, messy eating, beach chair, cooler with drinks, typical Brazilian beach setup, Biscoito Globo bag visible, satisfied expression),
+      EATING BEACH CHICKEN (main person holding roasted chicken leg with both hands, messy eating, beach chair, cooler with drinks, typical Brazilian beach setup, Biscoito Globo bag visible, satisfied expression, random beachgoers in background),
       
-      DRINKING MATE TEA (holding traditional mate tea cup with bombilla straw, beach towel, Santos or Porto Alegre beach style, relaxed pose, sun hat, reading magazine, chill vibes),
+      DRINKING MATE TEA (main person holding traditional mate tea cup with bombilla straw, beach towel, Santos or Porto Alegre beach style, relaxed pose, sun hat, reading magazine, chill vibes),
       
-      FRESCOBOL PLAYERS (playing beach paddle ball, athletic pose mid-swing, colorful swimwear, Ipanema beach, fit beach body, action shot with ball in air),
+      FRESCOBOL PLAYERS (main person playing beach paddle ball with a DIFFERENT random friend, athletic pose mid-swing, colorful swimwear, Ipanema beach, action shot with ball in air),
       
-      BEACH VENDOR STYLE (dressed as typical Brazilian beach vendor, carrying cooler or tray, "Mate! Água de coco!" pose, walking on sand, funny sales expression, beach crowd background),
+      BEACH VENDOR STYLE (main person dressed as typical Brazilian beach vendor, carrying cooler or tray, "Mate! Água de coco!" pose, walking on sand, funny sales expression, diverse beach crowd background),
       
-      COCONUT WATER MOMENT (drinking from fresh coconut with straw, beach kiosk background, Porto de Galinhas or Jericoacoara style, tropical paradise, palm trees, crystal clear water),
+      COCONUT WATER MOMENT (main person drinking from fresh coconut with straw, beach kiosk background, Porto de Galinhas or Jericoacoara style, tropical paradise, palm trees, crystal clear water),
       
-      AÇAÍ BOWL FEAST (holding giant açaí bowl with toppings, beach bar setting, Bahia or Florianópolis beach, healthy beach lifestyle, colorful fruit toppings, satisfied expression),
+      AÇAÍ BOWL FEAST (main person holding giant açaí bowl with toppings, beach bar setting, Bahia or Florianópolis beach, healthy beach lifestyle, colorful fruit toppings, satisfied expression),
       
-      BEACH SOCCER (playing futévol or beach soccer, action kick pose, Maracanã style goal posts on sand, Rio beach, athletic pose, sand flying, competitive fun),
+      BEACH SOCCER (main person playing futévol or beach soccer with random diverse players, action kick pose, Maracanã style goal posts on sand, Rio beach, athletic pose, sand flying, competitive fun),
       
-      SUNBATHING FAIL (funny sunburn lines from weird tan, holding sunscreen too late, beach chair, umbrella shadow creating patterns, embarrassed funny expression),
+      SUNBATHING FAIL (main person with funny sunburn lines from weird tan, holding sunscreen too late, beach chair, umbrella shadow creating patterns, embarrassed funny expression),
       
-      CAIPIRINHA TIME (holding caipirinha glass, beach bar counter, lime slices, ice, tropical cocktail vibes, Bahia beach bar, relaxed happy expression, sunset background),
+      CAIPIRINHA TIME (main person holding caipirinha glass, beach bar counter, lime slices, ice, tropical cocktail vibes, Bahia beach bar, relaxed happy expression, sunset background, random bartender),
       
-      BEACH SELFIE (classic beach selfie pose, duck face or peace sign, colorful swimwear, crowded Brazilian beach background, summer 2026 vibes, fun group energy),
+      BEACH SELFIE (main person taking selfie with random diverse friends - each friend has DIFFERENT face, duck face or peace sign, colorful swimwear, crowded Brazilian beach background, summer 2026 vibes),
       
-      WAVE CRASH (being hit by unexpected wave, surprised funny expression, water splashing everywhere, beach background, dramatic comedic moment, wet hair flying),
+      WAVE CRASH (main person being hit by unexpected wave, surprised funny expression, water splashing everywhere, beach background, dramatic comedic moment, wet hair flying),
       
-      HAMMOCK RELAX (lying in colorful hammock between palm trees, Nordeste beach style, Ceará or Alagoas, holding drink, ultimate relaxation pose, paradise setting),
+      HAMMOCK RELAX (main person lying in colorful hammock between palm trees, Nordeste beach style, Ceará or Alagoas, holding drink, ultimate relaxation pose, paradise setting),
       
-      BEACH WORKOUT (doing funny beach exercise, running on sand, beach fitness class, Leblon beach, athletic pose, morning sun, healthy lifestyle).
+      BEACH WORKOUT (main person doing funny beach exercise with random diverse fitness class participants, running on sand, Leblon beach, athletic pose, morning sun).
       
       CRITICAL: Brazilian beach culture authenticity - include typical elements (Biscoito Globo, mate, canga towels, beach chairs, kiosks, vendors). Vary beaches (Rio: Copacabana, Ipanema, Leblon / Santos / Florianópolis / Porto de Galinhas / Jericoacoara / Morro de São Paulo / Arraial do Cabo). Summer 2026 atmosphere, vibrant colors, fun energy, Brazilian joy. Photorealistic style with humor. Random seed: ${randomSeed}`,
-      text: "🏖️ Você e seus amigos na praia em 2026! Diversão, sol e muitas risadas no verão brasileiro! 🌴☀️"
+      text: "🏖️ Você na praia em 2026! Diversão, sol e muitas risadas no verão brasileiro! 🌴☀️"
     }
   };
 
@@ -377,5 +385,71 @@ export async function generateHighResolutionImage(
   } catch (error) {
     console.error("[Generation] Failed to generate high-resolution image:", error);
     throw new Error("Falha ao gerar imagem em alta resolução");
+  }
+}
+
+
+/**
+ * Gerar imagem combinada Antes/Depois lado a lado
+ * Com etiquetas "Antes" e "Depois" na imagem
+ */
+export async function generateBeforeAfterImage(
+  originalImageUrl: string,
+  transformedImageUrl: string,
+  userId: number
+): Promise<{ url: string; key: string }> {
+  try {
+    // Prompt para criar imagem combinada
+    const combinePrompt = `
+      Create a side-by-side comparison image with TWO photos:
+      LEFT SIDE: The original photo (labeled "ANTES" at the top in small elegant white text with subtle shadow)
+      RIGHT SIDE: The transformed photo (labeled "DEPOIS" at the top in small elegant white text with subtle shadow)
+      
+      Layout requirements:
+      - Both images should be the SAME SIZE and perfectly aligned
+      - Small gap (thin white line) between the two images
+      - Labels "ANTES" and "DEPOIS" should be small, elegant, positioned at top of each image
+      - Clean, professional presentation suitable for sharing on social media
+      - Total aspect ratio: landscape (wider than tall)
+      - High quality output
+      
+      CRITICAL: Preserve BOTH images exactly as they are - do not modify, crop, or alter either photo.
+      Simply place them side by side with the labels.
+    `;
+    
+    // Gerar imagem combinada
+    const result = await generateImage({
+      prompt: combinePrompt,
+      originalImages: [
+        {
+          url: originalImageUrl,
+          mimeType: "image/jpeg"
+        },
+        {
+          url: transformedImageUrl,
+          mimeType: "image/jpeg"
+        }
+      ]
+    });
+    
+    if (!result.url) {
+      throw new Error("Failed to generate before/after image");
+    }
+    
+    // Fazer download da imagem combinada
+    const response = await fetch(result.url);
+    const buffer = await response.arrayBuffer();
+    
+    // Upload para S3 com nome descritivo
+    const timestamp = Date.now();
+    const randomSuffix = Math.random().toString(36).substring(7);
+    const fileKey = `user-${userId}/before-after/${timestamp}-${randomSuffix}.jpg`;
+    
+    const { url: s3Url } = await storagePut(fileKey, Buffer.from(buffer), "image/jpeg");
+    
+    return { url: s3Url, key: fileKey };
+  } catch (error) {
+    console.error("[Generation] Failed to generate before/after image:", error);
+    throw new Error("Falha ao gerar imagem Antes/Depois");
   }
 }

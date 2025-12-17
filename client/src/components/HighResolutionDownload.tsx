@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Card } from "@/components/ui/card";
-import { Sparkles, ChevronLeft, ChevronRight, Download, CheckCircle, Lock } from "lucide-react";
+import { Sparkles, ChevronLeft, ChevronRight, Download, CheckCircle } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -28,8 +28,12 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
 
   const downloadMutation = trpc.generation.downloadHighResolution.useMutation();
   
-  // Verificar se usuario tem assinatura ativa
-  const hasActiveSubscription = user?.subscriptionType && user.subscriptionType !== "free";
+  // Verificar se usuario tem creditos suficientes
+  const userCredits = user?.credits || 0;
+  const hasEnoughCredits = (resolution: ResolutionType) => {
+    const cost = resolution === "hd" ? 5 : 10;
+    return userCredits >= cost;
+  };
 
   const resolutions = [
     {
@@ -112,11 +116,12 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
   };
 
   const handleDownload = async () => {
-    // Verificar se tem assinatura antes de fazer download
-    if (!hasActiveSubscription) {
-      toast.error("Downloads em alta resolucao requerem assinatura ativa");
+    // Verificar se tem creditos suficientes
+    const cost = selectedResolution === "hd" ? 5 : 10;
+    if (userCredits < cost) {
+      toast.error(`Você precisa de ${cost} créditos para este download. Você tem ${userCredits}.`);
       setIsOpen(false);
-      setLocation("/pricing");
+      setLocation("/planos");
       return;
     }
 
@@ -185,32 +190,12 @@ export function HighResolutionDownload({ imageUrl, theme }: HighResolutionDownlo
   return (
     <>
       <Button
-        onClick={() => {
-          if (!hasActiveSubscription) {
-            toast.error("Downloads em alta resolucao requerem assinatura ativa");
-            setLocation("/pricing");
-            return;
-          }
-          setIsOpen(true);
-        }}
-        className={`text-white font-bold gap-2 ${
-          hasActiveSubscription
-            ? "bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600"
-            : "bg-gray-500 hover:bg-gray-600 cursor-not-allowed"
-        }`}
+        onClick={() => setIsOpen(true)}
+        className="text-white font-bold gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
         size="lg"
       >
-        {hasActiveSubscription ? (
-          <>
-            <Sparkles className="w-5 h-5" />
-            Baixar em Maior Resolucao
-          </>
-        ) : (
-          <>
-            <Lock className="w-5 h-5" />
-            Requer Assinatura
-          </>
-        )}
+        <Sparkles className="w-5 h-5" />
+        Baixar em Alta Resolução (HD/4K)
       </Button>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>

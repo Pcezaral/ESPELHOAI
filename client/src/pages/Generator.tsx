@@ -9,6 +9,7 @@ import { StarRating } from "@/components/StarRating";
 import { toast } from "sonner";
 import { CreditBadge } from "@/components/CreditBadge";
 import { HighResolutionDownload } from "@/components/HighResolutionDownload";
+import { BeforeAfterDownload } from "@/components/BeforeAfterDownload";
 import { getLoginUrl } from "@/const";
 type Theme = "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus" | "natal" | "reveillon" | "beach";
 
@@ -518,9 +519,21 @@ export default function Generator() {
                 </Button>
               </div>
               
-              {/* Download em alta resolução para produtos */}
-              {generatedImage && (
-                <div className="flex justify-center">
+              {/* Downloads especiais */}
+              {generatedImage && previewUrl && (
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  {/* Download Antes/Depois */}
+                  <BeforeAfterDownload
+                    originalImageUrl={previewUrl}
+                    transformedImageUrl={generatedImage}
+                    theme={selectedTheme || "unknown"}
+                    userCredits={user?.credits || 0}
+                    onCreditsUpdated={() => {
+                      // Invalidar cache de créditos
+                      trpc.useUtils().credits.getBalance.invalidate();
+                    }}
+                  />
+                  {/* Download em alta resolução */}
                   <HighResolutionDownload 
                     imageUrl={generatedImage} 
                     theme={selectedTheme || undefined}
