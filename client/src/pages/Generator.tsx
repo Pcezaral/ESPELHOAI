@@ -92,7 +92,17 @@ export default function Generator() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
   const [searchParams] = useLocation();
-  const themeFromUrl = searchParams.includes('?') ? new URLSearchParams(searchParams.split('?')[1]).get('theme') as Theme | null : null;
+  const urlParams = searchParams.includes('?') ? new URLSearchParams(searchParams.split('?')[1]) : null;
+  const themeFromUrl = urlParams?.get('theme') as Theme | null;
+  const filterFromUrl = urlParams?.get('filter') as 'holiday' | 'regular' | null;
+  
+  // Filtrar temas baseado no parâmetro filter
+  const HOLIDAY_THEMES = ['natal', 'reveillon'];
+  const filteredThemes = filterFromUrl === 'holiday' 
+    ? THEMES.filter(t => HOLIDAY_THEMES.includes(t.id))
+    : filterFromUrl === 'regular'
+    ? THEMES.filter(t => !HOLIDAY_THEMES.includes(t.id))
+    : THEMES;
   
   const [selectedTheme, setSelectedTheme] = useState<Theme | null>(themeFromUrl);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -277,7 +287,7 @@ export default function Generator() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {THEMES.map((theme) => (
+              {filteredThemes.map((theme) => (
                 <Card
                   key={theme.id}
                   className={`cursor-pointer transition-all border-2 ${theme.borderColor} bg-slate-900/50 hover:shadow-lg hover:shadow-orange-500/20`}

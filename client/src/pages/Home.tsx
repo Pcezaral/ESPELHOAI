@@ -172,12 +172,18 @@ export default function Home() {
           
           <div className="mt-12 text-center">
             <Button
-              onClick={handleStartApp}
+              onClick={() => {
+                if (!isAuthenticated) {
+                  window.location.href = getLoginUrl();
+                } else {
+                  setLocation("/generator?filter=holiday");
+                }
+              }}
               disabled={loading}
               className="bg-gradient-to-r from-red-500 via-orange-500 to-blue-500 hover:from-red-600 hover:via-orange-600 hover:to-blue-600 text-white text-lg h-12 px-8 rounded-full shadow-lg hover:shadow-xl transition-all font-semibold"
             >
               <Sparkles className="w-5 h-5 mr-2" />
-              Criar Transformação de Final de Ano
+              Faça Agora!
             </Button>
           </div>
         </div>
@@ -269,12 +275,18 @@ export default function Home() {
           
           <div className="mt-12 text-center">
             <Button
-              onClick={handleStartApp}
+              onClick={() => {
+                if (!isAuthenticated) {
+                  window.location.href = getLoginUrl();
+                } else {
+                  setLocation("/generator?filter=regular");
+                }
+              }}
               disabled={loading}
               className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-lg h-12 px-8 rounded-full shadow-lg hover:shadow-xl transition-all font-semibold"
             >
               <Wand2 className="w-5 h-5 mr-2" />
-              Crie Sua Transformação
+              Crie sua Transformação em Estilos Geniais
             </Button>
           </div>
         </div>
