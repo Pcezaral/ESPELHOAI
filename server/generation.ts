@@ -426,6 +426,10 @@ export async function generateBeforeAfterImage(
   transformedImageUrl: string,
   userId: number
 ): Promise<{ url: string; key: string }> {
+  console.log("[BeforeAfter] Starting generation for user:", userId);
+  console.log("[BeforeAfter] Original URL:", originalImageUrl?.substring(0, 100));
+  console.log("[BeforeAfter] Transformed URL:", transformedImageUrl?.substring(0, 100));
+  
   try {
     // Prompt para criar imagem combinada
     const combinePrompt = `
@@ -445,8 +449,14 @@ export async function generateBeforeAfterImage(
       Simply place them side by side with the labels.
     `;
     
-    // Gerar imagem combinada
-    const result = await generateImage({
+    console.log("[BeforeAfter] Calling generateImage API...");
+    
+    // Gerar imagem combinada com timeout
+    const timeoutPromise = new Promise<never>((_, reject) => {
+      setTimeout(() => reject(new Error("Timeout: geração demorou mais de 60 segundos")), 60000);
+    });
+    
+    const generatePromise = generateImage({
       prompt: combinePrompt,
       originalImages: [
         {
@@ -460,24 +470,37 @@ export async function generateBeforeAfterImage(
       ]
     });
     
+    const result = await Promise.race([generatePromise, timeoutPromise]);
+    
+    console.log("[BeforeAfter] API returned, URL:", result.url?.substring(0, 100));
+    
     if (!result.url) {
-      throw new Error("Failed to generate before/after image");
+      throw new Error("API não retornou URL da imagem");
     }
     
     // Fazer download da imagem combinada
+    console.log("[BeforeAfter] Downloading generated image...");
     const response = await fetch(result.url);
+    
+    if (!response.ok) {
+      throw new Error(`Falha ao baixar imagem: ${response.status}`);
+    }
+    
     const buffer = await response.arrayBuffer();
+    console.log("[BeforeAfter] Downloaded, size:", buffer.byteLength);
     
     // Upload para S3 com nome descritivo
     const timestamp = Date.now();
     const randomSuffix = Math.random().toString(36).substring(7);
     const fileKey = `user-${userId}/before-after/${timestamp}-${randomSuffix}.jpg`;
     
+    console.log("[BeforeAfter] Uploading to S3:", fileKey);
     const { url: s3Url } = await storagePut(fileKey, Buffer.from(buffer), "image/jpeg");
     
+    console.log("[BeforeAfter] Success! S3 URL:", s3Url?.substring(0, 100));
     return { url: s3Url, key: fileKey };
-  } catch (error) {
-    console.error("[Generation] Failed to generate before/after image:", error);
-    throw new Error("Falha ao gerar imagem Antes/Depois");
+  } catch (error: any) {
+    console.error("[BeforeAfter] FAILED:", error?.message || error);
+    throw new Error(error?.message || "Falha ao gerar imagem Antes/Depois");
   }
 }

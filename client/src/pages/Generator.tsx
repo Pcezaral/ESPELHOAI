@@ -298,6 +298,9 @@ export default function Generator() {
     const isHolidayTheme = selectedTheme === "natal" || selectedTheme === "reveillon";
     const hashtag = isHolidayTheme ? " #EspelhoAI2026 🎄🎆" : "";
     
+    // Mensagem completa com links - SEMPRE incluir
+    const shareText = `${message}${hashtag}\n\n🌟 Crie a sua também!\n🌐 Site: https://www.espelhoai.com.br\n📲 App: https://espelhoai.com.br/app`;
+    
     try {
       toast.info("📤 Preparando compartilhamento...");
       
@@ -311,17 +314,23 @@ export default function Generator() {
       const blob = await response.blob();
       const file = new File([blob], filename, { type: 'image/jpeg' });
       
-      // Mensagem completa com links
-      const shareText = `${message}${hashtag}\n\n🌟 Crie a sua também! Acesse: https://www.espelhoai.com.br\n\n📲 Baixe o app: https://espelhoai.com.br/app`;
+      // Copiar texto para clipboard ANTES de compartilhar (assim usuário pode colar)
+      try {
+        await navigator.clipboard.writeText(shareText);
+      } catch (e) {
+        // Clipboard pode falhar em alguns dispositivos, continua mesmo assim
+      }
       
-      // Tentar Web Share API com arquivo (compartilha imagem diretamente)
+      // Tentar Web Share API com arquivo E texto (compartilha imagem + links)
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
         try {
           await navigator.share({
             files: [file],
-            title: 'Minha transformação ESPELHO AI',
+            title: 'ESPELHO AI - Minha transformação',
             text: shareText,
           });
+          // Mostrar dica sobre o texto copiado
+          toast.success("📋 Texto com links copiado! Cole na mensagem se necessário.");
           return;
         } catch (err: any) {
           if (err.name === 'AbortError') return;
@@ -329,14 +338,14 @@ export default function Generator() {
         }
       }
       
-      // Fallback: WhatsApp com link da imagem
-      const textWithImage = `${message}${hashtag}\n\n🖼️ Veja minha transformação: ${generatedImage}\n\n🌟 Crie a sua também! Acesse: https://www.espelhoai.com.br\n\n📲 Baixe o app: https://espelhoai.com.br/app`;
+      // Fallback: WhatsApp com link da imagem + links do app
+      const textWithImage = `${message}${hashtag}\n\n🖼️ Veja minha transformação: ${generatedImage}\n\n🌟 Crie a sua também!\n🌐 Site: https://www.espelhoai.com.br\n📲 App: https://espelhoai.com.br/app`;
       const url = encodeURIComponent(textWithImage);
       window.open(`https://wa.me/?text=${url}`, "_blank");
     } catch (error) {
       console.error("Share error:", error);
-      // Fallback simples com link da imagem
-      const textWithImage = `${message}${hashtag}\n\n🖼️ Veja minha transformação: ${generatedImage}\n\n🌟 Crie a sua também! Acesse: https://www.espelhoai.com.br\n\n📲 Baixe o app: https://espelhoai.com.br/app`;
+      // Fallback simples com link da imagem + links do app
+      const textWithImage = `${message}${hashtag}\n\n🖼️ Veja minha transformação: ${generatedImage}\n\n🌟 Crie a sua também!\n🌐 Site: https://www.espelhoai.com.br\n📲 App: https://espelhoai.com.br/app`;
       const url = encodeURIComponent(textWithImage);
       window.open(`https://wa.me/?text=${url}`, "_blank");
     }

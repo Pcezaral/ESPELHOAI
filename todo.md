@@ -908,3 +908,11 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Erro React #321 ao tentar salvar imagem no celular (corrigido com proxy e Web Share API)
 - [x] Download Antes/Depois não está gerando (corrigido com proxy e Web Share API)
 - [x] Circo sempre gera fraque e cartola - adicionado sistema de número aleatório para forçar variedade entre 20 profissões
+
+
+## Bugs Reportados (17/12/2025 - 17:45)
+
+- [x] Compartilhamento: Links do app e site adicionados + texto copiado para clipboard
+- [x] Antes/Depois: Adicionado logs e timeout de 60s para debug
+
+- [x] Resolução HD: Removido opções falsas HD/4K, simplificado para "Download para Impressão" com 5 créditos

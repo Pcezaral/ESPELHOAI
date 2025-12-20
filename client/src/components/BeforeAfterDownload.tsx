@@ -85,15 +85,24 @@ export function BeforeAfterDownload({
 
   const generateBeforeAfterMutation = trpc.generation.generateBeforeAfter.useMutation({
     onSuccess: async (data) => {
-      if (data.downloadUrl) {
-        setPreviewUrl(data.downloadUrl);
-        const filename = `antes-depois-${theme}-${Date.now()}.jpg`;
-        await downloadToDevice(data.downloadUrl, filename);
-        onCreditsUpdated?.();
+      try {
+        if (data.downloadUrl) {
+          setPreviewUrl(data.downloadUrl);
+          const filename = `antes-depois-${theme}-${Date.now()}.jpg`;
+          await downloadToDevice(data.downloadUrl, filename);
+          onCreditsUpdated?.();
+        } else {
+          toast.error("Erro: URL da imagem não retornada");
+        }
+      } catch (err) {
+        console.error("Download error in onSuccess:", err);
+        toast.error("Erro ao baixar imagem gerada");
+      } finally {
+        setIsGenerating(false);
       }
-      setIsGenerating(false);
     },
     onError: (error) => {
+      console.error("BeforeAfter mutation error:", error);
       toast.error(error.message || "Erro ao gerar imagem. Tente novamente.");
       setIsGenerating(false);
     },
