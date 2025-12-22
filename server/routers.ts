@@ -71,7 +71,7 @@ export const appRouter = router({
         packageType: z.enum(["light", "premium", "monthly_unlimited", "annual_unlimited"]),
       }))
       .mutation(async ({ input, ctx }) => {
-       const baseUrl = process.env.VITE_FRONTEND_FORGE_API_URL || "https://api.espelhoai.com.br";
+      const baseUrl = process.env.VITE_FRONTEND_FORGE_API_URL || "https://espelhoai.vercel.app";
         const successUrl = `${baseUrl}/planos?success=true&session_id={CHECKOUT_SESSION_ID}`;
         const cancelUrl = `${baseUrl}/planos?canceled=true`;
 
