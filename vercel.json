@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd client && ls -la && pnpm run build",
+  "buildCommand": "echo 'BUILD STARTED' && pwd && ls -la && echo 'TRYING CD CLIENT' && cd client && pwd && ls -la && pnpm run build",
   "outputDirectory": "client/dist",
-  "installCommand": "cd client && ls -la && pnpm install"
+  "installCommand": "echo 'INSTALL STARTED' && pwd && ls -la && echo 'TRYING CD CLIENT' && cd client && pwd && ls -la && pnpm install"
 }
