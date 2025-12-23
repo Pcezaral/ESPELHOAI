@@ -7,10 +7,10 @@
     "jsx": "react-jsx",
     "strict": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
 
     "baseUrl": ".",
     "paths": {
+      "@/*": ["src/*"],
       "@shared/*": ["../shared/*"]
     }
   },
