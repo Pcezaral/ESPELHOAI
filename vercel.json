@@ -1,6 +1,6 @@
 {
   "buildCommand": "pnpm run build",
-  "outputDirectory": "client/dist",  // <--- THIS IS THE CRITICAL CHANGE
+  "outputDirectory": "client/dist",
   "installCommand": "pnpm install",
   "rewrites": [
     {
