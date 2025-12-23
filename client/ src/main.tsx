@@ -1,21 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import App from "./App"; // Mantém o App do Manus AI
 
-function App() {
-  return (
-    <div style={{ padding: 40, fontSize: 24 }}>
-      React carregado com sucesso 🚀
-    </div>
-  );
-}
+const root = document.getElementById("root");
 
-const rootElement = document.getElementById("root");
+if (!root) throw new Error("Root element não encontrado");
 
-if (!rootElement) {
-  throw new Error("Elemento #root não encontrado");
-}
-
-ReactDOM.createRoot(rootElement).render(
+ReactDOM.createRoot(root).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
