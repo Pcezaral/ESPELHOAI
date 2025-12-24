@@ -32,7 +32,8 @@ export function BeforeAfterDownload({
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   /**
-   * Permite ao usuário escolher onde salvar a imagem (Galeria/Fotos)
+   * Baixa a imagem diretamente para o dispositivo
+   * SEM usar Web Share API (que abre opções de compartilhamento)
    */
   const downloadToDevice = async (imageUrl: string, filename: string) => {
     try {
@@ -43,24 +44,8 @@ export function BeforeAfterDownload({
       if (!response.ok) throw new Error('Download failed');
       
       const blob = await response.blob();
-      const file = new File([blob], filename, { type: 'image/jpeg' });
       
-      // Tentar Web Share API com arquivo (funciona em mobile para salvar na galeria)
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        try {
-          await navigator.share({
-            files: [file],
-            title: 'Antes/Depois - ESPELHO AI',
-          });
-          toast.success("✅ Escolha onde salvar a imagem!");
-          return;
-        } catch (err: any) {
-          if (err.name === 'AbortError') return;
-          // Continua para fallback
-        }
-      }
-      
-      // Fallback: Download tradicional (desktop)
+      // Download direto usando link - funciona em todos os dispositivos
       const blobUrl = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = blobUrl;
@@ -74,12 +59,12 @@ export function BeforeAfterDownload({
         URL.revokeObjectURL(blobUrl);
       }, 100);
       
-      toast.success("✅ Imagem salva! Verifique Downloads ou Galeria.");
+      toast.success("✅ Imagem salva! Verifique sua pasta Downloads ou Galeria.");
     } catch (error) {
       console.error("Download error:", error);
-      // Último fallback: abrir imagem para salvar manualmente
+      // Fallback: abrir imagem em nova aba para salvar manualmente
       window.open(imageUrl, '_blank');
-      toast.info("Segure na imagem para salvar na galeria.");
+      toast.info("📱 Segure na imagem para salvar na galeria.");
     }
   };
 
@@ -91,6 +76,7 @@ export function BeforeAfterDownload({
           const filename = `antes-depois-${theme}-${Date.now()}.jpg`;
           await downloadToDevice(data.downloadUrl, filename);
           onCreditsUpdated?.();
+          toast.success("✅ Download concluído!");
         } else {
           toast.error("Erro: URL da imagem não retornada");
         }
@@ -172,7 +158,7 @@ export function BeforeAfterDownload({
           <div className="bg-purple-50 border border-purple-200 rounded-lg p-3">
             <p className="text-sm text-purple-800">
               <strong>📸 Imagem combinada:</strong> As duas fotos serão unidas lado a lado
-              com etiquetas "Antes" e "Depois" - perfeita para compartilhar!
+              com etiquetas "Antes" e "Depois" + logo ESPELHO AI - perfeita para compartilhar!
             </p>
           </div>
 

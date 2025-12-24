@@ -240,12 +240,17 @@ export async function composeBeforeAfterImage(
 /**
  * Adiciona marca d'água (logo + link) em uma imagem
  * Para uso no compartilhamento
+ * SEMPRE adiciona logo e link, mesmo se assets não estiverem disponíveis (usa fallback)
  */
 export async function addWatermarkToImage(
   imageUrl: string,
   userId: number
 ): Promise<{ url: string; key: string }> {
   console.log("[Watermark] Adding watermark for user:", userId);
+  console.log("[Watermark] Image URL:", imageUrl?.substring(0, 80));
+  console.log("[Watermark] LOGO_PATH:", LOGO_PATH);
+  console.log("[Watermark] TEXT_ESPELHO_PATH:", TEXT_ESPELHO_PATH);
+  console.log("[Watermark] TEXT_LINK_PATH:", TEXT_LINK_PATH);
 
   try {
     // Baixar imagem
@@ -254,28 +259,34 @@ export async function addWatermarkToImage(
       throw new Error(`Falha ao baixar imagem: ${response.status}`);
     }
     const imageBuffer = await response.arrayBuffer();
+    console.log("[Watermark] Image downloaded, size:", imageBuffer.byteLength);
 
     // Obter metadados da imagem
     const image = sharp(Buffer.from(imageBuffer));
     const metadata = await image.metadata();
     const width = metadata.width || 1024;
     const height = metadata.height || 1024;
+    console.log("[Watermark] Image dimensions:", width, "x", height);
 
-    const watermarkHeight = 80; // Aumentado para acomodar logo maior
+    const watermarkHeight = 80;
 
-    // Preparar logo redimensionado (DOBRADO - 90px)
+    // Preparar logo redimensionado (90px)
     let logoBuffer: Buffer | null = null;
-    const logoSize = 90; // Dobrado
+    const logoSize = 90;
     try {
+      console.log("[Watermark] Checking logo at:", LOGO_PATH);
+      console.log("[Watermark] Logo exists:", fs.existsSync(LOGO_PATH));
       if (fs.existsSync(LOGO_PATH)) {
         logoBuffer = await sharp(LOGO_PATH)
           .resize(logoSize, logoSize, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } })
           .png()
           .toBuffer();
-        console.log("[Watermark] Logo loaded");
+        console.log("[Watermark] Logo loaded successfully, size:", logoBuffer.byteLength);
+      } else {
+        console.log("[Watermark] WARNING: Logo file not found!");
       }
     } catch (logoError) {
-      console.log("[Watermark] Could not load logo:", logoError);
+      console.log("[Watermark] ERROR loading logo:", logoError);
     }
 
     // Carregar textos pré-renderizados
@@ -283,14 +294,20 @@ export async function addWatermarkToImage(
     let textLinkBuffer: Buffer | null = null;
 
     try {
+      console.log("[Watermark] Checking text assets...");
+      console.log("[Watermark] TEXT_ESPELHO exists:", fs.existsSync(TEXT_ESPELHO_PATH));
+      console.log("[Watermark] TEXT_LINK exists:", fs.existsSync(TEXT_LINK_PATH));
+      
       if (fs.existsSync(TEXT_ESPELHO_PATH)) {
         textEspelhoBuffer = await sharp(TEXT_ESPELHO_PATH).png().toBuffer();
+        console.log("[Watermark] Text ESPELHO loaded, size:", textEspelhoBuffer.byteLength);
       }
       if (fs.existsSync(TEXT_LINK_PATH)) {
         textLinkBuffer = await sharp(TEXT_LINK_PATH).png().toBuffer();
+        console.log("[Watermark] Text LINK loaded, size:", textLinkBuffer.byteLength);
       }
     } catch (textError) {
-      console.log("[Watermark] Could not load text images:", textError);
+      console.log("[Watermark] ERROR loading text images:", textError);
     }
 
     // Criar barra de footer com cor laranja
@@ -304,6 +321,7 @@ export async function addWatermarkToImage(
     })
       .png()
       .toBuffer();
+    console.log("[Watermark] Footer created");
 
     // Montar composição
     const compositeOperations: sharp.OverlayOptions[] = [
@@ -317,6 +335,9 @@ export async function addWatermarkToImage(
         top: height - 5,
         left: 5,
       });
+      console.log("[Watermark] Logo added to composition");
+    } else {
+      console.log("[Watermark] WARNING: No logo in composition!");
     }
 
     // Adicionar texto ESPELHO AI se disponível
@@ -326,6 +347,9 @@ export async function addWatermarkToImage(
         top: height + 15,
         left: logoBuffer ? 100 : 15,
       });
+      console.log("[Watermark] Text ESPELHO added to composition");
+    } else {
+      console.log("[Watermark] WARNING: No text ESPELHO in composition!");
     }
 
     // Adicionar link se disponível
@@ -335,7 +359,12 @@ export async function addWatermarkToImage(
         top: height + 20,
         left: width - 360,
       });
+      console.log("[Watermark] Text LINK added to composition");
+    } else {
+      console.log("[Watermark] WARNING: No text LINK in composition!");
     }
+
+    console.log("[Watermark] Total composite operations:", compositeOperations.length);
 
     // Compor imagem com marca d'água
     const watermarkedImage = await image
@@ -346,6 +375,7 @@ export async function addWatermarkToImage(
       .composite(compositeOperations)
       .jpeg({ quality: 92 })
       .toBuffer();
+    console.log("[Watermark] Composition complete, size:", watermarkedImage.byteLength);
 
     // Upload para S3
     const timestamp = Date.now();
@@ -358,7 +388,7 @@ export async function addWatermarkToImage(
       throw new Error("Falha ao salvar imagem no servidor");
     }
 
-    console.log("[Watermark] Success! URL:", s3Url?.substring(0, 80));
+    console.log("[Watermark] SUCCESS! URL:", s3Url?.substring(0, 80));
     return { url: s3Url, key: fileKey };
 
   } catch (error: any) {

@@ -119,34 +119,34 @@ export async function generateTransformation(
     },
     
     gender: {
-      // Gênero: ROSTO 100% IDÊNTICO, cenários do DIA-A-DIA com HUMOR
-      prompt: `Gender swap portrait transformation - EVERYDAY LIFE SCENARIOS WITH HUMOR. CRITICAL RULE: Keep EXACT same number of people - if 2 people in input, output MUST have 2 people with BOTH faces pixel-perfect identical. PRESERVE EACH INDIVIDUAL FACE: Each person's face must be PIXEL-PERFECT IDENTICAL - same eyes, nose, mouth, expression, age, skin tone, facial structure. DO NOT modify face, DO NOT exaggerate features, DO NOT create caricature, NOT a drag queen or exaggerated character.
+      // Gênero: ROSTO 100% IDÊNTICO - MÁXIMA PRESERVAÇÃO DE FISIONOMIA
+      prompt: `Gender swap portrait transformation.
       
-      ONLY change: hairstyle appropriate for opposite gender, everyday clothing, natural pose, realistic background.
+      ULTRA CRITICAL FACE PRESERVATION RULE - THIS IS THE MOST IMPORTANT RULE:
+      The person's FACE and PHYSIOGNOMY must be ABSOLUTELY IDENTICAL to the input photo. This means:
+      - EXACT same eye shape, eye color, eye size, eye spacing, eyelids, eyebrows shape and thickness
+      - EXACT same nose shape, nose size, nose bridge, nostrils
+      - EXACT same mouth shape, lip thickness, lip color, smile pattern
+      - EXACT same facial bone structure: cheekbones, jawline, chin shape, forehead
+      - EXACT same skin tone, skin texture, any moles or beauty marks
+      - EXACT same facial proportions and distances between features
+      - EXACT same expression and emotion from the original photo
+      - EXACT same age appearance - do NOT make younger or older
       
-      Randomly choose ONE EVERYDAY SCENARIO with HUMOR:
+      The ONLY things that should change:
+      1. Hairstyle appropriate for opposite gender (but SAME hair color)
+      2. Everyday clothing appropriate for opposite gender
+      3. Background scenario
+      4. Body posture/pose
       
-      OFFICE WORKER (business casual outfit, sitting at desk with computer, coffee mug, office background with coworkers, funny expression like "Monday morning" face, messy desk, post-it notes everywhere),
+      DO NOT: modify face shape, change facial features, exaggerate anything, create caricature, make drag queen style, change skin tone, change eye color, change nose shape, change mouth shape.
       
-      SUPERMARKET SHOPPER (casual clothes, pushing shopping cart, comparing products with confused expression, supermarket aisle background, holding two similar products looking puzzled, overflowing cart),
+      CRITICAL RULE: Keep EXACT same number of people - if 2 people in input, output MUST have 2 people with BOTH faces pixel-perfect identical.
       
-      STUCK IN TRAFFIC (driving car, frustrated expression, honking, traffic jam visible through windshield, coffee in hand, late for work expression, messy hair),
+      Randomly choose ONE EVERYDAY SCENARIO:
+      OFFICE (business casual, desk, computer), SUPERMARKET (casual clothes, shopping cart), TRAFFIC (driving car), KITCHEN (apron, cooking), GYM (workout clothes), HOME (casual, living room), COFFEE SHOP (holding coffee), ZOOM CALL (laptop), WAITING ROOM (sitting), PUBLIC TRANSPORT (bus/metro).
       
-      COOKING DISASTER (kitchen background, apron, smoke coming from pan, surprised/worried expression, fire extinguisher nearby, burnt food, recipe book open),
-      
-      GYM STRUGGLE (workout clothes, gym background, exhausted expression on treadmill, sweaty, looking at fit people exercising easily nearby, holding tiny weights),
-      
-      PARENT CHAOS (casual home clothes, living room with toys everywhere, baby/toddler chaos, tired but loving expression, juice spilled, cartoon on TV),
-      
-      COFFEE ADDICT (holding giant coffee cup, sleepy morning expression, pajamas or robe, messy hair, kitchen background, multiple empty coffee cups),
-      
-      ZOOM CALL (professional top but pajama bottom visible, laptop screen, home office background, trying to look professional while chaos happens behind),
-      
-      WAITING ROOM (sitting in doctor/dentist waiting room, nervous expression, reading old magazine, clock on wall, other patients),
-      
-      PUBLIC TRANSPORT (crowded bus/metro, standing holding rail, tired expression, headphones, surrounded by other commuters, rush hour).
-      
-      CRITICAL: Natural everyday appearance - NOT glamorous, NOT drag, NOT exaggerated. Regular person in regular situations with HUMOR. Realistic photo style with comedic timing. Random seed: ${randomSeed}`,
+      Natural everyday appearance. Realistic photo style. Random seed: ${randomSeed}`,
       text: "Se tivesse nascido... Descubra sua versão hilariante do outro gênero no dia-a-dia! 😂⚧️"
     },
     

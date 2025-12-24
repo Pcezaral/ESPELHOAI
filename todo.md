@@ -934,3 +934,8 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] BUG CRÍTICO: Download Antes/Depois gera imagem de pessoa errada (IA estava gerando imagem nova em vez de combinar as fotos reais)
 - [x] Solução: Usar sharp para combinar imagens lado a lado em vez de usar IA - IMPLEMENTADO
 - [x] Resultado: Download instantâneo (menos de 2 segundos) com imagens REAIS do usuário
+
+## Bugs Reportados 24/12/2024 - Sessão 2
+- [x] Compartilhamento sem logo/link em algumas imagens (logs adicionados para debug)
+- [x] Botão Antes/Depois está direcionando para compartilhar em vez de baixar (removido Web Share API)
+- [x] Prompt "Se Tivesse Nascido" não preserva fisionomia (prompt reforçado com ULTRA CRITICAL rules)
