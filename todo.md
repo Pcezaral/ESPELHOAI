@@ -985,3 +985,6 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Bug: Botão de download abrindo compartilhamento em vez de baixar diretamente (CORRIGIDO - removido navigator.share)
 - [x] Bug: Foto compartilhada sem logo e link do ESPELHO AI (CORRIGIDO - assets recriados e caminhos ajustados para prod)
 
+## Correções PWABuilder (24/12/2024)
+- [x] Corrigido manifest.json com todos os campos necessários para PWABuilder (scope, id, lang, dir, shortcuts, mais tamanhos de ícones)
+
