@@ -57,9 +57,9 @@ const THEMES = [
   },
   {
     id: "gangster" as Theme,
-    name: "Gangster 1920s",
+    name: "Gangster",
     emoji: "🎩",
-    description: "Você na era da Lei Seca: carros, boates, conflitos",
+    description: "Você como gangster de várias épocas: clássico, moderno, cinema",
     color: "from-gray-700 to-gray-900",
     borderColor: "border-gray-700/30 hover:border-gray-700/60",
   },
