@@ -949,3 +949,29 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Permitir rever, baixar e compartilhar transformações do histórico
 - [x] Implementar limpeza automática de transformações com mais de 5 dias
 
+
+
+## Melhorias no Histórico de Transformações (24/12/2025)
+
+### Sugestão 1: Filtro por Tema
+- [x] Adicionar dropdown de filtro no modal de histórico
+- [x] Opções: Todos, Favoritos, e cada tema individual
+- [x] Backend: nova procedure `listByTheme` para buscar por tema específico
+
+### Sugestão 2: Notificação de Expiração
+- [x] Criar campo `notifiedExpiring` no banco para rastrear notificações
+- [x] Backend: procedure `getExpiring` para buscar itens expirando em 24h
+- [x] Frontend: toast de aviso ao abrir histórico
+- [x] Componente `ExpirationNotification` como banner fixo no topo
+- [x] Verificação automática a cada 5 minutos
+
+### Sugestão 3: Sistema de Favoritos
+- [x] Adicionar campo `isFavorite` na tabela `transformation_history`
+- [x] Favoritos não expiram (expiresAt estendido para 10 anos)
+- [x] Backend: procedures `toggleFavorite` e `listFavorites`
+- [x] Frontend: botão de estrela em cada transformação
+- [x] Badge visual diferenciado para favoritos
+- [x] Contadores: total, favoritos, expirando
+
+### Outras Correções
+- [x] Atualizar nome do tema Gangster: remover "1920s" (agora aceita gangsters de várias épocas)

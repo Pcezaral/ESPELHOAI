@@ -7,7 +7,18 @@ import { TRPCError } from "@trpc/server";
 import { getDb } from "./db";
 import { ratings } from "../drizzle/schema";
 import { consumeCredit, getCreditBalance, addCredits, getSubscriptionInfo } from "./credits";
-import { saveTransformationToHistory, getUserTransformationHistory, getTransformationById, cleanupExpiredTransformations } from "./db";
+import { 
+  saveTransformationToHistory, 
+  getUserTransformationHistory, 
+  getTransformationById, 
+  cleanupExpiredTransformations,
+  toggleTransformationFavorite,
+  getUserFavoriteTransformations,
+  getUserTransformationsByTheme,
+  getExpiringTransformations,
+  markTransformationsAsNotified,
+  getTransformationCounts
+} from "./db";
 import { createCheckoutSession, verifyPayment, type PackageType } from "./stripe";
 
 export const appRouter = router({
@@ -45,7 +56,7 @@ export const appRouter = router({
           art: "Pintura",
           gender: "Se tivesse nascido...",
           epic: "Romanos, Gregos e Vikings",
-          gangster: "Gangster 1920s",
+          gangster: "Gangster",
           circus: "Circo",
           natal: "Natal",
           reveillon: "Réveillon",
@@ -288,6 +299,69 @@ export const appRouter = router({
     cleanup: publicProcedure.mutation(async () => {
       const deletedCount = await cleanupExpiredTransformations();
       return { success: true, deletedCount };
+    }),
+
+    // Marcar/desmarcar como favorito
+    toggleFavorite: protectedProcedure
+      .input(z.object({
+        transformationId: z.number(),
+        isFavorite: z.boolean(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        const success = await toggleTransformationFavorite(
+          input.transformationId,
+          ctx.user.id,
+          input.isFavorite
+        );
+        
+        if (!success) {
+          throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Falha ao atualizar favorito" });
+        }
+        
+        return { success: true, isFavorite: input.isFavorite };
+      }),
+
+    // Buscar apenas favoritos
+    listFavorites: protectedProcedure
+      .input(z.object({
+        limit: z.number().min(1).max(50).optional().default(50),
+      }))
+      .query(async ({ ctx, input }) => {
+        const favorites = await getUserFavoriteTransformations(ctx.user.id, input.limit);
+        return { transformations: favorites };
+      }),
+
+    // Buscar por tema específico
+    listByTheme: protectedProcedure
+      .input(z.object({
+        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus", "natal", "reveillon", "beach"]),
+        limit: z.number().min(1).max(50).optional().default(20),
+      }))
+      .query(async ({ ctx, input }) => {
+        const history = await getUserTransformationsByTheme(ctx.user.id, input.theme, input.limit);
+        return { transformations: history };
+      }),
+
+    // Buscar transformações que vão expirar em breve (para notificação)
+    getExpiring: protectedProcedure.query(async ({ ctx }) => {
+      const expiring = await getExpiringTransformations(ctx.user.id);
+      return { transformations: expiring };
+    }),
+
+    // Marcar como notificado sobre expiração
+    markNotified: protectedProcedure
+      .input(z.object({
+        transformationIds: z.array(z.number()),
+      }))
+      .mutation(async ({ input }) => {
+        const success = await markTransformationsAsNotified(input.transformationIds);
+        return { success };
+      }),
+
+    // Obter contagens (total, favoritos, expirando)
+    getCounts: protectedProcedure.query(async ({ ctx }) => {
+      const counts = await getTransformationCounts(ctx.user.id);
+      return counts;
     }),
   }),
 });

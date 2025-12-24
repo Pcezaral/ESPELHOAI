@@ -94,7 +94,9 @@ export const transformationHistory = mysqlTable("transformation_history", {
   transformedImageUrl: text("transformedImageUrl").notNull(), // URL da imagem transformada
   watermarkedImageUrl: text("watermarkedImageUrl"), // URL da imagem com marca d'água (para compartilhamento)
   beforeAfterImageUrl: text("beforeAfterImageUrl"), // URL da imagem antes/depois combinada
-  expiresAt: timestamp("expiresAt").notNull(), // Data de expiração (5 dias após criação)
+  isFavorite: int("isFavorite").default(0).notNull(), // 0 = não favorito, 1 = favorito (favoritos não expiram)
+  expiresAt: timestamp("expiresAt").notNull(), // Data de expiração (5 dias após criação, null se favorito)
+  notifiedExpiring: int("notifiedExpiring").default(0).notNull(), // 0 = não notificado, 1 = notificado sobre expiração
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 

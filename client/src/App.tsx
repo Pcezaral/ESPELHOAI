@@ -10,6 +10,7 @@ import Gallery from "./pages/Gallery";
 import About from "./pages/About";
 import Planos from "./pages/Planos";
 import Contato from "./pages/Contato";
+import { ExpirationNotification } from "./components/ExpirationNotification";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -41,6 +42,7 @@ function App() {
       >
         <TooltipProvider>
           <Toaster />
+          <ExpirationNotification />
           <Router />
         </TooltipProvider>
       </ThemeProvider>
