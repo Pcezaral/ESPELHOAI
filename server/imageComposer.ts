@@ -3,8 +3,13 @@ import { storagePut } from "./storage";
 import path from "path";
 import fs from "fs";
 
-// Caminho do logo
+// Caminhos dos assets
+const ASSETS_DIR = path.join(process.cwd(), "server/assets");
 const LOGO_PATH = path.join(process.cwd(), "client/public/espelho-ai-logo.png");
+const TEXT_ESPELHO_PATH = path.join(ASSETS_DIR, "text-espelho-ai.png");
+const TEXT_LINK_PATH = path.join(ASSETS_DIR, "text-link.png");
+const TEXT_ANTES_PATH = path.join(ASSETS_DIR, "text-antes.png");
+const TEXT_DEPOIS_PATH = path.join(ASSETS_DIR, "text-depois.png");
 
 /**
  * Combina duas imagens lado a lado com etiquetas "ANTES" e "DEPOIS"
@@ -55,7 +60,7 @@ export async function composeBeforeAfterImage(
     const targetWidth = 600;
     const targetHeight = 800;
     const headerHeight = 50;  // Barra superior com ANTES/DEPOIS
-    const footerHeight = 70;  // Barra inferior com logo e link
+    const footerHeight = 80;  // Barra inferior com logo e link (aumentada)
     const gap = 10;
     const totalWidth = targetWidth * 2 + gap;
     const totalHeight = targetHeight + headerHeight + footerHeight;
@@ -74,16 +79,16 @@ export async function composeBeforeAfterImage(
 
     console.log("[ImageComposer] Images resized");
 
-    // Preparar logo redimensionado
+    // Preparar logo redimensionado (DOBRADO - 100px)
     let logoBuffer: Buffer | null = null;
-    const logoSize = 50;
+    const logoSize = 100; // Dobrado de 50 para 100
     try {
       if (fs.existsSync(LOGO_PATH)) {
         logoBuffer = await sharp(LOGO_PATH)
           .resize(logoSize, logoSize, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } })
           .png()
           .toBuffer();
-        console.log("[ImageComposer] Logo loaded and resized");
+        console.log("[ImageComposer] Logo loaded and resized to", logoSize);
       } else {
         console.log("[ImageComposer] Logo not found at:", LOGO_PATH);
       }
@@ -91,7 +96,31 @@ export async function composeBeforeAfterImage(
       console.log("[ImageComposer] Could not load logo:", logoError);
     }
 
-    // Criar barra de header (ANTES / DEPOIS) como imagem
+    // Carregar textos pré-renderizados
+    let textAntesBuffer: Buffer | null = null;
+    let textDepoisBuffer: Buffer | null = null;
+    let textEspelhoBuffer: Buffer | null = null;
+    let textLinkBuffer: Buffer | null = null;
+
+    try {
+      if (fs.existsSync(TEXT_ANTES_PATH)) {
+        textAntesBuffer = await sharp(TEXT_ANTES_PATH).png().toBuffer();
+      }
+      if (fs.existsSync(TEXT_DEPOIS_PATH)) {
+        textDepoisBuffer = await sharp(TEXT_DEPOIS_PATH).png().toBuffer();
+      }
+      if (fs.existsSync(TEXT_ESPELHO_PATH)) {
+        textEspelhoBuffer = await sharp(TEXT_ESPELHO_PATH).png().toBuffer();
+      }
+      if (fs.existsSync(TEXT_LINK_PATH)) {
+        textLinkBuffer = await sharp(TEXT_LINK_PATH).png().toBuffer();
+      }
+      console.log("[ImageComposer] Text images loaded");
+    } catch (textError) {
+      console.log("[ImageComposer] Could not load text images:", textError);
+    }
+
+    // Criar barra de header (fundo escuro)
     const headerBuffer = await sharp({
       create: {
         width: totalWidth,
@@ -103,61 +132,72 @@ export async function composeBeforeAfterImage(
       .png()
       .toBuffer();
 
-    // Criar barra de footer com gradiente laranja/vermelho
+    // Criar barra de footer com cor laranja
     const footerBuffer = await sharp({
       create: {
         width: totalWidth,
         height: footerHeight,
         channels: 4,
-        background: { r: 249, g: 115, b: 22, alpha: 1 }, // Laranja
+        background: { r: 249, g: 115, b: 22, alpha: 1 },
       },
     })
       .png()
       .toBuffer();
 
-    // Criar textos como SVG simples (sem emoji)
-    const headerTextSvg = Buffer.from(`
-      <svg width="${totalWidth}" height="${headerHeight}">
-        <style>
-          .header-text { font: bold 28px sans-serif; fill: white; }
-        </style>
-        <text x="${targetWidth / 2}" y="35" text-anchor="middle" class="header-text">ANTES</text>
-        <text x="${targetWidth + gap + targetWidth / 2}" y="35" text-anchor="middle" class="header-text">DEPOIS</text>
-      </svg>
-    `);
-
-    // Texto do footer (sem emoji - logo será adicionado como imagem)
-    const footerTextSvg = Buffer.from(`
-      <svg width="${totalWidth}" height="${footerHeight}">
-        <style>
-          .brand-text { font: bold 24px sans-serif; fill: white; }
-          .link-text { font: 18px sans-serif; fill: white; }
-        </style>
-        <text x="${logoBuffer ? 70 : 30}" y="45" class="brand-text">ESPELHO AI</text>
-        <text x="${totalWidth - 30}" y="45" text-anchor="end" class="link-text">www.espelhoai.com.br</text>
-      </svg>
-    `);
-
     // Montar composição
     const compositeOperations: sharp.OverlayOptions[] = [
-      // Header
+      // Header (fundo)
       { input: headerBuffer, top: 0, left: 0 },
-      { input: headerTextSvg, top: 0, left: 0 },
       // Imagem original (esquerda)
       { input: resizedOriginal, top: headerHeight, left: 0 },
       // Imagem transformada (direita)
       { input: resizedTransformed, top: headerHeight, left: targetWidth + gap },
-      // Footer
+      // Footer (fundo laranja)
       { input: footerBuffer, top: headerHeight + targetHeight, left: 0 },
-      { input: footerTextSvg, top: headerHeight + targetHeight, left: 0 },
     ];
 
-    // Adicionar logo se disponível
+    // Adicionar texto ANTES se disponível
+    if (textAntesBuffer) {
+      compositeOperations.push({
+        input: textAntesBuffer,
+        top: 0,
+        left: Math.floor(targetWidth / 2 - 100), // Centralizado na metade esquerda
+      });
+    }
+
+    // Adicionar texto DEPOIS se disponível
+    if (textDepoisBuffer) {
+      compositeOperations.push({
+        input: textDepoisBuffer,
+        top: 0,
+        left: targetWidth + gap + Math.floor(targetWidth / 2 - 100), // Centralizado na metade direita
+      });
+    }
+
+    // Adicionar logo se disponível (posição ajustada para logo maior)
     if (logoBuffer) {
       compositeOperations.push({
         input: logoBuffer,
-        top: headerHeight + targetHeight + 10,
-        left: 15,
+        top: headerHeight + targetHeight - 10, // Posição vertical ajustada
+        left: 10,
+      });
+    }
+
+    // Adicionar texto ESPELHO AI se disponível
+    if (textEspelhoBuffer) {
+      compositeOperations.push({
+        input: textEspelhoBuffer,
+        top: headerHeight + targetHeight + 20,
+        left: logoBuffer ? 120 : 20, // Ajustado para logo maior
+      });
+    }
+
+    // Adicionar link se disponível
+    if (textLinkBuffer) {
+      compositeOperations.push({
+        input: textLinkBuffer,
+        top: headerHeight + targetHeight + 25,
+        left: totalWidth - 370,
       });
     }
 
@@ -221,11 +261,11 @@ export async function addWatermarkToImage(
     const width = metadata.width || 1024;
     const height = metadata.height || 1024;
 
-    const watermarkHeight = 60;
+    const watermarkHeight = 80; // Aumentado para acomodar logo maior
 
-    // Preparar logo redimensionado
+    // Preparar logo redimensionado (DOBRADO - 90px)
     let logoBuffer: Buffer | null = null;
-    const logoSize = 45;
+    const logoSize = 90; // Dobrado
     try {
       if (fs.existsSync(LOGO_PATH)) {
         logoBuffer = await sharp(LOGO_PATH)
@@ -238,7 +278,22 @@ export async function addWatermarkToImage(
       console.log("[Watermark] Could not load logo:", logoError);
     }
 
-    // Criar barra de footer com gradiente laranja
+    // Carregar textos pré-renderizados
+    let textEspelhoBuffer: Buffer | null = null;
+    let textLinkBuffer: Buffer | null = null;
+
+    try {
+      if (fs.existsSync(TEXT_ESPELHO_PATH)) {
+        textEspelhoBuffer = await sharp(TEXT_ESPELHO_PATH).png().toBuffer();
+      }
+      if (fs.existsSync(TEXT_LINK_PATH)) {
+        textLinkBuffer = await sharp(TEXT_LINK_PATH).png().toBuffer();
+      }
+    } catch (textError) {
+      console.log("[Watermark] Could not load text images:", textError);
+    }
+
+    // Criar barra de footer com cor laranja
     const footerBuffer = await sharp({
       create: {
         width: width,
@@ -250,30 +305,35 @@ export async function addWatermarkToImage(
       .png()
       .toBuffer();
 
-    // Texto do footer (sem emoji)
-    const footerTextSvg = Buffer.from(`
-      <svg width="${width}" height="${watermarkHeight}">
-        <style>
-          .brand-text { font: bold 22px sans-serif; fill: white; }
-          .link-text { font: 16px sans-serif; fill: white; }
-        </style>
-        <text x="${logoBuffer ? 60 : 20}" y="38" class="brand-text">ESPELHO AI</text>
-        <text x="${width - 20}" y="38" text-anchor="end" class="link-text">www.espelhoai.com.br</text>
-      </svg>
-    `);
-
     // Montar composição
     const compositeOperations: sharp.OverlayOptions[] = [
       { input: footerBuffer, top: height, left: 0 },
-      { input: footerTextSvg, top: height, left: 0 },
     ];
 
     // Adicionar logo se disponível
     if (logoBuffer) {
       compositeOperations.push({
         input: logoBuffer,
-        top: height + 8,
-        left: 10,
+        top: height - 5,
+        left: 5,
+      });
+    }
+
+    // Adicionar texto ESPELHO AI se disponível
+    if (textEspelhoBuffer) {
+      compositeOperations.push({
+        input: textEspelhoBuffer,
+        top: height + 15,
+        left: logoBuffer ? 100 : 15,
+      });
+    }
+
+    // Adicionar link se disponível
+    if (textLinkBuffer) {
+      compositeOperations.push({
+        input: textLinkBuffer,
+        top: height + 20,
+        left: width - 360,
       });
     }
 
