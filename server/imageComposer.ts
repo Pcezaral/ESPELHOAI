@@ -3,13 +3,29 @@ import { storagePut } from "./storage";
 import path from "path";
 import fs from "fs";
 
-// Caminhos dos assets
-const ASSETS_DIR = path.join(process.cwd(), "server/assets");
-const LOGO_PATH = path.join(process.cwd(), "client/public/espelho-ai-logo.png");
+// Caminhos dos assets - funciona em dev e produção
+const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+
+// Em produção, assets estão em dist/server/assets
+// Em desenvolvimento, estão em server/assets
+const ASSETS_DIR = IS_PRODUCTION 
+  ? path.join(process.cwd(), "dist/server/assets")
+  : path.join(process.cwd(), "server/assets");
+
+// Logo está em client/public (dev) ou dist/public (prod)
+const LOGO_PATH = IS_PRODUCTION
+  ? path.join(process.cwd(), "dist/public/espelho-ai-logo.png")
+  : path.join(process.cwd(), "client/public/espelho-ai-logo.png");
+
 const TEXT_ESPELHO_PATH = path.join(ASSETS_DIR, "text-espelho-ai.png");
 const TEXT_LINK_PATH = path.join(ASSETS_DIR, "text-link.png");
 const TEXT_ANTES_PATH = path.join(ASSETS_DIR, "text-antes.png");
 const TEXT_DEPOIS_PATH = path.join(ASSETS_DIR, "text-depois.png");
+
+// Log dos caminhos para debug
+console.log("[ImageComposer] Environment:", IS_PRODUCTION ? "PRODUCTION" : "DEVELOPMENT");
+console.log("[ImageComposer] ASSETS_DIR:", ASSETS_DIR);
+console.log("[ImageComposer] LOGO_PATH:", LOGO_PATH);
 
 /**
  * Combina duas imagens lado a lado com etiquetas "ANTES" e "DEPOIS"

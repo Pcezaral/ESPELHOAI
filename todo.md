@@ -980,3 +980,8 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Corrigir header mostrando "Logo" como texto em vez do logo real no site espelhoai.com.br
 - [ ] Investigar problema de "Não Seguro" (SSL/HTTPS) no navegador
 
+
+## Bugs Críticos (24/12/2024 - Sessão 2)
+- [x] Bug: Botão de download abrindo compartilhamento em vez de baixar diretamente (CORRIGIDO - removido navigator.share)
+- [x] Bug: Foto compartilhada sem logo e link do ESPELHO AI (CORRIGIDO - assets recriados e caminhos ajustados para prod)
+

@@ -264,7 +264,7 @@ export default function Generator() {
     const filename = `espelho-ai-${selectedTheme}-${Date.now()}.jpg`;
     
     try {
-      toast.info("📥 Preparando imagem...");
+      toast.info("📥 Baixando imagem...");
       
       // Baixar a imagem via proxy
       const proxyUrl = `/api/download-image?url=${encodeURIComponent(generatedImage)}&filename=${encodeURIComponent(filename)}`;
@@ -273,24 +273,8 @@ export default function Generator() {
       if (!response.ok) throw new Error('Download failed');
       
       const blob = await response.blob();
-      const file = new File([blob], filename, { type: 'image/jpeg' });
       
-      // Tentar Web Share API com arquivo (funciona em mobile para salvar na galeria)
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        try {
-          await navigator.share({
-            files: [file],
-            title: 'Minha transformação ESPELHO AI',
-          });
-          toast.success("✅ Escolha onde salvar a imagem!");
-          return;
-        } catch (err: any) {
-          if (err.name === 'AbortError') return;
-          // Continua para fallback
-        }
-      }
-      
-      // Fallback: Download tradicional (desktop ou mobile sem suporte)
+      // Download DIRETO - sem abrir opções de compartilhamento
       const blobUrl = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = blobUrl;
