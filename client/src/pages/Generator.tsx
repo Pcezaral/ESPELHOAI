@@ -369,7 +369,7 @@ export default function Generator() {
     } catch (error) {
       console.error("Share error:", error);
       // Fallback: compartilhar imagem original com texto
-      const fallbackText = `🦁 ESPELHO AI\n\n${message}${hashtag}\n\n👉 www.espelhoai.com.br`;
+      const fallbackText = `🦁 ESPELHO AI\n\n${message}${hashtag}\n\n👉 https://www.espelhoai.com.br`;
       const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(fallbackText + "\n\n🖼️ Imagem: " + generatedImage)}`;
       window.open(whatsappUrl, "_blank");
     }

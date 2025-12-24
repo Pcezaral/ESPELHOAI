@@ -975,3 +975,8 @@ App totalmente alinhado com identidade visual do site Hostinger
 
 ### Outras Correções
 - [x] Atualizar nome do tema Gangster: remover "1920s" (agora aceita gangsters de várias épocas)
+
+## Bug Report - 24/12/2024 (Segundo)
+- [x] Corrigir header mostrando "Logo" como texto em vez do logo real no site espelhoai.com.br
+- [ ] Investigar problema de "Não Seguro" (SSL/HTTPS) no navegador
+

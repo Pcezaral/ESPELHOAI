@@ -171,7 +171,7 @@ export function TransformationHistory({ onSelectTransformation }: Transformation
 
   const handleShare = async (imageUrl: string, theme: string) => {
     const themeName = THEME_NAMES[theme] || theme;
-    const shareText = `🪞 Olha minha transformação ${themeName} no ESPELHO AI!\n\n✨ Crie a sua também em espelhoai.com.br`;
+    const shareText = `🪞 Olha minha transformação ${themeName} no ESPELHO AI!\n\n✨ Crie a sua também em https://www.espelhoai.com.br`;
     
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText + '\n\n' + imageUrl)}`;
     window.open(whatsappUrl, '_blank');
