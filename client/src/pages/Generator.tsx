@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { CreditBadge } from "@/components/CreditBadge";
 import { HighResolutionDownload } from "@/components/HighResolutionDownload";
 import { BeforeAfterDownload } from "@/components/BeforeAfterDownload";
+import { TransformationHistory } from "@/components/TransformationHistory";
 import { getLoginUrl } from "@/const";
 type Theme = "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus" | "natal" | "reveillon" | "beach";
 
@@ -175,6 +176,10 @@ export default function Generator() {
   const generateMutation = trpc.generation.generate.useMutation();
   const uploadMutation = trpc.generation.uploadImage.useMutation();
   const ratingMutation = trpc.rating.submit.useMutation();
+  const saveHistoryMutation = trpc.history.save.useMutation();
+  
+  // Estado para armazenar a URL original do upload (para salvar no histórico)
+  const [uploadedOriginalUrl, setUploadedOriginalUrl] = useState<string | null>(null);
 
   const handleGenerate = async () => {
     if (!selectedImage || !selectedTheme || !previewUrl) return;
@@ -188,6 +193,9 @@ export default function Generator() {
         filename: selectedImage.name,
       });
 
+      // Salvar URL original para uso posterior
+      setUploadedOriginalUrl(uploadResult.url);
+
       const result = await generateMutation.mutateAsync({
         theme: selectedTheme,
         imageUrl: uploadResult.url,
@@ -196,6 +204,19 @@ export default function Generator() {
       setGeneratedImage(result.generatedImageUrl);
       setGeneratedText(result.generatedText);
       setStep("result");
+      
+      // Salvar transformação no histórico (em background, não bloqueia)
+      try {
+        await saveHistoryMutation.mutateAsync({
+          theme: selectedTheme,
+          originalImageUrl: uploadResult.url,
+          transformedImageUrl: result.generatedImageUrl,
+        });
+        console.log("Transformação salva no histórico");
+      } catch (historyError) {
+        console.warn("Não foi possível salvar no histórico:", historyError);
+        // Não mostrar erro ao usuário, histórico é feature secundária
+      }
     } catch (error: any) {
       console.error("Generation error:", error);
       if (error.message && error.message.includes("Insufficient credits")) {
@@ -218,6 +239,7 @@ export default function Generator() {
     setPreviewUrl(null);
     setGeneratedImage(null);
     setGeneratedText(null);
+    setUploadedOriginalUrl(null);
     setHasRated(false);
   };
 
@@ -379,7 +401,12 @@ export default function Generator() {
               ESPELHO <span className="text-orange-500">AI</span>
             </h1>
           </div>
-          <CreditBadge />
+          <div className="flex items-center gap-2">
+            {isAuthenticated && (
+              <TransformationHistory />
+            )}
+            <CreditBadge />
+          </div>
         </div>
       </header>
 
@@ -639,15 +666,21 @@ export default function Generator() {
                 </div>
               )}
               
-              {/* Botão nova transformação */}
-              <Button
-                onClick={handleReset}
-                size="lg"
-                variant="outline"
-                className="w-full border-slate-600 text-slate-300 hover:bg-slate-800"
-              >
-                Nova transformação
-              </Button>
+              {/* Botões de ação */}
+              <div className="flex flex-col sm:flex-row gap-4">
+                {/* Botão nova transformação */}
+                <Button
+                  onClick={handleReset}
+                  size="lg"
+                  variant="outline"
+                  className="flex-1 border-slate-600 text-slate-300 hover:bg-slate-800"
+                >
+                  Nova transformação
+                </Button>
+                
+                {/* Botão histórico de transformações */}
+                <TransformationHistory />
+              </div>
             </div>
           </div>
         )}

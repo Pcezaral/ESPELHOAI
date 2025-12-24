@@ -7,6 +7,7 @@ import { TRPCError } from "@trpc/server";
 import { getDb } from "./db";
 import { ratings } from "../drizzle/schema";
 import { consumeCredit, getCreditBalance, addCredits, getSubscriptionInfo } from "./credits";
+import { saveTransformationToHistory, getUserTransformationHistory, getTransformationById, cleanupExpiredTransformations } from "./db";
 import { createCheckoutSession, verifyPayment, type PackageType } from "./stripe";
 
 export const appRouter = router({
@@ -228,6 +229,66 @@ export const appRouter = router({
         
         return { success: true };
       }),
+  }),
+
+  // Histórico de transformações (mantém por 5 dias)
+  history: router({
+    // Salvar transformação no histórico
+    save: protectedProcedure
+      .input(z.object({
+        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus", "natal", "reveillon", "beach"]),
+        originalImageUrl: z.string(),
+        transformedImageUrl: z.string(),
+        watermarkedImageUrl: z.string().optional(),
+        beforeAfterImageUrl: z.string().optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        const saved = await saveTransformationToHistory(
+          ctx.user.id,
+          input.theme,
+          input.originalImageUrl,
+          input.transformedImageUrl,
+          input.watermarkedImageUrl,
+          input.beforeAfterImageUrl
+        );
+        
+        if (!saved) {
+          throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Falha ao salvar transformação" });
+        }
+        
+        return { success: true, transformationId: saved.id };
+      }),
+
+    // Buscar histórico do usuário
+    list: protectedProcedure
+      .input(z.object({
+        limit: z.number().min(1).max(50).optional().default(20),
+      }))
+      .query(async ({ ctx, input }) => {
+        const history = await getUserTransformationHistory(ctx.user.id, input.limit);
+        return { transformations: history };
+      }),
+
+    // Buscar transformação específica
+    get: protectedProcedure
+      .input(z.object({
+        transformationId: z.number(),
+      }))
+      .query(async ({ ctx, input }) => {
+        const transformation = await getTransformationById(input.transformationId, ctx.user.id);
+        
+        if (!transformation) {
+          throw new TRPCError({ code: "NOT_FOUND", message: "Transformação não encontrada ou expirada" });
+        }
+        
+        return { transformation };
+      }),
+
+    // Limpeza de transformações expiradas (pode ser chamada por admin ou cron)
+    cleanup: publicProcedure.mutation(async () => {
+      const deletedCount = await cleanupExpiredTransformations();
+      return { success: true, deletedCount };
+    }),
   }),
 });
 

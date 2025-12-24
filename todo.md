@@ -939,3 +939,13 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Compartilhamento sem logo/link em algumas imagens (logs adicionados para debug)
 - [x] Botão Antes/Depois está direcionando para compartilhar em vez de baixar (removido Web Share API)
 - [x] Prompt "Se Tivesse Nascido" não preserva fisionomia (prompt reforçado com ULTRA CRITICAL rules)
+
+## Nova Feature: Repositório de Transformações (24/12/2024)
+- [x] Criar tabela transformation_history no banco de dados
+- [x] Implementar função para salvar transformação no histórico
+- [x] Implementar função para buscar histórico do usuário (últimos 5 dias)
+- [x] Criar componente TransformationHistory no frontend
+- [x] Adicionar botão "Ver Minhas Transformações" na página de resultado
+- [x] Permitir rever, baixar e compartilhar transformações do histórico
+- [x] Implementar limpeza automática de transformações com mais de 5 dias
+

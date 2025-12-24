@@ -80,3 +80,23 @@ export const premiumDownloads = mysqlTable("premium_downloads", {
 
 export type PremiumDownload = typeof premiumDownloads.$inferSelect;
 export type InsertPremiumDownload = typeof premiumDownloads.$inferInsert;
+
+
+/**
+ * Transformation history table for storing user's recent transformations.
+ * Keeps transformations for 5 days to allow users to revisit, download, and share.
+ */
+export const transformationHistory = mysqlTable("transformation_history", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  theme: mysqlEnum("theme", ["animals", "monster", "art", "gender", "epic", "gangster", "circus", "natal", "reveillon", "beach"]).notNull(),
+  originalImageUrl: text("originalImageUrl").notNull(), // URL da imagem original
+  transformedImageUrl: text("transformedImageUrl").notNull(), // URL da imagem transformada
+  watermarkedImageUrl: text("watermarkedImageUrl"), // URL da imagem com marca d'água (para compartilhamento)
+  beforeAfterImageUrl: text("beforeAfterImageUrl"), // URL da imagem antes/depois combinada
+  expiresAt: timestamp("expiresAt").notNull(), // Data de expiração (5 dias após criação)
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type TransformationHistory = typeof transformationHistory.$inferSelect;
+export type InsertTransformationHistory = typeof transformationHistory.$inferInsert;

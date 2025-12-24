@@ -197,6 +197,13 @@
       "when": 1765936706081,
       "tag": "0027_melodic_forge",
       "breakpoints": true
+    },
+    {
+      "idx": 28,
+      "version": "5",
+      "when": 1766579289370,
+      "tag": "0028_superb_scalphunter",
+      "breakpoints": true
     }
   ]
 }
