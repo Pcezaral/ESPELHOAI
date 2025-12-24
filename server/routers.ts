@@ -112,8 +112,9 @@ export const appRouter = router({
       .mutation(async ({ input, ctx }) => {
         await consumeCredit(ctx.user.id, `Download Antes/Depois - ${input.theme}`, 1);
         
-        const { generateBeforeAfterImage } = await import("./generation");
-        const result = await generateBeforeAfterImage(
+        // Usar sharp para compor imagens (rápido e preciso, sem IA)
+        const { composeBeforeAfterImage } = await import("./imageComposer");
+        const result = await composeBeforeAfterImage(
           input.originalImageUrl,
           input.transformedImageUrl,
           ctx.user.id

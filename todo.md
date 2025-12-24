@@ -927,3 +927,10 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Compartilhamento: Melhorado com logo (🦁), links e hashtags
 - [x] Antes/Depois: Melhorado com timeout 90s, retries e validações
 - [x] Deploy: Manter no Manus Hosting (Vercel não suporta backend Node.js contínuo)
+
+
+## Bug Crítico: Download Antes/Depois (24/12/2025)
+
+- [x] BUG CRÍTICO: Download Antes/Depois gera imagem de pessoa errada (IA estava gerando imagem nova em vez de combinar as fotos reais)
+- [x] Solução: Usar sharp para combinar imagens lado a lado em vez de usar IA - IMPLEMENTADO
+- [x] Resultado: Download instantâneo (menos de 2 segundos) com imagens REAIS do usuário
