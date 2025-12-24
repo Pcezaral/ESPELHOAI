@@ -35,9 +35,6 @@ export type PackageType = keyof typeof PACKAGE_PRICES;
 /**
  * Cria uma sessão de checkout do Stripe
  */
-// ID da configuração de pagamento com Apple Pay, Google Pay, Boleto, etc
-const PAYMENT_METHOD_CONFIG_ID = "pmc_1ShzA2EJQUDtpNxZAcutmSZz";
-
 export async function createCheckoutSession(
   packageType: PackageType,
   userId: number,
@@ -46,8 +43,7 @@ export async function createCheckoutSession(
   cancelUrl: string
 ): Promise<{ sessionId: string; url: string }> {
   const session = await stripe.checkout.sessions.create({
-    // Usa a configuração de pagamento que inclui: Cartões, Apple Pay, Google Pay, Link, Boleto
-    payment_method_configuration: PAYMENT_METHOD_CONFIG_ID,
+    payment_method_types: ["card"],
     line_items: [
       {
         price_data: {
