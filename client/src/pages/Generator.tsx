@@ -291,6 +291,9 @@ export default function Generator() {
     }
   };
 
+  // Mutation para adicionar marca d'água
+  const addWatermarkMutation = trpc.generation.addWatermark.useMutation();
+
   const handleShare = async (message: string) => {
     if (!generatedImage) return;
     
@@ -298,23 +301,22 @@ export default function Generator() {
     const isHolidayTheme = selectedTheme === "natal" || selectedTheme === "reveillon";
     const hashtag = isHolidayTheme ? " #EspelhoAI2026 🎄🎆" : " #EspelhoAI";
     
-    // Texto completo com LOGO, mensagem e LINKS - tudo junto
-    const fullShareText = `🦁✨ *ESPELHO AI* ✨🦁
-
-${message}${hashtag}
-
-🌟 *Transforme suas fotos também!*
-👉 Site: https://www.espelhoai.com.br
-📲 App: https://espelhoai.com.br/app
-
-#EspelhoAI #IA #Transformação`;
+    // Texto simples para acompanhar a imagem
+    const shareText = `${message}${hashtag}`;
     
     try {
-      // Baixar a imagem via proxy
-      const filename = `espelho-ai-${selectedTheme}-${Date.now()}.jpg`;
-      const proxyUrl = `/api/download-image?url=${encodeURIComponent(generatedImage)}&filename=${encodeURIComponent(filename)}`;
+      toast.info("📤 Preparando imagem com logo e link...");
       
-      toast.info("📤 Preparando compartilhamento...");
+      // Primeiro, adicionar marca d'água (logo + link) na imagem
+      const watermarkResult = await addWatermarkMutation.mutateAsync({
+        imageUrl: generatedImage,
+      });
+      
+      const imageWithWatermark = watermarkResult.imageUrl;
+      
+      // Baixar a imagem COM marca d'água via proxy
+      const filename = `espelho-ai-${selectedTheme}-${Date.now()}.jpg`;
+      const proxyUrl = `/api/download-image?url=${encodeURIComponent(imageWithWatermark)}&filename=${encodeURIComponent(filename)}`;
       
       const response = await fetch(proxyUrl);
       if (!response.ok) throw new Error('Download failed');
@@ -322,37 +324,31 @@ ${message}${hashtag}
       const blob = await response.blob();
       const file = new File([blob], filename, { type: 'image/jpeg' });
       
-      // Copiar texto para clipboard SEMPRE
-      try {
-        await navigator.clipboard.writeText(fullShareText);
-      } catch (e) {
-        console.log("Clipboard não disponível");
-      }
-      
       // Tentar Web Share API com arquivo
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
         try {
           await navigator.share({
             files: [file],
             title: 'ESPELHO AI',
-            text: fullShareText,
+            text: shareText,
           });
-          toast.success("✅ Imagem compartilhada! O texto com logo e links foi copiado - cole na mensagem!");
+          toast.success("✅ Imagem compartilhada com logo e link!");
           return;
         } catch (err: any) {
           if (err.name === 'AbortError') return;
         }
       }
       
-      // Fallback: Abrir WhatsApp diretamente com texto completo
-      const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(fullShareText + "\n\n🖼️ Imagem: " + generatedImage)}`;
+      // Fallback: Abrir WhatsApp diretamente
+      const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText + "\n\n🖼️ Veja: " + imageWithWatermark)}`;
       window.open(whatsappUrl, "_blank");
-      toast.info("📋 Texto copiado! Cole na conversa do WhatsApp.");
+      toast.info("📱 Abrindo WhatsApp...");
       
     } catch (error) {
       console.error("Share error:", error);
-      // Fallback final: WhatsApp direto
-      const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(fullShareText + "\n\n🖼️ Imagem: " + generatedImage)}`;
+      // Fallback: compartilhar imagem original com texto
+      const fallbackText = `🦁 ESPELHO AI\n\n${message}${hashtag}\n\n👉 www.espelhoai.com.br`;
+      const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(fallbackText + "\n\n🖼️ Imagem: " + generatedImage)}`;
       window.open(whatsappUrl, "_blank");
     }
   };

@@ -127,6 +127,23 @@ export const appRouter = router({
           message: "Imagem Antes/Depois pronta para download!"
         };
       }),
+    // Adicionar marca d'água (logo + link) para compartilhamento - GRÁTIS
+    addWatermark: protectedProcedure
+      .input(z.object({
+        imageUrl: z.string(),
+      }))
+      .mutation(async ({ input, ctx }) => {
+        const { addWatermarkToImage } = await import("./imageComposer");
+        const result = await addWatermarkToImage(
+          input.imageUrl,
+          ctx.user.id
+        );
+        
+        return { 
+          success: true, 
+          imageUrl: result.url,
+        };
+      }),
   }),
 
   credits: router({

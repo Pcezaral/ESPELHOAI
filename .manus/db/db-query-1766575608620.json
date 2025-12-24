@@ -1,0 +1,24 @@
+{
+  "query": "SELECT id, name, email, credits, role FROM users ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4TyPH5sRp98Bbib.22eb3b977414 --database iPCSMFLfBQ2PWRu3Un3kaW --execute SELECT id, name, email, credits, role FROM users ORDER BY id;",
+  "rows": [
+    {
+      "id": "1",
+      "name": "",
+      "email": "",
+      "credits": "6840",
+      "role": "admin"
+    },
+    {
+      "id": "600015",
+      "name": "News&ViewsBrasil",
+      "email": "newsviewsbrasil@gmail.com",
+      "credits": "1003",
+      "role": "user"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\temail\tcredits\trole\n1\t\t\t6840\tadmin\n600015\tNews&ViewsBrasil\tnewsviewsbrasil@gmail.com\t1003\tuser\n",
+  "stderr": "",
+  "execution_time_ms": 49
+}
