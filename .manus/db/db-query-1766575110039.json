@@ -1,0 +1,16 @@
+{
+  "query": "SELECT id, name, credits, role FROM users WHERE role = 'admin';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4TyPH5sRp98Bbib.22eb3b977414 --database iPCSMFLfBQ2PWRu3Un3kaW --execute SELECT id, name, credits, role FROM users WHERE role = 'admin';",
+  "rows": [
+    {
+      "id": "1",
+      "name": "",
+      "credits": "3846",
+      "role": "admin"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\tcredits\trole\n1\t\t3846\tadmin\n",
+  "stderr": "",
+  "execution_time_ms": 56
+}

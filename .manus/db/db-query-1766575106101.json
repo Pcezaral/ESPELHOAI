@@ -1,0 +1,9 @@
+{
+  "query": "UPDATE users SET credits = credits + 3000 WHERE role = 'admin';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4TyPH5sRp98Bbib.22eb3b977414 --database iPCSMFLfBQ2PWRu3Un3kaW --execute UPDATE users SET credits = credits + 3000 WHERE role = 'admin';",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 64
+}
