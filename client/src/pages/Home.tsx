@@ -370,7 +370,7 @@ export default function Home() {
           <h2 className="text-4xl font-bold text-center mb-4">Escolha Seu Plano</h2>
           <p className="text-center text-gray-600 mb-12 text-lg">Pacotes de créditos para suas transformações</p>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-2xl mx-auto">
             {/* Pacote Light */}
             <Card className="p-6 border-2 border-blue-500/30 hover:border-blue-500/60 transition-all hover:shadow-xl">
               <div className="text-center mb-4">
