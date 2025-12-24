@@ -17,15 +17,15 @@ export const PACKAGE_PRICES = {
 } as const;
 
 export const PACKAGE_CREDITS = {
-  light: 50,
-  premium: 200,
-  monthly_unlimited: 0, // Ilimitado
-  annual_unlimited: 0, // Ilimitado
+  light: 40,
+  premium: 100,
+  monthly_unlimited: 0, // Ilimitado (não usado)
+  annual_unlimited: 0, // Ilimitado (não usado)
 } as const;
 
 export const PACKAGE_NAMES = {
-  light: "Pacote Light - 50 Créditos",
-  premium: "Pacote Premium - 200 Créditos",
+  light: "Plano Light - 40 Créditos",
+  premium: "Plano Premium - 100 Créditos",
   monthly_unlimited: "Ilimitado Mensal",
   annual_unlimited: "Ilimitado Anual",
 } as const;

@@ -27,12 +27,18 @@ export async function uploadImageToS3(
  * Gerar transformação de imagem com IA
  * 
  * REGRAS ABSOLUTAS:
- * 1. MANTER O NÚMERO EXATO DE PESSOAS (1 pessoa = 1 pessoa, 3 pessoas = 3 pessoas)
+ * 1. MANTER O NÚMERO EXATO DE PESSOAS (1 pessoa = 1 pessoa, 2 pessoas = 2 pessoas, 3 pessoas = 3 pessoas)
  * 2. PRESERVAR ROSTOS IDÊNTICOS - NUNCA cobrir com barbas grandes, capacetes, máscaras
  * 3. NUNCA adicionar ou remover pessoas
  * 4. ALTA ALEATORIEDADE - mesma foto deve gerar versões DIFERENTES
  * 5. EVITAR CAPACETES, BARBAS EXAGERADAS - preferir coroas, tiaras, cabelos soltos para mostrar rosto
  * 6. FUNDOS VARIADOS - cada geração deve ter cenário diferente
+ * 
+ * REGRA ESPECIAL PARA DUAS PESSOAS:
+ * - AMBAS as faces devem ser preservadas com IGUAL qualidade e fidelidade
+ * - Não priorizar uma pessoa sobre a outra
+ * - Cada pessoa deve ter sua fisionomia INDIVIDUAL mantida
+ * - Posição relativa das pessoas deve ser mantida (quem está à esquerda/direita)
  */
 export async function generateTransformation(
   theme: "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus" | "natal" | "reveillon" | "beach",
@@ -50,7 +56,9 @@ export async function generateTransformation(
       // Bichinho: ROSTO E EXPRESSÃO 100% PRESERVADOS - apenas adicionar elementos de animal
       prompt: `Cute animal portrait transformation. ABSOLUTE CRITICAL RULE: The person's FACE, EXPRESSION, and PHYSIOGNOMY must be 100% PRESERVED and RECOGNIZABLE. Keep EXACT same number of people - if 2 people in input, output MUST have 2 people with BOTH faces IDENTICAL to original; if 3 people, output MUST have 3 people with ALL 3 faces IDENTICAL to original.
       
-      FACE PRESERVATION IS PARAMOUNT: The person's face must be COMPLETELY RECOGNIZABLE - same exact eyes (shape, color, size, spacing), same exact nose (shape, size, position), same exact mouth (shape, lips, smile/expression), same exact facial bone structure, same exact skin tone, same exact expression and emotion. The face should look like a PHOTO of the person with animal features ADDED AROUND IT, not a transformation OF the face.
+      SPECIAL RULE FOR TWO PEOPLE: When there are 2 people in the photo, BOTH faces must be preserved with EQUAL quality and fidelity. Do NOT prioritize one person over the other. Each person must have their INDIVIDUAL physiognomy maintained - their unique eye shape, nose, mouth, expression. Keep the relative position of people (who is on left/right). BOTH people must be equally recognizable.
+      
+      FACE PRESERVATION IS PARAMOUNT: Each person's face must be COMPLETELY RECOGNIZABLE - same exact eyes (shape, color, size, spacing), same exact nose (shape, size, position), same exact mouth (shape, lips, smile/expression), same exact facial bone structure, same exact skin tone, same exact expression and emotion. The face should look like a PHOTO of the person with animal features ADDED AROUND IT, not a transformation OF the face.
       
       WHAT TO ADD (around the face, NOT replacing it): Fluffy fur around the face edges, cute animal ears on top of head, whiskers on cheeks (thin, not covering face), small animal nose tip overlay (transparent, showing original nose), tail behind body, paws instead of hands.
       
@@ -64,7 +72,11 @@ export async function generateTransformation(
     
     monster: {
       // Monstro: ROSTO RECONHECÍVEL mesmo como monstro
-      prompt: `Cute monster portrait transformation. CRITICAL RULE: Keep EXACT same number of people - if 2 people in input, output MUST have 2 people with BOTH faces identical; if 3 people, output MUST have 3 people with ALL 3 faces identical. PRESERVE EACH INDIVIDUAL FACE: Maintain RECOGNIZABLE facial features for EVERY person - same eye shape, eye color, facial proportions, expression, smile/frown pattern must be identifiable. DO NOT create generic monster, DO NOT lose person's identity. ONLY change: add monster features (horns, colorful skin, playful details). Randomly vary monster style: skin color (pink / purple / turquoise / mint / coral / lavender / peach), horn style (small curved / tiny straight / mini spiral / cute nubs), accessory (bow / hat / glasses / flower / star), pattern (spots / stripes / sparkles / swirls). CRITICAL: Face structure must look like the person AS a monster, not a random creature. Keep same eye spacing, nose position, mouth shape, facial bone structure. Vary pose naturally (friendly wave / playful stance / cute sitting / happy jumping). Soft lighting, vibrant cheerful colors. Adorable cartoon style with facial recognition. Random seed: ${randomSeed}`,
+      prompt: `Cute monster portrait transformation. CRITICAL RULE: Keep EXACT same number of people - if 2 people in input, output MUST have 2 people with BOTH faces identical; if 3 people, output MUST have 3 people with ALL 3 faces identical.
+      
+      SPECIAL RULE FOR TWO PEOPLE: When there are 2 people in the photo, BOTH faces must be preserved with EQUAL quality and fidelity. Do NOT prioritize one person over the other. Each person must have their INDIVIDUAL physiognomy maintained - their unique eye shape, nose, mouth, expression. Keep the relative position of people (who is on left/right). BOTH people must be equally recognizable as cute monsters.
+      
+      PRESERVE EACH INDIVIDUAL FACE: Maintain RECOGNIZABLE facial features for EVERY person - same eye shape, eye color, facial proportions, expression, smile/frown pattern must be identifiable. DO NOT create generic monster, DO NOT lose person's identity. ONLY change: add monster features (horns, colorful skin, playful details). Randomly vary monster style: skin color (pink / purple / turquoise / mint / coral / lavender / peach), horn style (small curved / tiny straight / mini spiral / cute nubs), accessory (bow / hat / glasses / flower / star), pattern (spots / stripes / sparkles / swirls). CRITICAL: Face structure must look like the person AS a monster, not a random creature. Keep same eye spacing, nose position, mouth shape, facial bone structure. Vary pose naturally (friendly wave / playful stance / cute sitting / happy jumping). Soft lighting, vibrant cheerful colors. Adorable cartoon style with facial recognition. Random seed: ${randomSeed}`,
       text: "Você é um monstrinho adorável! Mantendo seus traços únicos, você seria uma criatura fofa e divertida que conquista todos ao redor! 👾"
     },
     
@@ -147,7 +159,23 @@ export async function generateTransformation(
     gangster: {
       // Gangster: ROSTO 100% IDÊNTICO, MÁXIMA VARIEDADE de estilos e eras cinematográficas
       // INCLUI: Anos 20 clássico, Tarantino, Blade Runner, Scarface, Goodfellas, Peaky Blinders, etc.
-      prompt: `Gangster/Crime Boss transformation. CRITICAL RULE: Keep EXACT same number of people - if 2 people in input, output MUST have 2 people with BOTH faces pixel-perfect identical; if 3 people, output MUST have 3 people with ALL 3 faces pixel-perfect identical. PRESERVE EACH INDIVIDUAL FACE: Each person's face must be PIXEL-PERFECT IDENTICAL - same eyes, nose, mouth, expression, age, skin tone, facial structure. DO NOT modify face, DO NOT add heavy beards or mustaches that cover face. ONLY change: costume, pose, props, background, era. Randomly choose ONE scenario from DIVERSE eras and styles: 
+      prompt: `Gangster/Crime Boss transformation. 
+      
+      ULTRA CRITICAL FACE PRESERVATION RULE - READ THIS FIRST: The person's FACE and PHYSIOGNOMY must be ABSOLUTELY IDENTICAL to the input photo. This means:
+      - EXACT same eye shape, eye color, eye size, eye spacing, eyelids, eyebrows shape and thickness
+      - EXACT same nose shape, nose size, nose bridge, nostrils
+      - EXACT same mouth shape, lip thickness, lip color, smile pattern
+      - EXACT same facial bone structure: cheekbones, jawline, chin shape, forehead
+      - EXACT same skin tone, skin texture, any moles or beauty marks
+      - EXACT same facial proportions and distances between features
+      - EXACT same expression and emotion from the original photo
+      - The face must be INSTANTLY RECOGNIZABLE as the same person
+      
+      DO NOT: Modify face shape, change eye shape, alter nose, change lips, add facial hair that covers features, use heavy makeup that changes appearance, change skin tone, alter age appearance.
+      
+      FOR WOMEN: Keep feminine features exactly as in photo - same delicate features, same expression. Do NOT masculinize or change bone structure.
+      
+      Keep EXACT same number of people. ONLY change: costume, pose, props, background, era. Randomly choose ONE scenario from DIVERSE eras and styles: 
       
       CLASSIC 1920s PROHIBITION ERA (Speakeasy Boss in pinstripe suit + fedora + cigar + Art Deco bar interior + jazz age glamour, Flapper Queen in sequined dress + feather headband + cigarette holder + Charleston dance floor, Bootlegger in trench coat + newsboy cap + whiskey crates + dark warehouse + vintage car headlights),
       
@@ -254,7 +282,21 @@ export async function generateTransformation(
     reveillon: {
       // Réveillon: ROSTO 100% IDÊNTICO, celebração de ano novo - ACESSÍVEL E FAMILIAR
       // VARIEDADE de cenários: churrasco, família, ceia, praia, iate - SEMPRE com 2026 e fogos
-      prompt: `New Year's Eve 2026 transformation - ACCESSIBLE AND FAMILY CELEBRATIONS. CRITICAL RULE: Keep EXACT same number of people - if 1 person in input, output MUST have 1 person; if 2 people, output MUST have 2 people with BOTH faces pixel-perfect identical. PRESERVE EACH INDIVIDUAL FACE: Face must be PIXEL-PERFECT IDENTICAL - same eyes, nose, mouth, expression, age, skin tone, facial structure. DO NOT modify face. ONLY change: costume, pose, props, background.
+      prompt: `New Year's Eve 2026 transformation - ACCESSIBLE AND FAMILY CELEBRATIONS.
+      
+      ULTRA CRITICAL FACE PRESERVATION RULE - READ THIS FIRST: The person's FACE and PHYSIOGNOMY must be ABSOLUTELY IDENTICAL to the input photo. This means:
+      - EXACT same eye shape, eye color, eye size, eye spacing, eyelids, eyebrows shape and thickness
+      - EXACT same nose shape, nose size, nose bridge, nostrils
+      - EXACT same mouth shape, lip thickness, lip color, smile pattern
+      - EXACT same facial bone structure: cheekbones, jawline, chin shape, forehead
+      - EXACT same skin tone, skin texture, any moles or beauty marks
+      - EXACT same facial proportions and distances between features
+      - EXACT same expression and emotion from the original photo
+      - The face must be INSTANTLY RECOGNIZABLE as the same person
+      
+      DO NOT: Modify face shape, change eye shape, alter nose, change lips, add facial hair, use heavy makeup that changes appearance, change skin tone, alter age appearance.
+      
+      Keep EXACT same number of people - if 1 person in input, output MUST have 1 person; if 2 people, output MUST have 2 people with BOTH faces pixel-perfect identical. ONLY change: costume, pose, props, background.
       
       MANDATORY ELEMENTS IN ALL SCENARIOS: "2026" visible prominently (in fireworks, decorations, balloons, or signs), spectacular colorful fireworks in background, white or light-colored clothing (Brazilian tradition).
       
@@ -430,30 +472,31 @@ export async function generateBeforeAfterImage(
   console.log("[BeforeAfter] Original URL:", originalImageUrl?.substring(0, 100));
   console.log("[BeforeAfter] Transformed URL:", transformedImageUrl?.substring(0, 100));
   
+  // Validar URLs de entrada
+  if (!originalImageUrl || !transformedImageUrl) {
+    throw new Error("URLs das imagens são obrigatórias");
+  }
+  
   try {
-    // Prompt para criar imagem combinada
+    // Prompt simplificado para criar imagem combinada
     const combinePrompt = `
-      Create a side-by-side comparison image with TWO photos:
-      LEFT SIDE: The original photo (labeled "ANTES" at the top in small elegant white text with subtle shadow)
-      RIGHT SIDE: The transformed photo (labeled "DEPOIS" at the top in small elegant white text with subtle shadow)
+      Create a simple side-by-side comparison image:
+      LEFT: Original photo with "ANTES" label at top (white text, small, elegant)
+      RIGHT: Transformed photo with "DEPOIS" label at top (white text, small, elegant)
       
-      Layout requirements:
-      - Both images should be the SAME SIZE and perfectly aligned
-      - Small gap (thin white line) between the two images
-      - Labels "ANTES" and "DEPOIS" should be small, elegant, positioned at top of each image
-      - Clean, professional presentation suitable for sharing on social media
-      - Total aspect ratio: landscape (wider than tall)
-      - High quality output
-      
-      CRITICAL: Preserve BOTH images exactly as they are - do not modify, crop, or alter either photo.
-      Simply place them side by side with the labels.
+      Requirements:
+      - Same size for both images, perfectly aligned horizontally
+      - Thin white line separator between images
+      - Landscape aspect ratio (wider than tall)
+      - DO NOT modify the photos - just place them side by side
+      - Professional, clean presentation for social media
     `;
     
     console.log("[BeforeAfter] Calling generateImage API...");
     
-    // Gerar imagem combinada com timeout
+    // Gerar imagem combinada com timeout de 90 segundos
     const timeoutPromise = new Promise<never>((_, reject) => {
-      setTimeout(() => reject(new Error("Timeout: geração demorou mais de 60 segundos")), 60000);
+      setTimeout(() => reject(new Error("Timeout: geração demorou mais de 90 segundos")), 90000);
     });
     
     const generatePromise = generateImage({
@@ -470,24 +513,46 @@ export async function generateBeforeAfterImage(
       ]
     });
     
-    const result = await Promise.race([generatePromise, timeoutPromise]);
-    
-    console.log("[BeforeAfter] API returned, URL:", result.url?.substring(0, 100));
-    
-    if (!result.url) {
-      throw new Error("API não retornou URL da imagem");
+    let result;
+    try {
+      result = await Promise.race([generatePromise, timeoutPromise]);
+    } catch (raceError: any) {
+      console.error("[BeforeAfter] Race error:", raceError?.message);
+      throw new Error("Tempo limite excedido. Tente novamente.");
     }
     
-    // Fazer download da imagem combinada
-    console.log("[BeforeAfter] Downloading generated image...");
-    const response = await fetch(result.url);
+    console.log("[BeforeAfter] API returned, URL:", result?.url?.substring(0, 100));
     
-    if (!response.ok) {
-      throw new Error(`Falha ao baixar imagem: ${response.status}`);
+    if (!result || !result.url) {
+      throw new Error("API não retornou URL da imagem. Tente novamente.");
+    }
+    
+    // Fazer download da imagem combinada com retry
+    console.log("[BeforeAfter] Downloading generated image...");
+    let response;
+    let retries = 3;
+    
+    while (retries > 0) {
+      try {
+        response = await fetch(result.url);
+        if (response.ok) break;
+      } catch (fetchError) {
+        console.log("[BeforeAfter] Fetch retry, remaining:", retries - 1);
+      }
+      retries--;
+      if (retries > 0) await new Promise(r => setTimeout(r, 1000));
+    }
+    
+    if (!response || !response.ok) {
+      throw new Error(`Falha ao baixar imagem gerada. Status: ${response?.status || 'unknown'}`);
     }
     
     const buffer = await response.arrayBuffer();
     console.log("[BeforeAfter] Downloaded, size:", buffer.byteLength);
+    
+    if (buffer.byteLength < 1000) {
+      throw new Error("Imagem gerada inválida (muito pequena)");
+    }
     
     // Upload para S3 com nome descritivo
     const timestamp = Date.now();
@@ -497,10 +562,18 @@ export async function generateBeforeAfterImage(
     console.log("[BeforeAfter] Uploading to S3:", fileKey);
     const { url: s3Url } = await storagePut(fileKey, Buffer.from(buffer), "image/jpeg");
     
+    if (!s3Url) {
+      throw new Error("Falha ao salvar imagem no servidor");
+    }
+    
     console.log("[BeforeAfter] Success! S3 URL:", s3Url?.substring(0, 100));
     return { url: s3Url, key: fileKey };
   } catch (error: any) {
     console.error("[BeforeAfter] FAILED:", error?.message || error);
-    throw new Error(error?.message || "Falha ao gerar imagem Antes/Depois");
+    // Mensagem amigável para o usuário
+    const userMessage = error?.message?.includes("Timeout") 
+      ? "A geração demorou muito. Por favor, tente novamente."
+      : error?.message || "Falha ao gerar imagem Antes/Depois. Tente novamente.";
+    throw new Error(userMessage);
   }
 }

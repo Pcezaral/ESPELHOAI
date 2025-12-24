@@ -379,12 +379,12 @@ export default function Home() {
                 </div>
                 <h3 className="text-2xl font-bold mb-2">Plano Light</h3>
                 <div className="text-3xl font-bold text-blue-600 mb-2">R$ 9,90</div>
-                <p className="text-gray-600">50 Créditos</p>
+                <p className="text-gray-600">40 Créditos</p>
               </div>
               <ul className="space-y-3 mb-6">
                 <li className="flex items-start gap-2">
                   <Check className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm">50 transformações</span>
+                  <span className="text-sm">40 transformações</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
@@ -415,12 +415,12 @@ export default function Home() {
                 </div>
                 <h3 className="text-2xl font-bold mb-2">Plano Premium</h3>
                 <div className="text-3xl font-bold text-orange-600 mb-2">R$ 19,90</div>
-                <p className="text-gray-600">150 Créditos + Extras</p>
+                <p className="text-gray-600">100 Créditos</p>
               </div>
               <ul className="space-y-3 mb-6">
                 <li className="flex items-start gap-2">
                   <Check className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm">150 transformações</span>
+                  <span className="text-sm">100 transformações</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />

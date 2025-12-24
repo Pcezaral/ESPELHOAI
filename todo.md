@@ -916,3 +916,14 @@ App totalmente alinhado com identidade visual do site Hostinger
 - [x] Antes/Depois: Adicionado logs e timeout de 60s para debug
 
 - [x] Resolução HD: Removido opções falsas HD/4K, simplificado para "Download para Impressão" com 5 créditos
+
+
+## Bugs Reportados (24/12/2024)
+
+- [x] Planos: Corrigido para 40 e 100 créditos (mantidos preços R$9,90 e R$19,90)
+- [x] Gangster (mulheres): Reforçado preservação de fisionomia com regras ULTRA CRITICAL
+- [x] Réveillon: Reforçado preservação de fisionomia com regras ULTRA CRITICAL
+- [x] Duas pessoas: Adicionado regras especiais para preservar AMBAS as faces com igual qualidade
+- [x] Compartilhamento: Melhorado com logo (🦁), links e hashtags
+- [x] Antes/Depois: Melhorado com timeout 90s, retries e validações
+- [x] Deploy: Manter no Manus Hosting (Vercel não suporta backend Node.js contínuo)
