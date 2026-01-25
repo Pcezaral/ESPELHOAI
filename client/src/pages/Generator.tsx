@@ -12,7 +12,7 @@ import { HighResolutionDownload } from "@/components/HighResolutionDownload";
 import { BeforeAfterDownload } from "@/components/BeforeAfterDownload";
 import { TransformationHistory } from "@/components/TransformationHistory";
 import { getLoginUrl } from "@/const";
-type Theme = "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus" | "natal" | "reveillon" | "beach";
+type Theme = "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus";
 
 const THEMES = [
   {
@@ -71,30 +71,6 @@ const THEMES = [
     color: "from-red-500 to-yellow-500",
     borderColor: "border-red-500/30 hover:border-red-500/60",
   },
-  {
-    id: "natal" as Theme,
-    name: "Natal",
-    emoji: "🎄",
-    description: "Você como personagem natalino: Papai Noel, Mamãe Noel, Rena, Elfo...",
-    color: "from-red-600 to-green-600",
-    borderColor: "border-red-600/30 hover:border-red-600/60",
-  },
-  {
-    id: "reveillon" as Theme,
-    name: "Réveillon 2026",
-    emoji: "🎆",
-    description: "Você celebrando o Ano Novo com estilo: praia, fogos, festas...",
-    color: "from-blue-600 to-purple-600",
-    borderColor: "border-blue-600/30 hover:border-blue-600/60",
-  },
-  {
-    id: "beach" as Theme,
-    name: "Praia 2026",
-    emoji: "🏖️",
-    description: "Você e seus amigos na praia: surfando, enterrado na areia, comendo frango...",
-    color: "from-cyan-500 to-blue-500",
-    borderColor: "border-cyan-500/30 hover:border-cyan-500/60",
-  },
 ];
 
 export default function Generator() {
@@ -105,15 +81,8 @@ export default function Generator() {
   const [searchParams] = useLocation();
   const urlParams = searchParams.includes('?') ? new URLSearchParams(searchParams.split('?')[1]) : null;
   const themeFromUrl = urlParams?.get('theme') as Theme | null;
-  const filterFromUrl = urlParams?.get('filter') as 'holiday' | 'regular' | null;
-  
-  // Filtrar temas baseado no parâmetro filter
-  const HOLIDAY_THEMES = ['natal', 'reveillon', 'beach'];
-  const filteredThemes = filterFromUrl === 'holiday' 
-    ? THEMES.filter(t => HOLIDAY_THEMES.includes(t.id))
-    : filterFromUrl === 'regular'
-    ? THEMES.filter(t => !HOLIDAY_THEMES.includes(t.id))
-    : THEMES;
+  // Usar todos os temas disponíveis
+  const filteredThemes = THEMES;
   
   const [selectedTheme, setSelectedTheme] = useState<Theme | null>(themeFromUrl);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -303,9 +272,8 @@ export default function Generator() {
   const handleShare = async (message: string) => {
     if (!generatedImage) return;
     
-    // Adicionar hashtag #EspelhoAI2026 para temas de Final de Ano
-    const isHolidayTheme = selectedTheme === "natal" || selectedTheme === "reveillon";
-    const hashtag = isHolidayTheme ? " #EspelhoAI2026 🎄🎆" : " #EspelhoAI";
+    // Hashtag padrão
+    const hashtag = " #EspelhoAI";
     
     // Texto simples para acompanhar a imagem
     const shareText = `${message}${hashtag}`;

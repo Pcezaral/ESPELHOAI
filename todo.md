@@ -988,3 +988,29 @@ App totalmente alinhado com identidade visual do site Hostinger
 ## Correções PWABuilder (24/12/2024)
 - [x] Corrigido manifest.json com todos os campos necessários para PWABuilder (scope, id, lang, dir, shortcuts, mais tamanhos de ícones)
 
+
+
+## Remoção de Estilos Sazonais (25/01/2026)
+
+### Tarefas Concluídas:
+- [x] Remover estilo Natal do Generator.tsx (THEMES array)
+- [x] Remover estilo Réveillon do Generator.tsx (THEMES array)
+- [x] Remover estilo Praia 2026 do Generator.tsx (THEMES array)
+- [x] Remover seção FINAL DE ANO ESPECIAL do Home.tsx
+- [x] Remover import do CountdownTimer do Home.tsx
+- [x] Remover referências sazonais do texto do Hero no Home.tsx
+- [x] Atualizar descrição no index.html
+- [x] Atualizar descrição no manifest.json
+- [x] Remover temas sazonais do enum no routers.ts (4 ocorrências)
+- [x] Remover themeNames sazonais do routers.ts
+- [x] Atualizar tipo de tema no generation.ts
+- [x] Remover prompts de natal, reveillon e beach do generation.ts
+
+### Estilos Atuais Disponíveis (7 estilos):
+1. Bichinho 🐾 - Animal adorável
+2. Monstro 👾 - Criatura fofa
+3. Pintura 🎨 - Estilos de artistas famosos
+4. Se tivesse nascido... ⚧️ - Mudança de gênero
+5. Épico 🏛️ - Romanos, Gregos e Vikings
+6. Gangster 🔫 - Máfia anos 20-30
+7. Circo 🎪 - Artistas de circo

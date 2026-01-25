@@ -41,7 +41,7 @@ export async function uploadImageToS3(
  * - Posição relativa das pessoas deve ser mantida (quem está à esquerda/direita)
  */
 export async function generateTransformation(
-  theme: "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus" | "natal" | "reveillon" | "beach",
+  theme: "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus",
   imageUrl: string,
   userId: number
 ): Promise<{ generatedImageUrl: string; generatedText: string }> {
@@ -254,128 +254,6 @@ export async function generateTransformation(
       
       ABSOLUTE RULE: DO NOT default to ringmaster with tailcoat and top hat! The random number ${Math.floor(Math.random() * 20) + 1} MUST determine the profession. VIBRANT CIRCUS COLORS. PHOTOREALISTIC quality. Random seed: ${randomSeed}, variation: ${randomVariation}`,
       text: "Você é um artista de circo! Talentoso, colorido e pronto para encantar a plateia sob a lona do picadeiro! 🎪✨"
-    },
-    
-    natal: {
-      // Natal: ROSTO 100% IDÊNTICO, barba de Papai Noel CURTA que NÃO cobre o rosto
-      // Variedade de personagens e cenários criativos urbanos
-      prompt: `Christmas transformation. CRITICAL RULE: Keep EXACT same number of people - if 1 person in input, output MUST have 1 person; if 2 people, output MUST have 2 people with BOTH faces pixel-perfect identical. PRESERVE EACH INDIVIDUAL FACE: Face must be PIXEL-PERFECT IDENTICAL - same eyes, nose, mouth, expression, age, skin tone, facial structure. DO NOT modify face. 
-      
-      CRITICAL FOR SANTA: If Santa Claus, use SHORT TRIMMED white beard that does NOT cover the face - beard should be neat, well-groomed, and allow full face visibility. NO long bushy beards covering chin or cheeks!
-      
-      ONLY change: costume, pose, props, background. Randomly choose ONE Christmas character with CREATIVE urban scenarios:
-      
-      SANTA CLAUS (full red suit with white fur trim, black belt, Santa hat, SHORT TRIMMED white beard that shows full face, holding gift sack, CREATIVE SCENARIOS: riding sleigh through city street with traffic lights / standing in subway station with gifts / in office decorated with lights / pushing shopping cart full of gifts in supermarket / riding bicycle with gift sack / at bus stop with reindeer / in taxi decorated with lights / on rooftop overlooking city / in parking lot with sleigh / at coffee shop serving hot chocolate),
-      
-      MRS. CLAUS (red velvet dress with white fur trim, Santa hat, elegant grandmother look, holding gift boxes, CREATIVE SCENARIOS: baking cookies in modern kitchen / wrapping gifts in living room with city view / decorating Christmas tree in apartment / at shopping mall with bags / in bakery with Christmas treats / reading Christmas stories in library / at hair salon with festive decorations),
-      
-      REINDEER PERSON (brown reindeer costume with cute antlers headband, red Rudolph nose, festive Christmas sweater, CREATIVE SCENARIOS: waiting at crosswalk in city / riding scooter through decorated street / at gym with Christmas gear / in park with snow / jogging through city with lights / at outdoor market / sitting on park bench),
-      
-      ELF (green and red elf costume with pointed hat, striped tights, pointy elf ears, holding toys/gifts, CREATIVE SCENARIOS: wrapping gifts in toy store / delivering packages on city street / at post office with gifts / riding skateboard with presents / at bookstore organizing gifts / in workshop with tools and toys / helping at charity event),
-      
-      CHRISTMAS ANGEL (white flowing gown with golden wings, glowing halo, holding star wand, CREATIVE SCENARIOS: on church steps with lights / in city square with Christmas tree / at concert hall / in garden with snow / on bridge with city lights / at fountain with decorations).
-      
-      CRITICAL: Mix reality with fantasy - use REAL urban settings but add Christmas magic (lights, ornaments, snow, decorations). Vary pose (jolly laugh / gift giving / festive wave / cheerful stance / magical floating). Warm festive lighting with Christmas colors (red, green, gold, white). Photorealistic style with Christmas magic. Random seed: ${randomSeed}`,
-      text: "🎄 Você é o espírito do Natal! Espalhe alegria e magia natalina por onde passar! 🎅✨"
-    },
-    
-    reveillon: {
-      // Réveillon: ROSTO 100% IDÊNTICO, celebração de ano novo - ACESSÍVEL E FAMILIAR
-      // VARIEDADE de cenários: churrasco, família, ceia, praia, iate - SEMPRE com 2026 e fogos
-      prompt: `New Year's Eve 2026 transformation - ACCESSIBLE AND FAMILY CELEBRATIONS.
-      
-      ULTRA CRITICAL FACE PRESERVATION RULE - READ THIS FIRST: The person's FACE and PHYSIOGNOMY must be ABSOLUTELY IDENTICAL to the input photo. This means:
-      - EXACT same eye shape, eye color, eye size, eye spacing, eyelids, eyebrows shape and thickness
-      - EXACT same nose shape, nose size, nose bridge, nostrils
-      - EXACT same mouth shape, lip thickness, lip color, smile pattern
-      - EXACT same facial bone structure: cheekbones, jawline, chin shape, forehead
-      - EXACT same skin tone, skin texture, any moles or beauty marks
-      - EXACT same facial proportions and distances between features
-      - EXACT same expression and emotion from the original photo
-      - The face must be INSTANTLY RECOGNIZABLE as the same person
-      
-      DO NOT: Modify face shape, change eye shape, alter nose, change lips, add facial hair, use heavy makeup that changes appearance, change skin tone, alter age appearance.
-      
-      Keep EXACT same number of people - if 1 person in input, output MUST have 1 person; if 2 people, output MUST have 2 people with BOTH faces pixel-perfect identical. ONLY change: costume, pose, props, background.
-      
-      MANDATORY ELEMENTS IN ALL SCENARIOS: "2026" visible prominently (in fireworks, decorations, balloons, or signs), spectacular colorful fireworks in background, white or light-colored clothing (Brazilian tradition).
-      
-      Randomly choose ONE New Year scenario with HIGH VARIETY:
-      
-      BACKYARD BBQ PARTY (white casual clothes, Brazilian churrasco/barbecue setting, friends and family around, meat on grill, cold beer and drinks, string lights, backyard decorations, "2026" balloons, fireworks visible in night sky, relaxed happy atmosphere, plastic chairs and tables),
-      
-      FAMILY DINNER TABLE (white elegant but casual outfit, large family dinner table with traditional Brazilian ceia, lentils for luck, grapes, champagne glasses raised for toast, dining room decorated with "2026" banner, fireworks visible through window, multi-generational family),
-      
-      COPACABANA BEACH (white flowing clothes, barefoot on sand, Rio de Janeiro beach at night, SPECTACULAR fireworks over ocean with "2026", Copacabana promenade, crowd celebrating, tropical festive atmosphere),
-      
-      ROOFTOP WITH FRIENDS (white party outfit, apartment rooftop, city skyline, fireworks spelling "2026" in background, string lights, friends toasting, DJ playing, dancing, urban celebration),
-      
-      YACHT PARTY (white nautical outfit, yacht deck, fireworks over water with "2026" visible, champagne, ocean reflecting colorful lights, glamorous but fun atmosphere),
-      
-      COUNTRYSIDE CELEBRATION (white linen clothes, farm or sítio setting, bonfire, friends and family, rustic tables with food, fireworks over hills with "2026", stars visible, peaceful celebration),
-      
-      POOL PARTY (white swimwear cover-up, pool with floating lights, tropical setting, palm trees, fireworks in sky with "2026", cocktails, friends in pool, summer night party),
-      
-      STREET PARTY (white casual outfit, neighborhood street party, tables on street, neighbors celebrating together, homemade decorations, "2026" banner across street, fireworks overhead, community celebration).
-      
-      CRITICAL: White/light clothing is MANDATORY (Brazilian tradition). MUST include "2026" prominently and fireworks. Mix of accessible everyday celebrations AND glamorous options. Vary pose (toasting / hugging / dancing / laughing / arms raised). Night lighting with fireworks glow. Photorealistic celebratory style with JOY and WARMTH. Random seed: ${randomSeed}`,
-      text: "🎆 Você está pronto para o Réveillon 2026! Celebre com quem você ama! 🍾✨"
-    },
-    
-    beach: {
-      // Praia 2026: ROSTO 100% IDÊNTICO, MÁXIMA VARIEDADE de cenários, INTEGRAÇÃO PERFEITA de luz e ambiente
-      prompt: `Brazilian beach summer 2026 transformation. CRITICAL FACE RULE: Person's face must be PIXEL-PERFECT IDENTICAL - same eyes, nose, mouth, expression, age, skin tone, facial structure. DO NOT modify face.
-      
-      CRITICAL VISUAL INTEGRATION: The person must be SEAMLESSLY INTEGRATED into the beach scene - NOT a collage or cutout. Match lighting direction (sun position creates consistent shadows on person AND environment), match color temperature (warm golden beach light on skin), match perspective (person's size and angle fits the scene naturally), match focus/blur (if background is slightly blurred, person edges blend naturally). The image must look like a REAL PHOTOGRAPH taken at the beach, not a composite.
-      
-      LIGHTING INTEGRATION RULES: If sun is behind, person has rim lighting and face in soft shadow. If sun is to the side, one side of face is lit, other in shadow. Skin should have natural beach glow - warm tones, slight sweat/sunscreen shine, realistic tan lines. Shadows on sand must match person's position. Reflections in water must include person if near water.
-      
-      EXPRESSIONS: ALWAYS joyful, happy, fun, playful, laughing, excited - NEVER serious or neutral. Beach is about FUN!
-      
-      Randomly choose ONE beach scenario with MAXIMUM VARIETY:
-      
-      SURFING ACTION (riding wave with excited expression, water splashing around naturally, board shorts or bikini, athletic pose, Copacabana or Ipanema background, golden hour light reflecting on water, Christ the Redeemer in distance, dynamic action moment),
-      
-      BEACH VOLLEYBALL (jumping to spike or diving for ball, athletic action pose, sand flying naturally, net visible, team of diverse players, competitive fun expression, Leblon beach, afternoon sun),
-      
-      STAND-UP PADDLE (standing on SUP board, paddle in hand, calm turquoise water, tropical bay background, balanced pose, peaceful happy expression, morning light, Arraial do Cabo crystal water),
-      
-      CONTEMPLATING HORIZON (sitting on sand looking at ocean, peaceful smile, sunset colors reflecting on water and skin, silhouette partially lit, romantic beach moment, Jericoacoara dunes in background, golden hour),
-      
-      WALKING ON SHORELINE (barefoot walking where waves meet sand, water around ankles, footprints behind, casual beach clothes, wind in hair, happy carefree expression, long beach stretch, morning or sunset light),
-      
-      RUNNING ON BEACH (jogging along waterline, athletic wear or swimsuit, splashing water with feet, energetic happy expression, fitness beach lifestyle, early morning sun, long shadows on sand),
-      
-      FRESCOBOL MATCH (playing beach paddle ball, mid-swing action, athletic pose, colorful swimwear, Ipanema style, ball frozen in air, concentrated fun expression, partner visible),
-      
-      BEACH SOCCER GOAL (celebrating goal or kicking ball, sand flying, makeshift goal posts, group of diverse players, competitive joy, Rio beach, afternoon sun creating long shadows),
-      
-      BUILDING SANDCASTLE (kneeling in sand, creative focused expression, elaborate sandcastle in progress, bucket and shovel, childlike joy, family beach day vibes, soft afternoon light),
-      
-      COCONUT WATER PARADISE (drinking from fresh green coconut, beach kiosk background, tropical palm trees, Porto de Galinhas natural pools, refreshed happy expression, midday tropical light),
-      
-      AÇAÍ BOWL MOMENT (holding colorful açaí bowl, beach bar setting, healthy lifestyle, Florianópolis beach, satisfied expression, tropical fruits, morning light),
-      
-      HAMMOCK RELAXATION (lying in colorful hammock between palm trees, reading book or napping, ultimate relaxation expression, Nordeste beach style, dappled sunlight through palms, paradise vibes),
-      
-      CAIPIRINHA SUNSET (holding caipirinha glass, beach bar counter, lime garnish, sunset colors painting sky and reflecting on drink, relaxed happy expression, Bahia beach bar, golden hour glow on face),
-      
-      SNORKELING ADVENTURE (emerging from water with snorkel mask on forehead, excited expression, crystal clear water, tropical fish visible, Fernando de Noronha style, underwater paradise, water droplets on skin catching light),
-      
-      BEACH YOGA (yoga pose on sand, sunrise or sunset, peaceful focused expression, mat on beach, ocean in background, spiritual beach moment, soft warm lighting),
-      
-      KITE FLYING (holding colorful kite string, looking up with joy, kite visible in blue sky, windy beach day, casual beach clothes, playful expression, afternoon light),
-      
-      READING ON BEACH (lying on canga towel, book in hand, sunglasses, relaxed intellectual beach day, umbrella shade, peaceful expression, soft diffused light),
-      
-      BEACH PICNIC (sitting on blanket with food spread, fruits and snacks, friends or family setting, happy eating expression, natural beach setting, warm afternoon light),
-      
-      JUMPING WAVES (mid-jump over incoming wave, arms raised in joy, splashing water, excited expression, playful beach moment, dynamic action, backlit by sun),
-      
-      SUNSET SILHOUETTE (standing with arms open or raised, dramatic sunset colors, silhouette with rim lighting, inspirational pose, beach at dusk, warm orange and pink sky).
-      
-      CRITICAL VARIETY: NEVER repeat the same scenario. Each generation must be COMPLETELY DIFFERENT - different activity, different beach, different time of day, different pose. Brazilian beach authenticity with typical elements when appropriate (Biscoito Globo, mate, canga, beach chairs, kiosks). Vary beaches: Rio (Copacabana, Ipanema, Leblon), Santos, Florianópolis, Porto de Galinhas, Jericoacoara, Fernando de Noronha, Arraial do Cabo, Morro de São Paulo. Summer 2026 vibrant energy. PHOTOREALISTIC quality with perfect environmental integration. Random seed: ${randomSeed}, variation: ${randomVariation}`,
-      text: "🏖️ Você na praia em 2026! Diversão, sol e muitas risadas no verão brasileiro! 🌴☀️"
     }
   };
 

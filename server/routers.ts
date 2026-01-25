@@ -46,7 +46,7 @@ export const appRouter = router({
       }),
     generate: protectedProcedure
       .input(z.object({
-        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus", "natal", "reveillon", "beach"]),
+        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus"]),
         imageUrl: z.string(),
       }))
       .mutation(async ({ input, ctx }) => {
@@ -57,10 +57,7 @@ export const appRouter = router({
           gender: "Se tivesse nascido...",
           epic: "Romanos, Gregos e Vikings",
           gangster: "Gangster",
-          circus: "Circo",
-          natal: "Natal",
-          reveillon: "Réveillon",
-          beach: "Praia 2026"
+          circus: "Circo"
         };
         await consumeCredit(ctx.user.id, themeNames[input.theme]);
         
@@ -221,7 +218,7 @@ export const appRouter = router({
   rating: router({
     submit: protectedProcedure
       .input(z.object({
-        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus", "natal", "reveillon", "beach"]),
+        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus"]),
         rating: z.number().min(1).max(5),
         comment: z.string().optional(),
       }))
@@ -247,7 +244,7 @@ export const appRouter = router({
     // Salvar transformação no histórico
     save: protectedProcedure
       .input(z.object({
-        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus", "natal", "reveillon", "beach"]),
+        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus"]),
         originalImageUrl: z.string(),
         transformedImageUrl: z.string(),
         watermarkedImageUrl: z.string().optional(),
@@ -334,7 +331,7 @@ export const appRouter = router({
     // Buscar por tema específico
     listByTheme: protectedProcedure
       .input(z.object({
-        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus", "natal", "reveillon", "beach"]),
+        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus"]),
         limit: z.number().min(1).max(50).optional().default(20),
       }))
       .query(async ({ ctx, input }) => {
