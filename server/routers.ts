@@ -46,7 +46,7 @@ export const appRouter = router({
       }),
     generate: protectedProcedure
       .input(z.object({
-        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus"]),
+        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus", "carnival"]),
         imageUrl: z.string(),
       }))
       .mutation(async ({ input, ctx }) => {
@@ -57,7 +57,8 @@ export const appRouter = router({
           gender: "Se tivesse nascido...",
           epic: "Romanos, Gregos e Vikings",
           gangster: "Gangster",
-          circus: "Circo"
+          circus: "Circo",
+          carnival: "Carnaval"
         };
         await consumeCredit(ctx.user.id, themeNames[input.theme]);
         
@@ -218,7 +219,7 @@ export const appRouter = router({
   rating: router({
     submit: protectedProcedure
       .input(z.object({
-        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus"]),
+        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus", "carnival"]),
         rating: z.number().min(1).max(5),
         comment: z.string().optional(),
       }))
@@ -244,7 +245,7 @@ export const appRouter = router({
     // Salvar transformação no histórico
     save: protectedProcedure
       .input(z.object({
-        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus"]),
+        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus", "carnival"]),
         originalImageUrl: z.string(),
         transformedImageUrl: z.string(),
         watermarkedImageUrl: z.string().optional(),
@@ -331,7 +332,7 @@ export const appRouter = router({
     // Buscar por tema específico
     listByTheme: protectedProcedure
       .input(z.object({
-        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus"]),
+        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus", "carnival"]),
         limit: z.number().min(1).max(50).optional().default(20),
       }))
       .query(async ({ ctx, input }) => {

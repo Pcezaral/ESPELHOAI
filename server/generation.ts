@@ -41,7 +41,7 @@ export async function uploadImageToS3(
  * - Posição relativa das pessoas deve ser mantida (quem está à esquerda/direita)
  */
 export async function generateTransformation(
-  theme: "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus",
+  theme: "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus" | "carnival",
   imageUrl: string,
   userId: number
 ): Promise<{ generatedImageUrl: string; generatedText: string }> {
@@ -254,6 +254,38 @@ export async function generateTransformation(
       
       ABSOLUTE RULE: DO NOT default to ringmaster with tailcoat and top hat! The random number ${Math.floor(Math.random() * 20) + 1} MUST determine the profession. VIBRANT CIRCUS COLORS. PHOTOREALISTIC quality. Random seed: ${randomSeed}, variation: ${randomVariation}`,
       text: "Você é um artista de circo! Talentoso, colorido e pronto para encantar a plateia sob a lona do picadeiro! 🎪✨"
+    },
+    
+    carnival: {
+      // Carnaval: ROSTO E EXPRESSÃO 100% PRESERVADOS - fantasias elegantes e bem humoradas
+      prompt: `Brazilian Carnival transformation. ABSOLUTE CRITICAL RULE: The person's FACE, EXPRESSION, and PHYSIOGNOMY must be 100% PRESERVED and INSTANTLY RECOGNIZABLE. 
+      
+      FACE PRESERVATION IS PARAMOUNT: Each person's face must be COMPLETELY IDENTICAL to the original - same exact eyes (shape, color, size, spacing), same exact nose (shape, size, position), same exact mouth (shape, lips, smile/expression), same exact facial bone structure, same exact skin tone, same exact expression and emotion. The face should look like a PHOTO of the person in carnival costume, NOT a transformation OF the face.
+      
+      Keep EXACT same number of people - if 2 people in input, output MUST have 2 people with BOTH faces IDENTICAL to original.
+      
+      STYLE: Elegant but not exaggerated. Fun and beautiful. Brazilian carnival authenticity. NOT overly rich or flashy - tasteful and joyful.
+      
+      Randomly choose ONE of these 8 carnival costumes (use random number ${Math.floor(Math.random() * 8) + 1}):
+      
+      1-PASSISTA DE ESCOLA DE SAMBA (colorful feathered headdress NOT covering face, sequined bikini top and shorts or elegant bodysuit, feathered back piece, high heels, samba pose with arms raised, Rio sambadrome background, joyful dancing expression, glitter on body),
+      
+      2-REI MOMO (playful crown, colorful royal cape with sequins, scepter in hand, big smile, confetti around, street carnival background, fun regal pose, NOT fat suit - person's real body with royal costume),
+      
+      3-PIERRÔ/COLOMBINA (classic harlequin costume in bright colors - diamonds pattern, small elegant mask held to side NOT covering face, ruffled collar, pointed hat, romantic Venice-meets-Brazil style, elegant pose),
+      
+      4-BAIANA (traditional white lace dress with colorful ribbons, turban headdress with fruits and flowers, layered necklaces, Bahia carnival style, graceful pose, warm smile, Salvador street carnival background),
+      
+      5-ÍNDIO/ÍNDIA BRASILEIRO (elaborate feathered headdress in vibrant colors, body paint designs on arms/chest, indigenous-inspired costume with modern carnival twist, proud pose, tribal patterns, Amazon-inspired backdrop),
+      
+      6-MALANDRO CARIOCA (white linen suit, Panama hat tilted, red scarf, two-tone shoes, cane, charming smile, Lapa arches background, classic Rio bohemian style, suave confident pose),
+      
+      7-PORTA-BANDEIRA/MESTRE-SALA (elegant ball gown for women / formal tailcoat for men, school colors, graceful spinning pose, flag or partner nearby, sambadrome parade, sophisticated carnival royalty),
+      
+      8-BLOCO DE RUA (casual but festive - colorful abadá shirt, glitter on face, flower crown or fun headband, holding beer or water spray, street party background, friends around, spontaneous joy, daytime carnival).
+      
+      CRITICAL: Face must be PERFECTLY VISIBLE and IDENTICAL to original. Costumes should frame the face beautifully. Expression should be JOYFUL and CELEBRATORY. Elegant but accessible - like a real person at carnival, not a professional model. PHOTOREALISTIC quality. Random seed: ${randomSeed}, variation: ${randomVariation}`,
+      text: "🎭 Você está pronto para o Carnaval! Elegância, alegria e muita festa brasileira! 🇧🇷✨"
     }
   };
 

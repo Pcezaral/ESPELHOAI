@@ -1014,3 +1014,25 @@ App totalmente alinhado com identidade visual do site Hostinger
 5. Épico 🏛️ - Romanos, Gregos e Vikings
 6. Gangster 🔫 - Máfia anos 20-30
 7. Circo 🎪 - Artistas de circo
+
+
+## Novo Estilo: Carnaval (25/01/2026)
+
+### Requisitos:
+- [x] Adicionar estilo Carnaval com 8 fantasias diferentes
+- [x] Preservar 100% fisionomia e expressão da pessoa
+- [x] Fantasias elegantes mas não exageradas
+- [x] Bem humoradas e bonitas
+- [x] Atualizar backend (generation.ts, routers.ts)
+- [x] Atualizar frontend (Generator.tsx, Home.tsx)
+- [x] Atualizar site e GitHub
+
+### 8 Fantasias do Carnaval:
+1. Passista de Escola de Samba
+2. Rei Momo
+3. Pierrô/Colombina
+4. Baiana
+5. Índio/Índia Brasileiro
+6. Malandro Carioca
+7. Porta-Bandeira/Mestre-Sala
+8. Bloco de Rua

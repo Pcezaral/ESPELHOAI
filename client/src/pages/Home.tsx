@@ -86,7 +86,7 @@ export default function Home() {
                     Transforme suas fotos em estilos incríveis
                   </p>
                   <p className="text-xl md:text-2xl font-bold bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
-                    Épico, Gangster, Pintura, Circo, Bichinho ou Monstro!
+                    Épico, Gangster, Pintura, Circo, Carnaval, Bichinho ou Monstro!
                   </p>
                 </div>
               </div>
@@ -246,6 +246,20 @@ export default function Home() {
                   <span className="text-red-500 group-hover:translate-x-1 transition-transform">→</span>
                 </div>
               </div>
+              
+              {/* Exemplo 7: Carnaval - Clique direto */}
+              <div 
+                className="flex flex-col items-center space-y-2 flex-shrink-0 cursor-pointer group"
+                onClick={() => handleStartApp('carnival')}
+              >
+                <div className="relative">
+                  <img src="/example-carnaval.png" alt="Transformação Carnaval" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl border-2 border-transparent group-hover:border-green-500" />
+                </div>
+                <div className="flex items-center gap-2">
+                  <p className="font-semibold text-base md:text-lg text-green-600 group-hover:text-green-700">🎭 Carnaval</p>
+                  <span className="text-green-500 group-hover:translate-x-1 transition-transform">→</span>
+                </div>
+              </div>
             </div>
           </div>
           
@@ -292,7 +306,7 @@ export default function Home() {
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm">Todos os 6 estilos</span>
+                  <span className="text-sm">Todos os 8 estilos</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
@@ -328,7 +342,7 @@ export default function Home() {
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm">Todos os 6 estilos</span>
+                  <span className="text-sm">Todos os 8 estilos</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />

@@ -12,7 +12,7 @@ import { HighResolutionDownload } from "@/components/HighResolutionDownload";
 import { BeforeAfterDownload } from "@/components/BeforeAfterDownload";
 import { TransformationHistory } from "@/components/TransformationHistory";
 import { getLoginUrl } from "@/const";
-type Theme = "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus";
+type Theme = "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus" | "carnival";
 
 const THEMES = [
   {
@@ -70,6 +70,14 @@ const THEMES = [
     description: "Você como artista de circo: acrobata, palhaço, mágico...",
     color: "from-red-500 to-yellow-500",
     borderColor: "border-red-500/30 hover:border-red-500/60",
+  },
+  {
+    id: "carnival" as Theme,
+    name: "Carnaval",
+    emoji: "🎭",
+    description: "Você no Carnaval brasileiro: passista, rei momo, baiana...",
+    color: "from-green-500 to-yellow-500",
+    borderColor: "border-green-500/30 hover:border-green-500/60",
   },
 ];
 
