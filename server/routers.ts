@@ -20,6 +20,7 @@ import {
   getTransformationCounts
 } from "./db";
 import { createCheckoutSession, verifyPayment, type PackageType } from "./stripe";
+import { THEME_NAMES, type ThemeId } from "@shared/themes";
 
 export const appRouter = router({
   system: systemRouter,
@@ -50,20 +51,27 @@ export const appRouter = router({
         imageUrl: z.string(),
       }))
       .mutation(async ({ input, ctx }) => {
-        const themeNames = {
-          animals: "Bichinho",
-          monster: "Monstro",
-          art: "Pintura",
-          gender: "Se tivesse nascido...",
-          epic: "Romanos, Gregos e Vikings",
-          gangster: "Gangster",
-          circus: "Circo",
-          carnival: "Carnaval"
-        };
-        await consumeCredit(ctx.user.id, themeNames[input.theme]);
+        // Consumir crédito ANTES da geração
+        await consumeCredit(ctx.user.id, THEME_NAMES[input.theme as ThemeId]);
         
-        const { generateTransformation } = await import("./generation");
-        return generateTransformation(input.theme, input.imageUrl, ctx.user.id);
+        try {
+          const { generateTransformation } = await import("./generation");
+          return await generateTransformation(input.theme, input.imageUrl, ctx.user.id);
+        } catch (error: any) {
+          // REEMBOLSO AUTOMÁTICO se a geração falhar
+          console.error(`[Generation] Failed for user ${ctx.user.id}, refunding credit:`, error?.message);
+          try {
+            const { refundCredit } = await import("./credits");
+            await refundCredit(ctx.user.id, 1, `Reembolso: falha na geração ${THEME_NAMES[input.theme as ThemeId]}`);
+            console.log(`[Generation] Credit refunded for user ${ctx.user.id}`);
+          } catch (refundError) {
+            console.error(`[Generation] CRITICAL: Failed to refund credit for user ${ctx.user.id}:`, refundError);
+          }
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "Falha na geração da imagem. Seu crédito foi reembolsado automaticamente. Tente novamente."
+          });
+        }
       }),
     downloadHighResolution: protectedProcedure
       .input(z.object({

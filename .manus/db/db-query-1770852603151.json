@@ -1,0 +1,9 @@
+{
+  "query": "CREATE INDEX IF NOT EXISTS idx_transformation_history_user_id ON transformation_history(userId);\nCREATE INDEX IF NOT EXISTS idx_transformation_history_expires_at ON transformation_history(expiresAt);\nCREATE INDEX IF NOT EXISTS idx_credit_transactions_user_id ON credit_transactions(userId);",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 4TyPH5sRp98Bbib.22eb3b977414 --database iPCSMFLfBQ2PWRu3Un3kaW --execute CREATE INDEX IF NOT EXISTS idx_transformation_history_user_id ON transformation_history(userId);\nCREATE INDEX IF NOT EXISTS idx_transformation_history_expires_at ON transformation_history(expiresAt);\nCREATE INDEX IF NOT EXISTS idx_credit_transactions_user_id ON credit_transactions(userId);",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 3787
+}

@@ -20,6 +20,14 @@ export async function handleStripeWebhook(req: Request, res: Response) {
 
     console.log(`[Stripe Webhook] Received event: ${event.type}`);
 
+    // Handle test events for webhook verification
+    if (event.id.startsWith('evt_test_')) {
+      console.log("[Webhook] Test event detected, returning verification response");
+      return res.json({ 
+        verified: true,
+      });
+    }
+
     // Handle different event types
     switch (event.type) {
       case "checkout.session.completed": {

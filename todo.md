@@ -1036,3 +1036,39 @@ App totalmente alinhado com identidade visual do site Hostinger
 6. Malandro Carioca
 7. Porta-Bandeira/Mestre-Sala
 8. Bloco de Rua
+
+
+## Code Review - Correções de Segurança e Performance (Fev 2026)
+
+### CRÍTICO - Semana 1
+- [ ] 1. Corrigir limite de payload de 50MB para 1MB (server/_core/index.ts)
+- [ ] 2. Adicionar rate limiting (5 gerações a cada 15 min por usuário)
+- [ ] 3. Implementar reembolso automático de créditos quando IA falha
+- [ ] 4. Verificar assinatura Stripe no webhook (constructEvent)
+
+### ALTO - Semana 2
+- [ ] 5. Adicionar índices no banco (transformation_history, credit_transactions)
+- [ ] 6. Prevenir créditos negativos (constraint CHECK)
+- [ ] 7. Padronizar nomenclatura de temas (shared/config.ts)
+
+### MÉDIO - Mês 1 (Requer Redis - não disponível no Manus)
+- [ ] 8. Fila assíncrona para geração (BullMQ + Redis) - FUTURO
+- [ ] 9. Cache com Redis - FUTURO
+
+
+## Code Review - Correções de Segurança e Performance (11/02/2026)
+
+### CRÍTICO - Semana 1:
+- [x] 1. Corrigir Limite de Payload: Reduzido de 50MB para 1MB (server/_core/index.ts)
+- [x] 2. Adicionar Rate Limiting: express-rate-limit instalado, 5 gerações/15min, 100 req/min API geral (server/_core/rateLimit.ts)
+- [x] 3. Implementar Reembolso de Créditos: Reembolso automático quando IA falha (server/credits.ts + routers.ts)
+- [x] 4. Verificar Assinatura Stripe: Webhook já verifica via constructEvent + tratamento de eventos de teste (server/webhooks/stripe.ts)
+
+### ALTO - Semana 2:
+- [x] 5. Adicionar Índices no Banco: idx_transformation_history_user_id, idx_transformation_history_expires_at, idx_credit_transactions_user_id
+- [x] 6. Prevenir Créditos Negativos: Constraint CHECK (credits >= 0) adicionada na tabela users
+- [x] 7. Padronizar Nomenclatura de Temas: Criado shared/themes.ts como fonte de verdade centralizada
+
+### MÉDIO - Mês 1 (Não implementado - requer infraestrutura adicional):
+- [ ] 8. Fila Assíncrona para Geração (BullMQ + Redis) - Requer Redis não disponível no Manus
+- [ ] 9. Cache com Redis - Requer Redis não disponível no Manus

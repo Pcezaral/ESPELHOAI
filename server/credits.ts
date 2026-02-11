@@ -172,6 +172,41 @@ export async function addCredits(
 }
 
 /**
+ * Refund credits to user account (when generation fails)
+ */
+export async function refundCredit(
+  userId: number,
+  amount: number = 1,
+  description: string = "Reembolso automático"
+): Promise<number> {
+  const db = await getDb();
+  if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database not available" });
+
+  const user = await db.select().from(users).where(eq(users.id, userId)).limit(1);
+  if (!user || user.length === 0) {
+    throw new TRPCError({ code: "NOT_FOUND", message: "User not found" });
+  }
+
+  const currentCredits = user[0].credits;
+  const newBalance = currentCredits + amount;
+
+  await db.update(users)
+    .set({ credits: newBalance })
+    .where(eq(users.id, userId));
+
+  // Log refund transaction
+  await db.insert(creditTransactions).values({
+    userId,
+    type: "refund",
+    amount,
+    balanceAfter: newBalance,
+    description,
+  });
+
+  return newBalance;
+}
+
+/**
  * Get user's subscription info
  */
 export async function getSubscriptionInfo(userId: number) {

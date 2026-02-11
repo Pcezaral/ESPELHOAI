@@ -41,9 +41,16 @@ async function startServer() {
     }
   );
   
-  // Configure body parser with larger size limit for file uploads
-  app.use(express.json({ limit: "50mb" }));
-  app.use(express.urlencoded({ limit: "50mb", extended: true }));
+  // Configure body parser with security-appropriate size limit
+  app.use(express.json({ limit: "1mb" }));
+  app.use(express.urlencoded({ limit: "1mb", extended: true }));
+  
+  // Rate limiting
+  const { apiLimiter, generationLimiter } = await import("./rateLimit");
+  app.use("/api/trpc", apiLimiter);
+  app.use("/api/trpc/generation.generate", generationLimiter);
+  app.use("/api/trpc/generation.uploadImage", generationLimiter);
+  
   // OAuth callback under /api/oauth/callback
   registerOAuthRoutes(app);
   // Proxy endpoint para download de imagens (evita problemas de CORS)
