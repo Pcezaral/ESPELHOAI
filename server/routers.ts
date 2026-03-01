@@ -47,7 +47,7 @@ export const appRouter = router({
       }),
     generate: protectedProcedure
       .input(z.object({
-        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus", "carnival"]),
+        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus", "pet"]),
         imageUrl: z.string(),
       }))
       .mutation(async ({ input, ctx }) => {
@@ -227,7 +227,7 @@ export const appRouter = router({
   rating: router({
     submit: protectedProcedure
       .input(z.object({
-        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus", "carnival"]),
+        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus", "pet"]),
         rating: z.number().min(1).max(5),
         comment: z.string().optional(),
       }))
@@ -253,7 +253,7 @@ export const appRouter = router({
     // Salvar transformação no histórico
     save: protectedProcedure
       .input(z.object({
-        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus", "carnival"]),
+        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus", "pet"]),
         originalImageUrl: z.string(),
         transformedImageUrl: z.string(),
         watermarkedImageUrl: z.string().optional(),
@@ -340,7 +340,7 @@ export const appRouter = router({
     // Buscar por tema específico
     listByTheme: protectedProcedure
       .input(z.object({
-        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus", "carnival"]),
+        theme: z.enum(["animals", "monster", "art", "gender", "epic", "gangster", "circus", "pet"]),
         limit: z.number().min(1).max(50).optional().default(20),
       }))
       .query(async ({ ctx, input }) => {

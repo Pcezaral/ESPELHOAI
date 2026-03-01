@@ -36,7 +36,7 @@ export type InsertUser = typeof users.$inferInsert;
 export const ratings = mysqlTable("ratings", {
   id: int("id").autoincrement().primaryKey(),
   userId: int("userId").notNull(),
-  theme: mysqlEnum("theme", ["animals", "monster", "art", "gender", "epic", "gangster", "circus", "carnival"]).notNull(),
+  theme: mysqlEnum("theme", ["animals", "monster", "art", "gender", "epic", "gangster", "circus", "pet"]).notNull(),
   rating: int("rating").notNull(), // 1-5 stars
   comment: text("comment"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
@@ -89,7 +89,7 @@ export type InsertPremiumDownload = typeof premiumDownloads.$inferInsert;
 export const transformationHistory = mysqlTable("transformation_history", {
   id: int("id").autoincrement().primaryKey(),
   userId: int("userId").notNull(),
-  theme: mysqlEnum("theme", ["animals", "monster", "art", "gender", "epic", "gangster", "circus", "carnival"]).notNull(),
+  theme: mysqlEnum("theme", ["animals", "monster", "art", "gender", "epic", "gangster", "circus", "pet"]).notNull(),
   originalImageUrl: text("originalImageUrl").notNull(), // URL da imagem original
   transformedImageUrl: text("transformedImageUrl").notNull(), // URL da imagem transformada
   watermarkedImageUrl: text("watermarkedImageUrl"), // URL da imagem com marca d'água (para compartilhamento)

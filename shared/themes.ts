@@ -61,11 +61,11 @@ export const THEMES = {
     description: "Artista de circo com fantasias incríveis",
     creditCost: 1,
   },
-  carnival: {
-    id: "carnival",
-    name: "Carnaval",
-    emoji: "🎭",
-    description: "Fantasias de carnaval brasileiro",
+  pet: {
+    id: "pet",
+    name: "Você e Seu Pet",
+    emoji: "🐶",
+    description: "Fique parecido com seu pet! Sua fisionomia preservada, pet inalterado",
     creditCost: 1,
   },
 } as const;

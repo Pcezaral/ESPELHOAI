@@ -86,7 +86,7 @@ export default function Home() {
                     Transforme suas fotos em estilos incríveis
                   </p>
                   <p className="text-xl md:text-2xl font-bold bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
-                    Épico, Gangster, Pintura, Circo, Carnaval, Bichinho ou Monstro!
+                    Épico, Gangster, Pintura, Circo, Você e Seu Pet, Bichinho ou Monstro!
                   </p>
                 </div>
               </div>
@@ -247,17 +247,17 @@ export default function Home() {
                 </div>
               </div>
               
-              {/* Exemplo 7: Carnaval - Clique direto */}
+              {/* Exemplo 7: Você e Seu Pet - Clique direto */}
               <div 
                 className="flex flex-col items-center space-y-2 flex-shrink-0 cursor-pointer group"
-                onClick={() => handleStartApp('carnival')}
+                onClick={() => handleStartApp('pet')}
               >
                 <div className="relative">
-                  <img src="/example-carnaval.png" alt="Transformação Carnaval" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl border-2 border-transparent group-hover:border-green-500" />
+                  <img src="/example-bichinho.png" alt="Você e Seu Pet" className="w-64 h-32 md:w-80 md:h-40 object-cover rounded-lg shadow-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl border-2 border-transparent group-hover:border-amber-500" />
                 </div>
                 <div className="flex items-center gap-2">
-                  <p className="font-semibold text-base md:text-lg text-green-600 group-hover:text-green-700">🎭 Carnaval</p>
-                  <span className="text-green-500 group-hover:translate-x-1 transition-transform">→</span>
+                  <p className="font-semibold text-base md:text-lg text-amber-600 group-hover:text-amber-700">🐶 Você e Seu Pet</p>
+                  <span className="text-amber-500 group-hover:translate-x-1 transition-transform">→</span>
                 </div>
               </div>
             </div>

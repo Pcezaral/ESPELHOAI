@@ -12,7 +12,7 @@ describe("Security & Performance Fixes", () => {
       expect(THEME_IDS).toContain("epic");
       expect(THEME_IDS).toContain("gangster");
       expect(THEME_IDS).toContain("circus");
-      expect(THEME_IDS).toContain("carnival");
+      expect(THEME_IDS).toContain("pet");
     });
 
     it("should NOT contain seasonal themes", () => {
@@ -29,12 +29,12 @@ describe("Security & Performance Fixes", () => {
       expect(THEME_NAMES.epic).toBe("Épico");
       expect(THEME_NAMES.gangster).toBe("Gangster");
       expect(THEME_NAMES.circus).toBe("Circo");
-      expect(THEME_NAMES.carnival).toBe("Carnaval");
+      expect(THEME_NAMES.pet).toBe("Você e Seu Pet");
     });
 
     it("getThemeName should return correct name", () => {
       expect(getThemeName("animals")).toBe("Bichinho");
-      expect(getThemeName("carnival")).toBe("Carnaval");
+      expect(getThemeName("pet")).toBe("Você e Seu Pet");
     });
 
     it("getThemeCreditCost should return 1 for all themes", () => {

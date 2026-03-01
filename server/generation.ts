@@ -41,7 +41,7 @@ export async function uploadImageToS3(
  * - Posição relativa das pessoas deve ser mantida (quem está à esquerda/direita)
  */
 export async function generateTransformation(
-  theme: "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus" | "carnival",
+  theme: "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus" | "pet",
   imageUrl: string,
   userId: number
 ): Promise<{ generatedImageUrl: string; generatedText: string }> {
@@ -256,36 +256,36 @@ export async function generateTransformation(
       text: "Você é um artista de circo! Talentoso, colorido e pronto para encantar a plateia sob a lona do picadeiro! 🎪✨"
     },
     
-    carnival: {
-      // Carnaval: ROSTO E EXPRESSÃO 100% PRESERVADOS - fantasias elegantes e bem humoradas
-      prompt: `Brazilian Carnival transformation. ABSOLUTE CRITICAL RULE: The person's FACE, EXPRESSION, and PHYSIOGNOMY must be 100% PRESERVED and INSTANTLY RECOGNIZABLE. 
+    pet: {
+      // Você e Seu Pet: DONO fica parecido com o PET, fisionomia SUPER preservada. PET permanece 100% inalterado!
+      prompt: `"You and Your Pet" transformation. This photo contains a PERSON and their PET (dog, cat, or other animal).
+
+      ABSOLUTE CRITICAL RULES:
+      1. The PET must remain COMPLETELY UNCHANGED - same exact animal, same fur color, same markings, same pose, same expression. DO NOT modify the pet AT ALL. The pet should look like a perfect copy from the original photo.
+      2. The PERSON's FACE and PHYSIOGNOMY must be SUPER PRESERVED and INSTANTLY RECOGNIZABLE - same exact eyes, nose, mouth, expression, age, skin tone, facial bone structure. The person must be 100% identifiable.
+      3. Keep EXACT same number of people and animals as in the original photo.
+
+      WHAT TO CHANGE ON THE PERSON (while keeping face IDENTICAL):
+      - Give the person visual elements that make them RESEMBLE their pet
+      - Match the person's CLOTHING/OUTFIT colors and patterns to the pet's fur/feathers colors
+      - Add subtle pet-inspired accessories: headband with ears matching the pet's ears, collar matching the pet's collar
+      - Person's HAIR COLOR can be subtly tinted to match pet's fur color (but face stays identical)
+      - Clothing texture can mimic pet's fur pattern (spots, stripes, solid colors matching the pet)
+      - Add playful matching accessories (matching bandana, matching bow, coordinated outfits)
       
-      FACE PRESERVATION IS PARAMOUNT: Each person's face must be COMPLETELY IDENTICAL to the original - same exact eyes (shape, color, size, spacing), same exact nose (shape, size, position), same exact mouth (shape, lips, smile/expression), same exact facial bone structure, same exact skin tone, same exact expression and emotion. The face should look like a PHOTO of the person in carnival costume, NOT a transformation OF the face.
+      WHAT NOT TO CHANGE:
+      - DO NOT change the person's facial features, bone structure, or expression
+      - DO NOT transform the person INTO an animal or add animal body parts to their face
+      - DO NOT modify the pet in ANY way
+      - DO NOT add fur/whiskers/animal nose to the person's face
+      - DO NOT change the person's skin tone or age
       
-      Keep EXACT same number of people - if 2 people in input, output MUST have 2 people with BOTH faces IDENTICAL to original.
+      STYLE: Fun, heartwarming, photorealistic. The result should look like a professional "twinning" photoshoot where owner and pet are dressed to match. Warm lighting, joyful atmosphere. The person should look like they intentionally dressed up to match their beloved pet.
       
-      STYLE: Elegant but not exaggerated. Fun and beautiful. Brazilian carnival authenticity. NOT overly rich or flashy - tasteful and joyful.
+      BACKGROUND: Cozy home setting, park, studio backdrop, or garden - randomly vary. Warm and inviting atmosphere.
       
-      Randomly choose ONE of these 8 carnival costumes (use random number ${Math.floor(Math.random() * 8) + 1}):
-      
-      1-PASSISTA DE ESCOLA DE SAMBA (colorful feathered headdress NOT covering face, sequined bikini top and shorts or elegant bodysuit, feathered back piece, high heels, samba pose with arms raised, Rio sambadrome background, joyful dancing expression, glitter on body),
-      
-      2-REI MOMO (playful crown, colorful royal cape with sequins, scepter in hand, big smile, confetti around, street carnival background, fun regal pose, NOT fat suit - person's real body with royal costume),
-      
-      3-PIERRÔ/COLOMBINA (classic harlequin costume in bright colors - diamonds pattern, small elegant mask held to side NOT covering face, ruffled collar, pointed hat, romantic Venice-meets-Brazil style, elegant pose),
-      
-      4-BAIANA (traditional white lace dress with colorful ribbons, turban headdress with fruits and flowers, layered necklaces, Bahia carnival style, graceful pose, warm smile, Salvador street carnival background),
-      
-      5-ÍNDIO/ÍNDIA BRASILEIRO (elaborate feathered headdress in vibrant colors, body paint designs on arms/chest, indigenous-inspired costume with modern carnival twist, proud pose, tribal patterns, Amazon-inspired backdrop),
-      
-      6-MALANDRO CARIOCA (white linen suit, Panama hat tilted, red scarf, two-tone shoes, cane, charming smile, Lapa arches background, classic Rio bohemian style, suave confident pose),
-      
-      7-PORTA-BANDEIRA/MESTRE-SALA (elegant ball gown for women / formal tailcoat for men, school colors, graceful spinning pose, flag or partner nearby, sambadrome parade, sophisticated carnival royalty),
-      
-      8-BLOCO DE RUA (casual but festive - colorful abadá shirt, glitter on face, flower crown or fun headband, holding beer or water spray, street party background, friends around, spontaneous joy, daytime carnival).
-      
-      CRITICAL: Face must be PERFECTLY VISIBLE and IDENTICAL to original. Costumes should frame the face beautifully. Expression should be JOYFUL and CELEBRATORY. Elegant but accessible - like a real person at carnival, not a professional model. PHOTOREALISTIC quality. Random seed: ${randomSeed}, variation: ${randomVariation}`,
-      text: "🎭 Você está pronto para o Carnaval! Elegância, alegria e muita festa brasileira! 🇧🇷✨"
+      CRITICAL: The humor and charm comes from the OUTFIT and ACCESSORIES matching, NOT from changing the person's face. Face preservation is the #1 priority. Pet must be pixel-perfect identical to original. Random seed: ${randomSeed}, variation: ${randomVariation}`,
+      text: "🐶 Você e seu pet são a dupla perfeita! Olha como vocês combinam! Fisionomia preservada, pet intacto! 🐾✨"
     }
   };
 

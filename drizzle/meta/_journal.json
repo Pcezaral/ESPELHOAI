@@ -218,6 +218,13 @@
       "when": 1769317186950,
       "tag": "0030_foamy_robin_chapel",
       "breakpoints": true
+    },
+    {
+      "idx": 31,
+      "version": "5",
+      "when": 1772531400000,
+      "tag": "0031_replace_carnival_with_pet",
+      "breakpoints": true
     }
   ]
 }

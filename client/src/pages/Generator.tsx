@@ -12,7 +12,7 @@ import { HighResolutionDownload } from "@/components/HighResolutionDownload";
 import { BeforeAfterDownload } from "@/components/BeforeAfterDownload";
 import { TransformationHistory } from "@/components/TransformationHistory";
 import { getLoginUrl } from "@/const";
-type Theme = "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus" | "carnival";
+type Theme = "animals" | "monster" | "art" | "gender" | "epic" | "gangster" | "circus" | "pet";
 
 const THEMES = [
   {
@@ -72,12 +72,12 @@ const THEMES = [
     borderColor: "border-red-500/30 hover:border-red-500/60",
   },
   {
-    id: "carnival" as Theme,
-    name: "Carnaval",
-    emoji: "🎭",
-    description: "Você no Carnaval brasileiro: passista, rei momo, baiana...",
-    color: "from-green-500 to-yellow-500",
-    borderColor: "border-green-500/30 hover:border-green-500/60",
+    id: "pet" as Theme,
+    name: "Você e Seu Pet",
+    emoji: "🐶",
+    description: "Fique parecido com seu pet! Sua fisionomia preservada, pet inalterado",
+    color: "from-amber-400 to-orange-500",
+    borderColor: "border-amber-400/30 hover:border-amber-400/60",
   },
 ];
 
@@ -415,7 +415,10 @@ export default function Generator() {
               </p>
               <div className="bg-blue-900 border-l-4 border-blue-500 p-4 rounded-r-lg mt-4">
                 <p className="text-sm font-medium text-blue-100">
-                  💡 <strong>Dica:</strong> O ESPELHO AI oferece melhores resultados com fotos individuais ou até duas pessoas.
+                  {selectedTheme === "pet" 
+                    ? <><strong>🐾 Dica:</strong> Envie uma foto sua com seu pet! Você ficará parecido com ele, mantendo sua fisionomia. Seu pet permanecerá 100% inalterado!</>
+                    : <>💡 <strong>Dica:</strong> O ESPELHO AI oferece melhores resultados com fotos individuais ou até duas pessoas.</>
+                  }
                 </p>
               </div>
             </div>
@@ -530,7 +533,10 @@ export default function Generator() {
               </p>
               <div className="bg-blue-900 border-l-4 border-blue-500 p-4 rounded-r-lg mt-4">
                 <p className="text-sm font-medium text-blue-100">
-                  💡 <strong>Dica:</strong> O ESPELHO AI oferece melhores resultados com fotos individuais ou até duas pessoas.
+                  {selectedTheme === "pet" 
+                    ? <><strong>🐾 Dica:</strong> Envie uma foto sua com seu pet! Você ficará parecido com ele, mantendo sua fisionomia. Seu pet permanecerá 100% inalterado!</>
+                    : <>💡 <strong>Dica:</strong> O ESPELHO AI oferece melhores resultados com fotos individuais ou até duas pessoas.</>
+                  }
                 </p>
               </div>
             </div>
